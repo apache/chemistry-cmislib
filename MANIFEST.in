@@ -1,0 +1,4 @@
+recursive-include src/doc/build *
+prune src/doc/build/.doctrees/
+exclude src/doc/build/.buildinfo
+include LICENSE.txt

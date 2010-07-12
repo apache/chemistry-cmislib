@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<ns4:service xmlns:ns5="http://docs.oasis-open.org/ns/cmis/restatom/200908/" xmlns="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:ns6="http://www.ibm.com/standards/ecm/p8/2008/cmis" xmlns:ns2="http://docs.oasis-open.org/ns/cmis/messaging/200908/" xmlns:ns3="http://www.w3.org/2005/Atom" xmlns:ns4="http://www.w3.org/2007/app">
+    <ns3:author>
+        <ns3:name>System</ns3:name>
+    </ns3:author>
+    <ns4:workspace>
+        <ns3:title type="text">DaphneA</ns3:title>
+        <ns4:collection href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentFlat/">
+            <ns3:title type="text">Main folder of the repository</ns3:title>
+            <ns5:collectionType>root</ns5:collectionType>
+        </ns4:collection>
+        <ns4:collection href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Unfiled/">
+            <ns3:title type="text">Unfiled documents in the repository</ns3:title>
+            <ns4:accept>application/atom+xml;type=entry</ns4:accept>
+            <ns5:collectionType>unfiled</ns5:collectionType>
+        </ns4:collection>
+        <ns4:collection href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Checkedout/">
+            <ns3:title type="text">Checkedout documents in the repository</ns3:title>
+            <ns4:accept>application/atom+xml;type=entry</ns4:accept>
+            <ns5:collectionType>checkedout</ns5:collectionType>
+        </ns4:collection>
+        <ns4:collection href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeFlat/">
+            <ns3:title type="text">Types in the repository</ns3:title>
+            <ns5:collectionType>types</ns5:collectionType>
+        </ns4:collection>
+        <ns4:collection href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Query/">
+            <ns3:title type="text">Submit queries</ns3:title>
+            <ns4:accept>application/cmisquery+xml</ns4:accept>
+            <ns5:collectionType>query</ns5:collectionType>
+        </ns4:collection>
+        <ns5:repositoryInfo>
+            <repositoryId>DaphneA</repositoryId>
+            <repositoryName>DaphneA</repositoryName>
+            <repositoryDescription>DaphneA</repositoryDescription>
+            <vendorName>IBM</vendorName>
+            <productName>IBM FileNet P8 Content Manager</productName>
+            <productVersion>4.0.1</productVersion>
+            <rootFolderId>idf_0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0</rootFolderId>
+            <capabilities>
+                <capabilityACL>none</capabilityACL>
+                <capabilityAllVersionsSearchable>true</capabilityAllVersionsSearchable>
+                <capabilityChanges>none</capabilityChanges>
+                <capabilityContentStreamUpdatability>pwconly</capabilityContentStreamUpdatability>
+                <capabilityGetDescendants>true</capabilityGetDescendants>
+                <capabilityGetFolderTree>true</capabilityGetFolderTree>
+                <capabilityMultifiling>true</capabilityMultifiling>
+                <capabilityPWCSearchable>true</capabilityPWCSearchable>
+                <capabilityPWCUpdatable>true</capabilityPWCUpdatable>
+                <capabilityQuery>bothcombined</capabilityQuery>
+                <capabilityRenditions>none</capabilityRenditions>
+                <capabilityUnfiling>true</capabilityUnfiling>
+                <capabilityVersionSpecificFiling>false</capabilityVersionSpecificFiling>
+                <capabilityJoin>innerandouter</capabilityJoin>
+            </capabilities>
+            <cmisVersionSupported>1.0</cmisVersionSupported>
+            <ns6:DomainName>CEMPLinux</ns6:DomainName>
+            <ns6:ObjectStoreID>DaphneA</ns6:ObjectStoreID>
+            <ns6:ObjectStoreName>DaphneA</ns6:ObjectStoreName>
+            <ns6:ObjectStoreDBType>DB2</ns6:ObjectStoreDBType>
+        </ns5:repositoryInfo>
+        <ns3:link title="Types Descendants feed" type="application/cmistree+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/typedescendants" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeTree/"/>
+        <ns3:link title="Folder Descendants feed for root folder" type="application/cmistree+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/rootdescendants" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentTree/"/>
+        <ns3:link title="Folder Tree feed for root folder" type="application/cmistree+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentTree/?includeDocuments=false"/>
+        <ns5:uritemplate>
+            <ns5:template>http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentFlat/{path}</ns5:template>
+            <ns5:type>objectbypath</ns5:type>
+            <ns5:mediatype>application/atom+xml;type=feed</ns5:mediatype>
+        </ns5:uritemplate>
+        <ns5:uritemplate>
+            <ns5:template>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/{id}</ns5:template>
+            <ns5:type>objectbyid</ns5:type>
+            <ns5:mediatype>application/atom+xml;type=entry</ns5:mediatype>
+        </ns5:uritemplate>
+        <ns5:uritemplate>
+            <ns5:template>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Query/?q={q}&amp;maxItems={maxItems}&amp;skipCount={skipCount}&amp;searchAllVersions={searchAllVersions}</ns5:template>
+            <ns5:type>query</ns5:type>
+            <ns5:mediatype>application/atom+xml;type=feed</ns5:mediatype>
+        </ns5:uritemplate>
+        <ns5:uritemplate>
+            <ns5:template>http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeTree/{id}</ns5:template>
+            <ns5:type>typebyid</ns5:type>
+            <ns5:mediatype>application/atom+xml;type=feed</ns5:mediatype>
+        </ns5:uritemplate>
+    </ns4:workspace>
+</ns4:service>

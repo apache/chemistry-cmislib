@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app" xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/" xmlns:cmis="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:alf="http://www.alfresco.org" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+<author><name>System</name></author>
+<generator version="3.2.0 (r2 @build-number@)">Alfresco (Community)</generator>
+<icon>/images/logo/AlfrescoLogo16.ico</icon>
+<id>urn:uuid:d14049b7-e63f-4075-acc2-a4cd5a541f3c-children</id>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/children"/>
+<link rel="via" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/tree" type="application/cmistree+xml"/>
+<link rel="first" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/children?pageNo=1&amp;pageSize=-1&amp;guest=&amp;format=atomfeed" type="application/atom+xml;type=feed"/>
+<link rel="last" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/children?pageNo=1&amp;pageSize=-1&amp;guest=&amp;format=atomfeed" type="application/atom+xml;type=feed"/>
+<title>Company Home Children</title>
+<updated>2009-11-03T11:55:39.495Z</updated>
+<opensearch:totalResults>29</opensearch:totalResults>
+<opensearch:startIndex>0</opensearch:startIndex>
+<opensearch:itemsPerPage>-1</opensearch:itemsPerPage>
+<cmisra:numItems>29</cmisra:numItems>
+<entry>
+<author><name>System</name></author>
+<content>7fb5c592-850d-4ec9-8204-f8f7d5ab2a04</content>
+<id>urn:uuid:7fb5c592-850d-4ec9-8204-f8f7d5ab2a04</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/F:st:sites"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-03T11:55:50.970Z</published>
+<summary>Site Collaboration Spaces</summary>
+<title>Sites</title>
+<updated>2009-11-03T11:55:50.985Z</updated>
+<app:edited>2009-11-03T11:55:50.985Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>F:st:sites</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/Sites</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>Sites</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/7fb5c592-850d-4ec9-8204-f8f7d5ab2a04</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-03T11:55:50.970Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-03T11:55:50.985Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>Sites</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>System</name></author>
+<content>74fec369-dc29-4d96-b353-ee9c2e0995a7</content>
+<id>urn:uuid:74fec369-dc29-4d96-b353-ee9c2e0995a7</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/74fec369-dc29-4d96-b353-ee9c2e0995a7/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-03T11:55:39.542Z</published>
+<summary>User managed definitions</summary>
+<title>Data Dictionary</title>
+<updated>2009-11-03T11:55:39.561Z</updated>
+<app:edited>2009-11-03T11:55:39.561Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/Data Dictionary</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>Data Dictionary</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/74fec369-dc29-4d96-b353-ee9c2e0995a7</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-03T11:55:39.542Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-03T11:55:39.561Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>Data Dictionary</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>System</name></author>
+<content>05110630-7682-41a3-bf4b-1c30b09c6fd4</content>
+<id>urn:uuid:05110630-7682-41a3-bf4b-1c30b09c6fd4</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/05110630-7682-41a3-bf4b-1c30b09c6fd4/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-03T11:55:40.007Z</published>
+<summary>The guest root space</summary>
+<title>Guest Home</title>
+<updated>2009-11-03T11:55:40.023Z</updated>
+<app:edited>2009-11-03T11:55:40.023Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/Guest Home</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>Guest Home</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/05110630-7682-41a3-bf4b-1c30b09c6fd4</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-03T11:55:40.007Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-03T11:55:40.023Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>Guest Home</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>System</name></author>
+<content>efe1360b-1f94-4641-b696-9e26840f3af1</content>
+<id>urn:uuid:efe1360b-1f94-4641-b696-9e26840f3af1</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/efe1360b-1f94-4641-b696-9e26840f3af1/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-03T11:55:40.076Z</published>
+<summary>User Homes</summary>
+<title>User Homes</title>
+<updated>2009-11-03T11:55:40.095Z</updated>
+<app:edited>2009-11-03T11:55:40.095Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/User Homes</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>User Homes</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/efe1360b-1f94-4641-b696-9e26840f3af1</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-03T11:55:40.076Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-03T11:55:40.095Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>User Homes</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>System</name></author>
+<content>a706b1b5-86a9-4549-89bc-b18600d3f860</content>
+<id>urn:uuid:a706b1b5-86a9-4549-89bc-b18600d3f860</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a706b1b5-86a9-4549-89bc-b18600d3f860/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-03T11:56:01.567Z</published>
+<summary>Web Content Management Spaces</summary>
+<title>Web Projects</title>
+<updated>2009-11-03T11:56:01.578Z</updated>
+<app:edited>2009-11-03T11:56:01.578Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/Web Projects</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>System</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>Web Projects</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/a706b1b5-86a9-4549-89bc-b18600d3f860</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-03T11:56:01.567Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-03T11:56:01.578Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>Web Projects</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>ac7911e3-e01c-4092-bd00-c2b7bab659ff</content>
+<id>urn:uuid:ac7911e3-e01c-4092-bd00-c2b7bab659ff</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ac7911e3-e01c-4092-bd00-c2b7bab659ff/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-12T12:47:27.630Z</published>
+<summary></summary>
+<title>A Stooshie</title>
+<updated>2009-11-12T12:47:27.640Z</updated>
+<app:edited>2009-11-12T12:47:27.640Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/A Stooshie</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>A Stooshie</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/ac7911e3-e01c-4092-bd00-c2b7bab659ff</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-12T12:47:27.630Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-12T12:47:27.640Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>A Stooshie</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>430ddc74-a55e-460c-89ea-3e5c1630beb0</content>
+<id>urn:uuid:430ddc74-a55e-460c-89ea-3e5c1630beb0</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/430ddc74-a55e-460c-89ea-3e5c1630beb0/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-16T19:31:10.126Z</published>
+<summary>test-604 (summary)</summary>
+<title>test-604</title>
+<updated>2009-11-16T19:31:10.138Z</updated>
+<app:edited>2009-11-16T19:31:10.138Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-604</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-604</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/430ddc74-a55e-460c-89ea-3e5c1630beb0</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-16T19:31:10.126Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-16T19:31:10.138Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-604</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>69a4f8e5-8cef-4d0b-ae59-6f2fe943630e</content>
+<id>urn:uuid:69a4f8e5-8cef-4d0b-ae59-6f2fe943630e</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-16T19:39:09.569Z</published>
+<summary>test-397 (summary)</summary>
+<title>test-397</title>
+<updated>2009-11-16T19:39:09.579Z</updated>
+<app:edited>2009-11-16T19:39:09.579Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-397</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-397</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/69a4f8e5-8cef-4d0b-ae59-6f2fe943630e</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-16T19:39:09.569Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-16T19:39:09.579Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-397</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>fa5d84f4-2629-475e-9dbc-1e27f62a08b3</content>
+<id>urn:uuid:fa5d84f4-2629-475e-9dbc-1e27f62a08b3</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/fa5d84f4-2629-475e-9dbc-1e27f62a08b3/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-16T23:11:47.290Z</published>
+<summary>test-863 (summary)</summary>
+<title>test-863</title>
+<updated>2009-11-16T23:11:47.302Z</updated>
+<app:edited>2009-11-16T23:11:47.302Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-863</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-863</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/fa5d84f4-2629-475e-9dbc-1e27f62a08b3</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-16T23:11:47.290Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-16T23:11:47.302Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-863</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>6cb13ef9-b004-4991-9ad2-a07b6e1a79c2</content>
+<id>urn:uuid:6cb13ef9-b004-4991-9ad2-a07b6e1a79c2</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-16T23:26:56.792Z</published>
+<summary>test-653 (summary)</summary>
+<title>test-653</title>
+<updated>2009-11-16T23:26:56.805Z</updated>
+<app:edited>2009-11-16T23:26:56.805Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-653</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-653</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/6cb13ef9-b004-4991-9ad2-a07b6e1a79c2</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-16T23:26:56.792Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-16T23:26:56.805Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-653</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>a2341e40-2f0f-4f01-b509-1093ef33608f</content>
+<id>urn:uuid:a2341e40-2f0f-4f01-b509-1093ef33608f</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a2341e40-2f0f-4f01-b509-1093ef33608f/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-20T22:45:14.787Z</published>
+<summary>test-20 (summary)</summary>
+<title>test-20</title>
+<updated>2009-11-20T22:45:14.800Z</updated>
+<app:edited>2009-11-20T22:45:14.800Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-20</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-20</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/a2341e40-2f0f-4f01-b509-1093ef33608f</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-20T22:45:14.787Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-20T22:45:14.800Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-20</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>caf80c28-a5e5-4c53-af3c-d7ee5487a6f3</content>
+<id>urn:uuid:caf80c28-a5e5-4c53-af3c-d7ee5487a6f3</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-20T22:47:14.388Z</published>
+<summary>test-503 (summary)</summary>
+<title>test-503</title>
+<updated>2009-11-20T22:47:14.398Z</updated>
+<app:edited>2009-11-20T22:47:14.398Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-503</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-503</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/caf80c28-a5e5-4c53-af3c-d7ee5487a6f3</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-20T22:47:14.388Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-20T22:47:14.398Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-503</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>ab939d0b-faa3-4edd-a05f-63cb2fc2deaa</content>
+<id>urn:uuid:ab939d0b-faa3-4edd-a05f-63cb2fc2deaa</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-20T22:48:42.000Z</published>
+<summary>test-15 (summary)</summary>
+<title>test-15</title>
+<updated>2009-11-20T22:48:42.011Z</updated>
+<app:edited>2009-11-20T22:48:42.011Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-15</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-15</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/ab939d0b-faa3-4edd-a05f-63cb2fc2deaa</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-20T22:48:42.000Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-20T22:48:42.011Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-15</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>1dd6ec9e-3325-4c3b-9950-c9398509427c</content>
+<id>urn:uuid:1dd6ec9e-3325-4c3b-9950-c9398509427c</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1dd6ec9e-3325-4c3b-9950-c9398509427c/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-23T05:28:57.428Z</published>
+<summary>test-657 (summary)</summary>
+<title>test-657</title>
+<updated>2009-11-23T05:28:57.438Z</updated>
+<app:edited>2009-11-23T05:28:57.438Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-657</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-657</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/1dd6ec9e-3325-4c3b-9950-c9398509427c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-23T05:28:57.428Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-23T05:28:57.438Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-657</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>60fe2df7-899b-44b8-8e53-d23a992dd915</content>
+<id>urn:uuid:60fe2df7-899b-44b8-8e53-d23a992dd915</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/60fe2df7-899b-44b8-8e53-d23a992dd915/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-24T14:30:37.303Z</published>
+<summary>test-891 (summary)</summary>
+<title>test-891</title>
+<updated>2009-11-24T14:30:37.313Z</updated>
+<app:edited>2009-11-24T14:30:37.313Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-891</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-891</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/60fe2df7-899b-44b8-8e53-d23a992dd915</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-24T14:30:37.303Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-24T14:30:37.313Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-891</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>9af7ff86-8655-49bb-b590-b6939a7e8c81</content>
+<id>urn:uuid:9af7ff86-8655-49bb-b590-b6939a7e8c81</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/9af7ff86-8655-49bb-b590-b6939a7e8c81/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-25T12:58:41.819Z</published>
+<summary>CMISTCK 1259153921762 - testGetChildrenNamedPropertyFilter (summary)</summary>
+<title>CMISTCK 1259153921762 - testGetChildrenNamedPropertyFilter</title>
+<updated>2009-11-25T12:58:41.830Z</updated>
+<app:edited>2009-11-25T12:58:41.830Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/CMISTCK 1259153921762 - testGetChildrenNamedPropertyFilter</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>CMISTCK 1259153921762 - testGetChildrenNamedPropertyFilter</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/9af7ff86-8655-49bb-b590-b6939a7e8c81</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-25T12:58:41.819Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-25T12:58:41.830Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>CMISTCK 1259153921762 - testGetChildrenNamedPropertyFilter</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>6e8b0ab5-82ba-49b9-ab25-d197ba4976b7</content>
+<id>urn:uuid:6e8b0ab5-82ba-49b9-ab25-d197ba4976b7</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-25T12:59:36.011Z</published>
+<summary>CMISTCK 1259153975935 - testGetChildrenNamedPropertyFilter (summary)</summary>
+<title>CMISTCK 1259153975935 - testGetChildrenNamedPropertyFilter</title>
+<updated>2009-11-25T12:59:36.022Z</updated>
+<app:edited>2009-11-25T12:59:36.022Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/CMISTCK 1259153975935 - testGetChildrenNamedPropertyFilter</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>CMISTCK 1259153975935 - testGetChildrenNamedPropertyFilter</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/6e8b0ab5-82ba-49b9-ab25-d197ba4976b7</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-25T12:59:36.011Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-25T12:59:36.022Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>CMISTCK 1259153975935 - testGetChildrenNamedPropertyFilter</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>5350edaf-27b0-46c9-831a-8eeb8064ca39</content>
+<id>urn:uuid:5350edaf-27b0-46c9-831a-8eeb8064ca39</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/5350edaf-27b0-46c9-831a-8eeb8064ca39/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-03T12:33:47.312Z</published>
+<summary>test-485 (summary)</summary>
+<title>test-485</title>
+<updated>2009-12-03T12:33:47.323Z</updated>
+<app:edited>2009-12-03T12:33:47.323Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-485</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-485</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/5350edaf-27b0-46c9-831a-8eeb8064ca39</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-03T12:33:47.312Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-03T12:33:47.323Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-485</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>a4288be0-2523-4435-a0fe-e53c5dc624e2</content>
+<id>urn:uuid:a4288be0-2523-4435-a0fe-e53c5dc624e2</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/a4288be0-2523-4435-a0fe-e53c5dc624e2/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-04T00:25:40.579Z</published>
+<summary>test-975 (summary)</summary>
+<title>test-975</title>
+<updated>2009-12-04T00:25:40.597Z</updated>
+<app:edited>2009-12-04T00:25:40.597Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-975</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-975</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/a4288be0-2523-4435-a0fe-e53c5dc624e2</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-04T00:25:40.579Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-04T00:25:40.597Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-975</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>aa6ff443-20f9-4dd3-9182-adcc19be7e13</content>
+<id>urn:uuid:aa6ff443-20f9-4dd3-9182-adcc19be7e13</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/aa6ff443-20f9-4dd3-9182-adcc19be7e13/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-04T18:07:45.968Z</published>
+<summary>test-785 (summary)</summary>
+<title>test-785</title>
+<updated>2009-12-04T18:07:45.979Z</updated>
+<app:edited>2009-12-04T18:07:45.979Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-785</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-785</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/aa6ff443-20f9-4dd3-9182-adcc19be7e13</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-04T18:07:45.968Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-04T18:07:45.979Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-785</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>56858bca-94ba-4fe1-8701-64563f832dd9</content>
+<id>urn:uuid:56858bca-94ba-4fe1-8701-64563f832dd9</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/56858bca-94ba-4fe1-8701-64563f832dd9/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-07T15:34:25.781Z</published>
+<summary>test-804 (summary)</summary>
+<title>test-804</title>
+<updated>2009-12-07T15:34:25.791Z</updated>
+<app:edited>2009-12-07T15:34:25.791Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-804</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-804</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/56858bca-94ba-4fe1-8701-64563f832dd9</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-07T15:34:25.781Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-07T15:34:25.791Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-804</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>47d33243-5cad-4ac6-9c74-3acd141019db</content>
+<id>urn:uuid:47d33243-5cad-4ac6-9c74-3acd141019db</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/47d33243-5cad-4ac6-9c74-3acd141019db/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-07T15:38:25.323Z</published>
+<summary>test-366 (summary)</summary>
+<title>test-366</title>
+<updated>2009-12-07T15:38:25.332Z</updated>
+<app:edited>2009-12-07T15:38:25.332Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/test-366</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>test-366</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/47d33243-5cad-4ac6-9c74-3acd141019db</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-07T15:38:25.323Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-07T15:38:25.332Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>test-366</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>ef7da13e-bf05-41ba-98b7-fa78f34fbf3f</content>
+<id>urn:uuid:ef7da13e-bf05-41ba-98b7-fa78f34fbf3f</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-08T12:46:49.278Z</published>
+<summary>MY TEST FOLDER (summary)</summary>
+<title>MY TEST FOLDER</title>
+<updated>2009-12-08T12:46:49.287Z</updated>
+<app:edited>2009-12-08T12:46:49.287Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/MY TEST FOLDER</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>MY TEST FOLDER</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/ef7da13e-bf05-41ba-98b7-fa78f34fbf3f</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-08T12:46:49.278Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-08T12:46:49.287Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>MY TEST FOLDER</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content>59f951b9-9a25-4904-b8cd-4ef737151d54</content>
+<id>urn:uuid:59f951b9-9a25-4904-b8cd-4ef737151d54</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c" type="application/atom+xml;type=entry"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54/children" type="application/atom+xml;type=feed"/>
+<link rel="down" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54/descendants" type="application/cmistree+xml"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/59f951b9-9a25-4904-b8cd-4ef737151d54/tree" type="application/cmistree+xml"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:folder"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-12-09T04:23:45.564Z</published>
+<summary>My KT summary</summary>
+<title>My KT</title>
+<updated>2009-12-09T04:23:45.574Z</updated>
+<app:edited>2009-12-09T04:23:45.574Z</app:edited>
+<alf:icon>/images/icons/space-icon-default-16.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyId propertyDefinitionId="cmis:allowedChildObjectTypeIds"/>
+<cmis:propertyString propertyDefinitionId="cmis:path"><cmis:value>/My KT</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>My KT</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/59f951b9-9a25-4904-b8cd-4ef737151d54</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-12-09T04:23:45.564Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:folder</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:parentId"><cmis:value>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-12-09T04:23:45.574Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>My KT</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content type="text/plain" src="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/content.txt"/><id>urn:uuid:d15f5aa8-acc6-4e32-9972-aeffbc694208</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208"/>
+<link rel="enclosure" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/content.txt" type="text/plain"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208"/>
+<link rel="edit-media" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/content.txt" type="text/plain"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/parents" type="application/atom+xml;type=feed"/>
+<link rel="version-history" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d15f5aa8-acc6-4e32-9972-aeffbc694208/versions"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:document"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-10T10:21:02.957Z</published>
+<summary>XXX Chapter 1, 2 and 12 do contain any codes or an</summary>
+<title>TestDocument.txt</title>
+<updated>2009-11-26T10:21:26.665Z</updated>
+<app:edited>2009-11-26T10:21:26.665Z</app:edited>
+<alf:icon>/images/filetypes/txt.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:contentStreamId"><cmis:value>cm:content</cmis:value></cmis:propertyId>
+<cmis:propertyInteger propertyDefinitionId="cmis:contentStreamLength"><cmis:value>149</cmis:value></cmis:propertyInteger>
+<cmis:propertyString propertyDefinitionId="cmis:versionSeriesCheckedOutBy"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesCheckedOutId"/>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>TestDocument.txt</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamMimeType"><cmis:value>text/plain</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesId"><cmis:value>workspace://SpacesStore/d15f5aa8-acc6-4e32-9972-aeffbc694208</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-10T10:21:02.957Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestVersion"><cmis:value>true</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:versionLabel"><cmis:value>1.0</cmis:value></cmis:propertyString>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isVersionSeriesCheckedOut"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:checkinComment"><cmis:value>Initial version</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/d15f5aa8-acc6-4e32-9972-aeffbc694208;1.0</cmis:value></cmis:propertyId>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isImmutable"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamFileName"><cmis:value>TestDocument.txt</cmis:value></cmis:propertyString>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-26T10:21:26.665Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>TestDocument.txt</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content type="text/plain" src="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/content"/><id>urn:uuid:1eb7766b-0cf2-47e9-bc41-ec88bb401b61</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61"/>
+<link rel="enclosure" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/content" type="text/plain"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61"/>
+<link rel="edit-media" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/content" type="text/plain"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/parents" type="application/atom+xml;type=feed"/>
+<link rel="version-history" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/1eb7766b-0cf2-47e9-bc41-ec88bb401b61/versions"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:document"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-30T07:57:13.805Z</published>
+<summary>WeWebUTest4</summary>
+<title>WeWebUTest4</title>
+<updated>2009-11-30T07:57:13.838Z</updated>
+<app:edited>2009-11-30T07:57:13.838Z</app:edited>
+<alf:icon>/images/filetypes/_default.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:contentStreamId"><cmis:value>cm:content</cmis:value></cmis:propertyId>
+<cmis:propertyInteger propertyDefinitionId="cmis:contentStreamLength"><cmis:value>3</cmis:value></cmis:propertyInteger>
+<cmis:propertyString propertyDefinitionId="cmis:versionSeriesCheckedOutBy"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesCheckedOutId"/>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>WeWebUTest4</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamMimeType"><cmis:value>text/plain</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesId"><cmis:value>workspace://SpacesStore/1eb7766b-0cf2-47e9-bc41-ec88bb401b61</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-30T07:57:13.805Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestVersion"><cmis:value>true</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:versionLabel"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isVersionSeriesCheckedOut"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:checkinComment"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/1eb7766b-0cf2-47e9-bc41-ec88bb401b61</cmis:value></cmis:propertyId>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isImmutable"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamFileName"><cmis:value>WeWebUTest4</cmis:value></cmis:propertyString>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-30T07:57:13.838Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>WeWebUTest4</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content type="text/plain" src="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/content"/><id>urn:uuid:61c3cf47-420b-41f3-9324-ea6b4d0ccb61</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61"/>
+<link rel="enclosure" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/content" type="text/plain"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61"/>
+<link rel="edit-media" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/content" type="text/plain"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/parents" type="application/atom+xml;type=feed"/>
+<link rel="version-history" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/61c3cf47-420b-41f3-9324-ea6b4d0ccb61/versions"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:document"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-30T08:03:05.641Z</published>
+<summary>WeWebUTest5</summary>
+<title>WeWebUTest5</title>
+<updated>2009-11-30T08:03:05.675Z</updated>
+<app:edited>2009-11-30T08:03:05.675Z</app:edited>
+<alf:icon>/images/filetypes/_default.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:contentStreamId"><cmis:value>cm:content</cmis:value></cmis:propertyId>
+<cmis:propertyInteger propertyDefinitionId="cmis:contentStreamLength"><cmis:value>4</cmis:value></cmis:propertyInteger>
+<cmis:propertyString propertyDefinitionId="cmis:versionSeriesCheckedOutBy"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesCheckedOutId"/>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>WeWebUTest5</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamMimeType"><cmis:value>text/plain</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesId"><cmis:value>workspace://SpacesStore/61c3cf47-420b-41f3-9324-ea6b4d0ccb61</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-30T08:03:05.641Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestVersion"><cmis:value>true</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:versionLabel"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isVersionSeriesCheckedOut"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:checkinComment"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/61c3cf47-420b-41f3-9324-ea6b4d0ccb61</cmis:value></cmis:propertyId>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isImmutable"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamFileName"><cmis:value>WeWebUTest5</cmis:value></cmis:propertyString>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-30T08:03:05.675Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>WeWebUTest5</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content type="text/plain" src="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/content"/><id>urn:uuid:36cfb4c8-930a-442e-99aa-7e74aba87ad9</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9"/>
+<link rel="enclosure" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/content" type="text/plain"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9"/>
+<link rel="edit-media" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/content" type="text/plain"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/parents" type="application/atom+xml;type=feed"/>
+<link rel="version-history" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/36cfb4c8-930a-442e-99aa-7e74aba87ad9/versions"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:document"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-30T12:05:40.278Z</published>
+<summary>WeWebUTest6</summary>
+<title>WeWebUTest6</title>
+<updated>2009-11-30T12:05:40.329Z</updated>
+<app:edited>2009-11-30T12:05:40.329Z</app:edited>
+<alf:icon>/images/filetypes/_default.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:contentStreamId"><cmis:value>cm:content</cmis:value></cmis:propertyId>
+<cmis:propertyInteger propertyDefinitionId="cmis:contentStreamLength"><cmis:value>4</cmis:value></cmis:propertyInteger>
+<cmis:propertyString propertyDefinitionId="cmis:versionSeriesCheckedOutBy"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesCheckedOutId"/>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>WeWebUTest6</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamMimeType"><cmis:value>text/plain</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesId"><cmis:value>workspace://SpacesStore/36cfb4c8-930a-442e-99aa-7e74aba87ad9</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-30T12:05:40.278Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestVersion"><cmis:value>true</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:versionLabel"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isVersionSeriesCheckedOut"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:checkinComment"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/36cfb4c8-930a-442e-99aa-7e74aba87ad9</cmis:value></cmis:propertyId>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isImmutable"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamFileName"><cmis:value>WeWebUTest6</cmis:value></cmis:propertyString>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-30T12:05:40.329Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>WeWebUTest6</cmisra:pathSegment>
+</entry>
+<entry>
+<author><name>admin</name></author>
+<content type="text/plain" src="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/content"/><id>urn:uuid:0f987652-5ce4-4ffa-8c7b-52f4f99da929</id>
+<link rel="self" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929"/>
+<link rel="enclosure" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/content" type="text/plain"/>
+<link rel="edit" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929"/>
+<link rel="edit-media" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/content" type="text/plain"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/allowableactions"/>
+<link rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/rels"/>
+<link rel="up" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/parents" type="application/atom+xml;type=feed"/>
+<link rel="version-history" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/0f987652-5ce4-4ffa-8c7b-52f4f99da929/versions"/>
+<link rel="describedby" href="http://cmis.alfresco.com:80/s/cmis/type/cmis:document"/>
+<link rel="service" href="http://cmis.alfresco.com:80/s/cmis"/>
+<published>2009-11-30T14:15:21.740Z</published>
+<summary>WeWebUTest7</summary>
+<title>WeWebUTest7</title>
+<updated>2009-11-30T14:15:21.775Z</updated>
+<app:edited>2009-11-30T14:15:21.775Z</app:edited>
+<alf:icon>/images/filetypes/_default.gif</alf:icon>
+<cmisra:object>
+<cmis:properties>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:contentStreamId"><cmis:value>cm:content</cmis:value></cmis:propertyId>
+<cmis:propertyInteger propertyDefinitionId="cmis:contentStreamLength"><cmis:value>4</cmis:value></cmis:propertyInteger>
+<cmis:propertyString propertyDefinitionId="cmis:versionSeriesCheckedOutBy"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesCheckedOutId"/>
+<cmis:propertyString propertyDefinitionId="cmis:name"><cmis:value>WeWebUTest7</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamMimeType"><cmis:value>text/plain</cmis:value></cmis:propertyString>
+<cmis:propertyId propertyDefinitionId="cmis:versionSeriesId"><cmis:value>workspace://SpacesStore/0f987652-5ce4-4ffa-8c7b-52f4f99da929</cmis:value></cmis:propertyId>
+<cmis:propertyDateTime propertyDefinitionId="cmis:creationDate"><cmis:value>2009-11-30T14:15:21.740Z</cmis:value></cmis:propertyDateTime>
+<cmis:propertyString propertyDefinitionId="cmis:changeToken"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isLatestVersion"><cmis:value>true</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:versionLabel"/>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isVersionSeriesCheckedOut"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:createdBy"><cmis:value>admin</cmis:value></cmis:propertyString>
+<cmis:propertyString propertyDefinitionId="cmis:checkinComment"/>
+<cmis:propertyId propertyDefinitionId="cmis:objectId"><cmis:value>workspace://SpacesStore/0f987652-5ce4-4ffa-8c7b-52f4f99da929</cmis:value></cmis:propertyId>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isMajorVersion"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyBoolean propertyDefinitionId="cmis:isImmutable"><cmis:value>false</cmis:value></cmis:propertyBoolean>
+<cmis:propertyId propertyDefinitionId="cmis:baseTypeId"><cmis:value>cmis:document</cmis:value></cmis:propertyId>
+<cmis:propertyString propertyDefinitionId="cmis:contentStreamFileName"><cmis:value>WeWebUTest7</cmis:value></cmis:propertyString>
+<cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate"><cmis:value>2009-11-30T14:15:21.775Z</cmis:value></cmis:propertyDateTime>
+</cmis:properties>
+</cmisra:object>
+<cmisra:pathSegment>WeWebUTest7</cmisra:pathSegment>
+</entry>
+</feed>

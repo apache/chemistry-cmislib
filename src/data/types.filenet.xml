@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<ns3:feed xmlns:ns5="http://docs.oasis-open.org/ns/cmis/restatom/200908/" xmlns="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:ns6="http://www.ibm.com/standards/ecm/p8/2008/cmis" xmlns:ns2="http://docs.oasis-open.org/ns/cmis/messaging/200908/" xmlns:ns3="http://www.w3.org/2005/Atom" xmlns:ns4="http://www.w3.org/2007/app">
+    <ns3:author>
+        <ns3:name>System</ns3:name>
+    </ns3:author>
+    <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeFlat/DaphneA"/>
+    <ns3:link type="application/atom+xml;type=feed" rel="first" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeFlat/DaphneA?maxItems=25&amp;skipCount=0"/>
+    <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+    <ns3:link type="application/cmistree+xml" rel="down" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeTree/"/>
+    <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeFlat</ns3:id>
+    <ns3:title type="text">CMIS [DaphneA]: null</ns3:title>
+    <ns3:updated>2010-01-06T09:04:15.354-08:00</ns3:updated>
+    <ns5:numItems>2</ns5:numItems>
+    <ns3:entry>
+        <ns5:type xsi:type="cmisTypeDocumentDefinitionType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <id>cmis:document</id>
+            <localName>Document</localName>
+            <localNamespace xsi:nil="true"/>
+            <displayName>Document</displayName>
+            <queryName>Document</queryName>
+            <description>A single version of a document stored in an object store.</description>
+            <baseId>cmis:document</baseId>
+            <creatable>true</creatable>
+            <fileable>true</fileable>
+            <queryable>true</queryable>
+            <fulltextIndexed>false</fulltextIndexed>
+            <includedInSupertypeQuery>false</includedInSupertypeQuery>
+            <controllablePolicy>false</controllablePolicy>
+            <controllableACL>false</controllableACL>
+            <versionable>true</versionable>
+            <contentStreamAllowed>allowed</contentStreamAllowed>
+        </ns5:type>
+        <ns3:content>Type for Document</ns3:content>
+        <ns3:summary type="text">Document type</ns3:summary>
+        <ns3:title type="text">Type definition for Document</ns3:title>
+        <ns3:id>cmis:document</ns3:id>
+        <ns3:updated>2009-11-05T12:52:14.782-08:00</ns3:updated>
+        <ns4:edited>2009-11-05T12:52:14.782-08:00</ns4:edited>
+        <ns3:published>2009-11-05T12:52:14.782-08:00</ns3:published>
+        <ns3:author/>
+        <ns3:link rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document"/>
+        <ns3:link type="application/cmistree+xml" rel="down" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeTree/cmis:document"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="down" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeFlat/cmis:document"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:type xsi:type="cmisTypeFolderDefinitionType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <id>cmis:folder</id>
+            <localName>Folder</localName>
+            <localNamespace xsi:nil="true"/>
+            <displayName>Folder</displayName>
+            <queryName>Folder</queryName>
+            <description>Contains other objects, either directly or referentially, but cannot have content data of its own.</description>
+            <baseId>cmis:folder</baseId>
+            <creatable>true</creatable>
+            <fileable>true</fileable>
+            <queryable>true</queryable>
+            <fulltextIndexed>false</fulltextIndexed>
+            <includedInSupertypeQuery>false</includedInSupertypeQuery>
+            <controllablePolicy>false</controllablePolicy>
+            <controllableACL>false</controllableACL>
+        </ns5:type>
+        <ns3:content>Type for Folder</ns3:content>
+        <ns3:summary type="text">Folder type</ns3:summary>
+        <ns3:title type="text">Type definition for Folder</ns3:title>
+        <ns3:id>cmis:folder</ns3:id>
+        <ns3:updated>2009-11-05T12:52:14.782-08:00</ns3:updated>
+        <ns4:edited>2009-11-05T12:52:14.782-08:00</ns4:edited>
+        <ns3:published>2009-11-05T12:52:14.782-08:00</ns3:published>
+        <ns3:author/>
+        <ns3:link rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:folder"/>
+        <ns3:link type="application/cmistree+xml" rel="down" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeTree/cmis:folder"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="down" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/TypeFlat/cmis:folder"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+    </ns3:entry>
+</ns3:feed>

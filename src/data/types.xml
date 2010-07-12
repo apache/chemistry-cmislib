@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app"
+	xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+	xmlns:cmis="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:alf="http://www.alfresco.org"
+	xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
+	<author>
+		<name>admin</name>
+	</author>
+	<generator version="3.2.0 (r2 @build-number@)">Alfresco (Community)</generator>
+	<icon>http://localhost:8080/alfresco/images/logo/AlfrescoLogo16.ico
+	</icon>
+	<id>urn:uuid:types-base</id>
+	<link rel="service" href="http://localhost:8080/alfresco/s/cmis" />
+	<link rel="self" href="http://localhost:8080/alfresco/s/cmis/types" />
+	<link rel="first"
+		href="http://localhost:8080/alfresco/s/cmis/types?pageNo=1&amp;pageSize=-1&amp;guest="
+		type="application/atom+xml;type=feed" />
+	<link rel="last"
+		href="http://localhost:8080/alfresco/s/cmis/types?pageNo=1&amp;pageSize=-1&amp;guest="
+		type="application/atom+xml;type=feed" />
+	<title>Base Types</title>
+	<updated>2009-12-10T16:34:43.119-06:00
+	</updated>
+	<opensearch:totalResults>4</opensearch:totalResults>
+	<opensearch:startIndex>0</opensearch:startIndex>
+	<opensearch:itemsPerPage>-1</opensearch:itemsPerPage>
+	<cmisra:numItems>4</cmisra:numItems>
+	<entry>
+		<author>
+			<name>admin</name>
+		</author>
+		<content>cmis:folder</content>
+		<id>urn:uuid:type-cmis:folder</id>
+		<link rel="self"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:folder" />
+		<link rel="describedby"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:folder" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:folder/children"
+			type="application/atom+xml;type=feed" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:folder/descendants"
+			type="application/cmistree+xml" />
+		<link rel="service" href="http://localhost:8080/alfresco/s/cmis" />
+		<summary>Folder Type</summary>
+		<title>Folder</title>
+		<updated>2009-12-10T16:34:43.119-06:00
+		</updated>
+		<cmisra:type cmisra:id="cmis:folder"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cmis:cmisTypeFolderDefinitionType">
+			<cmis:id>cmis:folder</cmis:id>
+			<cmis:localName>folder</cmis:localName>
+			<cmis:localNamespace>http://www.alfresco.org/model/cmis/1.0/cd04
+			</cmis:localNamespace>
+			<cmis:displayName>Folder</cmis:displayName>
+			<cmis:queryName>cmis:folder</cmis:queryName>
+			<cmis:description>Folder Type</cmis:description>
+			<cmis:baseId>cmis:folder</cmis:baseId>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<author>
+			<name>admin</name>
+		</author>
+		<content>cmis:relationship</content>
+		<id>urn:uuid:type-cmis:relationship
+		</id>
+		<link rel="self"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:relationship" />
+		<link rel="describedby"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:relationship" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:relationship/children"
+			type="application/atom+xml;type=feed" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:relationship/descendants"
+			type="application/cmistree+xml" />
+		<link rel="service" href="http://localhost:8080/alfresco/s/cmis" />
+		<summary>Relationship Type</summary>
+		<title>Relationship</title>
+		<updated>2009-12-10T16:34:43.119-06:00
+		</updated>
+		<cmisra:type cmisra:id="cmis:relationship"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cmis:cmisTypeRelationshipDefinitionType">
+			<cmis:id>cmis:relationship</cmis:id>
+			<cmis:localName>relationship</cmis:localName>
+			<cmis:localNamespace>http://www.alfresco.org/model/cmis/1.0/cd04
+			</cmis:localNamespace>
+			<cmis:displayName>Relationship</cmis:displayName>
+			<cmis:queryName>cmis:relationship</cmis:queryName>
+			<cmis:description>Relationship Type</cmis:description>
+			<cmis:baseId>cmis:relationship</cmis:baseId>
+			<cmis:creatable>false</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>false</cmis:queryable>
+			<cmis:fulltextIndexed>false</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<author>
+			<name>admin</name>
+		</author>
+		<content>cmis:document</content>
+		<id>urn:uuid:type-cmis:document</id>
+		<link rel="self"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:document" />
+		<link rel="describedby"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:document" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:document/children"
+			type="application/atom+xml;type=feed" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:document/descendants"
+			type="application/cmistree+xml" />
+		<link rel="service" href="http://localhost:8080/alfresco/s/cmis" />
+		<summary>Document Type</summary>
+		<title>Document</title>
+		<updated>2009-12-10T16:34:43.119-06:00
+		</updated>
+		<cmisra:type cmisra:id="cmis:document"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cmis:cmisTypeDocumentDefinitionType">
+			<cmis:id>cmis:document</cmis:id>
+			<cmis:localName>document</cmis:localName>
+			<cmis:localNamespace>http://www.alfresco.org/model/cmis/1.0/cd04
+			</cmis:localNamespace>
+			<cmis:displayName>Document</cmis:displayName>
+			<cmis:queryName>cmis:document</cmis:queryName>
+			<cmis:description>Document Type</cmis:description>
+			<cmis:baseId>cmis:document</cmis:baseId>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>true</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+			<cmis:versionable>false</cmis:versionable>
+			<cmis:contentStreamAllowed>allowed</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<author>
+			<name>admin</name>
+		</author>
+		<content>cmis:policy</content>
+		<id>urn:uuid:type-cmis:policy</id>
+		<link rel="self"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:policy" />
+		<link rel="describedby"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:policy" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:policy/children"
+			type="application/atom+xml;type=feed" />
+		<link rel="down"
+			href="http://localhost:8080/alfresco/s/cmis/type/cmis:policy/descendants"
+			type="application/cmistree+xml" />
+		<link rel="service" href="http://localhost:8080/alfresco/s/cmis" />
+		<summary>Policy Type</summary>
+		<title>Policy</title>
+		<updated>2009-12-10T16:34:43.119-06:00
+		</updated>
+		<cmisra:type cmisra:id="cmis:policy"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cmis:cmisTypePolicyDefinitionType">
+			<cmis:id>cmis:policy</cmis:id>
+			<cmis:localName>policy</cmis:localName>
+			<cmis:localNamespace>http://www.alfresco.org/model/cmis/1.0/cd04
+			</cmis:localNamespace>
+			<cmis:displayName>Policy</cmis:displayName>
+			<cmis:queryName>cmis:policy</cmis:queryName>
+			<cmis:description>Policy Type</cmis:description>
+			<cmis:baseId>cmis:policy</cmis:baseId>
+			<cmis:creatable>false</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+		</cmisra:type>
+	</entry>
+</feed>

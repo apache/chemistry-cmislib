@@ -1,0 +1,1427 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<ns3:feed xmlns:ns5="http://docs.oasis-open.org/ns/cmis/restatom/200908/" xmlns="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:ns6="http://www.ibm.com/standards/ecm/p8/2008/cmis" xmlns:ns2="http://docs.oasis-open.org/ns/cmis/messaging/200908/" xmlns:ns3="http://www.w3.org/2005/Atom" xmlns:ns4="http://www.w3.org/2007/app">
+    <ns3:link type="application/atom+xml;type=feed" rel="via" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Checkedout/?skipCount=25"/>
+    <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Checkedout/?skipCount=25"/>
+    <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+    <ns3:link type="application/atom+xml;type=feed" rel="first" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Checkedout/?maxItems=25&amp;skipCount=0"/>
+    <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Checkedout/?skipCount=25</ns3:id>
+    <ns3:title type="text"> CheckedOut on DaphneA</ns3:title>
+    <ns3:updated>2010-01-11T06:48:20.689-08:00</ns3:updated>
+    <ns3:generator version="1.0">IBM ECM CMIS Prototype</ns3:generator>
+    <ns5:numItems>11</ns5:numItems>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3E614A61-95DF-4A00-89B0-33E807242F45}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{3E614A61-95DF-4A00-89B0-33E807242F45}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-05T14:29:18.277-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_3E614A61-95DF-4A00-89B0-33E807242F45</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>application/octet-stream</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>Example%20Document</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-05T14:29:04.054-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>592147</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>application/octet-stream</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>file0</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{659F7F2D-3914-4C41-B66A-198459BED4D1}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{3E614A61-95DF-4A00-89B0-33E807242F45}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3E614A61-95DF-4A00-89B0-33E807242F45</ns3:id>
+        <ns3:updated>2009-12-05T14:29:18.277-08:00</ns3:updated>
+        <ns4:edited>2009-12-05T14:29:18.277-08:00</ns4:edited>
+        <ns3:published>2009-12-05T14:29:18.277-08:00</ns3:published>
+        <ns3:title type="text">Example%20Document</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3E614A61-95DF-4A00-89B0-33E807242F45}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{3E614A61-95DF-4A00-89B0-33E807242F45}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-05T14:29:18.277-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_3E614A61-95DF-4A00-89B0-33E807242F45&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;application/octet-stream&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;Example%20Document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-05T14:29:04.054-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;592147&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;application/octet-stream&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;file0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{659F7F2D-3914-4C41-B66A-198459BED4D1}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{3E614A61-95DF-4A00-89B0-33E807242F45}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3E614A61-95DF-4A00-89B0-33E807242F45/-1" type="application/octet-stream"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3E614A61-95DF-4A00-89B0-33E807242F45"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3E614A61-95DF-4A00-89B0-33E807242F45"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3E614A61-95DF-4A00-89B0-33E807242F45"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_3E614A61-95DF-4A00-89B0-33E807242F45"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_3E614A61-95DF-4A00-89B0-33E807242F45?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_3E614A61-95DF-4A00-89B0-33E807242F45"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_3E614A61-95DF-4A00-89B0-33E807242F45?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="592147" title="file0" type="application/octet-stream" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3E614A61-95DF-4A00-89B0-33E807242F45/0"/>
+        <ns3:link length="592147" title="file0" type="application/octet-stream" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3E614A61-95DF-4A00-89B0-33E807242F45/-1"/>
+        <ns3:link length="592147" title="file0" type="application/octet-stream" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3E614A61-95DF-4A00-89B0-33E807242F45/-1"/>
+        <ns3:link length="592147" title="file0" type="application/octet-stream" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3E614A61-95DF-4A00-89B0-33E807242F45/-1"/>
+        <ns3:link length="592147" title="file0" type="application/octet-stream" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3E614A61-95DF-4A00-89B0-33E807242F45/-1"/>
+        <ns5:pathSegment>Example%20Document</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{E1825451-D61C-4F44-AD72-68D8E56A3E71}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{E1825451-D61C-4F44-AD72-68D8E56A3E71}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T06:40:49.667-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_E1825451-D61C-4F44-AD72-68D8E56A3E71</value>
+                </propertyId>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>CMISTestDoc1260573782281</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>CMISTestDoc1260573782281</value>
+                </propertyString>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T06:40:45.209-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{4961737A-5B0D-46E6-8D23-D05821D55D77}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{E1825451-D61C-4F44-AD72-68D8E56A3E71}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71</ns3:id>
+        <ns3:updated>2009-12-08T06:40:49.667-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T06:40:49.667-08:00</ns4:edited>
+        <ns3:published>2009-12-08T06:40:49.667-08:00</ns3:published>
+        <ns3:title type="text">CMISTestDoc1260573782281</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{E1825451-D61C-4F44-AD72-68D8E56A3E71}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{E1825451-D61C-4F44-AD72-68D8E56A3E71}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T06:40:49.667-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_E1825451-D61C-4F44-AD72-68D8E56A3E71&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;CMISTestDoc1260573782281&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;CMISTestDoc1260573782281&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T06:40:45.209-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{4961737A-5B0D-46E6-8D23-D05821D55D77}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{E1825451-D61C-4F44-AD72-68D8E56A3E71}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content type="text">Document does not contain content</ns3:content>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="0" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_E1825451-D61C-4F44-AD72-68D8E56A3E71/-1"/>
+        <ns5:pathSegment>CMISTestDoc1260573782281</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{74DD6FEF-3163-4D6A-9DDB-612409EDD10E}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{74DD6FEF-3163-4D6A-9DDB-612409EDD10E}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T06:40:50.825-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/jpeg</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>CheckedOutStream</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T06:40:50.393-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>142006</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/jpeg</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>FVTImage.jpg</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{7A5E9FA9-E339-45A1-81AA-CEA4B35C0B61}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{74DD6FEF-3163-4D6A-9DDB-612409EDD10E}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E</ns3:id>
+        <ns3:updated>2009-12-08T06:40:50.825-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T06:40:50.825-08:00</ns4:edited>
+        <ns3:published>2009-12-08T06:40:50.825-08:00</ns3:published>
+        <ns3:title type="text">CheckedOutStream</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{74DD6FEF-3163-4D6A-9DDB-612409EDD10E}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{74DD6FEF-3163-4D6A-9DDB-612409EDD10E}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T06:40:50.825-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;CheckedOutStream&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T06:40:50.393-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;142006&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;FVTImage.jpg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{7A5E9FA9-E339-45A1-81AA-CEA4B35C0B61}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{74DD6FEF-3163-4D6A-9DDB-612409EDD10E}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E/-1" type="image/jpeg"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E/0"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E/-1"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E/-1"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E/-1"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_74DD6FEF-3163-4D6A-9DDB-612409EDD10E/-1"/>
+        <ns5:pathSegment>CheckedOutStream</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{46B96295-FA00-4B95-93C5-2296DC2AD97D}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{46B96295-FA00-4B95-93C5-2296DC2AD97D}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T07:16:54.983-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_46B96295-FA00-4B95-93C5-2296DC2AD97D</value>
+                </propertyId>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>CMISTestDoc1260575949046</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>CMISTestDoc1260575949046</value>
+                </propertyString>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T07:16:51.497-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{9D75B977-3514-4443-9060-339369EEE8E3}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{46B96295-FA00-4B95-93C5-2296DC2AD97D}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D</ns3:id>
+        <ns3:updated>2009-12-08T07:16:54.983-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T07:16:54.983-08:00</ns4:edited>
+        <ns3:published>2009-12-08T07:16:54.983-08:00</ns3:published>
+        <ns3:title type="text">CMISTestDoc1260575949046</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{46B96295-FA00-4B95-93C5-2296DC2AD97D}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{46B96295-FA00-4B95-93C5-2296DC2AD97D}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:16:54.983-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_46B96295-FA00-4B95-93C5-2296DC2AD97D&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;CMISTestDoc1260575949046&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;CMISTestDoc1260575949046&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:16:51.497-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{9D75B977-3514-4443-9060-339369EEE8E3}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{46B96295-FA00-4B95-93C5-2296DC2AD97D}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content type="text">Document does not contain content</ns3:content>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="0" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_46B96295-FA00-4B95-93C5-2296DC2AD97D/-1"/>
+        <ns5:pathSegment>CMISTestDoc1260575949046</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{488026A9-4338-417A-AD4A-EC6D493DCC70}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{488026A9-4338-417A-AD4A-EC6D493DCC70}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T07:16:56.030-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_488026A9-4338-417A-AD4A-EC6D493DCC70</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/jpeg</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>CheckedOutStream</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T07:16:55.677-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>142006</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/jpeg</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>FVTImage.jpg</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{F6D7F749-C622-4359-B62E-35AA2111D094}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{488026A9-4338-417A-AD4A-EC6D493DCC70}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_488026A9-4338-417A-AD4A-EC6D493DCC70</ns3:id>
+        <ns3:updated>2009-12-08T07:16:56.030-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T07:16:56.030-08:00</ns4:edited>
+        <ns3:published>2009-12-08T07:16:56.030-08:00</ns3:published>
+        <ns3:title type="text">CheckedOutStream</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{488026A9-4338-417A-AD4A-EC6D493DCC70}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{488026A9-4338-417A-AD4A-EC6D493DCC70}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:16:56.030-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_488026A9-4338-417A-AD4A-EC6D493DCC70&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;CheckedOutStream&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:16:55.677-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;142006&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;FVTImage.jpg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{F6D7F749-C622-4359-B62E-35AA2111D094}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{488026A9-4338-417A-AD4A-EC6D493DCC70}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_488026A9-4338-417A-AD4A-EC6D493DCC70/-1" type="image/jpeg"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_488026A9-4338-417A-AD4A-EC6D493DCC70"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_488026A9-4338-417A-AD4A-EC6D493DCC70"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_488026A9-4338-417A-AD4A-EC6D493DCC70"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_488026A9-4338-417A-AD4A-EC6D493DCC70"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_488026A9-4338-417A-AD4A-EC6D493DCC70?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_488026A9-4338-417A-AD4A-EC6D493DCC70"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_488026A9-4338-417A-AD4A-EC6D493DCC70?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_488026A9-4338-417A-AD4A-EC6D493DCC70/0"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_488026A9-4338-417A-AD4A-EC6D493DCC70/-1"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_488026A9-4338-417A-AD4A-EC6D493DCC70/-1"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_488026A9-4338-417A-AD4A-EC6D493DCC70/-1"/>
+        <ns3:link length="142006" title="FVTImage.jpg" type="image/jpeg" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_488026A9-4338-417A-AD4A-EC6D493DCC70/-1"/>
+        <ns5:pathSegment>CheckedOutStream</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T07:46:02.878-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/gif</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>domino.GIF</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T07:46:01.974-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>3148</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/gif</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>file0.gif</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{E32DF099-17B3-4C44-8EB4-E55A6B1CBDFF}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9</ns3:id>
+        <ns3:updated>2009-12-08T07:46:02.878-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T07:46:02.878-08:00</ns4:edited>
+        <ns3:published>2009-12-08T07:46:02.878-08:00</ns3:published>
+        <ns3:title type="text">domino.GIF</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:46:02.878-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/gif&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;domino.GIF&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:46:01.974-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;3148&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/gif&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;file0.gif&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{E32DF099-17B3-4C44-8EB4-E55A6B1CBDFF}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9/-1" type="image/gif"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="3148" title="file0.gif" type="image/gif" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9/0"/>
+        <ns3:link length="3148" title="file0.gif" type="image/gif" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9/-1"/>
+        <ns3:link length="3148" title="file0.gif" type="image/gif" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9/-1"/>
+        <ns3:link length="3148" title="file0.gif" type="image/gif" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9/-1"/>
+        <ns3:link length="3148" title="file0.gif" type="image/gif" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_D9D87FAF-E0A1-4ACA-82FC-822445E6A2E9/-1"/>
+        <ns5:pathSegment>domino.GIF</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{5A93084B-E9A7-4E9E-B9A0-2D15DA51E688}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{5A93084B-E9A7-4E9E-B9A0-2D15DA51E688}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T07:46:35.384-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/png</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>QuickrMD.png</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T07:46:34.109-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>10569</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/png</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>file0.png</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{4D85A639-C5D0-418C-91E3-FFA499C5B11D}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{5A93084B-E9A7-4E9E-B9A0-2D15DA51E688}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688</ns3:id>
+        <ns3:updated>2009-12-08T07:46:35.384-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T07:46:35.384-08:00</ns4:edited>
+        <ns3:published>2009-12-08T07:46:35.384-08:00</ns3:published>
+        <ns3:title type="text">QuickrMD.png</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{5A93084B-E9A7-4E9E-B9A0-2D15DA51E688}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{5A93084B-E9A7-4E9E-B9A0-2D15DA51E688}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:46:35.384-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;QuickrMD.png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:46:34.109-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;10569&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;file0.png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{4D85A639-C5D0-418C-91E3-FFA499C5B11D}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{5A93084B-E9A7-4E9E-B9A0-2D15DA51E688}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688/-1" type="image/png"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688/0"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688/-1"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688/-1"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688/-1"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_5A93084B-E9A7-4E9E-B9A0-2D15DA51E688/-1"/>
+        <ns5:pathSegment>QuickrMD.png</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{60763942-AFD4-475E-A654-9C570A95EF0B}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{60763942-AFD4-475E-A654-9C570A95EF0B}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T07:46:57.195-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_60763942-AFD4-475E-A654-9C570A95EF0B</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/png</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>QuickrMD.png</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T07:46:56.364-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>10569</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/png</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>file0.png</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{F5ACD0DC-180D-4987-B19B-F7FB229088B2}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{60763942-AFD4-475E-A654-9C570A95EF0B}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_60763942-AFD4-475E-A654-9C570A95EF0B</ns3:id>
+        <ns3:updated>2009-12-08T07:46:57.195-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T07:46:57.195-08:00</ns4:edited>
+        <ns3:published>2009-12-08T07:46:57.195-08:00</ns3:published>
+        <ns3:title type="text">QuickrMD.png</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{60763942-AFD4-475E-A654-9C570A95EF0B}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{60763942-AFD4-475E-A654-9C570A95EF0B}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:46:57.195-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_60763942-AFD4-475E-A654-9C570A95EF0B&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;QuickrMD.png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:46:56.364-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;10569&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;file0.png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{F5ACD0DC-180D-4987-B19B-F7FB229088B2}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{60763942-AFD4-475E-A654-9C570A95EF0B}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_60763942-AFD4-475E-A654-9C570A95EF0B/-1" type="image/png"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_60763942-AFD4-475E-A654-9C570A95EF0B"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_60763942-AFD4-475E-A654-9C570A95EF0B"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_60763942-AFD4-475E-A654-9C570A95EF0B"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_60763942-AFD4-475E-A654-9C570A95EF0B"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_60763942-AFD4-475E-A654-9C570A95EF0B?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_60763942-AFD4-475E-A654-9C570A95EF0B"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_60763942-AFD4-475E-A654-9C570A95EF0B?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_60763942-AFD4-475E-A654-9C570A95EF0B/0"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_60763942-AFD4-475E-A654-9C570A95EF0B/-1"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_60763942-AFD4-475E-A654-9C570A95EF0B/-1"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_60763942-AFD4-475E-A654-9C570A95EF0B/-1"/>
+        <ns3:link length="10569" title="file0.png" type="image/png" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_60763942-AFD4-475E-A654-9C570A95EF0B/-1"/>
+        <ns5:pathSegment>QuickrMD.png</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{6E23C8BF-9CDB-44FA-B160-CB5B71230C95}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{6E23C8BF-9CDB-44FA-B160-CB5B71230C95}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2009-12-08T07:49:50.737-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/jpeg</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>IBMWorldClock.jpg</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2009-12-08T07:49:50.004-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ReservationType" propertyDefinitionId="ReservationType">
+                    <value>32</value>
+                </propertyInteger>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>4997</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/jpeg</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>file0.jpg</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{54BBC615-E41B-4B15-9468-7FD184062885}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>0.1</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{6E23C8BF-9CDB-44FA-B160-CB5B71230C95}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95</ns3:id>
+        <ns3:updated>2009-12-08T07:49:50.737-08:00</ns3:updated>
+        <ns4:edited>2009-12-08T07:49:50.737-08:00</ns4:edited>
+        <ns3:published>2009-12-08T07:49:50.737-08:00</ns3:published>
+        <ns3:title type="text">IBMWorldClock.jpg</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{6E23C8BF-9CDB-44FA-B160-CB5B71230C95}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{6E23C8BF-9CDB-44FA-B160-CB5B71230C95}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:49:50.737-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;IBMWorldClock.jpg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2009-12-08T07:49:50.004-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReservationType&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;4997&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;file0.jpg&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{54BBC615-E41B-4B15-9468-7FD184062885}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;0.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{6E23C8BF-9CDB-44FA-B160-CB5B71230C95}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95/-1" type="image/jpeg"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="4997" title="file0.jpg" type="image/jpeg" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95/0"/>
+        <ns3:link length="4997" title="file0.jpg" type="image/jpeg" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95/-1"/>
+        <ns3:link length="4997" title="file0.jpg" type="image/jpeg" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95/-1"/>
+        <ns3:link length="4997" title="file0.jpg" type="image/jpeg" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95/-1"/>
+        <ns3:link length="4997" title="file0.jpg" type="image/jpeg" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_6E23C8BF-9CDB-44FA-B160-CB5B71230C95/-1"/>
+        <ns5:pathSegment>IBMWorldClock.jpg</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="ReleasedVersion" propertyDefinitionId="ReleasedVersion">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3134169A-1B52-48B1-969C-BD55CEBFC3BF}</value>
+                </propertyId>
+                <propertyId displayName="ReleasedVersion" localName="ReleasedVersion" propertyDefinitionId="ReleasedVersion">
+                    <value>{3134169A-1B52-48B1-969C-BD55CEBFC3BF}</value>
+                </propertyId>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{2F7CBAB7-49B5-485A-8788-1FDE70926B46}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{2F7CBAB7-49B5-485A-8788-1FDE70926B46}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2010-01-06T22:22:35.103-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF</value>
+                </propertyId>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>NewCheckoutTestDoc</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>NewCheckoutTestDoc</value>
+                </propertyString>
+                <propertyDateTime localName="DateCheckedIn" propertyDefinitionId="DateCheckedIn">
+                    <value>2010-01-06T22:21:44.469-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2010-01-06T22:21:44.469-08:00</value>
+                </propertyDateTime>
+                <propertyId localName="CurrentVersion" propertyDefinitionId="CurrentVersion">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3134169A-1B52-48B1-969C-BD55CEBFC3BF}</value>
+                </propertyId>
+                <propertyId displayName="CurrentVersion" localName="CurrentVersion" propertyDefinitionId="CurrentVersion">
+                    <value>{3134169A-1B52-48B1-969C-BD55CEBFC3BF}</value>
+                </propertyId>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{BF2AE15F-1A29-44AD-AB8F-300C4B5EAA35}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>1.0</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{2F7CBAB7-49B5-485A-8788-1FDE70926B46}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF</ns3:id>
+        <ns3:updated>2010-01-06T22:22:35.103-08:00</ns3:updated>
+        <ns4:edited>2010-01-06T22:22:35.103-08:00</ns4:edited>
+        <ns3:published>2010-01-06T22:22:35.103-08:00</ns3:published>
+        <ns3:title type="text">NewCheckoutTestDoc</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;ReleasedVersion&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3134169A-1B52-48B1-969C-BD55CEBFC3BF}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReleasedVersion&lt;/td&gt;&lt;td&gt;{3134169A-1B52-48B1-969C-BD55CEBFC3BF}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{2F7CBAB7-49B5-485A-8788-1FDE70926B46}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{2F7CBAB7-49B5-485A-8788-1FDE70926B46}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2010-01-06T22:22:35.103-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;NewCheckoutTestDoc&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;NewCheckoutTestDoc&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;DateCheckedIn&lt;/td&gt;&lt;td&gt;2010-01-06T22:21:44.469-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2010-01-06T22:21:44.469-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CurrentVersion&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3134169A-1B52-48B1-969C-BD55CEBFC3BF}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CurrentVersion&lt;/td&gt;&lt;td&gt;{3134169A-1B52-48B1-969C-BD55CEBFC3BF}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{BF2AE15F-1A29-44AD-AB8F-300C4B5EAA35}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;1.0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{2F7CBAB7-49B5-485A-8788-1FDE70926B46}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content type="text">Document does not contain content</ns3:content>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_2F7CBAB7-49B5-485A-8788-1FDE70926B46"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="0" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3134169A-1B52-48B1-969C-BD55CEBFC3BF/-1"/>
+        <ns5:pathSegment>NewCheckoutTestDoc</ns5:pathSegment>
+    </ns3:entry>
+    <ns3:entry>
+        <ns5:object>
+            <properties>
+                <propertyId localName="ReleasedVersion" propertyDefinitionId="ReleasedVersion">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3F559059-BDB2-47D7-8609-DE1867701221}</value>
+                </propertyId>
+                <propertyId displayName="ReleasedVersion" localName="ReleasedVersion" propertyDefinitionId="ReleasedVersion">
+                    <value>{3F559059-BDB2-47D7-8609-DE1867701221}</value>
+                </propertyId>
+                <propertyId localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{ACDF2CCC-F808-4FCB-B7C7-2E165744F548}</value>
+                </propertyId>
+                <propertyId displayName="Reservation" localName="Reservation" propertyDefinitionId="Reservation">
+                    <value>{ACDF2CCC-F808-4FCB-B7C7-2E165744F548}</value>
+                </propertyId>
+                <propertyString localName="cmis:createdBy" propertyDefinitionId="cmis:createdBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:lastModificationDate" propertyDefinitionId="cmis:lastModificationDate">
+                    <value>2010-01-08T14:33:06.699-08:00</value>
+                </propertyDateTime>
+                <propertyBoolean localName="cmis:isImmutable" propertyDefinitionId="cmis:isImmutable">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestVersion" propertyDefinitionId="cmis:isLatestVersion">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="MajorVersionNumber" propertyDefinitionId="MajorVersionNumber">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyId localName="cmis:objectId" propertyDefinitionId="cmis:objectId">
+                    <value>idd_3F559059-BDB2-47D7-8609-DE1867701221</value>
+                </propertyId>
+                <propertyString localName="ContentElementsPresent" propertyDefinitionId="ContentElementsPresent">
+                    <value>image/png</value>
+                </propertyString>
+                <propertyString localName="cmis:name" propertyDefinitionId="cmis:name">
+                    <value>logo.png</value>
+                </propertyString>
+                <propertyInteger localName="MinorVersionNumber" propertyDefinitionId="MinorVersionNumber">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyDateTime localName="DateCheckedIn" propertyDefinitionId="DateCheckedIn">
+                    <value>2010-01-08T13:49:21.179-08:00</value>
+                </propertyDateTime>
+                <propertyInteger localName="ClassificationStatus" propertyDefinitionId="ClassificationStatus">
+                    <value>3</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsReserved" propertyDefinitionId="IsReserved">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="IsVersioningEnabled" propertyDefinitionId="IsVersioningEnabled">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyInteger localName="CompoundDocumentState" propertyDefinitionId="CompoundDocumentState">
+                    <value>0</value>
+                </propertyInteger>
+                <propertyString localName="Owner" propertyDefinitionId="Owner">
+                    <value>cn=CEMPAdmin,cn=realm1,o=sample</value>
+                </propertyString>
+                <propertyDateTime localName="cmis:creationDate" propertyDefinitionId="cmis:creationDate">
+                    <value>2010-01-08T13:49:21.177-08:00</value>
+                </propertyDateTime>
+                <propertyId localName="CurrentVersion" propertyDefinitionId="CurrentVersion">
+                    <value>os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3F559059-BDB2-47D7-8609-DE1867701221}</value>
+                </propertyId>
+                <propertyId displayName="CurrentVersion" localName="CurrentVersion" propertyDefinitionId="CurrentVersion">
+                    <value>{3F559059-BDB2-47D7-8609-DE1867701221}</value>
+                </propertyId>
+                <propertyInteger localName="VersionStatus" propertyDefinitionId="VersionStatus">
+                    <value>1</value>
+                </propertyInteger>
+                <propertyBoolean localName="IsInExceptionState" propertyDefinitionId="IsInExceptionState">
+                    <value>false</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:lastModifiedBy" propertyDefinitionId="cmis:lastModifiedBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyInteger localName="cmis:contentStreamLength" propertyDefinitionId="cmis:contentStreamLength">
+                    <value>8329</value>
+                </propertyInteger>
+                <propertyString localName="cmis:contentStreamMimeType" propertyDefinitionId="cmis:contentStreamMimeType">
+                    <value>image/png</value>
+                </propertyString>
+                <propertyString localName="cmis:contentStreamFileName" propertyDefinitionId="cmis:contentStreamFileName">
+                    <value>logo.png</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesId" propertyDefinitionId="cmis:versionSeriesId">
+                    <value>{9698E03C-F588-4791-A212-666E7BF157AA}</value>
+                </propertyId>
+                <propertyString localName="cmis:versionLabel" propertyDefinitionId="cmis:versionLabel">
+                    <value>1.0</value>
+                </propertyString>
+                <propertyBoolean localName="cmis:isMajorVersion" propertyDefinitionId="cmis:isMajorVersion">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyBoolean localName="cmis:isLatestMajorVersion" propertyDefinitionId="cmis:isLatestMajorVersion">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyString localName="cmis:versionSeriesCheckedOutBy" propertyDefinitionId="cmis:versionSeriesCheckedOutBy">
+                    <value>CEMPAdmin</value>
+                </propertyString>
+                <propertyId localName="cmis:versionSeriesCheckedOutId" propertyDefinitionId="cmis:versionSeriesCheckedOutId">
+                    <value>{ACDF2CCC-F808-4FCB-B7C7-2E165744F548}</value>
+                </propertyId>
+                <propertyBoolean localName="cmis:isVersionSeriesCheckedOut" propertyDefinitionId="cmis:isVersionSeriesCheckedOut">
+                    <value>true</value>
+                </propertyBoolean>
+                <propertyId localName="cmis:baseTypeId" propertyDefinitionId="cmis:baseTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+                <propertyId localName="cmis:objectTypeId" propertyDefinitionId="cmis:objectTypeId">
+                    <value>cmis:document</value>
+                </propertyId>
+            </properties>
+        </ns5:object>
+        <ns3:id>http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3F559059-BDB2-47D7-8609-DE1867701221</ns3:id>
+        <ns3:updated>2010-01-08T14:33:06.699-08:00</ns3:updated>
+        <ns4:edited>2010-01-08T14:33:06.699-08:00</ns4:edited>
+        <ns3:published>2010-01-08T14:33:06.699-08:00</ns3:published>
+        <ns3:title type="text">logo.png</ns3:title>
+        <ns3:summary type="html">&lt;B&gt;cmis:document&lt;/B&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;ReleasedVersion&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3F559059-BDB2-47D7-8609-DE1867701221}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ReleasedVersion&lt;/td&gt;&lt;td&gt;{3F559059-BDB2-47D7-8609-DE1867701221}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{ACDF2CCC-F808-4FCB-B7C7-2E165744F548}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Reservation&lt;/td&gt;&lt;td&gt;{ACDF2CCC-F808-4FCB-B7C7-2E165744F548}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:createdBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModificationDate&lt;/td&gt;&lt;td&gt;2010-01-08T14:33:06.699-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isImmutable&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestVersion&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MajorVersionNumber&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectId&lt;/td&gt;&lt;td&gt;idd_3F559059-BDB2-47D7-8609-DE1867701221&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ContentElementsPresent&lt;/td&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:name&lt;/td&gt;&lt;td&gt;logo.png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;MinorVersionNumber&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;DateCheckedIn&lt;/td&gt;&lt;td&gt;2010-01-08T13:49:21.179-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ClassificationStatus&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsReserved&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsVersioningEnabled&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CompoundDocumentState&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Owner&lt;/td&gt;&lt;td&gt;cn=CEMPAdmin,cn=realm1,o=sample&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:creationDate&lt;/td&gt;&lt;td&gt;2010-01-08T13:49:21.177-08:00&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CurrentVersion&lt;/td&gt;&lt;td&gt;os:{20E00123-2556-44A2-9F2D-F14A378D6FA7}class:{01A3A8C2-7AEC-11D1-A31B-0020AF9FBB1C}object:{3F559059-BDB2-47D7-8609-DE1867701221}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CurrentVersion&lt;/td&gt;&lt;td&gt;{3F559059-BDB2-47D7-8609-DE1867701221}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;VersionStatus&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;IsInExceptionState&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:lastModifiedBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamLength&lt;/td&gt;&lt;td&gt;8329&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamMimeType&lt;/td&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:contentStreamFileName&lt;/td&gt;&lt;td&gt;logo.png&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:baseTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:objectTypeId&lt;/td&gt;&lt;td&gt;cmis:document&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesId&lt;/td&gt;&lt;td&gt;{9698E03C-F588-4791-A212-666E7BF157AA}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionLabel&lt;/td&gt;&lt;td&gt;1.0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isMajorVersion&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isLatestMajorVersion&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutBy&lt;/td&gt;&lt;td&gt;CEMPAdmin&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:versionSeriesCheckedOutId&lt;/td&gt;&lt;td&gt;{ACDF2CCC-F808-4FCB-B7C7-2E165744F548}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;cmis:isVersionSeriesCheckedOut&lt;/td&gt;&lt;td&gt;true&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ns3:summary>
+        <ns3:content src="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3F559059-BDB2-47D7-8609-DE1867701221/-1" type="image/png"/>
+        <ns3:author>
+            <ns3:name>CEMPAdmin</ns3:name>
+        </ns3:author>
+        <ns3:link type="application/atom+xml;type=entry" rel="self" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3F559059-BDB2-47D7-8609-DE1867701221"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="edit" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_3F559059-BDB2-47D7-8609-DE1867701221"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="working-copy" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Content/idd_ACDF2CCC-F808-4FCB-B7C7-2E165744F548"/>
+        <ns3:link type="application/cmisallowableActions+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/allowableactions" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/AllowableActions/cmis:document/idd_3F559059-BDB2-47D7-8609-DE1867701221"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="up" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Parents/cmis:document/idd_3F559059-BDB2-47D7-8609-DE1867701221?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="version-history" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Allversions/idd_3F559059-BDB2-47D7-8609-DE1867701221"/>
+        <ns3:link type="application/atom+xml;type=feed" rel="http://docs.oasis-open.org/ns/cmis/link/200908/relationships" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Relationships/cmis:document/idd_3F559059-BDB2-47D7-8609-DE1867701221?skipCount=25"/>
+        <ns3:link type="application/atom+xml;type=entry" rel="describedby" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Type/cmis:document?includePropertyDefinitions=true"/>
+        <ns3:link type="application/atomsvc+xml" rel="service" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/Service/"/>
+        <ns3:link length="8329" title="logo.png" type="image/png" rel="stream" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3F559059-BDB2-47D7-8609-DE1867701221/0"/>
+        <ns3:link length="8329" title="logo.png" type="image/png" rel="enclosure" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3F559059-BDB2-47D7-8609-DE1867701221/-1"/>
+        <ns3:link length="8329" title="logo.png" type="image/png" rel="alternate" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3F559059-BDB2-47D7-8609-DE1867701221/-1"/>
+        <ns3:link length="8329" title="logo.png" type="image/png" rel="view" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3F559059-BDB2-47D7-8609-DE1867701221/-1"/>
+        <ns3:link length="8329" title="logo.png" type="image/png" rel="edit-media" href="http://0.0.0.0:8080/p8cmis/resources/DaphneA/ContentStream/idd_3F559059-BDB2-47D7-8609-DE1867701221/-1"/>
+        <ns5:pathSegment>logo.png</ns5:pathSegment>
+    </ns3:entry>
+</ns3:feed>

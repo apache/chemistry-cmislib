@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:cmis="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/">
+  <id>urn:uuid:9d7c378f-c03a-4064-aaeb-a3b8532b126f
+  </id>
+  <title type="text">sample-a.pdf
+  </title>
+  <updated>2010-01-14T17:13:18.182Z
+  </updated>
+  <author>
+    <name>Administrator
+    </name>
+  </author>
+  <summary type="text">sample-a.pdf
+  </summary>
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/repository" rel="service" type="application/atomsvc+xml" />
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/object/9d7c378f-c03a-4064-aaeb-a3b8532b126f" rel="self" type="application/atom+xml; type=entry" />
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/object/9d7c378f-c03a-4064-aaeb-a3b8532b126f" rel="edit" type="application/atom+xml; type=entry" />
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/object/9d7c378f-c03a-4064-aaeb-a3b8532b126f" rel="alternate" type="application/atom+xml; type=entry" />
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/type/File" rel="describedby" type="application/atom+xml; type=entry" />
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/file/9d7c378f-c03a-4064-aaeb-a3b8532b126f" rel="edit-media" />
+  <link href="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/parents/9d7c378f-c03a-4064-aaeb-a3b8532b126f" rel="up" type="application/atom+xml; type=feed" />
+  <cmisra:object>
+    <cmis:properties>
+      <cmis:propertyInteger propertyDefinitionId="cmis:contentStreamLength" localName="def:contentstreamlength" displayName="Content Stream Length">
+	<cmis:value>117249
+	</cmis:value>
+      </cmis:propertyInteger>
+      <cmis:propertyId propertyDefinitionId="cmis:objectTypeId" localName="def:typeid" displayName="Type ID">
+	<cmis:value>File
+	</cmis:value>
+      </cmis:propertyId>
+      <cmis:propertyId propertyDefinitionId="cmis:versionSeriesId" localName="def:versionseriesid" displayName="Version Series ID">
+	<cmis:value>9d7c378f-c03a-4064-aaeb-a3b8532b126f
+	</cmis:value>
+      </cmis:propertyId>
+      <cmis:propertyBoolean propertyDefinitionId="cmis:isLatestVersion" localName="def:islatestversion" displayName="Is Latest Version">
+	<cmis:value>true
+	</cmis:value>
+      </cmis:propertyBoolean>
+      <cmis:propertyBoolean propertyDefinitionId="cmis:isVersionSeriesCheckedOut" localName="def:isversionseriescheckedout" displayName="Is Version Series Checked Out">
+	<cmis:value>false
+	</cmis:value>
+      </cmis:propertyBoolean>
+      <cmis:propertyString propertyDefinitionId="cmis:lastModifiedBy" localName="def:lastmodifiedby" displayName="Last Modified By">
+	<cmis:value>Administrator
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyString propertyDefinitionId="dc:subjects" localName="def:nx:dc:subjects" displayName="dc:subjects" />
+      <cmis:propertyString propertyDefinitionId="cmis:createdBy" localName="def:createdby" displayName="Created By">
+	<cmis:value>Administrator
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyInteger propertyDefinitionId="major_version" localName="def:nx:major_version" displayName="major_version">
+	<cmis:value>1
+	</cmis:value>
+      </cmis:propertyInteger>
+      <cmis:propertyString propertyDefinitionId="dc:title" localName="def:nx:dc:title" displayName="dc:title">
+	<cmis:value>sample-a.pdf
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyBoolean propertyDefinitionId="cmis:isLatestMajorVersion" localName="def:islatestmajorversion" displayName="Is Latest Major Version">
+	<cmis:value>false
+	</cmis:value>
+      </cmis:propertyBoolean>
+      <cmis:propertyString propertyDefinitionId="icon" localName="def:nx:icon" displayName="icon">
+	<cmis:value>/icons/pdf.png
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyString propertyDefinitionId="cmis:name" localName="def:name" displayName="Name">
+	<cmis:value>sample-a.pdf
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyString propertyDefinitionId="cmis:contentStreamMimeType" localName="def:contentstreammimetype" displayName="Content Stream MIME Type">
+	<cmis:value>application/pdf
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyString propertyDefinitionId="dc:contributors" localName="def:nx:dc:contributors" displayName="dc:contributors">
+	<cmis:value>Administrator
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyDateTime propertyDefinitionId="cmis:creationDate" localName="def:creationdate" displayName="Creation Date">
+	<cmis:value>2010-01-14T18:13:18+01:00
+	</cmis:value>
+      </cmis:propertyDateTime>
+      <cmis:propertyInteger propertyDefinitionId="size" localName="def:nx:size" displayName="size">
+	<cmis:value>-1
+	</cmis:value>
+      </cmis:propertyInteger>
+      <cmis:propertyInteger propertyDefinitionId="minor_version" localName="def:nx:minor_version" displayName="minor_version">
+	<cmis:value>0
+	</cmis:value>
+      </cmis:propertyInteger>
+      <cmis:propertyId propertyDefinitionId="cmis:objectId" localName="def:id" displayName="Id">
+	<cmis:value>9d7c378f-c03a-4064-aaeb-a3b8532b126f
+	</cmis:value>
+      </cmis:propertyId>
+      <cmis:propertyString propertyDefinitionId="filename" localName="def:nx:filename" displayName="filename">
+	<cmis:value>sample-a.pdf
+	</cmis:value>
+      </cmis:propertyString>
+      <cmis:propertyBoolean propertyDefinitionId="cmis:isMajorVersion" localName="def:ismajorversion" displayName="Is Major Version">
+	<cmis:value>false
+	</cmis:value>
+      </cmis:propertyBoolean>
+      <cmis:propertyId propertyDefinitionId="cmis:baseTypeId" localName="def:basetypeid" displayName="Base Type ID">
+	<cmis:value>cmis:document
+	</cmis:value>
+      </cmis:propertyId>
+      <cmis:propertyDateTime propertyDefinitionId="cmis:lastModificationDate" localName="def:lastmodificationdate" displayName="Last Modification Date">
+	<cmis:value>2010-01-14T18:13:18+01:00
+	</cmis:value>
+      </cmis:propertyDateTime>
+      <cmis:propertyString propertyDefinitionId="cmis:contentStreamFileName" localName="def:contentstreamfilename" displayName="Content Stream File Name">
+	<cmis:value>sample-a.pdf
+	</cmis:value>
+      </cmis:propertyString>
+    </cmis:properties>
+  </cmisra:object>
+  <content type="application/pdf" src="http://cmis.demo.nuxeo.org/nuxeo/site/cmis/file/9d7c378f-c03a-4064-aaeb-a3b8532b126f" />
+</entry>

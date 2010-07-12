@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF8'?>
+<service xmlns="http://www.w3.org/2007/app" xmlns:cmis="http://docs.oasis-open.org/ns/cmis/core/200908/"
+	xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/">
+	<workspace>
+		<title xmlns="http://www.w3.org/2005/Atom" type="text">test</title>
+		<cmisra:repositoryInfo>
+			<cmis:repositoryId>test</cmis:repositoryId>
+			<cmis:repositoryName>test</cmis:repositoryName>
+			<cmis:repositoryDescription>Repository test
+			</cmis:repositoryDescription>
+			<cmis:vendorName>Apache</cmis:vendorName>
+			<cmis:productName>Chemistry Simple Repository
+			</cmis:productName>
+			<cmis:productVersion>1.0-SNAPSHOT</cmis:productVersion>
+			<cmis:rootFolderId>b7666828-f1aa-41e1-9d0a-94a7898ae569
+			</cmis:rootFolderId>
+			<cmis:latestChangeLogToken></cmis:latestChangeLogToken>
+			<cmis:capabilities>
+				<cmis:capabilityACL>none</cmis:capabilityACL>
+				<cmis:capabilityAllVersionsSearchable>false
+				</cmis:capabilityAllVersionsSearchable>
+				<cmis:capabilityChanges>none</cmis:capabilityChanges>
+				<cmis:capabilityContentStreamUpdatability>anytime
+				</cmis:capabilityContentStreamUpdatability>
+				<cmis:capabilityGetDescendants>true
+				</cmis:capabilityGetDescendants>
+				<cmis:capabilityGetFolderTree>false
+				</cmis:capabilityGetFolderTree>
+				<cmis:capabilityMultifiling>false</cmis:capabilityMultifiling>
+				<cmis:capabilityPWCSearchable>false
+				</cmis:capabilityPWCSearchable>
+				<cmis:capabilityPWCUpdatable>false
+				</cmis:capabilityPWCUpdatable>
+				<cmis:capabilityQuery>bothcombined
+				</cmis:capabilityQuery>
+				<cmis:capabilityRenditions>none</cmis:capabilityRenditions>
+				<cmis:capabilityUnfiling>false</cmis:capabilityUnfiling>
+				<cmis:capabilityVersionSpecificFiling>false
+				</cmis:capabilityVersionSpecificFiling>
+				<cmis:capabilityJoin>none</cmis:capabilityJoin>
+			</cmis:capabilities>
+			<cmis:cmisVersionSupported>1.0</cmis:cmisVersionSupported>
+			<cmis:changesIncomplete>false</cmis:changesIncomplete>
+			<cmis:changesOnType>cmis:policy</cmis:changesOnType>
+			<cmis:changesOnType>cmis:relationship
+			</cmis:changesOnType>
+			<cmis:changesOnType>cmis:document</cmis:changesOnType>
+			<cmis:changesOnType>cmis:folder</cmis:changesOnType>
+		</cmisra:repositoryInfo>
+		<collection href="http://0.0.0.0:8080/cmis/query">
+			<title xmlns="http://www.w3.org/2005/Atom" type="text">query
+				collection</title>
+			<cmisra:collectionType>query</cmisra:collectionType>
+		</collection>
+		<collection href="http://0.0.0.0:8080/cmis/checkedout">
+			<title xmlns="http://www.w3.org/2005/Atom" type="text">the
+				checkedout</title>
+			<cmisra:collectionType>checkedout</cmisra:collectionType>
+		</collection>
+		<collection href="http://0.0.0.0:8080/cmis/types">
+			<title xmlns="http://www.w3.org/2005/Atom" type="text">Types
+			</title>
+			<cmisra:collectionType>types</cmisra:collectionType>
+		</collection>
+		<collection
+			href="http://0.0.0.0:8080/cmis/children/b7666828-f1aa-41e1-9d0a-94a7898ae569">
+			<title xmlns="http://www.w3.org/2005/Atom" type="text">children
+				collection</title>
+			<cmisra:collectionType>root</cmisra:collectionType>
+		</collection>
+		<collection href="http://0.0.0.0:8080/cmis/unfiled">
+			<title xmlns="http://www.w3.org/2005/Atom" type="text">the unfiled
+			</title>
+			<cmisra:collectionType>unfiled</cmisra:collectionType>
+		</collection>
+		<cmisra:uritemplate>
+			<cmisra:type>objectbyid</cmisra:type>
+			<cmisra:mediatype>application/atom+xml;type=entry
+			</cmisra:mediatype>
+			<cmisra:template>http://0.0.0.0:8080/cmis/object/{id}
+			</cmisra:template>
+		</cmisra:uritemplate>
+		<cmisra:uritemplate>
+			<cmisra:type>objectbypath</cmisra:type>
+			<cmisra:mediatype>application/atom+xml;type=entry
+			</cmisra:mediatype>
+			<cmisra:template>http://0.0.0.0:8080/cmis/path/{path}
+			</cmisra:template>
+		</cmisra:uritemplate>
+		<cmisra:uritemplate>
+			<cmisra:type>typebyid</cmisra:type>
+			<cmisra:mediatype>application/atom+xml;type=feed
+			</cmisra:mediatype>
+			<cmisra:template>http://0.0.0.0:8080/cmis/type/{id}
+			</cmisra:template>
+		</cmisra:uritemplate>
+	</workspace>
+</service>

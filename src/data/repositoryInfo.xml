@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<service xmlns="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/" xmlns:cmis="http://docs.oasis-open.org/ns/cmis/core/200908/" xmlns:alf="http://www.alfresco.org">
+  <workspace>
+    <atom:title>Main Repository</atom:title>
+
+    <collection href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/children"> 
+      <atom:title>root collection</atom:title> 
+      <cmisra:collectionType>root</cmisra:collectionType>
+    </collection> 
+    <collection href="http://cmis.alfresco.com:80/s/cmis/types"> 
+      <atom:title>type collection</atom:title> 
+      <cmisra:collectionType>types</cmisra:collectionType>
+    </collection>
+    <collection href="http://cmis.alfresco.com:80/s/cmis/checkedout"> 
+      <atom:title>checkedout collection</atom:title> 
+      <accept>application/atom+xml;type=entry</accept>
+      <cmisra:collectionType>checkedout</cmisra:collectionType>
+    </collection> 
+    <collection href="http://cmis.alfresco.com:80/s/cmis/unfiled"> 
+      <atom:title>unfiled collection</atom:title> 
+      <accept>application/atom+xml;type=entry</accept>
+      <cmisra:collectionType>unfiled</cmisra:collectionType>
+    </collection>
+    <collection href="http://cmis.alfresco.com:80/s/cmis/queries"> 
+      <atom:title>query collection</atom:title> 
+      <accept>application/cmisquery+xml</accept>
+      <cmisra:collectionType>query</cmisra:collectionType>
+    </collection>
+
+    <atom:link title="root folder tree" type="application/cmistree+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/foldertree" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/tree"/>
+    <atom:link title="root descendants" type="application/cmistree+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/rootdescendants" href="http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/i/d14049b7-e63f-4075-acc2-a4cd5a541f3c/descendants"/>
+    <atom:link title="type descendants" type="application/cmistree+xml" rel="http://docs.oasis-open.org/ns/cmis/link/200908/typesdescendants" href="http://cmis.alfresco.com:80/s/cmis/types/descendants"/>
+
+    <cmisra:repositoryInfo>
+      <cmis:repositoryId>8269258c-1ab3-4db4-8e8e-70b68ca88acd</cmis:repositoryId>
+      <cmis:repositoryName>Main Repository</cmis:repositoryName>
+      <cmis:repositoryDescription></cmis:repositoryDescription>   
+      <cmis:vendorName>Alfresco</cmis:vendorName> 
+      <cmis:productName>Alfresco Repository (Community)</cmis:productName>
+      <cmis:productVersion>3.2.0 (r2 @build-number@)</cmis:productVersion>
+      <cmis:rootFolderId>workspace://SpacesStore/d14049b7-e63f-4075-acc2-a4cd5a541f3c</cmis:rootFolderId>
+      <cmis:capabilities>
+        <cmis:capabilityACL>none</cmis:capabilityACL>
+        <cmis:capabilityAllVersionsSearchable>false</cmis:capabilityAllVersionsSearchable>
+        <cmis:capabilityChanges>none</cmis:capabilityChanges>
+        <cmis:capabilityContentStreamUpdatability>anytime</cmis:capabilityContentStreamUpdatability>
+        <cmis:capabilityGetDescendants>true</cmis:capabilityGetDescendants>
+        <cmis:capabilityGetFolderTree>true</cmis:capabilityGetFolderTree>
+        <cmis:capabilityMultifiling>true</cmis:capabilityMultifiling>
+        <cmis:capabilityPWCSearchable>true</cmis:capabilityPWCSearchable>
+        <cmis:capabilityPWCUpdatable>true</cmis:capabilityPWCUpdatable>
+        <cmis:capabilityQuery>bothcombined</cmis:capabilityQuery>
+        <cmis:capabilityRenditions>none</cmis:capabilityRenditions>
+        <cmis:capabilityUnfiling>false</cmis:capabilityUnfiling>
+        <cmis:capabilityVersionSpecificFiling>false</cmis:capabilityVersionSpecificFiling>
+        <cmis:capabilityJoin>none</cmis:capabilityJoin>
+      </cmis:capabilities> 
+      <cmis:cmisVersionSupported>1.0</cmis:cmisVersionSupported>
+      <alf:cmisSpecificationTitle>Version 1.0 Committee Draft 04</alf:cmisSpecificationTitle>
+    </cmisra:repositoryInfo>
+
+    <cmisra:uritemplate>
+        <cmisra:template>http://cmis.alfresco.com:80/s/cmis/arg/n?noderef={id}&amp;filter={filter}&amp;includeAllowableActions={includeAllowableActions}&amp;includePolicyIds={includePolicyIds}&amp;includeRelationships={includeRelationships}&amp;includeACL={includeACL}&amp;renditionFilter={renditionFilter}</cmisra:template>
+        <cmisra:type>objectbyid</cmisra:type>
+        <cmisra:mediatype>application/atom+xml;type=entry</cmisra:mediatype>
+    </cmisra:uritemplate>
+    <cmisra:uritemplate>
+        <cmisra:template>http://cmis.alfresco.com:80/s/cmis/s/workspace:SpacesStore/arg/p?path={path}&amp;filter={filter}&amp;includeAllowableActions={includeAllowableActions}&amp;includePolicyIds={includePolicyIds}&amp;includeRelationships={includeRelationships}&amp;includeACL={includeACL}&amp;renditionFilter={renditionFilter}</cmisra:template>
+        <cmisra:type>objectbypath</cmisra:type>
+        <cmisra:mediatype>application/atom+xml;type=entry</cmisra:mediatype>
+    </cmisra:uritemplate>
+    <cmisra:uritemplate>
+        <cmisra:template>http://cmis.alfresco.com:80/s/cmis/type/{id}</cmisra:template>
+        <cmisra:type>typebyid</cmisra:type>
+        <cmisra:mediatype>application/atom+xml;type=entry</cmisra:mediatype>
+    </cmisra:uritemplate>
+    <cmisra:uritemplate>
+        <cmisra:template>http://cmis.alfresco.com:80/s/cmis/query?q={q}&amp;searchAllVersions={searchAllVersions}&amp;maxItems={maxItems}&amp;skipCount={skipCount}&amp;includeAllowableActions={includeAllowableActions}&amp;includeRelationships={includeRelationships}</cmisra:template>
+        <cmisra:type>query</cmisra:type>
+        <cmisra:mediatype>application/atom+xml;type=feed</cmisra:mediatype>
+    </cmisra:uritemplate>
+
+  </workspace> 
+</service> 

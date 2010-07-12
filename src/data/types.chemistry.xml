@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:cmis="http://docs.oasis-open.org/ns/cmis/core/200908/">
+	<id>urn:x-id:types</id>
+	<title type="text">Types</title>
+	<link href="http://0.0.0.0:8080/cmis/types" rel="self" />
+	<author>
+		<name>system</name>
+	</author>
+	<updated>2009-12-09T15:27:28.538Z</updated>
+	<entry>
+		<id>urn:x-tid:cmis:document</id>
+		<title type="text">Document Type</title>
+		<updated>2009-12-09T15:27:28.901Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Adocument" rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Adocument" rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Adocument" rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="cmis:document">
+			<cmis:id>cmis:document</cmis:id>
+			<cmis:localName>cmis:document</cmis:localName>
+			<cmis:queryName>cmis:document</cmis:queryName>
+			<cmis:displayName>Document Type</cmis:displayName>
+			<cmis:baseId>cmis:document</cmis:baseId>
+			<cmis:parentId />
+			<cmis:description></cmis:description>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>true</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:controllablePolicy>true</cmis:controllablePolicy>
+			<cmis:controllableACL>true</cmis:controllableACL>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>true</cmis:versionable>
+			<cmis:contentStreamAllowed>allowed</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<id>urn:x-tid:doc</id>
+		<title type="text">My Doc Type</title>
+		<updated>2009-12-09T15:27:28.909Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/doc" rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/doc" rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/doc" rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="doc">
+			<cmis:id>doc</cmis:id>
+			<cmis:localName>doc</cmis:localName>
+			<cmis:queryName>Doc</cmis:queryName>
+			<cmis:displayName>My Doc Type</cmis:displayName>
+			<cmis:baseId>cmis:document</cmis:baseId>
+			<cmis:parentId>cmis:document</cmis:parentId>
+			<cmis:description></cmis:description>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>true</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:controllablePolicy>true</cmis:controllablePolicy>
+			<cmis:controllableACL>true</cmis:controllableACL>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>true</cmis:versionable>
+			<cmis:contentStreamAllowed>allowed</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<id>urn:x-tid:cmis:folder</id>
+		<title type="text">Folder Type</title>
+		<updated>2009-12-09T15:27:28.917Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Afolder" rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Afolder" rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Afolder" rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="cmis:folder">
+			<cmis:id>cmis:folder</cmis:id>
+			<cmis:localName>cmis:folder</cmis:localName>
+			<cmis:queryName>cmis:folder</cmis:queryName>
+			<cmis:displayName>Folder Type</cmis:displayName>
+			<cmis:baseId>cmis:folder</cmis:baseId>
+			<cmis:parentId />
+			<cmis:description></cmis:description>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>true</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>true</cmis:controllableACL>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>false</cmis:versionable>
+			<cmis:contentStreamAllowed>notallowed
+			</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<id>urn:x-tid:chemistry:root</id>
+		<title type="text">Root Folder Type</title>
+		<updated>2009-12-09T15:27:28.922Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/chemistry%3Aroot" rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/chemistry%3Aroot" rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/chemistry%3Aroot" rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="chemistry:root">
+			<cmis:id>chemistry:root</cmis:id>
+			<cmis:localName>chemistry:root</cmis:localName>
+			<cmis:queryName>chemistry:root</cmis:queryName>
+			<cmis:displayName>Root Folder Type</cmis:displayName>
+			<cmis:baseId>cmis:folder</cmis:baseId>
+			<cmis:parentId>cmis:folder</cmis:parentId>
+			<cmis:description></cmis:description>
+			<cmis:creatable>false</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>false</cmis:queryable>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+			<cmis:fulltextIndexed>false</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>false
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>false</cmis:versionable>
+			<cmis:contentStreamAllowed>notallowed
+			</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<id>urn:x-tid:fold</id>
+		<title type="text">My Folder Type</title>
+		<updated>2009-12-09T15:27:28.927Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/fold" rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/fold" rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/fold" rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="fold">
+			<cmis:id>fold</cmis:id>
+			<cmis:localName>fold</cmis:localName>
+			<cmis:queryName>Fold</cmis:queryName>
+			<cmis:displayName>My Folder Type</cmis:displayName>
+			<cmis:baseId>cmis:folder</cmis:baseId>
+			<cmis:parentId>cmis:folder</cmis:parentId>
+			<cmis:description></cmis:description>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:controllablePolicy>true</cmis:controllablePolicy>
+			<cmis:controllableACL>true</cmis:controllableACL>
+			<cmis:fulltextIndexed>true</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>false</cmis:versionable>
+			<cmis:contentStreamAllowed>notallowed
+			</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<id>urn:x-tid:cmis:relationship</id>
+		<title type="text">Relationship Type</title>
+		<updated>2009-12-09T15:27:28.932Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Arelationship"
+			rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Arelationship"
+			rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Arelationship"
+			rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="cmis:relationship">
+			<cmis:id>cmis:relationship</cmis:id>
+			<cmis:localName>cmis:relationship</cmis:localName>
+			<cmis:queryName>cmis:relationship</cmis:queryName>
+			<cmis:displayName>Relationship Type</cmis:displayName>
+			<cmis:baseId>cmis:relationship</cmis:baseId>
+			<cmis:parentId />
+			<cmis:description></cmis:description>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+			<cmis:fulltextIndexed>false</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>false</cmis:versionable>
+			<cmis:contentStreamAllowed>notallowed
+			</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+	<entry>
+		<id>urn:x-tid:cmis:policy</id>
+		<title type="text">Policy Type</title>
+		<updated>2009-12-09T15:27:28.937Z</updated>
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Apolicy" rel="self" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Apolicy" rel="edit" />
+		<link href="http://0.0.0.0:8080/cmis/type/cmis%3Apolicy" rel="alternate" />
+		<cmisra:type xmlns:cmisra="http://docs.oasis-open.org/ns/cmis/restatom/200908/"
+			cmisra:id="cmis:policy">
+			<cmis:id>cmis:policy</cmis:id>
+			<cmis:localName>cmis:policy</cmis:localName>
+			<cmis:queryName>Policy</cmis:queryName>
+			<cmis:displayName>Policy Type</cmis:displayName>
+			<cmis:baseId>cmis:policy</cmis:baseId>
+			<cmis:parentId />
+			<cmis:description></cmis:description>
+			<cmis:creatable>true</cmis:creatable>
+			<cmis:fileable>false</cmis:fileable>
+			<cmis:queryable>true</cmis:queryable>
+			<cmis:controllablePolicy>false</cmis:controllablePolicy>
+			<cmis:controllableACL>false</cmis:controllableACL>
+			<cmis:fulltextIndexed>false</cmis:fulltextIndexed>
+			<cmis:includedInSupertypeQuery>true
+			</cmis:includedInSupertypeQuery>
+			<cmis:versionable>false</cmis:versionable>
+			<cmis:contentStreamAllowed>notallowed
+			</cmis:contentStreamAllowed>
+		</cmisra:type>
+	</entry>
+</feed>
