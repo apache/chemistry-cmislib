@@ -918,12 +918,12 @@ class Repository(object):
               '{filter}': '',
               '{includeAllowableActions}': 'false',
               '{includePolicyIds}': 'false',
-              '{includeRelationships}': 'false',
+              '{includeRelationships}': '',
               '{includeACL}': 'false',
               '{renditionFilter}': ''}
 
         options = {}
-        addOptions = {} # args specified, but not in the template
+        addOptions = {}  # args specified, but not in the template
         for k, v in kwargs.items():
             pKey = "{" + k + "}"
             if template.find(pKey) >= 0:
@@ -1614,12 +1614,12 @@ class CmisObject(object):
               '{filter}': '',
               '{includeAllowableActions}': 'false',
               '{includePolicyIds}': 'false',
-              '{includeRelationships}': 'false',
+              '{includeRelationships}': '',
               '{includeACL}': 'false',
               '{renditionFilter}': ''}
 
         options = {}
-        addOptions = {} # args specified, but not in the template
+        addOptions = {}  # args specified, but not in the template
         for k, v in self._kwargs.items():
             pKey = "{" + k + "}"
             if template.find(pKey) >= 0:
@@ -2495,7 +2495,7 @@ class Document(CmisObject):
             if contentElements[0].childNodes:
                 return contentElements[0].childNodes[0].data
 
-    def setContentStream(self, contentFile):
+    def setContentStream(self, contentFile, contentType=None):
 
         """
         See CMIS specification document 2.2.4.16 setContentStream
@@ -2518,11 +2518,16 @@ class Document(CmisObject):
         # set the content stream when that is the case
         assert(srcUrl), 'Unable to determine content stream URL.'
 
-        # build the Atom entry
-        #xmlDoc = self._getEntryXmlDoc(contentFile=contentFile)
+        # need to determine the mime type
+        mimetype = contentType
+        if not mimetype and hasattr(contentFile, 'name'):
+            mimetype, encoding = mimetypes.guess_type(contentFile.name)
 
-        # post the Atom entry
-        result = self._cmisClient.put(srcUrl, contentFile.read(), ATOM_XML_TYPE)
+        if not mimetype:
+            mimetype = 'application/binary'
+
+        # put the content file
+        result = self._cmisClient.put(srcUrl, contentFile.read(), mimetype)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 

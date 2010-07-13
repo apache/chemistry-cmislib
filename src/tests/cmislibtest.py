@@ -18,6 +18,7 @@
 Unit tests for cmislib
 '''
 import unittest
+from unittest import TestSuite, TestLoader
 from cmislib.model import CmisClient, ACE
 from cmislib.exceptions import \
                           ObjectNotFoundException, \
@@ -28,6 +29,11 @@ import os
 from time import sleep, time
 import settings
 
+if (settings.TEST_ROOT_PATH == "/"):
+    TEST_ROOT_PATH = ""
+else:
+    TEST_ROOT_PATH = settings.TEST_ROOT_PATH
+
 
 class CmisTestBase(unittest.TestCase):
 
@@ -37,7 +43,7 @@ class CmisTestBase(unittest.TestCase):
         """ Create a root test folder for the test. """
         self._cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD)
         self._repo = self._cmisClient.getDefaultRepository()
-        self._rootFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH)
+        self._rootFolder = self._repo.getObjectByPath(TEST_ROOT_PATH)
         self._folderName = " ".join(['cmislib', self.__class__.__name__, str(time())])
         self._testFolder = self._rootFolder.createFolder(self._folderName)
 
@@ -259,12 +265,12 @@ class RepositoryTest(CmisTestBase):
         doc10 = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=f)
         doc10Id = doc10.getObjectId()
         pwc = doc10.checkout()
-        doc11 = pwc.checkin(major='false') # checkin a minor version, 1.1
+        doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
         pwc = doc11.checkout()
-        doc20 = pwc.checkin() # checkin a major version, 2.0
+        doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
         pwc = doc20.checkout()
-        doc21 = pwc.checkin(major='false') # checkin a minor version, 2.1
+        doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
         doc21Id = doc21.getObjectId()
 
         docLatest = self._repo.getObject(doc10Id, returnVersion='latest')
@@ -295,16 +301,16 @@ class RepositoryTest(CmisTestBase):
         # create the folder structure
         parentFolder = self._testFolder.createFolder(parentFolderName)
         subFolder = parentFolder.createFolder(subFolderName)
-        searchFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH + "/".join([testFolderName, parentFolderName, subFolderName]))
+        searchFolder = self._repo.getObjectByPath("/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]))
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
 
         # create a test doc
         doc = subFolder.createDocument(docName)
-        searchDoc = self._repo.getObjectByPath(settings.TEST_ROOT_PATH + "/".join([testFolderName, parentFolderName, subFolderName, docName]))
+        searchDoc = self._repo.getObjectByPath("/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName, docName]))
         self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
 
         # get the subfolder by path, then ask for its children
-        subFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH + "/".join([testFolderName, parentFolderName, subFolderName]))
+        subFolder = self._repo.getObjectByPath("/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]))
         self.assertEquals(len(subFolder.getChildren().getResults()), 1)
 
     def testGetUnfiledDocs(self):
@@ -394,7 +400,7 @@ class FolderTest(CmisTestBase):
         self.assertTrue(isInResultSet(resultSet, grandChild))
 
         # test getting descendants with depth=-1
-        resultSet = self._testFolder.getDescendants() #-1 is the default depth
+        resultSet = self._testFolder.getDescendants()  # -1 is the default depth
         self.assert_(resultSet != None)
         self.assertEquals(3, len(resultSet.getResults()))
         self.assertTrue(isInResultSet(resultSet, childFolder1))
@@ -483,8 +489,8 @@ class FolderTest(CmisTestBase):
         # should be filtered if the server chooses to do so.
 
         # test when used with getObjectByPath
-        searchFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH + \
-                        "/".join([testFolderName, parentFolderName, subFolderName]), \
+        searchFolder = self._repo.getObjectByPath( \
+                        "/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]), \
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
         self.assertTrue(searchFolder.getProperties().has_key('cmis:objectId'))
@@ -492,8 +498,8 @@ class FolderTest(CmisTestBase):
         self.assertTrue(searchFolder.getProperties().has_key('cmis:baseTypeId'))
 
         # test when used with getObjectByPath + reload
-        searchFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH + \
-                        "/".join([testFolderName, parentFolderName, subFolderName]), \
+        searchFolder = self._repo.getObjectByPath( \
+                        "/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]), \
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
@@ -721,6 +727,10 @@ class DocumentTest(CmisTestBase):
 
     def testCheckinAfterGetPWC(self):
         '''Create a document in a test folder, check it out, call getPWC, then checkin'''
+        if not self._repo.getCapabilities()['PWCUpdatable'] == True:
+            print 'Repository does not support PWCUpdatable, skipping'
+            return
+
         testFilename = settings.TEST_BINARY_1
         contentFile = open(testFilename, 'rb')
         testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile)
@@ -771,12 +781,12 @@ class DocumentTest(CmisTestBase):
         f = open(settings.TEST_BINARY_1, 'rb')
         doc10 = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=f)
         pwc = doc10.checkout()
-        doc11 = pwc.checkin(major='false') # checkin a minor version, 1.1
+        doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
         pwc = doc11.checkout()
-        doc20 = pwc.checkin() # checkin a major version, 2.0
+        doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
         pwc = doc20.checkout()
-        doc21 = pwc.checkin(major='false') # checkin a minor version, 2.1
+        doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
         doc21Id = doc21.getObjectId()
 
         docLatest = doc10.getLatestVersion()
@@ -790,12 +800,12 @@ class DocumentTest(CmisTestBase):
         f = open(settings.TEST_BINARY_1, 'rb')
         doc10 = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=f)
         pwc = doc10.checkout()
-        doc11 = pwc.checkin(major='false') # checkin a minor version, 1.1
+        doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
         pwc = doc11.checkout()
-        doc20 = pwc.checkin() # checkin a major version, 2.0
+        doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Label = doc20.getProperties()['cmis:versionLabel']
         pwc = doc20.checkout()
-        doc21 = pwc.checkin(major='false') # checkin a minor version, 2.1
+        doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
         doc21Label = doc21.getProperties()['cmis:versionLabel']
 
         propsLatest = doc10.getPropertiesOfLatestVersion()
@@ -877,6 +887,36 @@ class DocumentTest(CmisTestBase):
         self.assertEquals(testFile2Size, os.path.getsize(exportFile2))
         os.remove(exportFile2)
 
+    def testSetContentStreamPWCMimeType(self):
+        '''Check the mimetype after the PWC checkin'''
+        if self._repo.getCapabilities()['ContentStreamUpdatability'] == 'none':
+            print 'This repository does not allow content stream updates, skipping'
+            return
+
+        testFile1 = settings.TEST_BINARY_1
+
+        # create a test document
+        contentFile = open(testFile1, 'rb')
+        newDoc = self._testFolder.createDocument(testFile1, contentFile=contentFile)
+        origMimeType = newDoc.properties['cmis:contentStreamMimeType']
+        contentFile.close()
+
+        # checkout the file
+        pwc = newDoc.checkout()
+
+        # update the PWC with a new file
+        f = open(testFile1, 'rb')
+        pwc.setContentStream(f)
+        f.close()
+
+        # checkin the PWC
+        newDoc = pwc.checkin()
+
+        # CMIS-231 the checked in doc should have the same mime type as
+        # the original document
+        self.assertEquals(origMimeType, \
+                          newDoc.properties['cmis:contentStreamMimeType'])
+
     def testSetContentStreamDoc(self):
         '''Set the content stream on a doc that's not checked out'''
         if self._repo.getCapabilities()['ContentStreamUpdatability'] != 'anytime':
@@ -927,6 +967,9 @@ class DocumentTest(CmisTestBase):
         '''Delete the content stream of a PWC'''
         if self._repo.getCapabilities()['ContentStreamUpdatability'] == 'none':
             print 'This repository does not allow content stream updates, skipping'
+            return
+        if not self._repo.getCapabilities()['PWCUpdatable'] == True:
+            print 'Repository does not support PWCUpdatable, skipping'
             return
 
         # create a test document
@@ -993,9 +1036,9 @@ class DocumentTest(CmisTestBase):
         '''Get all versions of an object'''
         testDoc = self._testFolder.createDocument('testdoc')
         pwc = testDoc.checkout()
-        doc = pwc.checkin() # 2.0
+        doc = pwc.checkin()  # 2.0
         pwc = doc.checkout()
-        doc = pwc.checkin() # 3.0
+        doc = pwc.checkin()  # 3.0
         self.assertEquals('3.0', doc.getProperties()['cmis:versionLabel'])
         rs = doc.getAllVersions()
         self.assertEquals(3, len(rs.getResults()))
@@ -1128,12 +1171,12 @@ class ACLTest(CmisTestBase):
             print 'Repository needs to support either both or basic permissions for this test'
             return
         acl = self._testFolder.getACL()
-        acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
+        acl.addEntry(ACE(settings.TEST_PRINCIPAL_ID, 'cmis:write', 'true'))
         acl = self._testFolder.applyACL(acl)
         # would be good to check that the permission we get back is what we set
         # but at least one server (Alf) appears to map the basic perm to a
         # repository-specific perm
-        self.assertTrue(acl.getEntries().has_key('jpotts'))
+        self.assertTrue(acl.getEntries().has_key(settings.TEST_PRINCIPAL_ID))
 
 
 def isInCollection(collection, targetDoc):
@@ -1170,4 +1213,24 @@ def isInResultSet(resultSet, targetDoc):
             done = True
 
 if __name__ == "__main__":
-    unittest.main()
+    #unittest.main()
+    tts = TestSuite()
+    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+
+    # WARNING: Potentially long-running tests
+
+    # Query tests
+    #tts.addTests(TestLoader().loadTestsFromTestCase(QueryTest))
+    #tts.addTest(QueryTest('testPropertyMatch'))
+    #tts.addTest(QueryTest('testFullText'))
+    #tts.addTest(QueryTest('testScore'))
+    #tts.addTest(QueryTest('testWildcardPropertyMatch'))
+    #tts.addTest(QueryTest('testSimpleSelect'))
+
+    unittest.TextTestRunner().run(tts)
