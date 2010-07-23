@@ -1773,9 +1773,17 @@ class CmisObject(object):
                 if node.childNodes and \
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0] and \
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes:
-                    propertyValue = parsePropValue(
-                       node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes[0].data,
-                       node.localName)
+                    valNodeList = node.getElementsByTagNameNS(CMIS_NS, 'value')
+                    if (len(valNodeList) == 1):
+                        propertyValue = parsePropValue(valNodeList[0].
+                                                       childNodes[0].data,
+                                                       node.localName)
+                    else:
+                        propertyValue = []
+                        for valNode in valNodeList:
+                            propertyValue.append(parsePropValue(valNode.
+                                                       childNodes[0].data,
+                                                       node.localName))
                 else:
                     propertyValue = None
                 self._properties[propertyName] = propertyValue
@@ -2173,34 +2181,76 @@ class CmisObject(object):
                 I could do a lookup to the type definition, but that doesn't
                 seem worth the performance hit
                 """
-                if isinstance(propValue, CmisId):
+                propType = type(propValue)
+                isList = False
+                if (propType == list):
+                    propType = type(propValue[0])
+                    isList = True
+
+                if (propType == CmisId):
                     propElementName = 'cmis:propertyId'
-                    propValueStr = propValue
-                elif isinstance(propValue, str):
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(val)
+                    else:
+                        propValueStrList = [propValue]
+                elif (propType == str):
                     propElementName = 'cmis:propertyString'
-                    propValueStr = propValue
-                elif isinstance(propValue, datetime.datetime):
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(val)
+                    else:
+                        propValueStrList = [propValue]
+                elif (propType == datetime.datetime):
                     propElementName = 'cmis:propertyDateTime'
-                    propValueStr = propValue.isoformat()
-                elif isinstance(propValue, bool):
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(val.isoformat())
+                    else:
+                        propValueStrList = [propValue.isoformat()]
+                elif (propType == bool):
                     propElementName = 'cmis:propertyBoolean'
-                    propValueStr = str(propValue).lower()
-                elif isinstance(propValue, int):
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(str(val).lower())
+                    else:
+                        propValueStrList = [str(propValue).lower()]
+                elif (propType == int):
                     propElementName = 'cmis:propertyInteger'
-                    propValueStr = str(propValue)
-                elif isinstance(propValue, float):
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(str(val))
+                    else:
+                        propValueStrList = [str(propValue)]
+                elif (propType == float):
                     propElementName = 'cmis:propertyDecimal'
-                    propValueStr = str(propValue)
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(str(val))
+                    else:
+                        propValueStrList = [str(propValue)]
                 else:
                     propElementName = 'cmis:propertyString'
-                    propValueStr = str(propValue)
+                    if isList:
+                        propValueStrList = []
+                        for val in propValue:
+                            propValueStrList.append(str(val))
+                    else:
+                        propValueStrList = [str(propValue)]
 
                 propElement = entryXmlDoc.createElementNS(CMIS_NS, propElementName)
                 propElement.setAttribute('propertyDefinitionId', propName)
-                valElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:value')
-                val = entryXmlDoc.createTextNode(propValueStr)
-                valElement.appendChild(val)
-                propElement.appendChild(valElement)
+                for val in propValueStrList:
+                    valElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:value')
+                    valText = entryXmlDoc.createTextNode(val)
+                    valElement.appendChild(valText)
+                    propElement.appendChild(valElement)
                 propsElement.appendChild(propElement)
 
         return entryXmlDoc
