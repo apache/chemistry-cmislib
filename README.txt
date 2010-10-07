@@ -11,7 +11,7 @@ http://www.oasis-open.org/committees/cmis
 
 SOURCE
 
-The source code for this project lives at http://code.google.com/p/cmislib.
+The source code for this project lives at http://incubator.apache.org/chemistry/
 
 TESTS
 

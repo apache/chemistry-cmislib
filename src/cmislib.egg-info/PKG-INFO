@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
 Name: cmislib
 Version: 0.4dev
-Summary: CMIS client library for Python
-Home-page: http://code.google.com/p/cmislib/
-Author: Jeff Potts
-Author-email: jeffpotts01@gmail.com
+Summary: Apache Chemistry (Incubating) CMIS client library for Python
+Home-page: http://incubator.apache.org/chemistry/
+Author: Apache Chemistry Project
+Author-email: chemistry-dev@incubator.apache.org
 License: Apache
 Description: ABOUT
         
