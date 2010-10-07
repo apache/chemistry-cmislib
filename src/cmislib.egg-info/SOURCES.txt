@@ -2,6 +2,7 @@
 .pydevproject
 LICENSE.txt
 MANIFEST.in
+NOTICE.txt
 README.txt
 setup.cfg
 setup.py
