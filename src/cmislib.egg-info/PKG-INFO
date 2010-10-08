@@ -5,7 +5,7 @@ Summary: Apache Chemistry (Incubating) CMIS client library for Python
 Home-page: http://incubator.apache.org/chemistry/
 Author: Apache Chemistry Project
 Author-email: chemistry-dev@incubator.apache.org
-License: Apache
+License: Apache License (2.0)
 Description: ABOUT
         
         Thanks for using cmislib, the CMIS client library for Python.
@@ -39,4 +39,5 @@ Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers
 Classifier: License :: OSI Approved :: Apache Software License
 Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
 Classifier: Topic :: Software Development :: Libraries
