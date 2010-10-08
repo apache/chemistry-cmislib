@@ -25,7 +25,7 @@ setup(
     version = version,
     author = 'Apache Chemistry Project',
     author_email = 'chemistry-dev@incubator.apache.org',
-    license = 'Apache',
+    license = 'Apache License (2.0)',
     url = 'http://incubator.apache.org/chemistry/',
     package_dir = {'':'src'},
     packages = find_packages("src"),
@@ -36,6 +36,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
+        "Programming Language :: Python",
         "Topic :: Software Development :: Libraries",
         ],
 )
