@@ -88,7 +88,7 @@ class CmisClient(object):
     Handles all communication with the CMIS provider.
     """
 
-    def __init__(self, repositoryUrl, username, password):
+    def __init__(self, repositoryUrl, username, password, **kwargs):
 
         """
         This is the entry point to the API. You need to know the
@@ -102,6 +102,7 @@ class CmisClient(object):
         self.repositoryUrl = repositoryUrl
         self.username = username
         self.password = password
+        self.extArgs = kwargs
 
     def __str__(self):
         """To string"""
@@ -120,7 +121,7 @@ class CmisClient(object):
         [{'repositoryName': u'Main Repository', 'repositoryId': u'83beb297-a6fa-4ac5-844b-98c871c0eea9'}]
         """
 
-        result = self.get(self.repositoryUrl)
+        result = self.get(self.repositoryUrl, **self.extArgs)
         if (type(result) == HTTPError):
             raise RuntimeException()
 
@@ -146,7 +147,7 @@ class CmisClient(object):
         u'Main Repository'
         """
 
-        doc = self.get(self.repositoryUrl)
+        doc = self.get(self.repositoryUrl, **self.extArgs)
         workspaceElements = doc.getElementsByTagNameNS(APP_NS, 'workspace')
 
         for workspaceElement in workspaceElements:
@@ -168,7 +169,7 @@ class CmisClient(object):
         u'83beb297-a6fa-4ac5-844b-98c871c0eea9'
         """
 
-        doc = self.get(self.repositoryUrl)
+        doc = self.get(self.repositoryUrl, **self.extArgs)
         workspaceElements = doc.getElementsByTagNameNS(APP_NS, 'workspace')
         # instantiate a Repository object with the first workspace
         # element we find
@@ -187,6 +188,10 @@ class CmisClient(object):
         the root folder (:class:`Repository.getRootFolder`) and drill down from
         there.
         """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if (len(self.extArgs) > 0):
+            kwargs.update(self.extArgs)
 
         result = Rest().get(url,
                             username=self.username,
@@ -208,6 +213,10 @@ class CmisClient(object):
         to delete a document you'd call :class:`Document.delete`.
         """
 
+        # merge the cmis client extended args with the ones that got passed in
+        if (len(self.extArgs) > 0):
+            kwargs.update(self.extArgs)
+
         result = Rest().delete(url,
                                username=self.username,
                                password=self.password,
@@ -228,6 +237,10 @@ class CmisClient(object):
         :class:`CmisObject.updateProperties`. Or, to check in a document that's
         been checked out, you'd call :class:`Document.checkin` on the PWC.
         """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if (len(self.extArgs) > 0):
+            kwargs.update(self.extArgs)
 
         result = Rest().post(url,
                              payload,
@@ -253,6 +266,10 @@ class CmisClient(object):
         :class:`CmisObject.updateProperties`. Or, to check in a document that's
         been checked out, you'd call :class:`Document.checkin` on the PWC.
         """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if (len(self.extArgs) > 0):
+            kwargs.update(self.extArgs)
 
         result = Rest().put(url,
                             payload,
@@ -2536,7 +2553,8 @@ class Document(CmisObject):
             # the cmis client class parses non-error responses
             result = Rest().get(srcUrl,
                                 username=self._cmisClient.username,
-                                password=self._cmisClient.password)
+                                password=self._cmisClient.password,
+                                **self._cmisClient.extArgs)
             if result.code != 200:
                 raise CmisException(result.code)
             return result

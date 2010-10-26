@@ -4,6 +4,8 @@ NOTICE.txt
 README.txt
 setup.cfg
 setup.py
+dist/hash-sign.sh
+dist/release.sh
 src/cmislib/__init__.py
 src/cmislib/exceptions.py
 src/cmislib/messages.py
