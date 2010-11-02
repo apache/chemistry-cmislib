@@ -1690,8 +1690,6 @@ class CmisObject(object):
 
     def getObjectParents(self):
         """
-        This has not yet been implemented.
-
         See CMIS specification document 2.2.3.5 getObjectParents
 
         The following optional arguments are not supported:
@@ -1701,9 +1699,20 @@ class CmisObject(object):
          - includeAllowableActions
          - includeRelativePathSegment
         """
+        # get the appropriate 'up' link
+        parentUrl = self._getLink(UP_REL)
 
-        # TODO To be implemented
-        raise NotImplementedError
+        if parentUrl == None:
+            raise NotSupportedException('Root folder does not support getObjectParents')
+
+        # invoke the URL
+        result = self._cmisClient.get(parentUrl)
+
+        if type(result) == HTTPError:
+            raise CmisException(result.code)
+
+        # return the result set
+        return ResultSet(self._cmisClient, self._repository, result)
 
     def getAllowableActions(self):
 

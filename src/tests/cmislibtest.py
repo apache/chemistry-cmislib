@@ -23,7 +23,8 @@ from cmislib.model import CmisClient, ACE
 from cmislib.exceptions import \
                           ObjectNotFoundException, \
                           PermissionDeniedException, \
-                          CmisException
+                          CmisException, \
+                          NotSupportedException
 from cmislib import messages
 import os
 from time import sleep, time
@@ -1049,6 +1050,17 @@ class DocumentTest(CmisTestBase):
 #            else:
 #                self.assertEquals('false',
 #                             rs.getResults().values()[count].getProperties()['cmis:isLatestVersion'])
+
+    def testGetObjectParents(self):
+        '''Gets all object parents of an CmisObject'''
+        childFolder = self._testFolder.createFolder('parentTest')
+        parentFolder = childFolder.getObjectParents().getResults()[0]
+        self.assertEquals(self._testFolder.getObjectId(), parentFolder.getObjectId())
+
+    def testGetObjectParentsWithinRootFolder(self):
+        '''Gets all object parents of a root folder'''
+        rootFolder = self._repo.getRootFolder()
+        self.assertRaises(NotSupportedException, rootFolder.getObjectParents)
 
 
 class TypeTest(unittest.TestCase):
