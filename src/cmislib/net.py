@@ -25,7 +25,8 @@ from urllib2 import HTTPBasicAuthHandler, \
                     HTTPDefaultErrorHandler, \
                     HTTPError, \
                     Request, \
-                    build_opener
+                    build_opener, \
+                    AbstractBasicAuthHandler
 
 
 class SmartRedirectHandler(HTTPRedirectHandler):
@@ -58,6 +59,34 @@ class DefaultErrorHandler(HTTPDefaultErrorHandler):
         result.status = code
         return result
 
+class ContextualBasicAuthHandler(HTTPBasicAuthHandler):
+    
+    """
+    Handles 401 errors without recursing indefinitely. The recursing
+    behaviour has been introduced in Python 2.6.5 to handle 401 redirects
+    used by some architectures of authentication.
+    """
+    
+    def __init__(self, password_mgr):
+        HTTPBasicAuthHandler.__init__(self, password_mgr)
+        self.authContext = set([])
+    
+    def http_error_401(self, req, fp, code, msg, headers):
+        """Override the default autoretry behaviour"""
+        url = req.get_full_url()
+        hdrs = req.header_items()
+        hdrs = ', '.join(['%s: %s' % (key, value) 
+                          for key, value in sorted(hdrs)])
+        context = (url, hdrs)
+        if context in self.authContext:
+            self.authContext.clear()
+            result = HTTPError(
+                req.get_full_url(), code, msg, headers, fp)
+            result.status = code
+            return result
+        self.authContext.add(context)
+        return self.http_error_auth_reqed('www-authenticate',
+                                          url, req, headers)
 
 class RESTService(object):
 
@@ -93,8 +122,8 @@ class RESTService(object):
         passwordManager.add_password(None, url, username, password)
 
         opener = build_opener(SmartRedirectHandler(),
-                                      DefaultErrorHandler(),
-                                      HTTPBasicAuthHandler(passwordManager))
+                              DefaultErrorHandler(),
+                              ContextualBasicAuthHandler(passwordManager))
 
         return opener.open(request)
 
@@ -118,8 +147,8 @@ class RESTService(object):
         passwordManager.add_password(None, url, username, password)
 
         opener = build_opener(SmartRedirectHandler(),
-                                      DefaultErrorHandler(),
-                                      HTTPBasicAuthHandler(passwordManager))
+                              DefaultErrorHandler(),
+                              ContextualBasicAuthHandler(passwordManager))
 
         #try:
         #    opener.open(request)
@@ -161,8 +190,8 @@ class RESTService(object):
         passwordManager.add_password(None, url, username, password)
 
         opener = build_opener(SmartRedirectHandler(),
-                                      DefaultErrorHandler(),
-                                      HTTPBasicAuthHandler(passwordManager))
+                              DefaultErrorHandler(),
+                              ContextualBasicAuthHandler(passwordManager))
 
         return opener.open(request)
 
@@ -199,8 +228,8 @@ class RESTService(object):
         passwordManager.add_password(None, url, username, password)
 
         opener = build_opener(SmartRedirectHandler(),
-                                      DefaultErrorHandler(),
-                                      HTTPBasicAuthHandler(passwordManager))
+                              DefaultErrorHandler(),
+                              ContextualBasicAuthHandler(passwordManager))
 
         try:
             return opener.open(request)
