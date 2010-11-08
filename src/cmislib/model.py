@@ -25,6 +25,7 @@ from cmislib.exceptions import CmisException, RuntimeException, \
 from cmislib import messages
 from urllib import quote_plus
 from urllib2 import HTTPError
+from urlparse import urlparse, urlunparse
 import re
 import mimetypes
 from xml.parsers.expat import ExpatError
@@ -2850,9 +2851,11 @@ class Folder(CmisObject):
         assert len(url) > 0, "Could not find the descendants url"
 
         # some servers return a depth arg as part of this URL
-        # so strip it off
+        # so strip it off but keep other args
         if url.find("?") >= 0:
-            url = url[:url.find("?")]
+            u = list(urlparse(url))
+            u[4] = '&'.join([p for p in u[4].split('&') if not p.startswith('depth=')])
+            url = urlunparse(u)
 
         return url
 
