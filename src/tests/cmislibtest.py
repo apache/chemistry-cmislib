@@ -486,6 +486,7 @@ class FolderTest(CmisTestBase):
         # create the folder structure
         parentFolder = self._testFolder.createFolder(parentFolderName)
         subFolder = parentFolder.createFolder(subFolderName)
+        subFolderPath = subFolder.getProperties().get("cmis:path")
 
         # Per CMIS-170, CMIS providers are not required to filter the
         # properties returned. So these tests will check only for the presence
@@ -493,8 +494,7 @@ class FolderTest(CmisTestBase):
         # should be filtered if the server chooses to do so.
 
         # test when used with getObjectByPath
-        searchFolder = self._repo.getObjectByPath( \
-                        "/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]), \
+        searchFolder = self._repo.getObjectByPath(subFolderPath, \
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
         self.assertTrue(searchFolder.getProperties().has_key('cmis:objectId'))
@@ -502,8 +502,7 @@ class FolderTest(CmisTestBase):
         self.assertTrue(searchFolder.getProperties().has_key('cmis:baseTypeId'))
 
         # test when used with getObjectByPath + reload
-        searchFolder = self._repo.getObjectByPath( \
-                        "/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]), \
+        searchFolder = self._repo.getObjectByPath(subFolderPath, \
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
