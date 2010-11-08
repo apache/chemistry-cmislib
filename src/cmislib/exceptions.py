@@ -18,7 +18,10 @@ class CmisException(Exception):
     Common base class for all exceptions.
     """
 
-    pass
+    def __init__(self, status=None, url=None):
+        Exception.__init__(self, "Error %s at %s" % (status, url))
+        self.status = status
+        self.url = url
 
 
 class InvalidArgumentException(CmisException):

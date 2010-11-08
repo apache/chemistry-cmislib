@@ -156,7 +156,7 @@ class CmisClient(object):
             if idElement[0].childNodes[0].data == repositoryId:
                 return Repository(self, workspaceElement)
 
-        raise ObjectNotFoundException
+        raise ObjectNotFoundException(url=self.repositoryUrl)
 
     def getDefaultRepository(self):
 
@@ -298,20 +298,21 @@ class CmisClient(object):
         See CMIS specification document 3.2.4.1 Common CMIS Exceptions
         """
 
+
         if error.status == 401:
-            raise PermissionDeniedException(error.status)
+            raise PermissionDeniedException(error.status, error.url)
         elif error.status == 400:
-            raise InvalidArgumentException(error.status)
+            raise InvalidArgumentException(error.status, error.url)
         elif error.status == 404:
-            raise ObjectNotFoundException(error.status)
+            raise ObjectNotFoundException(error.status, error.url)
         elif error.status == 403:
-            raise PermissionDeniedException(error.status)
+            raise PermissionDeniedException(error.status, error.url)
         elif error.status == 405:
-            raise NotSupportedException(error.status)
+            raise NotSupportedException(error.status, error.url)
         elif error.status == 409:
-            raise UpdateConflictException(error.status)
+            raise UpdateConflictException(error.status, error.url)
         elif error.status == 500:
-            raise RuntimeException(error.status)
+            raise RuntimeException(error.status, error.url)
 
     defaultRepository = property(getDefaultRepository)
     repositories = property(getRepositories)
