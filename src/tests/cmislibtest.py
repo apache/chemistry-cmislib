@@ -302,16 +302,19 @@ class RepositoryTest(CmisTestBase):
         # create the folder structure
         parentFolder = self._testFolder.createFolder(parentFolderName)
         subFolder = parentFolder.createFolder(subFolderName)
-        searchFolder = self._repo.getObjectByPath("/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]))
+        # name and path segment are not the same thing
+        subFolderPath = subFolder.getProperties().get("cmis:path")
+        searchFolder = self._repo.getObjectByPath(subFolderPath)
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
 
         # create a test doc
         doc = subFolder.createDocument(docName)
-        searchDoc = self._repo.getObjectByPath("/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName, docName]))
+        searchDocPath = subFolderPath + '/' + docName # TODO use proper path segment
+        searchDoc = self._repo.getObjectByPath(searchDocPath)
         self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
 
         # get the subfolder by path, then ask for its children
-        subFolder = self._repo.getObjectByPath("/".join([TEST_ROOT_PATH, testFolderName, parentFolderName, subFolderName]))
+        subFolder = self._repo.getObjectByPath(subFolderPath)
         self.assertEquals(len(subFolder.getChildren().getResults()), 1)
 
     def testGetUnfiledDocs(self):
@@ -1227,6 +1230,10 @@ def isInResultSet(resultSet, targetDoc):
 if __name__ == "__main__":
     #unittest.main()
     tts = TestSuite()
+    #tts.addTests(TestLoader().loadTestsFromName('testGetObjectByPath', RepositoryTest))
+    #unittest.TextTestRunner().run(tts)
+    #import sys; sys.exit(0)
+
     tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
     tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
     tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))

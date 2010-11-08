@@ -20,7 +20,8 @@
 #REPOSITORY_URL = 'http://localhost:8080/cmis/repository' # Apache Chemistry
 #REPOSITORY_URL = 'http://cmis.dnsdojo.com:8080/p8cmis/resources/DaphneA/Service'
 REPOSITORY_URL = 'http://localhost:8080/alfresco/s/api/cmis'  # Alfresco
-#REPOSITORY_URL = 'http://cmis.demo.nuxeo.org/nuxeo/site/cmis/repository'
+#REPOSITORY_URL = 'http://cmis.demo.nuxeo.org/nuxeo/atom/cmis' # Nuxeo demo
+#REPOSITORY_URL = 'http://localhost:8080/nuxeo/atom/cmis' # Nuxeo local
 #REPOSITORY_URL = 'http://localhost:8080/opencmis/atom'  # OpenCMIS from the OpenText guys
 #REPOSITORY_URL = 'http://ec2-174-129-218-67.compute-1.amazonaws.com/cmis/atom' #OpenText on Amazon
 #REPOSITORY_URL = 'http://localhost:8080/chemistry/atom'  # Apache Chemistry OpenCMIS
