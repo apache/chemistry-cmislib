@@ -1020,9 +1020,9 @@ class Repository(object):
         xmlDoc = self._getQueryXmlDoc(statement, **kwargs)
 
         # do the POST
-        #print 'posting:%s' % xmlDoc.toxml()
+        #print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
         result = self._cmisClient.post(queryUrl,
-                                       xmlDoc.toxml(),
+                                       xmlDoc.toxml(encoding='utf-8'),
                                        CMIS_QUERY_TYPE)
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -1862,7 +1862,7 @@ class CmisObject(object):
 
         # do a PUT of the entry
         updatedXmlDoc = self._cmisClient.put(selfUrl,
-                                             xmlEntryDoc.toxml(),
+                                             xmlEntryDoc.toxml(encoding='utf-8'),
                                              ATOM_XML_TYPE)
 
         # reset the xmlDoc for this object with what we got back from
@@ -1951,7 +1951,7 @@ class CmisObject(object):
         assert url != None, 'Could not determine relationships URL'
 
         result = self._cmisClient.post(url,
-                                       xmlDoc.toxml(),
+                                       xmlDoc.toxml(encoding='utf-8'),
                                        ATOM_XML_TYPE)
 
         if type(result) == HTTPError:
@@ -2075,7 +2075,7 @@ class CmisObject(object):
                 raise CmisException('The ACL to apply must be an instance of the ACL class.')
             aclUrl = self._getLink(ACL_REL)
             assert aclUrl, "Could not determine the object's ACL URL."
-            result = self._cmisClient.put(aclUrl, acl.getXmlDoc().toxml(), CMIS_ACL_TYPE)
+            result = self._cmisClient.put(aclUrl, acl.getXmlDoc().toxml(encoding='utf-8'), CMIS_ACL_TYPE)
             if type(result) == HTTPError:
                 raise CmisException(result.code)
             return ACL(xmlDoc=result)
@@ -2244,33 +2244,33 @@ class CmisObject(object):
                     if isList:
                         propValueStrList = []
                         for val in propValue:
-                            propValueStrList.append(str(val).lower())
+                            propValueStrList.append(unicode(val).lower())
                     else:
-                        propValueStrList = [str(propValue).lower()]
+                        propValueStrList = [unicode(propValue).lower()]
                 elif (propType == int):
                     propElementName = 'cmis:propertyInteger'
                     if isList:
                         propValueStrList = []
                         for val in propValue:
-                            propValueStrList.append(str(val))
+                            propValueStrList.append(unicode(val))
                     else:
-                        propValueStrList = [str(propValue)]
+                        propValueStrList = [unicode(propValue)]
                 elif (propType == float):
                     propElementName = 'cmis:propertyDecimal'
                     if isList:
                         propValueStrList = []
                         for val in propValue:
-                            propValueStrList.append(str(val))
+                            propValueStrList.append(unicode(val))
                     else:
-                        propValueStrList = [str(propValue)]
+                        propValueStrList = [unicode(propValue)]
                 else:
                     propElementName = 'cmis:propertyString'
                     if isList:
                         propValueStrList = []
                         for val in propValue:
-                            propValueStrList.append(str(val))
+                            propValueStrList.append(unicode(val))
                     else:
-                        propValueStrList = [str(propValue)]
+                        propValueStrList = [unicode(propValue)]
 
                 propElement = entryXmlDoc.createElementNS(CMIS_NS, propElementName)
                 propElement.setAttribute('propertyDefinitionId', propName)
@@ -2326,7 +2326,7 @@ class Document(CmisObject):
 
         # post it to to the checkedout collection URL
         result = self._cmisClient.post(checkoutUrl,
-                                       entryXmlDoc.toxml(),
+                                       entryXmlDoc.toxml(encoding='utf-8'),
                                        ATOM_XML_ENTRY_TYPE)
 
         if type(result) == HTTPError:
@@ -2449,7 +2449,7 @@ class Document(CmisObject):
         # Get the self link
         # Do a PUT of the empty ATOM to the self link
         url = self._getSelfLink()
-        result = self._cmisClient.put(url, entryXmlDoc.toxml(), ATOM_XML_TYPE, **kwargs)
+        result = self._cmisClient.put(url, entryXmlDoc.toxml(encoding='utf-8'), ATOM_XML_TYPE, **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2711,7 +2711,7 @@ class Folder(CmisObject):
 
         # post the Atom entry
         result = self._cmisClient.post(postUrl,
-                                       entryXml.toxml(),
+                                       entryXml.toxml(encoding='utf-8'),
                                        ATOM_XML_ENTRY_TYPE)
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2781,7 +2781,7 @@ class Folder(CmisObject):
                                       contentType, contentEncoding)
 
         # post the Atom entry
-        result = self._cmisClient.post(postUrl, xmlDoc.toxml(), ATOM_XML_ENTRY_TYPE)
+        result = self._cmisClient.post(postUrl, xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 

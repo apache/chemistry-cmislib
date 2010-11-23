@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -14,6 +15,7 @@
 #   Authors:
 #    Jeff Potts, Optaros
 #
+
 '''
 Unit tests for cmislib
 '''
@@ -247,6 +249,13 @@ class RepositoryTest(CmisTestBase):
     def testCreateDocument(self):
         '''Create a new 'content-less' document'''
         documentName = 'testDocument'
+        newDoc = self._repo.createDocument(documentName, parentFolder=self._testFolder)
+        self.assertEquals(documentName, newDoc.getName())
+
+    # CMIS-279
+    def testCreateDocumentUnicode(self):
+        '''Create a new doc with unicode characters in the name'''
+        documentName = u'abc cdeöäüß%§-_caféè.txt'
         newDoc = self._repo.createDocument(documentName, parentFolder=self._testFolder)
         self.assertEquals(documentName, newDoc.getName())
 
