@@ -16,9 +16,9 @@
 ========
 Examples
 ========
-There's nothing in cmislib that is specific to any particular vendor. Once you give it your CMIS provider's service URL and some credentials, it figures out where to go from there. But I haven't tested with anything other than Alfresco yet, and this thing is still hot out of the oven. If you want to help test it against other CMIS 1.0cd06 repositories I'd love the help.
+There's nothing in cmislib that is specific to any particular vendor. Once you give it your CMIS provider's service URL and some credentials, it figures out where to go from there.
 
-Anyway, let's look at some examples using Alfresco's public CMIS repository.
+Let's look at some examples using Alfresco's public CMIS repository.
 
 -----------------------
 Get a Repository object
@@ -27,7 +27,7 @@ Get a Repository object
  #. From the command-line, start the Python shell by typing `python` then hit enter.
  #. Import the CmisClient:
 
-    >>> from cmislib.model import CmisClient
+    >>> from cmislib import CmisClient
 
  #. Point the CmisClient at the repository's service URL 
 

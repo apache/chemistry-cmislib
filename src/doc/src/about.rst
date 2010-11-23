@@ -25,7 +25,7 @@ The library is being developed with the following guidelines:
 Quick Example
 -------------
 This should give you an idea of how easy and natural it is to work with the API:
-  >>> cmisClient = CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
+  >>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
   >>> repo = cmisClient.defaultRepository
   >>> rootFolder = repo.rootFolder
   >>> children = rootFolder.getChildren()

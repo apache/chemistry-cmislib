@@ -17,9 +17,9 @@ Code
 The :mod:`cmislib.model` Module
 -------------------------------
 
-The :mod:`cmislib.model` Module contains all the CMIS domain objects. When working with the repository, the first thing you need to do is grab an instance of :class:`cmislib.model.CmisClient`, passing it the repository endpoint URL, username, and password.
+The :mod:`cmislib.model` Module contains all the CMIS domain objects. The ones you will work with are listed as top level package elements. When working with the repository, the first thing you need to do is grab an instance of :class:`cmislib.CmisClient`, passing it the repository endpoint URL, username, and password.
 
->>> cmisClient = CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
+>>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
 
 From there you can get the default repository...
 
@@ -29,7 +29,7 @@ or a specific repository if you know the repository ID.
 
 >>> repo = cmisClient.getRepository('83beb297-a6fa-4ac5-844b-98c871c0eea9')
 
-Once you have that, you're off to the races. Use the :class:`cmislib.model.Repository` class to create new :class:`cmislib.model.Folder` and :class:`cmislib.model.Document` objects, perform searches, etc.
+Once you have that, you're off to the races. Use the :class:`cmislib.Repository` class to create new :class:`cmislib.Folder` and :class:`cmislib.Document` objects, perform searches, etc.
 
 .. automodule:: cmislib.model
    :members:

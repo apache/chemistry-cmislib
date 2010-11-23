@@ -17,12 +17,13 @@
 """
 Module containing the domain objects used to work with a CMIS provider.
 """
-from cmislib.net import RESTService as Rest
-from cmislib.exceptions import CmisException, RuntimeException, \
+from net import RESTService as Rest
+from exceptions import CmisException, RuntimeException, \
     ObjectNotFoundException, InvalidArgumentException, \
     PermissionDeniedException, NotSupportedException, \
     UpdateConflictException
-from cmislib import messages
+import messages
+
 from urllib import quote_plus
 from urllib2 import HTTPError
 from urlparse import urlparse, urlunparse
