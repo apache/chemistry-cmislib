@@ -9,3 +9,7 @@ os.environ['SOURCEDIR']=sys.path[0]
 print "Removing build dir: %s" % build_dir
 os.system("rm -rf " + build_dir)
 os.system("make -e --makefile=" + sys.path[0] + "/Makefile html")
+zip_file = sys.path[0] + "/../docs.zip"
+os.system("rm " + zip_file)
+os.chdir(build_dir)
+os.system("zip -r " + zip_file + " *")
