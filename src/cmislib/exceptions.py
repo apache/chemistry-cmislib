@@ -12,6 +12,7 @@
 #   limitations under the License.
 #
 
+
 class CmisException(Exception):
 
     """

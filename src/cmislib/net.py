@@ -59,23 +59,24 @@ class DefaultErrorHandler(HTTPDefaultErrorHandler):
         result.status = code
         return result
 
+
 class ContextualBasicAuthHandler(HTTPBasicAuthHandler):
-    
+
     """
     Handles 401 errors without recursing indefinitely. The recursing
     behaviour has been introduced in Python 2.6.5 to handle 401 redirects
     used by some architectures of authentication.
     """
-    
+
     def __init__(self, password_mgr):
         HTTPBasicAuthHandler.__init__(self, password_mgr)
         self.authContext = set([])
-    
+
     def http_error_401(self, req, fp, code, msg, headers):
         """Override the default autoretry behaviour"""
         url = req.get_full_url()
         hdrs = req.header_items()
-        hdrs = ', '.join(['%s: %s' % (key, value) 
+        hdrs = ', '.join(['%s: %s' % (key, value)
                           for key, value in sorted(hdrs)])
         context = (url, hdrs)
         if context in self.authContext:
@@ -87,6 +88,7 @@ class ContextualBasicAuthHandler(HTTPBasicAuthHandler):
         self.authContext.add(context)
         return self.http_error_auth_reqed('www-authenticate',
                                           url, req, headers)
+
 
 class RESTService(object):
 

@@ -299,7 +299,6 @@ class CmisClient(object):
         See CMIS specification document 3.2.4.1 Common CMIS Exceptions
         """
 
-
         if error.status == 401:
             raise PermissionDeniedException(error.status, error.url)
         elif error.status == 400:

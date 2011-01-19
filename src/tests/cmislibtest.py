@@ -318,7 +318,7 @@ class RepositoryTest(CmisTestBase):
 
         # create a test doc
         doc = subFolder.createDocument(docName)
-        searchDocPath = subFolderPath + '/' + docName # TODO use proper path segment
+        searchDocPath = subFolderPath + '/' + docName  # TODO use proper path segment
         searchDoc = self._repo.getObjectByPath(searchDocPath)
         self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
 
