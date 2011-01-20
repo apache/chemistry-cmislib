@@ -353,7 +353,7 @@ class Repository(object):
         This method will re-fetch the repository's XML data from the CMIS
         repository.
         """
-        self.xmlDoc = self._cmisClient.get(self._cmisClient.repositoryUrl)
+        self.xmlDoc = self._cmisClient.get(self._cmisClient.repositoryUrl.encode('utf-8'))
         self._initData()
 
     def _initData(self):
@@ -688,7 +688,7 @@ class Repository(object):
         if typeId:
             targetType = self.getTypeDefinition(typeId)
             childrenUrl = targetType.getLink(DOWN_REL, ATOM_XML_FEED_TYPE_P)
-            typesXmlDoc = self._cmisClient.get(childrenUrl)
+            typesXmlDoc = self._cmisClient.get(childrenUrl.encode('utf-8'))
             entryElements = typesXmlDoc.getElementsByTagNameNS(ATOM_NS, 'entry')
             types = []
             for entryElement in entryElements:
@@ -759,7 +759,7 @@ class Repository(object):
         if not descendUrl:
             raise NotSupportedException("Could not determine the type descendants URL")
 
-        typesXmlDoc = self._cmisClient.get(descendUrl, **kwargs)
+        typesXmlDoc = self._cmisClient.get(descendUrl.encode('utf-8'), **kwargs)
         entryElements = typesXmlDoc.getElementsByTagNameNS(ATOM_NS, 'entry')
         types = []
         for entryElement in entryElements:
@@ -956,7 +956,7 @@ class Repository(object):
         byObjectPathUrl = multiple_replace(params, template)
 
         # do a GET against the URL
-        result = self._cmisClient.get(byObjectPathUrl, **addOptions)
+        result = self._cmisClient.get(byObjectPathUrl.encode('utf-8'), **addOptions)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -1021,7 +1021,7 @@ class Repository(object):
 
         # do the POST
         #print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
-        result = self._cmisClient.post(queryUrl,
+        result = self._cmisClient.post(queryUrl.encode('utf-8'),
                                        xmlDoc.toxml(encoding='utf-8'),
                                        CMIS_QUERY_TYPE)
         if type(result) == HTTPError:
@@ -1082,7 +1082,7 @@ class Repository(object):
             raise NotSupportedException(messages.NO_CHANGE_LOG_SUPPORT)
 
         changesUrl = self.getLink(CHANGE_LOG_REL)
-        result = self._cmisClient.get(changesUrl, **kwargs)
+        result = self._cmisClient.get(changesUrl.encode('utf-8'), **kwargs)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -1278,7 +1278,7 @@ class Repository(object):
         elif collectionType == TYPES_COLL:
             return self.getTypeDefinitions()
 
-        result = self._cmisClient.get(self.getCollectionLink(collectionType), **kwargs)
+        result = self._cmisClient.get(self.getCollectionLink(collectionType).encode('utf-8'), **kwargs)
         if (type(result) == HTTPError):
             raise CmisException(result.code)
 
@@ -1391,7 +1391,7 @@ class ResultSet():
         '''
         link = self._getLink(rel)
         if link:
-            result = self._cmisClient.get(link)
+            result = self._cmisClient.get(link.encode('utf-8'))
             if (type(result) == HTTPError):
                 raise CmisException(result.code)
 
@@ -1652,7 +1652,7 @@ class CmisObject(object):
         # fill in the template
         byObjectIdUrl = multiple_replace(params, template)
 
-        self.xmlDoc = self._cmisClient.get(byObjectIdUrl, **addOptions)
+        self.xmlDoc = self._cmisClient.get(byObjectIdUrl.encode('utf-8'), **addOptions)
         self._initData()
 
         # if a returnVersion arg was passed in, it is possible we got back
@@ -1708,7 +1708,7 @@ class CmisObject(object):
             raise NotSupportedException('Root folder does not support getObjectParents')
 
         # invoke the URL
-        result = self._cmisClient.get(parentUrl)
+        result = self._cmisClient.get(parentUrl.encode('utf-8'))
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -1861,7 +1861,7 @@ class CmisObject(object):
         xmlEntryDoc = self._getEntryXmlDoc(properties)
 
         # do a PUT of the entry
-        updatedXmlDoc = self._cmisClient.put(selfUrl,
+        updatedXmlDoc = self._cmisClient.put(selfUrl.encode('utf-8'),
                                              xmlEntryDoc.toxml(encoding='utf-8'),
                                              ATOM_XML_TYPE)
 
@@ -1906,7 +1906,7 @@ class CmisObject(object):
         """
 
         url = self._getSelfLink()
-        result = self._cmisClient.delete(url, **kwargs)
+        result = self._cmisClient.delete(url.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -1950,7 +1950,7 @@ class CmisObject(object):
         url = self._getLink(RELATIONSHIPS_REL)
         assert url != None, 'Could not determine relationships URL'
 
-        result = self._cmisClient.post(url,
+        result = self._cmisClient.post(url.encode('utf-8'),
                                        xmlDoc.toxml(encoding='utf-8'),
                                        ATOM_XML_TYPE)
 
@@ -1990,7 +1990,7 @@ class CmisObject(object):
         url = self._getLink(RELATIONSHIPS_REL)
         assert url != None, 'Could not determine relationships URL'
 
-        result = self._cmisClient.get(url, **kwargs)
+        result = self._cmisClient.get(url.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2044,7 +2044,7 @@ class CmisObject(object):
             # if the ACL capability is discover or manage, this must be
             # supported
             aclUrl = self._getLink(ACL_REL)
-            result = self._cmisClient.get(aclUrl)
+            result = self._cmisClient.get(aclUrl.encode('utf-8'))
             if type(result) == HTTPError:
                 raise CmisException(result.code)
             return ACL(xmlDoc=result)
@@ -2075,7 +2075,7 @@ class CmisObject(object):
                 raise CmisException('The ACL to apply must be an instance of the ACL class.')
             aclUrl = self._getLink(ACL_REL)
             assert aclUrl, "Could not determine the object's ACL URL."
-            result = self._cmisClient.put(aclUrl, acl.getXmlDoc().toxml(encoding='utf-8'), CMIS_ACL_TYPE)
+            result = self._cmisClient.put(aclUrl.encode('utf-8'), acl.getXmlDoc().toxml(encoding='utf-8'), CMIS_ACL_TYPE)
             if type(result) == HTTPError:
                 raise CmisException(result.code)
             return ACL(xmlDoc=result)
@@ -2325,7 +2325,7 @@ class Document(CmisObject):
         entryXmlDoc = self._getEntryXmlDoc(properties)
 
         # post it to to the checkedout collection URL
-        result = self._cmisClient.post(checkoutUrl,
+        result = self._cmisClient.post(checkoutUrl.encode('utf-8'),
                                        entryXmlDoc.toxml(encoding='utf-8'),
                                        ATOM_XML_ENTRY_TYPE)
 
@@ -2449,7 +2449,7 @@ class Document(CmisObject):
         # Get the self link
         # Do a PUT of the empty ATOM to the self link
         url = self._getSelfLink()
-        result = self._cmisClient.put(url, entryXmlDoc.toxml(encoding='utf-8'), ATOM_XML_TYPE, **kwargs)
+        result = self._cmisClient.put(url.encode('utf-8'), entryXmlDoc.toxml(encoding='utf-8'), ATOM_XML_TYPE, **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2522,7 +2522,7 @@ class Document(CmisObject):
         versionsUrl = self._getLink(VERSION_HISTORY_REL)
 
         # invoke the URL
-        result = self._cmisClient.get(versionsUrl, **kwargs)
+        result = self._cmisClient.get(versionsUrl.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2562,7 +2562,7 @@ class Document(CmisObject):
             srcUrl = contentElements[0].attributes['src'].value
 
             # the cmis client class parses non-error responses
-            result = Rest().get(srcUrl,
+            result = Rest().get(srcUrl.encode('utf-8'),
                                 username=self._cmisClient.username,
                                 password=self._cmisClient.password,
                                 **self._cmisClient.extArgs)
@@ -2606,7 +2606,7 @@ class Document(CmisObject):
             mimetype = 'application/binary'
 
         # put the content file
-        result = self._cmisClient.put(srcUrl, contentFile.read(), mimetype)
+        result = self._cmisClient.put(srcUrl.encode('utf-8'), contentFile.read(), mimetype)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -2636,7 +2636,7 @@ class Document(CmisObject):
         assert(srcUrl), 'Unable to determine content stream URL.'
 
         # delete the content stream
-        result = self._cmisClient.delete(srcUrl)
+        result = self._cmisClient.delete(srcUrl.encode('utf-8'))
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -2710,7 +2710,7 @@ class Folder(CmisObject):
         entryXml = self._getEntryXmlDoc(properties)
 
         # post the Atom entry
-        result = self._cmisClient.post(postUrl,
+        result = self._cmisClient.post(postUrl.encode('utf-8'),
                                        entryXml.toxml(encoding='utf-8'),
                                        ATOM_XML_ENTRY_TYPE)
         if type(result) == HTTPError:
@@ -2779,9 +2779,9 @@ class Folder(CmisObject):
         # build the Atom entry
         xmlDoc = self._getEntryXmlDoc(properties, contentFile,
                                       contentType, contentEncoding)
-
+        
         # post the Atom entry
-        result = self._cmisClient.post(postUrl, xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
+        result = self._cmisClient.post(postUrl.encode('utf-8'), xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -2818,7 +2818,7 @@ class Folder(CmisObject):
         # get the appropriate 'down' link
         childrenUrl = self.getChildrenLink()
         # invoke the URL
-        result = self._cmisClient.get(childrenUrl, **kwargs)
+        result = self._cmisClient.get(childrenUrl.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2904,7 +2904,7 @@ class Folder(CmisObject):
         descendantsUrl = self.getDescendantsLink()
 
         # invoke the URL
-        result = self._cmisClient.get(descendantsUrl, **kwargs)
+        result = self._cmisClient.get(descendantsUrl.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2943,7 +2943,7 @@ class Folder(CmisObject):
         # Get the descendants link and do a GET against it
         url = self._getLink(FOLDER_TREE_REL)
         assert url != None, 'Unable to determine folder tree link'
-        result = self._cmisClient.get(url, **kwargs)
+        result = self._cmisClient.get(url.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2963,7 +2963,7 @@ class Folder(CmisObject):
         # get the appropriate 'up' link
         parentUrl = self._getLink(UP_REL)
         # invoke the URL
-        result = self._cmisClient.get(parentUrl)
+        result = self._cmisClient.get(parentUrl.encode('utf-8'))
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -2996,7 +2996,7 @@ class Folder(CmisObject):
 
         # Get the descendants link and do a DELETE against it
         url = self._getLink(DOWN_REL, CMIS_TREE_TYPE_P)
-        result = self._cmisClient.delete(url, **kwargs)
+        result = self._cmisClient.delete(url.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
@@ -3279,7 +3279,7 @@ class ObjectType(object):
         template = templates['typebyid']['template']
         params = {'{id}': self._typeId}
         byTypeIdUrl = multiple_replace(params, template)
-        result = self._cmisClient.get(byTypeIdUrl, **kwargs)
+        result = self._cmisClient.get(byTypeIdUrl.encode('utf-8'), **kwargs)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -3702,7 +3702,7 @@ class ChangeEntry(object):
         if (len(aclEls) == 1):
             return ACL(self._cmisClient, self._repository, aclEls[0])
         elif aclUrl:
-            result = self._cmisClient.get(aclUrl)
+            result = self._cmisClient.get(aclUrl.encode('utf-8'))
             if type(result) == HTTPError:
                 raise CmisException(result.code)
             return ACL(xmlDoc=result)
