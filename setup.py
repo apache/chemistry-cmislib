@@ -28,8 +28,9 @@ setup(
     license = 'Apache License (2.0)',
     url = 'http://incubator.apache.org/chemistry/',
     package_dir = {'':'src'},
-    packages = find_packages("src"),
-    include_package_data = True,
+    packages = find_packages('src', exclude=['tests']),
+    #include_package_data = True,
+    exclude_package_data = {'':['tests']},
     long_description = read('README.txt'),
     classifiers = [
         "Development Status :: 4 - Beta",
