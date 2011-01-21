@@ -12,6 +12,7 @@ src/cmislib/exceptions.py
 src/cmislib/messages.py
 src/cmislib/model.py
 src/cmislib/net.py
+src/cmislib.egg-info/DISCLAIMER
 src/cmislib.egg-info/LICENSE.txt
 src/cmislib.egg-info/NOTICE.txt
 src/cmislib.egg-info/PKG-INFO
