@@ -18,7 +18,7 @@
 #
 
 recursive-include src/doc/build *
-prune src/doc/build/.doctrees/
+prune src/doc/build/.doctrees
 exclude src/doc/build/.buildinfo
 exclude .*project
 include LICENSE.txt
