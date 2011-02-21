@@ -3003,32 +3003,61 @@ class Folder(CmisObject):
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
-    def addObject(self, cmisObject):
+    def addObject(self, cmisObject, **kwargs):
 
         """
-        This is not yet implemented.
+        Adds the specified object as a child of this object. No new object is
+        created. The repository must support multifiling for this to work.
 
         See CMIS specification document 2.2.5.1 addObjectToFolder
 
-        The optional allVersions argument is not yet supported.
+        >>> sub1 = repo.getObjectByPath("/cmislib/sub1")
+        >>> sub2 = repo.getObjectByPath("/cmislib/sub2")
+        >>> doc = sub1.createDocument("testdoc1")
+        >>> len(sub1.getChildren())
+        1
+        >>> len(sub2.getChildren())
+        0
+        >>> sub2.addObject(doc)
+        >>> len(sub2.getChildren())
+        1
+        >>> sub2.getChildren()[0].name
+        u'testdoc1'
+
+        The following optional arguments are supported:
+         - allVersions
         """
 
-        # TODO: To be implemented.
-#        It looks as if all you need to do is take the object and post its entry
-#        XML to the target folder's children URL as if you were creating a new
-#        object.
-        raise NotImplementedError
+        if not self._repository.getCapabilities()['Multifiling']:
+            raise NotSupportedException('This repository does not support multifiling')
+        
+        postUrl = self.getChildrenLink()
+        
+        # post the Atom entry
+        result = self._cmisClient.post(postUrl.encode('utf-8'), cmisObject.xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE, **kwargs)
+        if type(result) == HTTPError:
+            raise CmisException(result.code)
 
     def removeObject(self, cmisObject):
 
         """
-        This is not yet implemented.
+        Removes the specified object from this folder. The repository must
+        support unfiling for this to work.
 
         See CMIS specification document 2.2.5.2 removeObjectFromFolder
         """
 
-        # TODO: To be implemented
-        raise NotImplementedError
+        if not self._repository.getCapabilities()['Unfiling']:
+            raise NotSupportedException('This repository does not support unfiling')
+
+        postUrl = self._repository.getCollectionLink(UNFILED_COLL)
+
+        args = {"removeFrom": self.getObjectId()}
+
+        # post the Atom entry to the unfiled collection
+        result = self._cmisClient.post(postUrl.encode('utf-8'), cmisObject.xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE, **args)
+        if type(result) == HTTPError:
+            raise CmisException(result.code)
 
 
 class Relationship(CmisObject):

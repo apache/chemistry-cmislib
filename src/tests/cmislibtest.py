@@ -574,6 +574,38 @@ class FolderTest(CmisTestBase):
         parentFolder = childFolder.getParent()
         self.assertEquals(self._testFolder.getObjectId(), parentFolder.getObjectId())
 
+    def testAddObject(self):
+        '''Add an existing object to another folder'''
+        if self._repo.getCapabilities()['Multifiling'] == 'none':
+            print 'This repository does not allow multifiling, skipping'
+            return
+
+        subFolder1 = self._testFolder.createFolder('sub1')
+        self.assertEquals(len(subFolder1.getChildren()), 0)
+        subFolder2 = self._testFolder.createFolder('sub2')
+        subFolder1.addObject(subFolder2)
+        self.assertEquals(len(subFolder1.getChildren()), 1)
+        self.assertEquals(subFolder2.name, subFolder1.getChildren()[0].name)
+
+    def testRemoveObject(self):
+        '''Remove an existing object from a secondary folder'''
+        if self._repo.getCapabilities()['Unfiling'] == 'none':
+            print 'This repository does not allow unfiling, skipping'
+            return
+
+        subFolder1 = self._testFolder.createFolder('sub1')
+        doc = subFolder1.createDocument('testdoc1')
+        self.assertEquals(len(subFolder1.getChildren()), 1)
+        subFolder2 = self._testFolder.createFolder('sub2')
+        self.assertEquals(len(subFolder2.getChildren()), 0)
+        subFolder2.addObject(doc)
+        self.assertEquals(len(subFolder2.getChildren()), 1)
+        self.assertEquals(subFolder1.getChildren()[0].name, subFolder2.getChildren()[0].name)
+        subFolder2.removeObject(doc)
+        self.assertEquals(len(subFolder2.getChildren()), 0)
+        self.assertEquals(len(subFolder1.getChildren()), 1)
+        self.assertEquals(doc.name, subFolder1.getChildren()[0].name)
+        
     # Exceptions
 
     def testBadParentFolder(self):
@@ -1244,14 +1276,16 @@ if __name__ == "__main__":
     #unittest.TextTestRunner().run(tts)
     #import sys; sys.exit(0)
 
-    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
-
+#    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+    tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
+    #tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
+    
     # WARNING: Potentially long-running tests
 
     # Query tests

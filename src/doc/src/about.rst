@@ -53,8 +53,6 @@ Change history
  * change token
 
 Unfiling/multifiling support
- * addObject (WIP)
- * removeObject (WIP)
  * createDocument without a parent folder (unfiled) (WIP)
  * getObjectParents (WIP)
 

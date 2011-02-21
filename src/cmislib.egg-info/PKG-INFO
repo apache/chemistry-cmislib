@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: cmislib
-Version: 0.4
+Version: 0.5
 Summary: Apache Chemistry (Incubating) CMIS client library for Python
 Home-page: http://incubator.apache.org/chemistry/
 Author: Apache Chemistry Project
