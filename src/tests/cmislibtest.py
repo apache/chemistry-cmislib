@@ -628,6 +628,20 @@ class FolderTest(CmisTestBase):
         self.assertEquals(len(subFolder2.getChildren()), 0)
         self.assertEquals(len(subFolder1.getChildren()), 1)
         self.assertEquals(doc.name, subFolder1.getChildren()[0].name)
+
+    def testFolderLeadingDot(self):
+        '''Create a folder with a leading dot in it's name'''
+        leadingDotFolder = self._testFolder.createFolder('.leadingDot')
+        resultSet = self._testFolder.getChildren()
+        self.assert_(resultSet != None)
+        self.assertTrue(leadingDotFolder.getName().startswith('.'))
+
+    def testFolderTrailingDot(self):
+        '''Create a folder with a trailing dot in it's name'''
+        trailingDotFolder = self._testFolder.createFolder('trailingDot.')
+        resultSet = self._testFolder.getChildren()
+        self.assert_(resultSet != None)
+        self.assertTrue(trailingDotFolder.getName().endswith('.'))
         
     # Exceptions
 
@@ -1318,22 +1332,25 @@ if __name__ == "__main__":
     #unittest.TextTestRunner().run(tts)
     #import sys; sys.exit(0)
 
-#    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
-#    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
-#    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
-#    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
-#    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
-#    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
-#    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
-    tts.addTests(TestLoader().loadTestsFromName('testCreateDocument', RepositoryTest))
-    tts.addTests(TestLoader().loadTestsFromName('testMoveDocument', RepositoryTest))
-    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentBinary', DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentPlain', DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
-    tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
-    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
-        
+    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+
+#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocument', RepositoryTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testMoveDocument', RepositoryTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentBinary', DocumentTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentPlain', DocumentTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testFolderLeadingDot', FolderTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testFolderTrailingDot', FolderTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
+            
     # WARNING: Potentially long-running tests
 
     # Query tests
