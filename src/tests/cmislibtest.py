@@ -1109,6 +1109,25 @@ class DocumentTest(CmisTestBase):
         rootFolder = self._repo.getRootFolder()
         self.assertRaises(NotSupportedException, rootFolder.getObjectParents)
 
+    def testGetObjectParentsMultiple(self):
+        '''Gets all parents of a multi-filed object'''
+        if self._repo.getCapabilities()['Multifiling'] == False:
+            print 'This repository does not allow multifiling, skipping'
+            return
+
+        subFolder1 = self._testFolder.createFolder('sub1')
+        doc = subFolder1.createDocument('testdoc1')
+        self.assertEquals(len(subFolder1.getChildren()), 1)
+        subFolder2 = self._testFolder.createFolder('sub2')
+        self.assertEquals(len(subFolder2.getChildren()), 0)
+        subFolder2.addObject(doc)
+        self.assertEquals(len(subFolder2.getChildren()), 1)
+        self.assertEquals(subFolder1.getChildren()[0].name, subFolder2.getChildren()[0].name)
+        parentNames = ['sub1', 'sub2']
+        for parent in doc.getObjectParents():
+            parentNames.remove(parent.name)
+        self.assertEquals(len(parentNames), 0)
+
 
 class TypeTest(unittest.TestCase):
 
@@ -1278,13 +1297,17 @@ if __name__ == "__main__":
     #unittest.TextTestRunner().run(tts)
     #import sys; sys.exit(0)
 
-    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
+#    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+    tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
+    tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
+    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
+    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
         
     # WARNING: Potentially long-running tests
 
