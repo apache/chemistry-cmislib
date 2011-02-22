@@ -44,7 +44,6 @@ Miscellaneous
  * createDocumentFromSource
  * getProperties filter
  * getContentStream stream id
- * Document.move (WIP)
 
 Renditions
  * getRenditions
@@ -53,8 +52,9 @@ Change history
  * change token
 
 Unfiling/multifiling support
- * createDocument without a parent folder (unfiled) (WIP)
- * getObjectParents (WIP)
+ * createDocument without a parent folder (unfiled)
+
+  * The spec does not yet support this. Although the spec does say that a folder ID is optional, it does not specify which URL to post the unfiled document to.
 
 Policies
  * Policy object

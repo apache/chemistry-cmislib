@@ -353,6 +353,27 @@ class RepositoryTest(CmisTestBase):
         self.assertTrue(isInResultSet(self._repo.getUnfiledDocs(), newDoc))
         self.assertEquals('testdoc', newDoc.getTitle())
 
+#    def testCreateUnfiledDocument(self):
+#        '''Create a new unfiled document'''
+#        if self._repo.getCapabilities()['Unfiling'] != True:
+#            print 'Repo does not support unfiling, skipping'
+#            return        
+#        documentName = 'testDocument'
+#        newDoc = self._repo.createDocument(documentName)
+#        self.assertEquals(documentName, newDoc.getName())
+
+    def testMoveDocument(self):
+        '''Move a Document from one folder to another folder'''
+        subFolder1 = self._testFolder.createFolder('sub1')
+        doc = subFolder1.createDocument('testdoc1')
+        self.assertEquals(len(subFolder1.getChildren()), 1)
+        subFolder2 = self._testFolder.createFolder('sub2')
+        self.assertEquals(len(subFolder2.getChildren()), 0)
+        doc.move(subFolder1, subFolder2)
+        self.assertEquals(len(subFolder1.getChildren()), 0)
+        self.assertEquals(len(subFolder2.getChildren()), 1)
+        self.assertEquals(doc.name, subFolder2.getChildren()[0].name)
+
     #Exceptions
 
     def testGetObjectBadId(self):
@@ -1304,6 +1325,10 @@ if __name__ == "__main__":
 #    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
 #    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
 #    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+    tts.addTests(TestLoader().loadTestsFromName('testCreateDocument', RepositoryTest))
+    tts.addTests(TestLoader().loadTestsFromName('testMoveDocument', RepositoryTest))
+    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentBinary', DocumentTest))
+    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentPlain', DocumentTest))
     tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
     tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
     tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))

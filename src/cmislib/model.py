@@ -1125,18 +1125,44 @@ class Repository(object):
          - removeACEs
         """
 
+        postUrl = ''
         # if you didn't pass in a parent folder
         if parentFolder == None:
             # if the repository doesn't require fileable objects to be filed
             if self.getCapabilities()['Unfiling']:
                 # has not been implemented
+                #postUrl = self.getCollectionLink(UNFILED_COLL)
                 raise NotImplementedError
             else:
                 # this repo requires fileable objects to be filed
                 raise InvalidArgumentException
+        else:
+            postUrl = parentFolder.getChildrenLink()
 
-        return parentFolder.createDocument(name, properties, contentFile,
-            contentType, contentEncoding)
+        # make sure a name is set
+        properties['cmis:name'] = name
+
+        # hardcoding to cmis:document if it wasn't
+        # passed in via props
+        if not properties.has_key('cmis:objectTypeId'):
+            properties['cmis:objectTypeId'] = CmisId('cmis:document')
+        # and if it was passed in, making sure it is a CmisId
+        elif not isinstance(properties['cmis:objectTypeId'], CmisId):
+            properties['cmis:objectTypeId'] = CmisId(properties['cmis:objectTypeId'])
+
+        # build the Atom entry
+        xmlDoc = getEntryXmlDoc(properties, contentFile,
+                                      contentType, contentEncoding)
+        
+        # post the Atom entry
+        result = self._cmisClient.post(postUrl.encode('utf-8'), xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
+        if type(result) == HTTPError:
+            raise CmisException(result.code)
+
+        # what comes back is the XML for the new document,
+        # so use it to instantiate a new document
+        # then return it
+        return Document(self._cmisClient, self, xmlDoc=result)
 
     def createDocumentFromSource(self,
                                  sourceId,
@@ -1860,7 +1886,7 @@ class CmisObject(object):
         selfUrl = self._getSelfLink()
 
         # build the entry based on the properties provided
-        xmlEntryDoc = self._getEntryXmlDoc(properties)
+        xmlEntryDoc = getEntryXmlDoc(properties)
 
         # do a PUT of the entry
         updatedXmlDoc = self._cmisClient.put(selfUrl.encode('utf-8'),
@@ -1875,21 +1901,27 @@ class CmisObject(object):
         self._initData()
         return self
 
-    def move(self, targetFolderId, sourceFolderId):
+    def move(self, sourceFolder, targetFolder):
 
         """
-        This is not yet implemented.
+        Moves an object from the source folder to the target folder.
 
         See CMIS specification document 2.2.4.13 move
+        
+        >>> sub1 = repo.getObjectByPath('/cmislib/sub1')
+        >>> sub2 = repo.getObjectByPath('/cmislib/sub2')
+        >>> doc = repo.getObjectByPath('/cmislib/sub1/testdoc1')
+        >>> doc.move(sub1, sub2)
         """
 
-        #TODO to be implemented
-#        From looking at Alfresco, it seems as if you can post an atom entry
-#        with an object ID to a new folder and pass the existing folder in the
-#        sourceFolderId argument and that will trigger a move.
-#
-#        See the notes on Folder.addObject
-        raise NotImplementedError
+        postUrl = targetFolder.getChildrenLink()
+        
+        args = {"sourceFolderId": sourceFolder.id}
+        
+        # post the Atom entry
+        result = self._cmisClient.post(postUrl.encode('utf-8'), self.xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE, **args)
+        if type(result) == HTTPError:
+            raise CmisException(result.code)
 
     def delete(self, **kwargs):
 
@@ -1947,7 +1979,7 @@ class CmisObject(object):
         props['cmis:sourceId'] = self.getObjectId()
         props['cmis:targetId'] = targetObj.getObjectId()
         props['cmis:objectTypeId'] = relTypeId
-        xmlDoc = self._getEntryXmlDoc(props)
+        xmlDoc = getEntryXmlDoc(props)
 
         url = self._getLink(RELATIONSHIPS_REL)
         assert url != None, 'Could not determine relationships URL'
@@ -2125,165 +2157,7 @@ class CmisObject(object):
                     if relAttr == rel:
                         return linkElement.attributes['href'].value
 
-    def _getEmptyXmlDoc(self):
-
-        """
-        Internal helper method that knows how to build an empty Atom entry.
-        """
-
-        entryXmlDoc = minidom.Document()
-        entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
-        entryElement.setAttribute('xmlns', ATOM_NS)
-        entryXmlDoc.appendChild(entryElement)
-        return entryXmlDoc
-
-    def _getEntryXmlDoc(self, properties=None, contentFile=None,
-                        contentType=None, contentEncoding=None):
-
-        """
-        Internal helper method that knows how to build an Atom entry based
-        on the properties and, optionally, the contentFile provided.
-        """
-
-        entryXmlDoc = minidom.Document()
-        entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
-        entryElement.setAttribute('xmlns', ATOM_NS)
-        entryElement.setAttribute('xmlns:app', APP_NS)
-        entryElement.setAttribute('xmlns:cmisra', CMISRA_NS)
-        entryXmlDoc.appendChild(entryElement)
-
-        # if there is a File, encode it and add it to the XML
-        if contentFile:
-            mimetype = contentType
-            encoding = contentEncoding
-
-            # need to determine the mime type
-            if not mimetype and hasattr(contentFile, 'name'):
-                mimetype, encoding = mimetypes.guess_type(contentFile.name)
-
-            if not mimetype:
-                mimetype = 'application/binary'
-
-            if not encoding:
-                encoding = 'utf8'
-
-            # This used to be ATOM_NS content but there is some debate among
-            # vendors whether the ATOM_NS content must always be base64
-            # encoded. The spec does mandate that CMISRA_NS content be encoded
-            # and that element takes precedence over ATOM_NS content if it is
-            # present, so it seems reasonable to use CMIS_RA content for now
-            # and encode everything.
-
-            fileData = contentFile.read().encode("base64")
-            contentElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:content')
-            mediaElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:mediatype')
-            mediaElementText = entryXmlDoc.createTextNode(mimetype)
-            mediaElement.appendChild(mediaElementText)
-            base64Element = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:base64')
-            base64ElementText = entryXmlDoc.createTextNode(fileData)
-            base64Element.appendChild(base64ElementText)
-            contentElement.appendChild(mediaElement)
-            contentElement.appendChild(base64Element)
-
-            entryElement.appendChild(contentElement)
-
-        objectElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:object')
-        objectElement.setAttribute('xmlns:cmis', CMIS_NS)
-        entryElement.appendChild(objectElement)
-
-        if properties:
-            # a name is required for most things, but not for a checkout
-            if properties.has_key('cmis:name'):
-                titleElement = entryXmlDoc.createElementNS(ATOM_NS, "title")
-                titleText = entryXmlDoc.createTextNode(properties['cmis:name'])
-                titleElement.appendChild(titleText)
-                entryElement.appendChild(titleElement)
-
-            propsElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:properties')
-            objectElement.appendChild(propsElement)
-
-            for propName, propValue in properties.items():
-                """
-                the name of the element here is significant: it includes the
-                data type. I should be able to figure out the right type based
-                on the actual type of the object passed in.
-
-                I could do a lookup to the type definition, but that doesn't
-                seem worth the performance hit
-                """
-                propType = type(propValue)
-                isList = False
-                if (propType == list):
-                    propType = type(propValue[0])
-                    isList = True
-
-                if (propType == CmisId):
-                    propElementName = 'cmis:propertyId'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(val)
-                    else:
-                        propValueStrList = [propValue]
-                elif (propType == str):
-                    propElementName = 'cmis:propertyString'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(val)
-                    else:
-                        propValueStrList = [propValue]
-                elif (propType == datetime.datetime):
-                    propElementName = 'cmis:propertyDateTime'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(val.isoformat())
-                    else:
-                        propValueStrList = [propValue.isoformat()]
-                elif (propType == bool):
-                    propElementName = 'cmis:propertyBoolean'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(unicode(val).lower())
-                    else:
-                        propValueStrList = [unicode(propValue).lower()]
-                elif (propType == int):
-                    propElementName = 'cmis:propertyInteger'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(unicode(val))
-                    else:
-                        propValueStrList = [unicode(propValue)]
-                elif (propType == float):
-                    propElementName = 'cmis:propertyDecimal'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(unicode(val))
-                    else:
-                        propValueStrList = [unicode(propValue)]
-                else:
-                    propElementName = 'cmis:propertyString'
-                    if isList:
-                        propValueStrList = []
-                        for val in propValue:
-                            propValueStrList.append(unicode(val))
-                    else:
-                        propValueStrList = [unicode(propValue)]
-
-                propElement = entryXmlDoc.createElementNS(CMIS_NS, propElementName)
-                propElement.setAttribute('propertyDefinitionId', propName)
-                for val in propValueStrList:
-                    valElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:value')
-                    valText = entryXmlDoc.createTextNode(val)
-                    valElement.appendChild(valText)
-                    propElement.appendChild(valElement)
-                propsElement.appendChild(propElement)
-
-        return entryXmlDoc
+    
 
     allowableActions = property(getAllowableActions)
     name = property(getName)
@@ -2324,7 +2198,7 @@ class Document(CmisObject):
         # get this document's object ID
         # build entry XML with it
         properties = {'cmis:objectId': self.getObjectId()}
-        entryXmlDoc = self._getEntryXmlDoc(properties)
+        entryXmlDoc = getEntryXmlDoc(properties)
 
         # post it to to the checkedout collection URL
         result = self._cmisClient.post(checkoutUrl.encode('utf-8'),
@@ -2446,7 +2320,7 @@ class Document(CmisObject):
         kwargs['checkinComment'] = checkinComment
 
         # Build an empty ATOM entry
-        entryXmlDoc = self._getEmptyXmlDoc()
+        entryXmlDoc = getEmptyXmlDoc()
 
         # Get the self link
         # Do a PUT of the empty ATOM to the self link
@@ -2709,7 +2583,7 @@ class Folder(CmisObject):
             properties['cmis:objectTypeId'] = CmisId(properties['cmis:objectTypeId'])
 
         # build the Atom entry
-        entryXml = self._getEntryXmlDoc(properties)
+        entryXml = getEntryXmlDoc(properties)
 
         # post the Atom entry
         result = self._cmisClient.post(postUrl.encode('utf-8'),
@@ -2763,34 +2637,12 @@ class Folder(CmisObject):
          - removeACEs
         """
 
-        # get the folder represented by folderId.
-        # we'll use his 'children' link post the new child
-        postUrl = self.getChildrenLink()
-
-        # make sure a name is set
-        properties['cmis:name'] = name
-
-        # hardcoding to cmis:document if it wasn't
-        # passed in via props
-        if not properties.has_key('cmis:objectTypeId'):
-            properties['cmis:objectTypeId'] = CmisId('cmis:document')
-        # and if it was passed in, making sure it is a CmisId
-        elif not isinstance(properties['cmis:objectTypeId'], CmisId):
-            properties['cmis:objectTypeId'] = CmisId(properties['cmis:objectTypeId'])
-
-        # build the Atom entry
-        xmlDoc = self._getEntryXmlDoc(properties, contentFile,
-                                      contentType, contentEncoding)
-        
-        # post the Atom entry
-        result = self._cmisClient.post(postUrl.encode('utf-8'), xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
-        # what comes back is the XML for the new document,
-        # so use it to instantiate a new document
-        # then return it
-        return Document(self._cmisClient, self._repository, xmlDoc=result)
+        return self._repository.createDocument(name,
+                                               properties,
+                                               self,
+                                               contentFile,
+                                               contentType,
+                                               contentEncoding)
 
     def getChildren(self, **kwargs):
 
@@ -3988,3 +3840,165 @@ def getSpecializedObject(obj, **kwargs):
     # specify baseTypeId) or if the type isn't one of the known base
     # types, give the object back
     return obj
+
+
+def getEmptyXmlDoc():
+
+    """
+    Internal helper method that knows how to build an empty Atom entry.
+    """
+
+    entryXmlDoc = minidom.Document()
+    entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
+    entryElement.setAttribute('xmlns', ATOM_NS)
+    entryXmlDoc.appendChild(entryElement)
+    return entryXmlDoc
+
+
+def getEntryXmlDoc(properties=None, contentFile=None,
+                    contentType=None, contentEncoding=None):
+
+    """
+    Internal helper method that knows how to build an Atom entry based
+    on the properties and, optionally, the contentFile provided.
+    """
+
+    entryXmlDoc = minidom.Document()
+    entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
+    entryElement.setAttribute('xmlns', ATOM_NS)
+    entryElement.setAttribute('xmlns:app', APP_NS)
+    entryElement.setAttribute('xmlns:cmisra', CMISRA_NS)
+    entryXmlDoc.appendChild(entryElement)
+
+    # if there is a File, encode it and add it to the XML
+    if contentFile:
+        mimetype = contentType
+        encoding = contentEncoding
+
+        # need to determine the mime type
+        if not mimetype and hasattr(contentFile, 'name'):
+            mimetype, encoding = mimetypes.guess_type(contentFile.name)
+
+        if not mimetype:
+            mimetype = 'application/binary'
+
+        if not encoding:
+            encoding = 'utf8'
+
+        # This used to be ATOM_NS content but there is some debate among
+        # vendors whether the ATOM_NS content must always be base64
+        # encoded. The spec does mandate that CMISRA_NS content be encoded
+        # and that element takes precedence over ATOM_NS content if it is
+        # present, so it seems reasonable to use CMIS_RA content for now
+        # and encode everything.
+
+        fileData = contentFile.read().encode("base64")
+        contentElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:content')
+        mediaElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:mediatype')
+        mediaElementText = entryXmlDoc.createTextNode(mimetype)
+        mediaElement.appendChild(mediaElementText)
+        base64Element = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:base64')
+        base64ElementText = entryXmlDoc.createTextNode(fileData)
+        base64Element.appendChild(base64ElementText)
+        contentElement.appendChild(mediaElement)
+        contentElement.appendChild(base64Element)
+
+        entryElement.appendChild(contentElement)
+
+    objectElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:object')
+    objectElement.setAttribute('xmlns:cmis', CMIS_NS)
+    entryElement.appendChild(objectElement)
+
+    if properties:
+        # a name is required for most things, but not for a checkout
+        if properties.has_key('cmis:name'):
+            titleElement = entryXmlDoc.createElementNS(ATOM_NS, "title")
+            titleText = entryXmlDoc.createTextNode(properties['cmis:name'])
+            titleElement.appendChild(titleText)
+            entryElement.appendChild(titleElement)
+
+        propsElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:properties')
+        objectElement.appendChild(propsElement)
+
+        for propName, propValue in properties.items():
+            """
+            the name of the element here is significant: it includes the
+            data type. I should be able to figure out the right type based
+            on the actual type of the object passed in.
+
+            I could do a lookup to the type definition, but that doesn't
+            seem worth the performance hit
+            """
+            propType = type(propValue)
+            isList = False
+            if (propType == list):
+                propType = type(propValue[0])
+                isList = True
+
+            if (propType == CmisId):
+                propElementName = 'cmis:propertyId'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(val)
+                else:
+                    propValueStrList = [propValue]
+            elif (propType == str):
+                propElementName = 'cmis:propertyString'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(val)
+                else:
+                    propValueStrList = [propValue]
+            elif (propType == datetime.datetime):
+                propElementName = 'cmis:propertyDateTime'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(val.isoformat())
+                else:
+                    propValueStrList = [propValue.isoformat()]
+            elif (propType == bool):
+                propElementName = 'cmis:propertyBoolean'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(unicode(val).lower())
+                else:
+                    propValueStrList = [unicode(propValue).lower()]
+            elif (propType == int):
+                propElementName = 'cmis:propertyInteger'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(unicode(val))
+                else:
+                    propValueStrList = [unicode(propValue)]
+            elif (propType == float):
+                propElementName = 'cmis:propertyDecimal'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(unicode(val))
+                else:
+                    propValueStrList = [unicode(propValue)]
+            else:
+                propElementName = 'cmis:propertyString'
+                if isList:
+                    propValueStrList = []
+                    for val in propValue:
+                        propValueStrList.append(unicode(val))
+                else:
+                    propValueStrList = [unicode(propValue)]
+
+            propElement = entryXmlDoc.createElementNS(CMIS_NS, propElementName)
+            propElement.setAttribute('propertyDefinitionId', propName)
+            for val in propValueStrList:
+                valElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:value')
+                valText = entryXmlDoc.createTextNode(val)
+                valElement.appendChild(valText)
+                propElement.appendChild(valElement)
+            propsElement.appendChild(propElement)
+
+    return entryXmlDoc
