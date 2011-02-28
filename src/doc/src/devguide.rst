@@ -52,11 +52,11 @@ Checklist:
 
  #. Setuptools build
      * python setup.py bdist sdist
- #. Upload egg and tar to Google Code downloads
- #. Make new downloads featured, old downloads deprecated
- #. Pypi update
-     * python setup.py upload
+     * Use release script to sign files
 
+ #. Copy files to Apache, start vote
+ #. If vote passes, copy files to Apache dist
+ #. Upload files to Pypi
  #. Tag the release in Subversion
  #. Check the `cheesecake <http://pycheesecake.org/>`_ score
      * python cheesecake_index --name=cmislib

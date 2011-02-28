@@ -40,4 +40,4 @@ If everything goes well, you should see::
    OK
 
 .. note::
-   Until the CMIS specification is ratified, and depending on the implementation of the CMIS provider, you may see errors or failures instead of 'OK'. See the `Known Issues <http://code.google.com/p/cmislib/wiki/KnownIssues>`_ page on the cmislib wiki for a list of known test failures by CMIS provider.
+  Depending on the implementation of the CMIS provider, you may see errors or failures instead of 'OK'.
