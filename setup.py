@@ -26,12 +26,12 @@ def read(fname):
 
 setup(
     name = "cmislib",
-    description = 'Apache Chemistry (Incubating) CMIS client library for Python',
+    description = 'Apache Chemistry CMIS client library for Python',
     version = version,
     author = 'Apache Chemistry Project',
-    author_email = 'chemistry-dev@incubator.apache.org',
+    author_email = 'dev@chemistry.apache.org',
     license = 'Apache License (2.0)',
-    url = 'http://incubator.apache.org/chemistry/',
+    url = 'http://chemistry.apache.org/',
     package_dir = {'':'src'},
     packages = find_packages('src', exclude=['tests']),
     #include_package_data = True,

@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
 Name: cmislib
 Version: 0.5
-Summary: Apache Chemistry (Incubating) CMIS client library for Python
-Home-page: http://incubator.apache.org/chemistry/
+Summary: Apache Chemistry CMIS client library for Python
+Home-page: http://chemistry.apache.org/
 Author: Apache Chemistry Project
-Author-email: chemistry-dev@incubator.apache.org
+Author-email: dev@chemistry.apache.org
 License: Apache License (2.0)
 Description: ABOUT
         
@@ -19,7 +19,7 @@ Description: ABOUT
         
         SOURCE
         
-        The source code for this project lives at http://incubator.apache.org/chemistry/
+        The source code for this project lives at http://chemistry.apache.org/
         
         TESTS
         

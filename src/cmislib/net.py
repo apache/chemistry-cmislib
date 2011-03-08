@@ -100,7 +100,7 @@ class RESTService(object):
     """
 
     def __init__(self):
-        self.user_agent = 'cmislib/%s +http://code.google.com/p/cmislib/'
+        self.user_agent = 'cmislib/%s +http://chemistry.apache.org/'
 
     def get(self,
             url,
