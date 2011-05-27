@@ -43,8 +43,8 @@ src/doc/build/examples.html
 src/doc/build/genindex.html
 src/doc/build/index.html
 src/doc/build/install.html
-src/doc/build/modindex.html
 src/doc/build/objects.inv
+src/doc/build/py-modindex.html
 src/doc/build/sample-data.html
 src/doc/build/search.html
 src/doc/build/searchindex.js
@@ -67,6 +67,8 @@ src/doc/build/_static/minus.png
 src/doc/build/_static/plus.png
 src/doc/build/_static/pygments.css
 src/doc/build/_static/searchtools.js
+src/doc/build/_static/sidebar.js
+src/doc/build/_static/underscore.js
 src/doc/src/Makefile
 src/doc/src/about.rst
 src/doc/src/code.rst

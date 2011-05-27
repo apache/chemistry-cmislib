@@ -1369,7 +1369,7 @@ class Repository(object):
     supportedPermissions = property(getSupportedPermissions)
 
 
-class ResultSet():
+class ResultSet(object):
 
     """
     Represents a paged result set. In CMIS, this is most often an Atom feed.
