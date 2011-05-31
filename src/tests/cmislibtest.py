@@ -254,6 +254,17 @@ class RepositoryTest(CmisTestBase):
         newDoc = self._repo.createDocument(documentName, parentFolder=self._testFolder)
         self.assertEquals(documentName, newDoc.getName())
 
+    def testCreateDocumentFromString(self):
+        '''Create a new document from a string'''
+        documentName = 'testDocument'
+        contentString = 'Test content string'
+        newDoc = self._repo.createDocumentFromString(documentName,
+                                           parentFolder=self._testFolder,
+                                           contentString=contentString,
+                                           contentType='text/plain')
+        self.assertEquals(documentName, newDoc.getName())
+        self.assertEquals(newDoc.getContentStream().read(), contentString)
+
     # CMIS-279
     def testCreateDocumentUnicode(self):
         '''Create a new doc with unicode characters in the name'''
@@ -1087,6 +1098,15 @@ class DocumentTest(CmisTestBase):
         # cleanup
         os.remove(exportFilename)
 
+    def testCreateDocumentFromString(self):
+        '''Create a new document from a string'''
+        documentName = 'testDocument'
+        contentString = 'Test content string'
+        newDoc = self._testFolder.createDocumentFromString(documentName,
+            contentString=contentString, contentType='text/plain')
+        self.assertEquals(documentName, newDoc.getName())
+        self.assertEquals(newDoc.getContentStream().read(), contentString)
+
     def testCreateDocumentPlain(self):
         '''Create a plain document using a file from the file system'''
         testFilename = 'plain.txt'
@@ -1340,7 +1360,8 @@ if __name__ == "__main__":
     tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
     tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
 
-#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocument', RepositoryTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', RepositoryTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', DocumentTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testMoveDocument', RepositoryTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentBinary', DocumentTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentPlain', DocumentTest))

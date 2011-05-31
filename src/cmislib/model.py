@@ -35,6 +35,7 @@ from xml.parsers.expat import ExpatError
 import datetime
 import time
 import iso8601
+import StringIO
 
 # would kind of like to not have any parsing logic in this module,
 # but for now I'm going to put the serial/deserialization in methods
@@ -1088,6 +1089,40 @@ class Repository(object):
         # return the result set
         return ChangeEntryResultSet(self._cmisClient, self, result)
 
+    def createDocumentFromString(self,
+                                 name,
+                                 properties={},
+                                 parentFolder=None,
+                                 contentString=None,
+                                 contentType=None,
+                                 contentEncoding=None):
+
+        """
+        Creates a new document setting the content to the string provided. If
+        the repository supports unfiled objects, you do not have to pass in
+        a parent :class:`Folder` otherwise it is required.
+
+        This method is essentially a convenience method that wraps your string
+        with a StringIO and then calls createDocument.
+
+        >>> repo.createDocumentFromString('testdoc5', parentFolder=testFolder, contentString='Hello, World!', contentType='text/plain')
+        <cmislib.model.Document object at 0x101352ed0>
+        """
+
+        # if you didn't pass in a parent folder
+        if parentFolder == None:
+            # if the repository doesn't require fileable objects to be filed
+            if self.getCapabilities()['Unfiling']:
+                # has not been implemented
+                #postUrl = self.getCollectionLink(UNFILED_COLL)
+                raise NotImplementedError
+            else:
+                # this repo requires fileable objects to be filed
+                raise InvalidArgumentException
+
+        return parentFolder.createDocument(name, properties, StringIO.StringIO(contentString),
+            contentType, contentEncoding)
+        
     def createDocument(self,
                        name,
                        properties={},
@@ -2592,6 +2627,27 @@ class Folder(CmisObject):
         # what comes back is the XML for the new folder,
         # so use it to instantiate a new folder then return it
         return Folder(self._cmisClient, self._repository, xmlDoc=result)
+
+    def createDocumentFromString(self,
+                                 name,
+                                 properties={},
+                                 contentString=None,
+                                 contentType=None,
+                                 contentEncoding=None):
+
+        """
+        Creates a new document setting the content to the string provided. If
+        the repository supports unfiled objects, you do not have to pass in
+        a parent :class:`Folder` otherwise it is required.
+
+        This method is essentially a convenience method that wraps your string
+        with a StringIO and then calls createDocument.
+
+        >>> testFolder.createDocumentFromString('testdoc3', contentString='hello, world', contentType='text/plain')
+        """
+
+        return self._repository.createDocumentFromString(name, properties,
+            self, contentString, contentType, contentEncoding)
 
     def createDocument(self, name, properties={}, contentFile=None,
             contentType=None, contentEncoding=None):
