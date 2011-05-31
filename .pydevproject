@@ -23,6 +23,9 @@ under the License.
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/cmislib/src</path>
 </pydev_pathproperty>
-<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.7</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.6</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
+<pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
+<path>/opt/local/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages/iso8601-0.1.4-py2.6.egg</path>
+</pydev_pathproperty>
 </pydev_project>

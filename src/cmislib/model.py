@@ -34,6 +34,7 @@ import mimetypes
 from xml.parsers.expat import ExpatError
 import datetime
 import time
+import iso8601
 
 # would kind of like to not have any parsing logic in this module,
 # but for now I'm going to put the serial/deserialization in methods
@@ -80,10 +81,6 @@ TYPES_COLL = 'types'
 CHECKED_OUT_COLL = 'checkedout'
 UNFILED_COLL = 'unfiled'
 ROOT_COLL = 'root'
-
-# This seems to be the common pattern across known CMIS servers
-# It is essentially ISO 8601 without the microseconds or time zone offset
-timeStampPattern = re.compile('^(\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2})?')
 
 
 class CmisClient(object):
@@ -3761,12 +3758,7 @@ def parseDateTimeValue(value):
     """
     Utility function to return a datetime from a string.
     """
-    timeFormat = '%Y-%m-%dT%H:%M:%S'
-    match = timeStampPattern.match(value)
-    if match:
-        return datetime.datetime.fromtimestamp(time.mktime(time.strptime(
-            match.group(),
-            timeFormat)))
+    return iso8601.parse_date(value)
 
 
 def parseBoolValue(value):
