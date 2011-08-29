@@ -34,10 +34,16 @@ import os
 from time import sleep, time
 import settings
 
-if (settings.TEST_ROOT_PATH == "/"):
-    TEST_ROOT_PATH = ""
-else:
-    TEST_ROOT_PATH = settings.TEST_ROOT_PATH
+## Fix test file paths in case test is launched using nosetests
+my_dir = os.path.dirname(os.path.abspath(__file__))
+try:
+    os.stat(settings.TEST_BINARY_1)
+except:
+    settings.TEST_BINARY_1 = os.path.join(my_dir, settings.TEST_BINARY_1)
+try:
+    os.stat(settings.TEST_BINARY_2)
+except:
+    settings.TEST_BINARY_2 = os.path.join(my_dir, settings.TEST_BINARY_2)
 
 
 class CmisTestBase(unittest.TestCase):
@@ -154,13 +160,15 @@ class QueryTest(CmisTestBase):
 
     def testWildcardPropertyMatch(self):
         '''Find content w/wildcard match on cmis:name property'''
-        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name like '" + self._testContent.getProperties()['cmis:name'][:7] + "%'"
+        name = self._testContent.getProperties()['cmis:name']
+        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name like '" + name[:7] + "%'"
         resultSet = self._repo.query(querySimpleSelect)
         self.assertTrue(isInResultSet(resultSet, self._testContent))
 
     def testPropertyMatch(self):
         '''Find content matching cmis:name property'''
-        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name = '" + self._testContent2.getProperties()['cmis:name'] + "'"
+        name = self._testContent2.getProperties()['cmis:name']
+        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name = '" + name + "'"
         resultSet = self._repo.query(querySimpleSelect)
         self.assertTrue(isInResultSet(resultSet, self._testContent2))
 
@@ -342,7 +350,7 @@ class RepositoryTest(CmisTestBase):
     def testGetUnfiledDocs(self):
         '''Tests the repository's unfiled collection'''
 
-        if self._repo.getCapabilities()['Unfiling'] != True:
+        if not self._repo.getCapabilities()['Unfiling']:
             print 'Repo does not support unfiling, skipping'
             return
 
@@ -522,7 +530,6 @@ class FolderTest(CmisTestBase):
     def testPropertyFilter(self):
         '''Test the properties filter'''
         # names of folders and test docs
-        testFolderName = self._testFolder.getName()
         parentFolderName = 'testGetObjectByPath folder'
         subFolderName = 'subfolder'
 
@@ -537,7 +544,7 @@ class FolderTest(CmisTestBase):
         # should be filtered if the server chooses to do so.
 
         # test when used with getObjectByPath
-        searchFolder = self._repo.getObjectByPath(subFolderPath, \
+        searchFolder = self._repo.getObjectByPath(subFolderPath,
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
         self.assertTrue(searchFolder.getProperties().has_key('cmis:objectId'))
@@ -545,7 +552,7 @@ class FolderTest(CmisTestBase):
         self.assertTrue(searchFolder.getProperties().has_key('cmis:baseTypeId'))
 
         # test when used with getObjectByPath + reload
-        searchFolder = self._repo.getObjectByPath(subFolderPath, \
+        searchFolder = self._repo.getObjectByPath(subFolderPath,
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
@@ -554,7 +561,7 @@ class FolderTest(CmisTestBase):
         self.assertTrue(searchFolder.getProperties().has_key('cmis:baseTypeId'))
 
         # test when used with getObject
-        searchFolder = self._repo.getObject(subFolder.getObjectId(), \
+        searchFolder = self._repo.getObject(subFolder.getObjectId(),
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
         self.assertTrue(searchFolder.getProperties().has_key('cmis:objectId'))
@@ -562,7 +569,7 @@ class FolderTest(CmisTestBase):
         self.assertTrue(searchFolder.getProperties().has_key('cmis:baseTypeId'))
 
         # test when used with getObject + reload
-        searchFolder = self._repo.getObject(subFolder.getObjectId(), \
+        searchFolder = self._repo.getObject(subFolder.getObjectId(),
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
@@ -608,7 +615,7 @@ class FolderTest(CmisTestBase):
 
     def testAddObject(self):
         '''Add an existing object to another folder'''
-        if self._repo.getCapabilities()['Multifiling'] == False:
+        if not self._repo.getCapabilities()['Multifiling']:
             print 'This repository does not allow multifiling, skipping'
             return
 
@@ -623,7 +630,7 @@ class FolderTest(CmisTestBase):
 
     def testRemoveObject(self):
         '''Remove an existing object from a secondary folder'''
-        if self._repo.getCapabilities()['Unfiling'] == False:
+        if not self._repo.getCapabilities()['Unfiling']:
             print 'This repository does not allow unfiling, skipping'
             return
 
@@ -1008,7 +1015,7 @@ class DocumentTest(CmisTestBase):
 
         # CMIS-231 the checked in doc should have the same mime type as
         # the original document
-        self.assertEquals(origMimeType, \
+        self.assertEquals(origMimeType,
                           newDoc.properties['cmis:contentStreamMimeType'])
 
     def testSetContentStreamDoc(self):
@@ -1166,7 +1173,7 @@ class DocumentTest(CmisTestBase):
 
     def testGetObjectParentsMultiple(self):
         '''Gets all parents of a multi-filed object'''
-        if self._repo.getCapabilities()['Multifiling'] == False:
+        if not self._repo.getCapabilities()['Multifiling']:
             print 'This repository does not allow multifiling, skipping'
             return
 
