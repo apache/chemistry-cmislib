@@ -182,7 +182,7 @@ class CmisClient(object):
 
         """
         Does a get against the CMIS service. More than likely, you will not
-        need to call this method. Instead, let the other objects to it for you.
+        need to call this method. Instead, let the other objects do it for you.
 
         For example, if you need to get a specific object by object id, try
         :class:`Repository.getObject`. If you have a path instead of an object
@@ -209,7 +209,7 @@ class CmisClient(object):
 
         """
         Does a delete against the CMIS service. More than likely, you will not
-        need to call this method. Instead, let the other objects to it for you.
+        need to call this method. Instead, let the other objects do it for you.
 
         For example, to delete a folder you'd call :class:`Folder.delete` and
         to delete a document you'd call :class:`Document.delete`.
@@ -233,7 +233,7 @@ class CmisClient(object):
 
         """
         Does a post against the CMIS service. More than likely, you will not
-        need to call this method. Instead, let the other objects to it for you.
+        need to call this method. Instead, let the other objects do it for you.
 
         For example, to update the properties on an object, you'd call
         :class:`CmisObject.updateProperties`. Or, to check in a document that's
@@ -262,7 +262,7 @@ class CmisClient(object):
 
         """
         Does a put against the CMIS service. More than likely, you will not
-        need to call this method. Instead, let the other objects to it for you.
+        need to call this method. Instead, let the other objects do it for you.
 
         For example, to update the properties on an object, you'd call
         :class:`CmisObject.updateProperties`. Or, to check in a document that's
@@ -1909,13 +1909,16 @@ class CmisObject(object):
         >>> folder.getName()
         u'someFolderFoo'
 
-        The optional changeToken is not yet supported.
         """
 
-        # TODO need to support the changeToken
 
         # get the self link
         selfUrl = self._getSelfLink()
+
+        # if we have a change token, we must pass it back, per the spec
+        args = {}        
+        if self.properties.has_key('cmis:changeToken'):
+            args = {"changeToken": self.properties['cmis:changeToken']}
 
         # build the entry based on the properties provided
         xmlEntryDoc = getEntryXmlDoc(properties)
@@ -1923,7 +1926,8 @@ class CmisObject(object):
         # do a PUT of the entry
         updatedXmlDoc = self._cmisClient.put(selfUrl.encode('utf-8'),
                                              xmlEntryDoc.toxml(encoding='utf-8'),
-                                             ATOM_XML_TYPE)
+                                             ATOM_XML_TYPE,
+                                             **args)
 
         # reset the xmlDoc for this object with what we got back from
         # the PUT, then call initData we dont' want to call
@@ -2488,8 +2492,7 @@ class Document(CmisObject):
         See CMIS specification document 2.2.4.16 setContentStream
 
         The following optional arguments are not yet supported:
-         - overwriteFlag=None,
-         - changeToken=None
+         - overwriteFlag=None
         """
 
         # get this object's content stream link
@@ -2513,8 +2516,17 @@ class Document(CmisObject):
         if not mimetype:
             mimetype = 'application/binary'
 
+        # if we have a change token, we must pass it back, per the spec
+        args = {}        
+        if self.properties.has_key('cmis:changeToken'):
+            args = {"changeToken": self.properties['cmis:changeToken']}
+
         # put the content file
-        result = self._cmisClient.put(srcUrl.encode('utf-8'), contentFile.read(), mimetype)
+        result = self._cmisClient.put(srcUrl.encode('utf-8'),
+                                      contentFile.read(),
+                                      mimetype,
+                                      **args)
+
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
@@ -2524,7 +2536,7 @@ class Document(CmisObject):
         # then return it
         return Document(self._cmisClient, self._repository, xmlDoc=result)
 
-    def deleteContentStream(self, changeToken=None):
+    def deleteContentStream(self):
 
         """
         See CMIS specification document 2.2.4.17 deleteContentStream
@@ -2543,8 +2555,13 @@ class Document(CmisObject):
         # delete the content stream when that is the case
         assert(srcUrl), 'Unable to determine content stream URL.'
 
+        # if we have a change token, we must pass it back, per the spec
+        args = {}        
+        if self.properties.has_key('cmis:changeToken'):
+            args = {"changeToken": self.properties['cmis:changeToken']}
+
         # delete the content stream
-        result = self._cmisClient.delete(srcUrl.encode('utf-8'))
+        result = self._cmisClient.delete(srcUrl.encode('utf-8'), **args)
         if type(result) == HTTPError:
             raise CmisException(result.code)
 

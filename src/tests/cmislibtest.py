@@ -295,11 +295,20 @@ class RepositoryTest(CmisTestBase):
         f = open(settings.TEST_BINARY_1, 'rb')
         doc10 = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=f)
         doc10Id = doc10.getObjectId()
+        if (not doc10.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
+        if (not doc11.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
+        if (not doc20.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
         doc21Id = doc21.getObjectId()
@@ -359,7 +368,12 @@ class RepositoryTest(CmisTestBase):
         newDoc = testFolder.createDocument('testdoc')
 
         # make sure the new doc isn't in the unfiled collection
-        self.assertFalse(isInResultSet(self._repo.getUnfiledDocs(), newDoc))
+        try:
+            rs = self._repo.getUnfiledDocs()
+            self.assertFalse(isInResultSet(rs, newDoc))
+        except NotSupportedException:
+            print 'This repository does not support read access to the unfiled collection...skipping'
+            return
 
         # delete the test folder and tell it to unfile the testdoc
         objId = newDoc.getObjectId()
@@ -778,6 +792,9 @@ class DocumentTest(CmisTestBase):
     def testCheckout(self):
         '''Create a document in a test folder, then check it out'''
         newDoc = self._testFolder.createDocument('testDocument')
+        if (not newDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwcDoc = newDoc.checkout()
         try:
             self.assertTrue(newDoc.isCheckedOut())
@@ -795,6 +812,9 @@ class DocumentTest(CmisTestBase):
         testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile)
         contentFile.close()
         self.assertEquals(testFilename, testDoc.getName())
+        if (not testDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwcDoc = testDoc.checkout()
 
         try:
@@ -814,6 +834,9 @@ class DocumentTest(CmisTestBase):
         testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile)
         contentFile.close()
         self.assertEquals(testFilename, testDoc.getName())
+        if (not testDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwcDoc = testDoc.checkout()
 
         try:
@@ -839,6 +862,9 @@ class DocumentTest(CmisTestBase):
         self.assertEquals(testFilename, testDoc.getName())
         # Alfresco has a bug where if you get the PWC this way
         # the checkin will not be successful
+        if (not testDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         testDoc.checkout()
         pwcDoc = testDoc.getPrivateWorkingCopy()
         try:
@@ -855,6 +881,9 @@ class DocumentTest(CmisTestBase):
         '''Create a document in a test folder, check it out, then cancel
         checkout'''
         newDoc = self._testFolder.createDocument('testDocument')
+        if (not newDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwcDoc = newDoc.checkout()
         try:
             self.assertTrue(newDoc.isCheckedOut())
@@ -881,11 +910,20 @@ class DocumentTest(CmisTestBase):
         '''Get latest version of an object'''
         f = open(settings.TEST_BINARY_1, 'rb')
         doc10 = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=f)
+        if (not doc10.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
+        if (not doc11.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
+        if (not doc20.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
         doc21Id = doc21.getObjectId()
@@ -900,13 +938,26 @@ class DocumentTest(CmisTestBase):
         '''Get properties of latest version of an object'''
         f = open(settings.TEST_BINARY_1, 'rb')
         doc10 = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=f)
+        if (not doc10.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
+        if (not doc11.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
+        # what comes back from a checkin may not include all props, so reload
+        doc20.reload()
         doc20Label = doc20.getProperties()['cmis:versionLabel']
+        if (not doc20.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
+        # what comes back from a checkin may not include all props, so reload
+        doc21.reload()
         doc21Label = doc21.getProperties()['cmis:versionLabel']
 
         propsLatest = doc10.getPropertiesOfLatestVersion()
@@ -932,7 +983,7 @@ class DocumentTest(CmisTestBase):
         '''Create a document in a test folder, then update its properties'''
         newDoc = self._testFolder.createDocument('testDocument')
         self.assertEquals('testDocument', newDoc.getName())
-        props = {'cmis:name': 'testDocument2', 'cmis:versionLabel': 'foo'}
+        props = {'cmis:name': 'testDocument2'}
         newDoc.updateProperties(props)
         self.assertEquals('testDocument2', newDoc.getName())
 
@@ -966,6 +1017,9 @@ class DocumentTest(CmisTestBase):
         self.assertEquals(testFile1Size, os.path.getsize(exportFile1))
 
         # checkout the file
+        if (not newDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = newDoc.checkout()
 
         # update the PWC with a new file
@@ -1003,6 +1057,9 @@ class DocumentTest(CmisTestBase):
         contentFile.close()
 
         # checkout the file
+        if (not newDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = newDoc.checkout()
 
         # update the PWC with a new file
@@ -1077,7 +1134,9 @@ class DocumentTest(CmisTestBase):
         contentFile = open(settings.TEST_BINARY_1, 'rb')
         newDoc = self._testFolder.createDocument(settings.TEST_BINARY_1, contentFile=contentFile)
         contentFile.close()
-
+        if (not newDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = newDoc.checkout()
         pwc.deleteContentStream()
         self.assertRaises(CmisException, pwc.getContentStream)
@@ -1145,10 +1204,18 @@ class DocumentTest(CmisTestBase):
     def testGetAllVersions(self):
         '''Get all versions of an object'''
         testDoc = self._testFolder.createDocument('testdoc')
+        if (not testDoc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = testDoc.checkout()
         doc = pwc.checkin()  # 2.0
+        if (not doc.allowableActions['canCheckOut']):
+            print 'The test doc cannot be checked out...skipping'
+            return
         pwc = doc.checkout()
         doc = pwc.checkin()  # 3.0
+        # what comes back from a checkin may not include all props, so reload
+        doc.reload()
         self.assertEquals('3.0', doc.getProperties()['cmis:versionLabel'])
         rs = doc.getAllVersions()
         self.assertEquals(3, len(rs.getResults()))
