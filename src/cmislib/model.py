@@ -1917,7 +1917,8 @@ class CmisObject(object):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}        
-        if self.properties.has_key('cmis:changeToken'):
+        if (self.properties.has_key('cmis:changeToken') and
+            self.properties['cmis:changeToken'] != None):
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # build the entry based on the properties provided
@@ -2518,7 +2519,8 @@ class Document(CmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}        
-        if self.properties.has_key('cmis:changeToken'):
+        if (self.properties.has_key('cmis:changeToken') and
+            self.properties['cmis:changeToken'] != None):
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # put the content file
@@ -2557,7 +2559,8 @@ class Document(CmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}        
-        if self.properties.has_key('cmis:changeToken'):
+        if (self.properties.has_key('cmis:changeToken') and
+            self.properties['cmis:changeToken'] != None):
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # delete the content stream

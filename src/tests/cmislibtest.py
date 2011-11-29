@@ -39,7 +39,7 @@ my_dir = os.path.dirname(os.path.abspath(__file__))
 try:
     os.stat(settings.TEST_BINARY_1)
 except:
-    settings.TEST_BINARY_1 = os.path.join(my_dir, settings.TEST_BINARY_1)
+    settings.TEST_BINARY_1 = os.path.join(my_dir, TEST_BINARY_1)
 try:
     os.stat(settings.TEST_BINARY_2)
 except:
@@ -54,7 +54,7 @@ class CmisTestBase(unittest.TestCase):
         """ Create a root test folder for the test. """
         self._cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
         self._repo = self._cmisClient.getDefaultRepository()
-        self._rootFolder = self._repo.getObjectByPath(TEST_ROOT_PATH)
+        self._rootFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH)
         self._folderName = " ".join(['cmislib', self.__class__.__name__, str(time())])
         self._testFolder = self._rootFolder.createFolder(self._folderName)
 
