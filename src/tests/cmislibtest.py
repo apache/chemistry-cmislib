@@ -341,16 +341,21 @@ class RepositoryTest(CmisTestBase):
         # create the folder structure
         parentFolder = self._testFolder.createFolder(parentFolderName)
         subFolder = parentFolder.createFolder(subFolderName)
-        # name and path segment are not the same thing
+        # use the subfolder path to get the folder by path
         subFolderPath = subFolder.getProperties().get("cmis:path")
         searchFolder = self._repo.getObjectByPath(subFolderPath)
         self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
 
         # create a test doc
         doc = subFolder.createDocument(docName)
-        searchDocPath = subFolderPath + '/' + docName  # TODO use proper path segment
-        searchDoc = self._repo.getObjectByPath(searchDocPath)
-        self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
+        # ask the doc for its paths
+        searchDocPaths = doc.getPaths()
+        # for each path in the list, try to get the object by path
+        # this is better than building a path with the doc's name b/c the name
+        # isn't guaranteed to be used as the path segment (see CMIS-232)
+        for path in searchDocPaths:
+            searchDoc = self._repo.getObjectByPath(path)
+            self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
 
         # get the subfolder by path, then ask for its children
         subFolder = self._repo.getObjectByPath(subFolderPath)
@@ -662,19 +667,30 @@ class FolderTest(CmisTestBase):
         self.assertEquals(doc.name, subFolder1.getChildren()[0].name)
 
     def testFolderLeadingDot(self):
-        '''Create a folder with a leading dot in it's name'''
+        '''Create a folder with a leading dot in its name'''
         leadingDotFolder = self._testFolder.createFolder('.leadingDot')
         resultSet = self._testFolder.getChildren()
         self.assert_(resultSet != None)
         self.assertTrue(leadingDotFolder.getName().startswith('.'))
 
     def testFolderTrailingDot(self):
-        '''Create a folder with a trailing dot in it's name'''
+        '''Create a folder with a trailing dot in its name'''
         trailingDotFolder = self._testFolder.createFolder('trailingDot.')
         resultSet = self._testFolder.getChildren()
         self.assert_(resultSet != None)
         self.assertTrue(trailingDotFolder.getName().endswith('.'))
-        
+
+    def testGetPaths(self):
+        '''Get a folder's paths'''
+        # ask the root for its path
+        root = self._repo.getRootFolder()
+        paths = root.getPaths()
+        self.assertTrue(len(paths) == 1)
+        self.assertTrue(paths[0] == '/')
+        # ask the test folder for its paths
+        paths = self._testFolder.getPaths()
+        self.assertTrue(len(paths) == 1)
+
     # Exceptions
 
     def testBadParentFolder(self):
@@ -1256,6 +1272,13 @@ class DocumentTest(CmisTestBase):
         for parent in doc.getObjectParents():
             parentNames.remove(parent.name)
         self.assertEquals(len(parentNames), 0)
+
+    def testGetPaths(self):
+        '''Get the paths of a document'''
+        testDoc = self._testFolder.createDocument('testdoc')
+        # ask the test doc for its paths
+        paths = testDoc.getPaths()
+        self.assertTrue(len(paths) >= 1)
 
 
 class TypeTest(unittest.TestCase):

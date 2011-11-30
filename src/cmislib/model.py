@@ -1750,11 +1750,11 @@ class CmisObject(object):
             self._objectId = CmisId(props['cmis:objectId'])
         return self._objectId
 
-    def getObjectParents(self):
+    def getObjectParents(self, **kwargs):
         """
         See CMIS specification document 2.2.3.5 getObjectParents
 
-        The following optional arguments are not supported:
+        The following optional arguments are supported:
          - filter
          - includeRelationships
          - renditionFilter
@@ -1768,13 +1768,20 @@ class CmisObject(object):
             raise NotSupportedException('Root folder does not support getObjectParents')
 
         # invoke the URL
-        result = self._cmisClient.get(parentUrl.encode('utf-8'))
+        result = self._cmisClient.get(parentUrl.encode('utf-8'), **kwargs)
 
         if type(result) == HTTPError:
             raise CmisException(result.code)
 
         # return the result set
         return ResultSet(self._cmisClient, self._repository, result)
+
+    def getPaths(self):
+        """
+        Returns the object's paths as a list of strings.
+        """
+        # see sub-classes for implementation
+        pass
 
     def getAllowableActions(self):
 
@@ -1875,6 +1882,15 @@ class CmisObject(object):
                 else:
                     propertyValue = None
                 self._properties[propertyName] = propertyValue
+
+            for node in [e for e in self.xmlDoc.childNodes if e.nodeType == e.ELEMENT_NODE and e.namespaceURI == CMISRA_NS]:
+                propertyName = node.nodeName
+                if node.childNodes:
+                    propertyValue = node.firstChild.nodeValue
+                else:
+                    propertyValue = None
+                self._properties[propertyName] = propertyValue
+
         return self._properties
 
     def getName(self):
@@ -2589,6 +2605,38 @@ class Document(CmisObject):
 
     checkedOut = property(isCheckedOut)
 
+    def getPaths(self):
+        """
+        Returns the Document's paths by asking for the parents with the
+        includeRelativePathSegment flag set to true, then concats the value
+        of cmis:path with the relativePathSegment.
+        """
+        # get the appropriate 'up' link
+        parentUrl = self._getLink(UP_REL)
+
+        if parentUrl == None:
+            raise NotSupportedException('Root folder does not support getObjectParents')
+
+        # invoke the URL
+        result = self._cmisClient.get(parentUrl.encode('utf-8'),
+                                      filter='cmis:path',
+                                      includeRelativePathSegment=True)
+
+        if type(result) == HTTPError:
+            raise CmisException(result.code)
+
+        paths = []
+        rs = ResultSet(self._cmisClient, self._repository, result)
+        for res in rs:
+            path = res.properties['cmis:path']
+            relativePathSegment = res.properties['cmisra:relativePathSegment']
+            
+            # concat with a slash
+            # add it to the list
+            paths.append(path + '/' + relativePathSegment)
+
+        return paths
+
 
 class Folder(CmisObject):
 
@@ -2983,6 +3031,14 @@ class Folder(CmisObject):
         result = self._cmisClient.post(postUrl.encode('utf-8'), cmisObject.xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE, **args)
         if type(result) == HTTPError:
             raise CmisException(result.code)
+
+    def getPaths(self):
+        """
+        Returns the paths as a list of strings. The spec says folders cannot
+        be multi-filed, so this should always be one value. We return a list
+        to be symmetric with the same method in :class:`Document`.
+        """
+        return [self.properties['cmis:path']]
 
 
 class Relationship(CmisObject):
