@@ -36,6 +36,7 @@ import datetime
 import time
 import iso8601
 import StringIO
+import logging
 
 # would kind of like to not have any parsing logic in this module,
 # but for now I'm going to put the serial/deserialization in methods
@@ -83,6 +84,8 @@ CHECKED_OUT_COLL = 'checkedout'
 UNFILED_COLL = 'unfiled'
 ROOT_COLL = 'root'
 
+moduleLogger = logging.getLogger('cmislib.model')
+
 
 class CmisClient(object):
 
@@ -105,6 +108,8 @@ class CmisClient(object):
         self.username = username
         self.password = password
         self.extArgs = kwargs
+        self.logger = logging.getLogger('cmislib.model.CmisClient')
+        self.logger.info('Creating an instance of CmisClient')
 
     def __str__(self):
         """To string"""
@@ -343,6 +348,8 @@ class Repository(object):
         self._permMap = {}
         self._permissions = None
         self._propagation = None
+        self.logger = logging.getLogger('cmislib.model.Repository')
+        self.logger.info('Creating an instance of Repository')
 
     def __str__(self):
         """To string"""
@@ -353,6 +360,7 @@ class Repository(object):
         This method will re-fetch the repository's XML data from the CMIS
         repository.
         """
+        self.logger.debug('Reload called on object')
         self.xmlDoc = self._cmisClient.get(self._cmisClient.repositoryUrl.encode('utf-8'))
         self._initData()
 
@@ -1183,8 +1191,8 @@ class Repository(object):
             properties['cmis:objectTypeId'] = CmisId(properties['cmis:objectTypeId'])
 
         # build the Atom entry
-        xmlDoc = getEntryXmlDoc(properties, contentFile,
-                                      contentType, contentEncoding)
+        xmlDoc = getEntryXmlDoc(self, None, properties, contentFile,
+                                contentType, contentEncoding)
         
         # post the Atom entry
         result = self._cmisClient.post(postUrl.encode('utf-8'), xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
@@ -1413,6 +1421,8 @@ class ResultSet(object):
         self._repository = repository
         self._xmlDoc = xmlDoc
         self._results = []
+        self.logger = logging.getLogger('cmislib.model.ResultSet')
+        self.logger.info('Creating an instance of ResultSet')
 
     def __iter__(self):
         ''' Iterator for the result set '''
@@ -1470,6 +1480,7 @@ class ResultSet(object):
 
         '''
 
+        self.logger.debug('Reload called on result set')
         self._getPageResults(SELF_REL)
 
     def getResults(self):
@@ -1653,6 +1664,8 @@ class CmisObject(object):
         self._allowableActions = {}
         self.xmlDoc = xmlDoc
         self._kwargs = kwargs
+        self.logger = logging.getLogger('cmislib.model.CmisObject')
+        self.logger.info('Creating an instance of CmisObject')
 
     def __str__(self):
         """To string"""
@@ -1670,6 +1683,7 @@ class CmisObject(object):
         '*'.
         """
 
+        self.logger.debug('Reload called on CmisObject')
         if kwargs:
             if self._kwargs:
                 self._kwargs.update(kwargs)
@@ -1745,6 +1759,7 @@ class CmisObject(object):
 
         if self._objectId == None:
             if self.xmlDoc == None:
+                logger.debug('Both objectId and xmlDoc were None, reloading')
                 self.reload()
             props = self.getProperties()
             self._objectId = CmisId(props['cmis:objectId'])
@@ -1927,6 +1942,7 @@ class CmisObject(object):
 
         """
 
+        self.logger.debug('Inside updateProperties')
 
         # get the self link
         selfUrl = self._getSelfLink()
@@ -1935,10 +1951,20 @@ class CmisObject(object):
         args = {}        
         if (self.properties.has_key('cmis:changeToken') and
             self.properties['cmis:changeToken'] != None):
+            self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
+        # the getEntryXmlDoc function may need the object type
+        if (self.properties.has_key('cmis:objectTypeId') and
+            not properties.has_key('cmis:objectTypeId')):
+            objectTypeId = self.properties['cmis:objectTypeId']
+
+        self.logger.debug('This object type is:' + objectTypeId)
+
         # build the entry based on the properties provided
-        xmlEntryDoc = getEntryXmlDoc(properties)
+        xmlEntryDoc = getEntryXmlDoc(self._repository, objectTypeId, properties)
+
+        self.logger.debug('xmlEntryDoc:' + xmlEntryDoc.toxml())
 
         # do a PUT of the entry
         updatedXmlDoc = self._cmisClient.put(selfUrl.encode('utf-8'),
@@ -2032,7 +2058,7 @@ class CmisObject(object):
         props['cmis:sourceId'] = self.getObjectId()
         props['cmis:targetId'] = targetObj.getObjectId()
         props['cmis:objectTypeId'] = relTypeId
-        xmlDoc = getEntryXmlDoc(props)
+        xmlDoc = getEntryXmlDoc(self._repository, properties=props)
 
         url = self._getLink(RELATIONSHIPS_REL)
         assert url != None, 'Could not determine relationships URL'
@@ -2251,7 +2277,7 @@ class Document(CmisObject):
         # get this document's object ID
         # build entry XML with it
         properties = {'cmis:objectId': self.getObjectId()}
-        entryXmlDoc = getEntryXmlDoc(properties)
+        entryXmlDoc = getEntryXmlDoc(self._repository, properties=properties)
 
         # post it to to the checkedout collection URL
         result = self._cmisClient.post(checkoutUrl.encode('utf-8'),
@@ -2537,6 +2563,7 @@ class Document(CmisObject):
         args = {}        
         if (self.properties.has_key('cmis:changeToken') and
             self.properties['cmis:changeToken'] != None):
+            self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # put the content file
@@ -2577,6 +2604,7 @@ class Document(CmisObject):
         args = {}        
         if (self.properties.has_key('cmis:changeToken') and
             self.properties['cmis:changeToken'] != None):
+            self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # delete the content stream
@@ -2683,7 +2711,7 @@ class Folder(CmisObject):
             properties['cmis:objectTypeId'] = CmisId(properties['cmis:objectTypeId'])
 
         # build the Atom entry
-        entryXml = getEntryXmlDoc(properties)
+        entryXml = getEntryXmlDoc(self._repository, properties=properties)
 
         # post the Atom entry
         result = self._cmisClient.post(postUrl.encode('utf-8'),
@@ -3119,6 +3147,8 @@ class ObjectType(object):
         self._kwargs = None
         self._typeId = typeId
         self.xmlDoc = xmlDoc
+        self.logger = logging.getLogger('cmislib.model.ObjectType')
+        self.logger.info('Creating an instance of ObjectType')
 
     def __str__(self):
         """To string"""
@@ -3327,6 +3357,8 @@ class Property(object):
     def __init__(self, propNode):
         """Constructor"""
         self.xmlDoc = propNode
+        self.logger = logging.getLogger('cmislib.model.Property')
+        self.logger.info('Creating an instance of Property')
 
     def __str__(self):
         """To string"""
@@ -3439,6 +3471,9 @@ class ACL(object):
             self._entries = self._getEntriesFromXml()
         else:
             self._xmlDoc = None
+
+        self.logger = logging.getLogger('cmislib.model.ACL')
+        self.logger.info('Creating an instance of ACL')
 
     def addEntry(self, ace):
 
@@ -3612,6 +3647,9 @@ class ACE(object):
                 self._permissions = permissions
         self._direct = direct
 
+        self.logger = logging.getLogger('cmislib.model.ACE')
+        self.logger.info('Creating an instance of ACE')
+
     @property
     def principalId(self):
         """Getter for principalId"""
@@ -3663,6 +3701,8 @@ class ChangeEntry(object):
         self._changeEntryId = None
         self._changeType = None
         self._changeTime = None
+        self.logger = logging.getLogger('cmislib.model.ChangeEntry')
+        self.logger.info('Creating an instance of ChangeEntry')
 
     def getId(self):
         """
@@ -3866,6 +3906,8 @@ def parsePropValue(value, nodeName):
     node's element name.
     """
 
+    moduleLogger.debug('Inside parsePropValue')
+
     if nodeName == 'propertyId':
         return CmisId(value)
     elif nodeName == 'propertyString':
@@ -3948,6 +3990,8 @@ def getSpecializedObject(obj, **kwargs):
     of its child types depending on the specified baseType.
     """
 
+    moduleLogger.debug('Inside getSpecializedObject')
+
     if 'cmis:baseTypeId' in obj.getProperties():
         baseType = obj.getProperties()['cmis:baseTypeId']
         if baseType == 'cmis:folder':
@@ -3972,6 +4016,8 @@ def getEmptyXmlDoc():
     Internal helper method that knows how to build an empty Atom entry.
     """
 
+    moduleLogger.debug('Inside getEmptyXmlDoc')
+
     entryXmlDoc = minidom.Document()
     entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
     entryElement.setAttribute('xmlns', ATOM_NS)
@@ -3979,13 +4025,15 @@ def getEmptyXmlDoc():
     return entryXmlDoc
 
 
-def getEntryXmlDoc(properties=None, contentFile=None,
+def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=None,
                     contentType=None, contentEncoding=None):
 
     """
     Internal helper method that knows how to build an Atom entry based
     on the properties and, optionally, the contentFile provided.
     """
+
+    moduleLogger.debug('Inside getEntryXmlDoc')
 
     entryXmlDoc = minidom.Document()
     entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
@@ -4044,6 +4092,7 @@ def getEntryXmlDoc(properties=None, contentFile=None,
         propsElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:properties')
         objectElement.appendChild(propsElement)
 
+        typeDef = None
         for propName, propValue in properties.items():
             """
             the name of the element here is significant: it includes the
@@ -4053,72 +4102,25 @@ def getEntryXmlDoc(properties=None, contentFile=None,
             I could do a lookup to the type definition, but that doesn't
             seem worth the performance hit
             """
-            propType = type(propValue)
-            isList = False
-            if (propType == list):
+            if (propValue == None or (type(propValue) == list and propValue[0] == None)):
+                # grab the prop type from the typeDef
+                if (typeDef == None):
+                    moduleLogger.debug('Looking up type def for:' + objectTypeId)
+                    typeDef = repo.getTypeDefinition(objectTypeId)                    
+                    #TODO what to do if type not found
+                propType = typeDef.properties[propName].propertyType
+            elif type(propValue) == list:
                 propType = type(propValue[0])
-                isList = True
-
-            if (propType == CmisId):
-                propElementName = 'cmis:propertyId'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(val)
-                else:
-                    propValueStrList = [propValue]
-            elif (propType == str):
-                propElementName = 'cmis:propertyString'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(val)
-                else:
-                    propValueStrList = [propValue]
-            elif (propType == datetime.datetime):
-                propElementName = 'cmis:propertyDateTime'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(val.isoformat())
-                else:
-                    propValueStrList = [propValue.isoformat()]
-            elif (propType == bool):
-                propElementName = 'cmis:propertyBoolean'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(unicode(val).lower())
-                else:
-                    propValueStrList = [unicode(propValue).lower()]
-            elif (propType == int):
-                propElementName = 'cmis:propertyInteger'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(unicode(val))
-                else:
-                    propValueStrList = [unicode(propValue)]
-            elif (propType == float):
-                propElementName = 'cmis:propertyDecimal'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(unicode(val))
-                else:
-                    propValueStrList = [unicode(propValue)]
             else:
-                propElementName = 'cmis:propertyString'
-                if isList:
-                    propValueStrList = []
-                    for val in propValue:
-                        propValueStrList.append(unicode(val))
-                else:
-                    propValueStrList = [unicode(propValue)]
+                propType = type(propValue)
+
+            propElementName, propValueStrList = getElementNameAndValues(propType, propName, propValue, type(propValue) == list)
 
             propElement = entryXmlDoc.createElementNS(CMIS_NS, propElementName)
             propElement.setAttribute('propertyDefinitionId', propName)
             for val in propValueStrList:
+                if val == None:
+                    continue
                 valElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:value')
                 valText = entryXmlDoc.createTextNode(val)
                 valElement.appendChild(valText)
@@ -4126,3 +4128,96 @@ def getEntryXmlDoc(properties=None, contentFile=None,
             propsElement.appendChild(propElement)
 
     return entryXmlDoc
+
+def getElementNameAndValues(propType, propName, propValue, isList=False):
+
+    moduleLogger.debug('Inside getElementNameAndValues')
+    moduleLogger.debug('propType:%s propName:%s isList:%s' % (propType, propName, isList))
+    if (propType == 'id' or propType == CmisId):
+        propElementName = 'cmis:propertyId'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                propValueStrList.append(val)
+        else:
+            propValueStrList = [propValue]
+    elif (propType == 'string' or propType == str):
+        propElementName = 'cmis:propertyString'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                propValueStrList.append(val)
+        else:
+            propValueStrList = [propValue]
+    elif (propType == 'datetime' or propType == datetime.datetime):
+        propElementName = 'cmis:propertyDateTime'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                if val != None:
+                    propValueStrList.append(val.isoformat())
+                else:
+                    propValueStrList.append(val)
+        else:
+            if propValue != None:
+                propValueStrList = [propValue.isoformat()]
+            else:
+                propValueStrList = [propValue]
+    elif (propType == 'boolean' or propType == bool):
+        propElementName = 'cmis:propertyBoolean'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                if val != None:
+                    propValueStrList.append(unicode(val).lower())
+                else:
+                    propValueStrList.append(val)
+        else:
+            if propValue != None:
+                propValueStrList = [unicode(propValue).lower()]
+            else:
+                propValueStrList = [propValue]
+    elif (propType == 'integer' or propType == int):
+        propElementName = 'cmis:propertyInteger'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                if val != None:
+                    propValueStrList.append(unicode(val))
+                else:
+                    propValueStrList.append(val)
+        else:
+            if propValue != None:
+                propValueStrList = [unicode(propValue)]
+            else:
+                propValueStrList = [propValue]
+    elif (propType == 'decimal' or propType == float):
+        propElementName = 'cmis:propertyDecimal'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                if val != None:
+                    propValueStrList.append(unicode(val))
+                else:
+                    propValueStrList.append(val)
+        else:
+            if propValue != None:
+                propValueStrList = [unicode(propValue)]
+            else:
+                propValueStrList = [propValue]
+    else:
+        propElementName = 'cmis:propertyString'
+        if isList:
+            propValueStrList = []
+            for val in propValue:
+                if val != None:
+                    propValueStrList.append(unicode(val))
+                else:
+                    propValueStrList.append(val)
+        else:
+            if propValue != None:
+                propValueStrList = [unicode(propValue)]
+            else:
+                propValueStrList = [propValue]
+
+    return propElementName, propValueStrList
