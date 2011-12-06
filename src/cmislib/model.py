@@ -26,7 +26,7 @@ from exceptions import CmisException, RuntimeException, \
     UpdateConflictException
 import messages
 
-from urllib import quote_plus
+from urllib import quote
 from urllib2 import HTTPError
 from urlparse import urlparse, urlunparse
 import re
@@ -941,7 +941,7 @@ class Repository(object):
 
         # fill in the template with the path provided
         params = {
-              '{path}': quote_plus(path, '/'),
+              '{path}': quote(path, '/'),
               '{filter}': '',
               '{includeAllowableActions}': 'false',
               '{includePolicyIds}': 'false',

@@ -29,6 +29,7 @@ from urllib2 import HTTPBasicAuthHandler, \
                     Request, \
                     build_opener, \
                     AbstractBasicAuthHandler
+import logging
 
 
 class SmartRedirectHandler(HTTPRedirectHandler):
@@ -101,6 +102,7 @@ class RESTService(object):
 
     def __init__(self):
         self.user_agent = 'cmislib/%s +http://chemistry.apache.org/'
+        self.logger = logging.getLogger('cmislib.net.RESTService')
 
     def get(self,
             url,
@@ -115,6 +117,8 @@ class RESTService(object):
                 url = url + '&' + urlencode(kwargs)
             else:
                 url = url + '?' + urlencode(kwargs)
+
+        self.logger.debug('About to do a GET on:' + url)
 
         request = RESTRequest(url, method='GET')
 
@@ -140,6 +144,8 @@ class RESTService(object):
                 url = url + '&' + urlencode(kwargs)
             else:
                 url = url + '?' + urlencode(kwargs)
+
+        self.logger.debug('About to do a DELETE on:' + url)
 
         request = RESTRequest(url, method='DELETE')
 
@@ -182,6 +188,8 @@ class RESTService(object):
             else:
                 url = url + '?' + urlencode(kwargs)
 
+        self.logger.debug('About to do a PUT on:' + url)
+
         request = RESTRequest(url, payload, method='PUT')
 
         # set the content type header
@@ -218,6 +226,8 @@ class RESTService(object):
                 url = url + '&' + urlencode(kwargs)
             else:
                 url = url + '?' + urlencode(kwargs)
+
+        self.logger.debug('About to do a POST on:' + url)
 
         request = RESTRequest(url, payload, method='POST')
 
