@@ -37,27 +37,45 @@ Checklist:
  #. All tests pass cleanly (or have good reasons for not passing)
  #. Change setup.cfg to have the appropriate tag ('dev', for example, or '' for a stable release)
  #. Change setup.py to have the appropriate version number
- #. All changes checked in
- #. pep8 runs without much complaint
-     * pep8 --ignore=E501,W601 --repeat model.py
-
- #. pylint runs without much complaint
-     * pylint --disable-msg=C0103,R0904,R0913,C0301,W0511 cmislibtest.py
-
  #. Inline comments updated with changes
  #. Sphinx doc updated with changes
- #. Docs built cleanly
-     * cd src/doc/src/
-     * make html
+ #. Docs build cleanly
+     .. code-block:: bash
 
- #. Setuptools build
-     * python setup.py bdist sdist
-     * Use release script to sign files
+        cd src/doc/src/
+        make html
 
- #. Copy files to Apache, start vote
- #. If vote passes, copy files to Apache dist
+ #. pep8 runs without much complaint
+     .. code-block:: bash
+
+        pep8 --ignore=E501,W601 --repeat model.py
+
+ #. pylint runs without much complaint
+     .. code-block:: bash
+
+        pylint --disable-msg=C0103,R0904,R0913,C0301,W0511 cmislibtest.py
+
+ #. All changes checked in
+ #. Tag the release using 'cmislib-[release num]-RC[x]'
+ #. Use the release script to build the release artifacts
+     .. code-block:: bash
+
+        cd dist
+        ./release.sh -u jpotts@apache.org
+
+    This will do a 'setup.py bdist sdist' and will then sign all artifacts.
+
+    Note that the artifacts will be named without 'RC[x]'. These are the same artifacts that will be distributed if the vote passes.
+
+ #. Copy files to the Apache server under ~/public_html/chemistry/cmislib/[release num]
+ #. Start vote. Send an email to dev@chemistry.apache.org announcing the vote, highlighting the changes, pointing to the tagged source, and referencing the artifacts that have been copied to the Apache server.
+ #. After 72 hours, if the vote passes, continue, otherwise address issues and start over
+ #. Copy the files to the appropriate Apache dist directory, which is /www/www.apache.org/dist/chemistry/cmislib/[release num]
+ #. Rename the RC tag in source code control
+ #. Update the cmislib home page with download links to the new release
  #. Upload files to Pypi
- #. Tag the release in Subversion
  #. Check the `cheesecake <http://pycheesecake.org/>`_ score
-     * python cheesecake_index --name=cmislib
+     .. code-block:: bash
+
+        python cheesecake_index --name=cmislib
 

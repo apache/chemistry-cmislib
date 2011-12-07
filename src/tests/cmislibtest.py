@@ -39,7 +39,7 @@ my_dir = os.path.dirname(os.path.abspath(__file__))
 try:
     os.stat(settings.TEST_BINARY_1)
 except:
-    settings.TEST_BINARY_1 = os.path.join(my_dir, TEST_BINARY_1)
+    settings.TEST_BINARY_1 = os.path.join(my_dir, settings.TEST_BINARY_1)
 try:
     os.stat(settings.TEST_BINARY_2)
 except:
@@ -395,7 +395,7 @@ class RepositoryTest(CmisTestBase):
 #        '''Create a new unfiled document'''
 #        if self._repo.getCapabilities()['Unfiling'] != True:
 #            print 'Repo does not support unfiling, skipping'
-#            return        
+#            return
 #        documentName = 'testDocument'
 #        newDoc = self._repo.createDocument(documentName)
 #        self.assertEquals(documentName, newDoc.getName())
@@ -1468,7 +1468,7 @@ if __name__ == "__main__":
 #    tts.addTests(TestLoader().loadTestsFromName('testFolderTrailingDot', FolderTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
-            
+
     # WARNING: Potentially long-running tests
 
     # Query tests

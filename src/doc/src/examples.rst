@@ -36,7 +36,7 @@ Get a Repository object
 
  #. Point the CmisClient at the repository's service URL 
 
-    >>> client = CmisClient('http://cmis.alfresco.com/s/cmis', 'admin', 'admin')
+    >>> client = CmisClient('http://cmis.alfresco.com/cmisatom', 'admin', 'admin')
 
  #. Get the default repository for the service
 

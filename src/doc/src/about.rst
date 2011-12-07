@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.
 
-About the CMIS Python Library
+About Apache Chemistry cmislib
 =============================
 The goal of this project is to create a CMIS client for Python that can be used to work with any CMIS-compliant repository.
 
@@ -30,7 +30,7 @@ The library is being developed with the following guidelines:
 Quick Example
 -------------
 This should give you an idea of how easy and natural it is to work with the API:
-  >>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
+  >>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/cmisatom', 'admin', 'admin')
   >>> repo = cmisClient.defaultRepository
   >>> rootFolder = repo.rootFolder
   >>> children = rootFolder.getChildren()
@@ -47,9 +47,6 @@ Miscellaneous
 
 Renditions
  * getRenditions
-
-Change history
- * change token
 
 Unfiling/multifiling support
  * createDocument without a parent folder (unfiled)

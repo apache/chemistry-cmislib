@@ -16,13 +16,13 @@
    specific language governing permissions and limitations
    under the License.
 
-.. CMIS Library documentation master file, created by
+.. cmislib documentation master file, created by
    sphinx-quickstart on Thu Dec 10 10:12:43 2009.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to CMIS Library's documentation!
-========================================
+Welcome to the Apache Chemistry cmislib documentation!
+==================================================================
 
 Contents:
 

@@ -24,6 +24,12 @@ The :mod:`cmislib.model` Module
 
 The :mod:`cmislib.model` Module contains all the CMIS domain objects. The ones you will work with are listed as top level package elements. When working with the repository, the first thing you need to do is grab an instance of :class:`cmislib.CmisClient`, passing it the repository endpoint URL, username, and password.
 
+For example, in Alfresco 4 and higher, the repository endpoint is
+'http://localhost:8080/alfresco/cmisatom'. In earlier versions of
+Alfresco, the endpoint is
+'http://localhost:8080/alfresco/s/api/cmis'. In both cases, the
+default username and password are 'admin' and 'admin'.
+
 >>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
 
 From there you can get the default repository...
@@ -47,7 +53,7 @@ The :mod:`cmislib.net` Module contains the classes used by :mod:`cmislib.model.C
 .. automodule:: cmislib.net
    :members: RESTService
    
-The :mod:`tests.cmislib` Module
+The :mod:`cmislib` Module
 -------------------------------
 
 The :mod:`tests.cmislibtest` Module contains unit tests for all classes and methods in :mod:`cmislib.model`. See :ref:`tests` for more information on running tests.

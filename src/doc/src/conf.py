@@ -35,6 +35,7 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.append(os.path.abspath('.'))
 sys.path.append(os.path.abspath('../..'))
+#sys.path.append(os.path.abspath('../../tests'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -55,8 +56,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'CMIS Library'
-copyright = u'2010, Apache Software Foundation'
+project = u'Apache Chemistry cmislib'
+copyright = u'2011, Apache Software Foundation'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -176,7 +177,7 @@ html_static_path = ['_static']
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'CMISLibrarydoc'
+htmlhelp_basename = 'cmislibdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -190,8 +191,8 @@ htmlhelp_basename = 'CMISLibrarydoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'CMISLibrary.tex', u'CMIS Library Documentation',
-   u'Jeff Potts, Optaros', 'manual'),
+  ('index', 'cmislib.tex', u'Apache Chemistry cmislib Documentation',
+   u'Jeff Potts', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

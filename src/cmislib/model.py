@@ -384,9 +384,10 @@ class Repository(object):
         """
         Returns the value of the cmis:supportedPermissions element. Valid
         values are:
-          basic: indicates that the CMIS Basic permissions are supported
-          repository: indicates that repository specific permissions are supported
-          both: indicates that both CMIS basic permissions and repository specific permissions are supported
+
+         - basic: indicates that the CMIS Basic permissions are supported
+         - repository: indicates that repository specific permissions are supported
+         - both: indicates that both CMIS basic permissions and repository specific permissions are supported
 
         >>> repo.supportedPermissions
         u'both'
@@ -507,9 +508,9 @@ class Repository(object):
 
         """
         Returns the value of the cmis:propagation element. Valid values are:
-          objectonly: indicates that the repository is able to apply ACEs
+          - objectonly: indicates that the repository is able to apply ACEs
             without changing the ACLs of other objects
-          propagate: indicates that the repository is able to apply ACEs to a
+          - propagate: indicates that the repository is able to apply ACEs to a
             given object and propagate this change to all inheriting objects
 
         >>> repo.propagation
@@ -1130,7 +1131,7 @@ class Repository(object):
 
         return parentFolder.createDocument(name, properties, StringIO.StringIO(contentString),
             contentType, contentEncoding)
-        
+
     def createDocument(self,
                        name,
                        properties={},
@@ -1193,7 +1194,7 @@ class Repository(object):
         # build the Atom entry
         xmlDoc = getEntryXmlDoc(self, None, properties, contentFile,
                                 contentType, contentEncoding)
-        
+
         # post the Atom entry
         result = self._cmisClient.post(postUrl.encode('utf-8'), xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE)
         if type(result) == HTTPError:
@@ -1513,6 +1514,12 @@ class ResultSet(object):
         return self._results
 
     def hasObject(self, objectId):
+
+        '''
+        Returns True if the specified objectId is found in the list of results,
+        otherwise returns False.
+        '''
+
         for obj in self.getResults():
             if obj.id == objectId:
                 return True
@@ -1759,7 +1766,7 @@ class CmisObject(object):
 
         if self._objectId == None:
             if self.xmlDoc == None:
-                logger.debug('Both objectId and xmlDoc were None, reloading')
+                self.logger.debug('Both objectId and xmlDoc were None, reloading')
                 self.reload()
             props = self.getProperties()
             self._objectId = CmisId(props['cmis:objectId'])
@@ -1948,7 +1955,7 @@ class CmisObject(object):
         selfUrl = self._getSelfLink()
 
         # if we have a change token, we must pass it back, per the spec
-        args = {}        
+        args = {}
         if (self.properties.has_key('cmis:changeToken') and
             self.properties['cmis:changeToken'] != None):
             self.logger.debug('Change token present, adding it to args')
@@ -1986,7 +1993,7 @@ class CmisObject(object):
         Moves an object from the source folder to the target folder.
 
         See CMIS specification document 2.2.4.13 move
-        
+
         >>> sub1 = repo.getObjectByPath('/cmislib/sub1')
         >>> sub2 = repo.getObjectByPath('/cmislib/sub2')
         >>> doc = repo.getObjectByPath('/cmislib/sub1/testdoc1')
@@ -1994,9 +2001,9 @@ class CmisObject(object):
         """
 
         postUrl = targetFolder.getChildrenLink()
-        
+
         args = {"sourceFolderId": sourceFolder.id}
-        
+
         # post the Atom entry
         result = self._cmisClient.post(postUrl.encode('utf-8'), self.xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE, **args)
         if type(result) == HTTPError:
@@ -2235,8 +2242,6 @@ class CmisObject(object):
 
                     if relAttr == rel:
                         return linkElement.attributes['href'].value
-
-    
 
     allowableActions = property(getAllowableActions)
     name = property(getName)
@@ -2560,7 +2565,7 @@ class Document(CmisObject):
             mimetype = 'application/binary'
 
         # if we have a change token, we must pass it back, per the spec
-        args = {}        
+        args = {}
         if (self.properties.has_key('cmis:changeToken') and
             self.properties['cmis:changeToken'] != None):
             self.logger.debug('Change token present, adding it to args')
@@ -2601,7 +2606,7 @@ class Document(CmisObject):
         assert(srcUrl), 'Unable to determine content stream URL.'
 
         # if we have a change token, we must pass it back, per the spec
-        args = {}        
+        args = {}
         if (self.properties.has_key('cmis:changeToken') and
             self.properties['cmis:changeToken'] != None):
             self.logger.debug('Change token present, adding it to args')
@@ -2658,7 +2663,7 @@ class Document(CmisObject):
         for res in rs:
             path = res.properties['cmis:path']
             relativePathSegment = res.properties['cmisra:relativePathSegment']
-            
+
             # concat with a slash
             # add it to the list
             paths.append(path + '/' + relativePathSegment)
@@ -2888,6 +2893,7 @@ class Folder(CmisObject):
 
         The following optional arguments *may* also work but haven't been
         tested:
+
          - filter
          - includeRelationships
          - renditionFilter
@@ -3031,9 +3037,9 @@ class Folder(CmisObject):
 
         if not self._repository.getCapabilities()['Multifiling']:
             raise NotSupportedException('This repository does not support multifiling')
-        
+
         postUrl = self.getChildrenLink()
-        
+
         # post the Atom entry
         result = self._cmisClient.post(postUrl.encode('utf-8'), cmisObject.xmlDoc.toxml(encoding='utf-8'), ATOM_XML_ENTRY_TYPE, **kwargs)
         if type(result) == HTTPError:
@@ -3726,11 +3732,12 @@ class ChangeEntry(object):
         """
         Returns the type of change that occurred. The resulting value must be
         one of:
+
          - created
          - updated
          - deleted
          - security
-         """
+        """
 
         if self._changeType == None:
             self._changeType = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeType')[0].firstChild.data
@@ -4106,7 +4113,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
                 # grab the prop type from the typeDef
                 if (typeDef == None):
                     moduleLogger.debug('Looking up type def for:' + objectTypeId)
-                    typeDef = repo.getTypeDefinition(objectTypeId)                    
+                    typeDef = repo.getTypeDefinition(objectTypeId)
                     #TODO what to do if type not found
                 propType = typeDef.properties[propName].propertyType
             elif type(propValue) == list:
@@ -4129,7 +4136,13 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
 
     return entryXmlDoc
 
+
 def getElementNameAndValues(propType, propName, propValue, isList=False):
+
+    """
+    For a given property type, property name, and property value, this function
+    returns the appropriate CMIS Atom entry element name and value list.
+    """
 
     moduleLogger.debug('Inside getElementNameAndValues')
     moduleLogger.debug('propType:%s propName:%s isList:%s' % (propType, propName, isList))
