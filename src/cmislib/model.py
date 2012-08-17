@@ -76,6 +76,7 @@ FOLDER_TREE_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/foldertree'
 RELATIONSHIPS_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/relationships'
 ACL_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/acl'
 CHANGE_LOG_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/changes'
+POLICIES_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/policies'
 
 # Collection types
 QUERY_COLL = 'query'
@@ -3416,27 +3417,27 @@ class Property(object):
 
     def getUpdatability(self):
         """Getter for cmis:updatability"""
-        return self._getElementValue(CMIS_NS, 'updatability')
+        return parseBoolValue(self._getElementValue(CMIS_NS, 'updatability'))
 
     def isInherited(self):
         """Getter for cmis:inherited"""
-        return self._getElementValue(CMIS_NS, 'inherited')
+        return parseBoolValue(self._getElementValue(CMIS_NS, 'inherited'))
 
     def isRequired(self):
         """Getter for cmis:required"""
-        return self._getElementValue(CMIS_NS, 'required')
+        return parseBoolValue(self._getElementValue(CMIS_NS, 'required'))
 
     def isQueryable(self):
         """Getter for cmis:queryable"""
-        return self._getElementValue(CMIS_NS, 'queryable')
+        return parseBoolValue(self._getElementValue(CMIS_NS, 'queryable'))
 
     def isOrderable(self):
         """Getter for cmis:orderable"""
-        return self._getElementValue(CMIS_NS, 'orderable')
+        return parseBoolValue(self._getElementValue(CMIS_NS, 'orderable'))
 
     def isOpenChoice(self):
         """Getter for cmis:openChoice"""
-        return self._getElementValue(CMIS_NS, 'openChoice')
+        return parseBoolValue(self._getElementValue(CMIS_NS, 'openChoice'))
 
     id = property(getId)
     localName = property(getLocalName)

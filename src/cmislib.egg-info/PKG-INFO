@@ -1,6 +1,6 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: cmislib
-Version: 0.5
+Version: 0.5.1dev
 Summary: Apache Chemistry CMIS client library for Python
 Home-page: http://chemistry.apache.org/
 Author: Apache Chemistry Project

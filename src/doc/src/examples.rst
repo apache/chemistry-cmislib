@@ -115,7 +115,7 @@ There are several different ways to grab an object:
     Test Document2
     example test script.js
 
- #. Alternatively, you can also get objects by their their path, like this:
+ #. Alternatively, you can also get objects by their path, like this:
 
     >>> someDoc = repo.getObjectByPath('/someFolder/Test Document')
     >>> someDoc.id
