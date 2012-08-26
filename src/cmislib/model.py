@@ -3837,7 +3837,7 @@ class ChangeEntryResultSet(ResultSet):
         Overriding to make it work with a list instead of a dict.
         """
 
-        return self.getResults()
+        return iter(self.getResults())
 
     def __getitem__(self, index):
 
