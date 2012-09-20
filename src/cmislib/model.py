@@ -209,7 +209,10 @@ class CmisClient(object):
             self._processCommonErrors(result)
             return result
         else:
-            return minidom.parse(result)
+            try:
+                return minidom.parse(result)
+            except ExpatError:
+                raise CmisException('Could not parse server response', url)
 
     def delete(self, url, **kwargs):
 
@@ -257,9 +260,15 @@ class CmisClient(object):
                              password=self.password,
                              **kwargs)
         if type(result) != HTTPError:
-            return minidom.parse(result)
+            try:
+                return minidom.parse(result)
+            except ExpatError:
+                raise CmisException('Could not parse server response', url)
         elif result.code == 201:
-            return minidom.parse(result)
+            try:
+                return minidom.parse(result)
+            except ExpatError:
+                raise CmisException('Could not parse server response', url)
         else:
             self._processCommonErrors(result)
             return result
@@ -293,6 +302,7 @@ class CmisClient(object):
             try:
                 return minidom.parse(result)
             except ExpatError:
+                # This may happen and is normal
                 return None
 
     def _processCommonErrors(self, error):
@@ -4050,6 +4060,8 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
     entryElement.setAttribute('xmlns:cmisra', CMISRA_NS)
     entryXmlDoc.appendChild(entryElement)
 
+    contentElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:content')
+
     # if there is a File, encode it and add it to the XML
     if contentFile:
         mimetype = contentType
@@ -4073,7 +4085,6 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
         # and encode everything.
 
         fileData = contentFile.read().encode("base64")
-        contentElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:content')
         mediaElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:mediatype')
         mediaElementText = entryXmlDoc.createTextNode(mimetype)
         mediaElement.appendChild(mediaElementText)
@@ -4083,7 +4094,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
         contentElement.appendChild(mediaElement)
         contentElement.appendChild(base64Element)
 
-        entryElement.appendChild(contentElement)
+    entryElement.appendChild(contentElement)
 
     objectElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:object')
     objectElement.setAttribute('xmlns:cmis', CMIS_NS)

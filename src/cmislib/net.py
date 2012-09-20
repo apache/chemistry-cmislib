@@ -112,7 +112,12 @@ class RESTService(object):
 
         """ Makes a get request to the URL specified."""
 
+        headers = None
         if kwargs:
+            if 'headers' in kwargs:
+                headers = kwargs['headers']
+                del(kwargs['headers'])
+                self.logger.debug('Headers passed in:%s' % headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -124,7 +129,11 @@ class RESTService(object):
 
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
-
+        if headers:
+            for k,v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k,v))
+                request.add_header(k, v)
+                
         # create a password manager
         passwordManager = HTTPPasswordMgrWithDefaultRealm()
         passwordManager.add_password(None, url, username, password)
@@ -139,7 +148,12 @@ class RESTService(object):
 
         """ Makes a delete request to the URL specified. """
 
+        headers = None
         if kwargs:
+            if 'headers' in kwargs:
+                headers = kwargs['headers']
+                del(kwargs['headers'])
+                self.logger.debug('Headers passed in:%s' % headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -151,6 +165,10 @@ class RESTService(object):
 
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
+        if headers:
+            for k,v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k,v))
+                request.add_header(k, v)
 
         # create a password manager
         passwordManager = HTTPPasswordMgrWithDefaultRealm()
@@ -182,7 +200,12 @@ class RESTService(object):
         specified content type.
         """
 
+        headers = None
         if kwargs:
+            if 'headers' in kwargs:
+                headers = kwargs['headers']
+                del(kwargs['headers'])
+                self.logger.debug('Headers passed in:%s' % headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -197,6 +220,11 @@ class RESTService(object):
 
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
+        if headers:
+            for k,v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k,v))
+                request.add_header(k, v)
+
         # create a password manager
         passwordManager = HTTPPasswordMgrWithDefaultRealm()
         passwordManager.add_password(None, url, username, password)
@@ -221,7 +249,12 @@ class RESTService(object):
         specified content type.
         """
 
+        headers = None
         if kwargs:
+            if 'headers' in kwargs:
+                headers = kwargs['headers']
+                del(kwargs['headers'])
+                self.logger.debug('Headers passed in:%s' % headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -236,6 +269,10 @@ class RESTService(object):
 
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
+        if headers:
+            for k,v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k,v))
+                request.add_header(k, v)
 
         # create a password manager
         passwordManager = HTTPPasswordMgrWithDefaultRealm()
