@@ -105,12 +105,6 @@ class CmisClientTest(unittest.TestCase):
         cmisClient = CmisClient(settings.REPOSITORY_URL + 'foobar', settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
         self.assertRaises(CmisException, cmisClient.getRepositories)
 
-    def testCmisClientBadAuth(self):
-        '''Try to instantiate a CmisClient object with bad creds'''
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, 'BADPASS')
-        self.assertRaises(PermissionDeniedException,
-                          cmisClient.getRepositories)
-
     def testGetRepositoryBadId(self):
         '''Try to get a repository with a bad repo ID'''
         cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
@@ -665,20 +659,6 @@ class FolderTest(CmisTestBase):
         self.assertEquals(len(subFolder2.getChildren()), 0)
         self.assertEquals(len(subFolder1.getChildren()), 1)
         self.assertEquals(doc.name, subFolder1.getChildren()[0].name)
-
-    def testFolderLeadingDot(self):
-        '''Create a folder with a leading dot in its name'''
-        leadingDotFolder = self._testFolder.createFolder('.leadingDot')
-        resultSet = self._testFolder.getChildren()
-        self.assert_(resultSet != None)
-        self.assertTrue(leadingDotFolder.getName().startswith('.'))
-
-    def testFolderTrailingDot(self):
-        '''Create a folder with a trailing dot in its name'''
-        trailingDotFolder = self._testFolder.createFolder('trailingDot.')
-        resultSet = self._testFolder.getChildren()
-        self.assert_(resultSet != None)
-        self.assertTrue(trailingDotFolder.getName().endswith('.'))
 
     def testGetPaths(self):
         '''Get a folder's paths'''
@@ -1465,7 +1445,6 @@ if __name__ == "__main__":
 #    tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testFolderLeadingDot', FolderTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testFolderTrailingDot', FolderTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
 

@@ -77,6 +77,7 @@ RELATIONSHIPS_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/relationship
 ACL_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/acl'
 CHANGE_LOG_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/changes'
 POLICIES_REL = 'http://docs.oasis-open.org/ns/cmis/link/200908/policies'
+RENDITION_REL = 'alternate'
 
 # Collection types
 QUERY_COLL = 'query'
@@ -2643,9 +2644,24 @@ class Document(CmisObject):
 
         # if Renditions capability is None, return notsupported
         if self._repository.getCapabilities()['Renditions']:
-            raise NotImplementedError
+            pass
         else:
             raise NotSupportedException
+
+        if self.xmlDoc == None:
+            self.reload()
+
+        linkElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
+
+        renditions = []
+        for linkElement in linkElements:
+
+            if linkElement.attributes.has_key('rel'):
+                relAttr = linkElement.attributes['rel'].value
+
+                if relAttr == RENDITION_REL:
+                    renditions.append(Rendition(linkElement))
+        return renditions
 
     checkedOut = property(isCheckedOut)
 
@@ -3886,6 +3902,78 @@ class ChangeEntryResultSet(ResultSet):
         return self._results
 
 
+class Rendition(object):
+
+    """
+    This class represents a Rendition.
+    """
+
+    def __init__(self, propNode):
+        """Constructor"""
+        self.xmlDoc = propNode
+        self.logger = logging.getLogger('cmislib.model.Rendition')
+        self.logger.info('Creating an instance of Rendition')
+
+    def __str__(self):
+        """To string"""
+        return self.getStreamId()
+
+    def getStreamId(self):
+        """Getter for the rendition's stream ID"""
+        if self.xmlDoc.attributes.has_key('streamId'):
+            return self.xmlDoc.attributes['streamId'].value
+
+    def getMimeType(self):
+        """Getter for the rendition's mime type"""
+        if self.xmlDoc.attributes.has_key('type'):
+            return self.xmlDoc.attributes['type'].value
+
+    def getLength(self):
+        """Getter for the renditions's length"""
+        if self.xmlDoc.attributes.has_key('length'):
+            return self.xmlDoc.attributes['length'].value
+
+    def getTitle(self):
+        """Getter for the renditions's title"""
+        if self.xmlDoc.attributes.has_key('title'):
+            return self.xmlDoc.attributes['title'].value
+
+    def getKind(self):
+        """Getter for the renditions's kind"""
+        if self.xmlDoc.hasAttributeNS(CMISRA_NS, 'renditionKind'):
+            return self.xmlDoc.getAttributeNS(CMISRA_NS, 'renditionKind')
+
+    def getHeight(self):
+        """Getter for the renditions's height"""
+        if self.xmlDoc.attributes.has_key('height'):
+            return self.xmlDoc.attributes['height'].value
+
+    def getWidth(self):
+        """Getter for the renditions's width"""
+        if self.xmlDoc.attributes.has_key('width'):
+            return self.xmlDoc.attributes['width'].value
+
+    def getHref(self):
+        """Getter for the renditions's href"""
+        if self.xmlDoc.attributes.has_key('href'):
+            return self.xmlDoc.attributes['href'].value
+
+    def getRenditionDocumentId(self):
+        """Getter for the renditions's width"""
+        if self.xmlDoc.attributes.has_key('renditionDocumentId'):
+            return self.xmlDoc.attributes['renditionDocumentId'].value
+
+    streamId = property(getStreamId)
+    mimeType = property(getMimeType)
+    length = property(getLength)
+    title = property(getTitle)
+    kind = property(getKind)
+    height = property(getHeight)
+    width = property(getWidth)
+    href = property(getHref)
+    renditionDocumentId = property(getRenditionDocumentId)
+
+
 class CmisId(str):
 
     """
@@ -4060,8 +4148,6 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
     entryElement.setAttribute('xmlns:cmisra', CMISRA_NS)
     entryXmlDoc.appendChild(entryElement)
 
-    contentElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:content')
-
     # if there is a File, encode it and add it to the XML
     if contentFile:
         mimetype = contentType
@@ -4091,10 +4177,10 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
         base64Element = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:base64')
         base64ElementText = entryXmlDoc.createTextNode(fileData)
         base64Element.appendChild(base64ElementText)
+        contentElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:content')
         contentElement.appendChild(mediaElement)
         contentElement.appendChild(base64Element)
-
-    entryElement.appendChild(contentElement)
+        entryElement.appendChild(contentElement)
 
     objectElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:object')
     objectElement.setAttribute('xmlns:cmis', CMIS_NS)
