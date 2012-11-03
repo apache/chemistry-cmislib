@@ -60,7 +60,10 @@ class CmisTestBase(unittest.TestCase):
 
     def tearDown(self):
         """ Clean up after the test. """
-        self._testFolder.deleteTree()
+        try:
+            self._testFolder.deleteTree()
+        except NotSupportedException:
+            print "Couldn't delete test folder because deleteTree is not supported"
 
 
 class CmisClientTest(unittest.TestCase):

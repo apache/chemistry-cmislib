@@ -1974,11 +1974,11 @@ class CmisObject(object):
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # the getEntryXmlDoc function may need the object type
+        objectTypeId = None
         if (self.properties.has_key('cmis:objectTypeId') and
             not properties.has_key('cmis:objectTypeId')):
             objectTypeId = self.properties['cmis:objectTypeId']
-
-        self.logger.debug('This object type is:' + objectTypeId)
+            self.logger.debug('This object type is:%s' % objectTypeId)
 
         # build the entry based on the properties provided
         xmlEntryDoc = getEntryXmlDoc(self._repository, objectTypeId, properties)
@@ -4210,7 +4210,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
             if (propValue == None or (type(propValue) == list and propValue[0] == None)):
                 # grab the prop type from the typeDef
                 if (typeDef == None):
-                    moduleLogger.debug('Looking up type def for:' + objectTypeId)
+                    moduleLogger.debug('Looking up type def for: %s' % objectTypeId)
                     typeDef = repo.getTypeDefinition(objectTypeId)
                     #TODO what to do if type not found
                 propType = typeDef.properties[propName].propertyType
