@@ -722,7 +722,7 @@ class ChangeEntryTest(CmisTestBase):
         self.assertTrue(len(rs) > 0)
         changeEntry = rs[0]
         self.assertTrue(changeEntry.id)
-        self.assertTrue(changeEntry.changeType in ['created', 'updated', 'deleted'])
+        self.assertTrue(changeEntry.changeType in ['created', 'updated', 'deleted', 'security'])
         self.assertTrue(changeEntry.changeTime)
 
     def testGetACL(self):
