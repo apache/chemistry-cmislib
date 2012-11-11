@@ -3617,9 +3617,10 @@ class ACL(object):
                 if dirEl and dirEl.childNodes:
                     direct = dirEl.childNodes[0].data
                 # create an ACE
-                ace = ACE(principalId, perms, direct)
-                # append it to the dictionary
-                result[principalId] = ace
+                if (len(perms) > 0):
+                    ace = ACE(principalId, perms, direct)
+                    # append it to the dictionary
+                    result[principalId] = ace
         return result
 
     def getXmlDoc(self):
