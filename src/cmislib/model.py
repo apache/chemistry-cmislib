@@ -124,8 +124,6 @@ class CmisClient(object):
         this service. The dict contains entries for 'repositoryId' and
         'repositoryName'.
 
-        See CMIS specification document 2.2.2.1 getRepositories
-
         >>> client.getRepositories()
         [{'repositoryName': u'Main Repository', 'repositoryId': u'83beb297-a6fa-4ac5-844b-98c871c0eea9'}]
         """
@@ -312,8 +310,6 @@ class CmisClient(object):
         Maps HTTPErrors that are common to all to exceptions. Only errors
         that are truly global, like 401 not authorized, should be handled
         here. Callers should handle the rest.
-
-        See CMIS specification document 3.2.4.1 Common CMIS Exceptions
         """
 
         if error.status == 401:
@@ -343,8 +339,6 @@ class Repository(object):
 
     You must pass in an instance of a CmisClient when creating an
     instance of this class.
-
-    See CMIS specification document 2.1.1 Repository
     """
 
     def __init__(self, cmisClient, xmlDoc=None):
@@ -578,8 +572,6 @@ class Repository(object):
         """
         Returns a dict of repository information.
 
-        See CMIS specification document 2.2.2.2 getRepositoryInfo
-
         >>> repo = client.getDefaultRepository()>>> repo.getRepositoryName()
         u'Main Repository'
         >>> info = repo.getRepositoryInfo()
@@ -683,8 +675,6 @@ class Repository(object):
         If no typeId is provided, the result will be the same as calling
         `self.getTypeDefinitions`
 
-        See CMIS specification document 2.2.2.3 getTypeChildren
-
         These optional arguments are current unsupported:
          - includePropertyDefinitions
          - maxItems
@@ -731,8 +721,6 @@ class Repository(object):
 
         If no typeId is provided, the repository's "typesdescendants" URL
         will be called to determine the list of descendant types.
-
-        See CMIS specification document 2.2.2.4 getTypeDescendants
 
         >>> allTypes = repo.getTypeDescendants()
         >>> for aType in allTypes:
@@ -823,8 +811,6 @@ class Repository(object):
         """
         Returns an :class:`ObjectType` object for the specified object type id.
 
-        See CMIS specification document 2.2.2.5 getTypeDefinition
-
         >>> folderType = repo.getTypeDefinition('cmis:folder')
         """
 
@@ -855,8 +841,6 @@ class Repository(object):
         """
         Returns a ResultSet of :class:`CmisObject` objects that
         are currently checked out.
-
-        See CMIS specification document 2.2.3.6 getCheckedOutDocs
 
         >>> rs = repo.getCheckedOutDocs()
         >>> len(rs.getResults())
@@ -915,8 +899,6 @@ class Repository(object):
         """
         Returns an object given the specified object ID.
 
-        See CMIS specification document 2.2.4.7 getObject
-
         >>> doc = repo.getObject('workspace://SpacesStore/f0c8b90f-bec0-4405-8b9c-2ab570589808')
         >>> doc.getTitle()
         u'sample-b.pdf'
@@ -937,8 +919,6 @@ class Repository(object):
 
         """
         Returns an object given the path to the object.
-
-        See CMIS specification document 2.2.4.9 getObjectByPath
 
         >>> doc = repo.getObjectByPath('/jeff test/sample-b.pdf')
         >>> doc.getTitle()
@@ -1002,8 +982,6 @@ class Repository(object):
         the appropriate sub-class of :class:`CmisObject` you must either
         include cmis:baseTypeId as one of the fields in your select statement
         or just use "SELECT \*".
-
-        See CMIS specification document 2.2.6.1 query
 
         >>> q = "select * from cmis:document where cmis:name like '%test%'"
         >>> resultSet = repo.query(q)
@@ -1073,8 +1051,6 @@ class Repository(object):
         'workspace://SpacesStore/572c2cac-6b26-4cd8-91ad-b2931fe5b3fb'
         u'urn:uuid:572c2cac-6b26-4cd8-91ad-b2931fe5b3fb'
         u'updated'
-
-        See CMIS specification document 2.2.6.2 getContentChanges
 
         The following optional arguments are supported:
          - changeLogToken
@@ -1162,8 +1138,6 @@ class Repository(object):
         type and encoding based on the file. To specify it yourself, pass them
         in via the contentType and contentEncoding arguments.
 
-        See CMIS specification document 2.2.4.1 createDocument
-
         >>> f = open('sample-a.pdf', 'rb')
         >>> doc = folder.createDocument('sample-a.pdf', contentFile=f)
         <cmislib.model.Document object at 0x105be5e10>
@@ -1224,8 +1198,6 @@ class Repository(object):
         """
         This is not yet implemented.
 
-        See CMIS specification document 2.2.4.2 createDocumentFromSource
-
         The following optional arguments are not yet supported:
          - versioningState
          - policies
@@ -1242,8 +1214,6 @@ class Repository(object):
 
         """
         Creates a new :class:`Folder` object in the specified parentFolder.
-
-        See CMIS specification document 2.2.4.3 createFolder
 
         >>> root = repo.getRootFolder()
         >>> folder = repo.createFolder(root, 'someFolder2')
@@ -1265,8 +1235,6 @@ class Repository(object):
         Creates a relationship of the specific type between a source object
         and a target object and returns the new :class:`Relationship` object.
 
-        See CMIS specification document 2.2.4.4 createRelationship
-
         The following optional arguments are not currently supported:
          - policies
          - addACEs
@@ -1277,8 +1245,6 @@ class Repository(object):
     def createPolicy(self, properties):
         """
         This has not yet been implemented.
-
-        See CMIS specification document 2.2.4.5 createPolicy
 
         The following optional arguments are not currently supported:
          - folderId
@@ -1786,7 +1752,7 @@ class CmisObject(object):
 
     def getObjectParents(self, **kwargs):
         """
-        See CMIS specification document 2.2.3.5 getObjectParents
+        Gets the parents of this object as a :class:`ResultSet`.
 
         The following optional arguments are supported:
          - filter
@@ -1835,8 +1801,6 @@ class CmisObject(object):
         canGetAllVersions:True
         canGetObjectParents:True
         canGetProperties:True
-
-        See CMIS specification document 2.2.4.6 getAllowableActions
         """
 
         if self._allowableActions == {}:
@@ -1871,8 +1835,6 @@ class CmisObject(object):
         Returns a dict of the object's properties. If CMIS returns an
         empty element for a property, the property will be in the
         dict with a value of None.
-
-        See CMIS specification document 2.2.4.8 getProperties
 
         >>> props = doc.getProperties()
         >>> for p in props:
@@ -1948,8 +1910,6 @@ class CmisObject(object):
         Updates the properties of an object with the properties provided.
         Only provide the set of properties that need to be updated.
 
-        See CMIS specification document 2.2.4.12 updateProperties
-
         >>> folder = repo.getObjectByPath('/someFolder2')
         >>> folder.getName()
         u'someFolder2'
@@ -2004,8 +1964,6 @@ class CmisObject(object):
         """
         Moves an object from the source folder to the target folder.
 
-        See CMIS specification document 2.2.4.13 move
-
         >>> sub1 = repo.getObjectByPath('/cmislib/sub1')
         >>> sub2 = repo.getObjectByPath('/cmislib/sub2')
         >>> doc = repo.getObjectByPath('/cmislib/sub1/testdoc1')
@@ -2030,8 +1988,6 @@ class CmisObject(object):
         complaint. If what you really want to do is delete the folder and all
         of its descendants, use :meth:`~Folder.deleteTree` instead.
 
-        See CMIS specification document 2.2.4.14 delete
-
         >>> folder.delete()
 
         The optional allVersions argument is supported.
@@ -2047,8 +2003,6 @@ class CmisObject(object):
 
         """
         This is not yet implemented.
-
-        See CMIS specification document 2.2.9.1 applyPolicy
         """
 
         # depends on this object's canApplyPolicy allowable action
@@ -2100,8 +2054,6 @@ class CmisObject(object):
         Returns a :class:`ResultSet` of :class:`Relationship` objects for each
         relationship where the source is this object.
 
-        See CMIS specification document 2.2.8.1 getObjectRelationships
-
         >>> rels = tstDoc1.getRelationships()
         >>> len(rels.getResults())
         1
@@ -2134,8 +2086,6 @@ class CmisObject(object):
 
         """
         This is not yet implemented.
-
-        See CMIS specification document 2.2.9.2 removePolicy
         """
 
         # depends on this object's canRemovePolicy allowable action
@@ -2148,8 +2098,6 @@ class CmisObject(object):
 
         """
         This is not yet implemented.
-
-        See CMIS specification document 2.2.9.3 getAppliedPolicies
         """
 
         # depends on this object's canGetAppliedPolicies allowable action
@@ -2166,8 +2114,6 @@ class CmisObject(object):
         >>> acl = folder.getACL()
         >>> acl.getEntries()
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
-
-        See CMIS specification document 2.2.10.1 getACL
 
         The optional onlyBasicPermissions argument is currently not supported.
         """
@@ -2194,8 +2140,6 @@ class CmisObject(object):
         >>> acl.addEntry(ACE('jdoe', 'cmis:write', 'true'))
         >>> acl.getEntries()
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
-
-        See CMIS specification document 2.2.10.2 applyACL
         """
 
         if self._repository.getCapabilities()['ACL'] == 'manage':
@@ -2276,8 +2220,6 @@ class Document(CmisObject):
         Private Working Copy (PWC), which is also an instance of
         :class:`Document`
 
-        See CMIS specification document 2.2.7.1 checkout
-
         >>> doc.getObjectId()
         u'workspace://SpacesStore/f0c8b90f-bec0-4405-8b9c-2ab570589808;1.0'
         >>> doc.isCheckedOut()
@@ -2315,8 +2257,6 @@ class Document(CmisObject):
         Cancels the checkout of this object by retrieving the Private Working
         Copy (PWC) and then deleting it. After the PWC is deleted, this object
         will be reloaded to update properties related to a checkout.
-
-        See CMIS specification document 2.2.7.2 cancelCheckOut
 
         >>> doc.isCheckedOut()
         True
@@ -2390,8 +2330,6 @@ class Document(CmisObject):
         Checks in this :class:`Document` which must be a private
         working copy (PWC).
 
-        See CMIS specification document 2.2.7.3 checkIn
-
         >>> doc.isCheckedOut()
         False
         >>> pwc = doc.checkout()
@@ -2432,8 +2370,7 @@ class Document(CmisObject):
 
         """
         Returns a :class:`Document` object representing the latest version in
-        the version series. This is retrieved by
-        See CMIS specification document 2.2.7.4 getObjectOfLatestVersion
+        the version series.
 
         The following optional arguments are supported:
          - major
@@ -2469,8 +2406,6 @@ class Document(CmisObject):
         Like :class:`^CmisObject.getProperties`, returns a dict of properties
         from the latest version of this object in the version series.
 
-        See CMIS specification document 2.2.7.4 getPropertiesOfLatestVersion
-
         The optional major and filter arguments are supported.
         """
 
@@ -2483,8 +2418,6 @@ class Document(CmisObject):
         """
         Returns a :class:`ResultSet` of document objects for the entire
         version history of this object, including any PWC's.
-
-        See CMIS specification document 2.2.7.5 getAllVersions
 
         The optional filter and includeAllowableActions are
         supported.
@@ -2506,8 +2439,6 @@ class Document(CmisObject):
 
         """
         Returns the CMIS service response from invoking the 'enclosure' link.
-
-        See CMIS specification document 2.2.4.10 getContentStream
 
         >>> doc.getName()
         u'sample-b.pdf'
@@ -2549,7 +2480,7 @@ class Document(CmisObject):
     def setContentStream(self, contentFile, contentType=None):
 
         """
-        See CMIS specification document 2.2.4.16 setContentStream
+        Sets the content stream on this object.
 
         The following optional arguments are not yet supported:
          - overwriteFlag=None
@@ -2601,7 +2532,7 @@ class Document(CmisObject):
     def deleteContentStream(self):
 
         """
-        See CMIS specification document 2.2.4.17 deleteContentStream
+        Delete's the content stream associated with this object.
         """
 
         # get this object's content stream link
@@ -2632,9 +2563,8 @@ class Document(CmisObject):
     def getRenditions(self):
 
         """
-        This is not yet supported.
-
-        See CMIS specification document 2.2.4.11 getRenditions
+        Returns an array of :class:`Rendition` objects. The repository
+        must support the Renditions capability.
 
         The following optional arguments are not currently supported:
          - renditionFilter
@@ -2834,8 +2764,6 @@ class Folder(CmisObject):
         For example, the method might return a list that contains both
         :class:`Document` objects and :class:`Folder` objects.
 
-        See CMIS specification document 2.2.3.1 getChildren
-
         >>> childrenRS = subFolder.getChildren()
         >>> children = childrenRS.getResults()
 
@@ -2905,8 +2833,6 @@ class Folder(CmisObject):
         the method might return a list that contains both :class:`Document`
         objects and :class:`Folder` objects.
 
-        See CMIS specification document 2.2.3.2 getDescendants
-
         The following optional argument is supported:
          - depth. Use depth=-1 for all descendants, which is the default if no
            depth is specified.
@@ -2955,8 +2881,6 @@ class Folder(CmisObject):
         this method returns only the descendant objects that are folders. The
         results do not include the current folder.
 
-        See CMIS specification document 2.2.3.3 getFolderTree
-
         The following optional arguments are supported:
          - depth
          - filter
@@ -2992,8 +2916,6 @@ class Folder(CmisObject):
         """
         This is not yet implemented.
 
-        See CMIS specification document 2.2.3.4 getFolderParent
-
         The optional filter argument is not yet supported.
         """
         # get the appropriate 'up' link
@@ -3011,8 +2933,6 @@ class Folder(CmisObject):
 
         """
         Deletes the folder and all of its descendant objects.
-
-        See CMIS specification document 2.2.4.15 deleteTree
 
         >>> resultSet = subFolder.getDescendants()
         >>> len(resultSet.getResults())
@@ -3042,8 +2962,6 @@ class Folder(CmisObject):
         """
         Adds the specified object as a child of this object. No new object is
         created. The repository must support multifiling for this to work.
-
-        See CMIS specification document 2.2.5.1 addObjectToFolder
 
         >>> sub1 = repo.getObjectByPath("/cmislib/sub1")
         >>> sub2 = repo.getObjectByPath("/cmislib/sub2")
@@ -3077,8 +2995,6 @@ class Folder(CmisObject):
         """
         Removes the specified object from this folder. The repository must
         support unfiling for this to work.
-
-        See CMIS specification document 2.2.5.2 removeObjectFromFolder
         """
 
         if not self._repository.getCapabilities()['Unfiling']:

@@ -1263,6 +1263,22 @@ class DocumentTest(CmisTestBase):
         paths = testDoc.getPaths()
         self.assertTrue(len(paths) >= 1)
 
+    def testRenditions(self):
+        '''Get the renditions for a document'''
+        if not self._repo.getCapabilities().has_key('Renditions'):
+            print 'Repo does not support unfiling, skipping'
+            return
+
+        testDoc = self._testFolder.createDocumentFromString('testdoc.txt', contentString='test', contentType='text/plain')
+        sleep(settings.FULL_TEXT_WAIT)
+        if (testDoc.getAllowableActions().has_key('canGetRenditions') and
+            testDoc.getAllowableActions()['canGetRenditions'] == True):
+            rends = testDoc.getRenditions()
+            self.assertTrue(len(rends) >= 1)
+        else:
+            print 'Test doc does not have rendition, skipping'
+            return
+
 
 class TypeTest(unittest.TestCase):
 
@@ -1432,13 +1448,13 @@ if __name__ == "__main__":
     #unittest.TextTestRunner().run(tts)
     #import sys; sys.exit(0)
 
-    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
+    # tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
 
 #    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', RepositoryTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', DocumentTest))
@@ -1450,6 +1466,7 @@ if __name__ == "__main__":
 #    tts.addTests(TestLoader().loadTestsFromName('testFolderLeadingDot', FolderTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
+    tts.addTests(TestLoader().loadTestsFromName('testRenditions', DocumentTest))
 
     # WARNING: Potentially long-running tests
 
