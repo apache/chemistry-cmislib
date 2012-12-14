@@ -53,7 +53,7 @@ Checklist:
  #. pylint runs without much complaint
      .. code-block:: bash
 
-        pylint --disable-msg=C0103,R0904,R0913,C0301,W0511 cmislibtest.py
+        pylint --disable=C0103,R0904,R0913,C0301,W0511 cmislibtest.py
 
  #. All changes checked in
  #. Tag the release using 'cmislib-[release num]-RC[x]'

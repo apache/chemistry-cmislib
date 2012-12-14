@@ -17,7 +17,7 @@
    under the License.
 
 About Apache Chemistry cmislib
-=============================
+==============================
 The goal of this project is to create a CMIS client for Python that can be used to work with any CMIS-compliant repository.
 
 The library is being developed with the following guidelines:
@@ -44,9 +44,6 @@ Miscellaneous
  * createDocumentFromSource
  * getProperties filter
  * getContentStream stream id
-
-Renditions
- * getRenditions
 
 Unfiling/multifiling support
  * createDocument without a parent folder (unfiled)

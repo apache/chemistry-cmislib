@@ -26,7 +26,6 @@ from unittest import TestSuite, TestLoader
 from cmislib.model import CmisClient, ACE
 from cmislib.exceptions import \
                           ObjectNotFoundException, \
-                          PermissionDeniedException, \
                           CmisException, \
                           NotSupportedException
 from cmislib import messages
@@ -330,7 +329,6 @@ class RepositoryTest(CmisTestBase):
         '''Create test objects (one folder, one document) then try to get
         them by path'''
         # names of folders and test docs
-        testFolderName = self._testFolder.getName()
         parentFolderName = 'testGetObjectByPath folder'
         subFolderName = 'subfolder'
         docName = 'testdoc'
@@ -1448,13 +1446,13 @@ if __name__ == "__main__":
     #unittest.TextTestRunner().run(tts)
     #import sys; sys.exit(0)
 
-    # tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
-    # tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
-    # tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
-    # tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
-    # tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
-    # tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
-    # tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
+    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
 
 #    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', RepositoryTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', DocumentTest))
@@ -1466,7 +1464,7 @@ if __name__ == "__main__":
 #    tts.addTests(TestLoader().loadTestsFromName('testFolderLeadingDot', FolderTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
 #    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromName('testRenditions', DocumentTest))
+#    tts.addTests(TestLoader().loadTestsFromName('testRenditions', DocumentTest))
 
     # WARNING: Potentially long-running tests
 

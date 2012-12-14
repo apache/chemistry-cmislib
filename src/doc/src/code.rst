@@ -53,10 +53,10 @@ The :mod:`cmislib.net` Module contains the classes used by :mod:`cmislib.model.C
 .. automodule:: cmislib.net
    :members: RESTService
    
-The :mod:`cmislib` Module
+The :mod:`tests` Module
 -------------------------------
 
-The :mod:`tests.cmislibtest` Module contains unit tests for all classes and methods in :mod:`cmislib.model`. See :ref:`tests` for more information on running tests.
+The :mod:`tests` Module contains unit tests for all classes and methods in :mod:`cmislib.model`. See :ref:`tests` for more information on running tests.
 
-.. automodule:: tests.cmislibtest
+.. automodule:: tests
    :members:

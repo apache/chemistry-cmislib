@@ -130,10 +130,10 @@ class RESTService(object):
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
         if headers:
-            for k,v in headers.items():
-                self.logger.debug('Adding header:%s:%s' % (k,v))
+            for k, v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k, v))
                 request.add_header(k, v)
-                
+
         # create a password manager
         passwordManager = HTTPPasswordMgrWithDefaultRealm()
         passwordManager.add_password(None, url, username, password)
@@ -166,8 +166,8 @@ class RESTService(object):
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
         if headers:
-            for k,v in headers.items():
-                self.logger.debug('Adding header:%s:%s' % (k,v))
+            for k, v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k, v))
                 request.add_header(k, v)
 
         # create a password manager
@@ -221,8 +221,8 @@ class RESTService(object):
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
         if headers:
-            for k,v in headers.items():
-                self.logger.debug('Adding header:%s:%s' % (k,v))
+            for k, v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k, v))
                 request.add_header(k, v)
 
         # create a password manager
@@ -270,8 +270,8 @@ class RESTService(object):
         # add a user-agent
         request.add_header('User-Agent', self.user_agent)
         if headers:
-            for k,v in headers.items():
-                self.logger.debug('Adding header:%s:%s' % (k,v))
+            for k, v in headers.items():
+                self.logger.debug('Adding header:%s:%s' % (k, v))
                 request.add_header(k, v)
 
         # create a password manager
