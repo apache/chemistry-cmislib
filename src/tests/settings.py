@@ -54,3 +54,7 @@ TEST_PRINCIPAL_ID = 'tuser1'
 MAX_FULL_TEXT_TRIES = 10
 # The number of seconds the test should sleep between tries.
 FULL_TEXT_WAIT = 10
+# Specify the type ID of a versionable type. If all types are versionable,
+# specify cmis:document
+VERSIONABLE_TYPE_ID = 'cmis:document'
+#VERSIONABLE_TYPE_ID = 'VersionableType'
