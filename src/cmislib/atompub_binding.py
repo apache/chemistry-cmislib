@@ -28,6 +28,7 @@ from exceptions import CmisException, RuntimeException, \
     ObjectNotFoundException, InvalidArgumentException, \
     PermissionDeniedException, NotSupportedException, \
     UpdateConflictException
+from util import parseDateTimeValue
 import messages
 
 from urllib import quote
@@ -1964,7 +1965,7 @@ class AtomPubRepository(object):
     supportedPermissions = property(getSupportedPermissions)
 
 
-class AtomPubResultSet(object):
+class AtomPubResultSet(ResultSet):
 
     """
     Represents a paged result set. In CMIS, this is most often an Atom feed.
@@ -3967,7 +3968,7 @@ class AtomPubChangeEntry(ChangeEntry):
     properties = property(getProperties)
 
 
-class AtomPubChangeEntryResultSet(ChangeEntryResultSet):
+class AtomPubChangeEntryResultSet(AtomPubResultSet):
 
     """
     A specialized type of :class:`ResultSet` that knows how to instantiate
@@ -4012,7 +4013,7 @@ class AtomPubChangeEntryResultSet(ChangeEntryResultSet):
             entryElements = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'entry')
             entries = []
             for entryElement in entryElements:
-                changeEntry = ChangeEntry(self._cmisClient, self._repository, entryElement)
+                changeEntry = AtomPubChangeEntry(self._cmisClient, self._repository, entryElement)
                 entries.append(changeEntry)
 
             self._results = entries
@@ -4329,3 +4330,19 @@ def getElementNameAndValues(propType, propName, propValue, isList=False):
                 propValueStrList = [propValue]
 
     return propElementName, propValueStrList
+
+
+def getEmptyXmlDoc():
+
+    """
+    Internal helper method that knows how to build an empty Atom entry.
+    """
+
+    moduleLogger.debug('Inside getEmptyXmlDoc')
+
+    entryXmlDoc = minidom.Document()
+    entryElement = entryXmlDoc.createElementNS(ATOM_NS, "entry")
+    entryElement.setAttribute('xmlns', ATOM_NS)
+    entryXmlDoc.appendChild(entryElement)
+    return entryXmlDoc
+
