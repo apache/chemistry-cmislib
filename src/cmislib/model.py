@@ -177,6 +177,7 @@ class CmisClient(object):
         """
 
         doc = self.get(self.repositoryUrl, **self.extArgs)
+        moduleLogger.debug('type of returned obj: %s' % type(doc))
         workspaceElements = doc.getElementsByTagNameNS(APP_NS, 'workspace')
         # instantiate a Repository object with the first workspace
         # element we find
@@ -200,16 +201,17 @@ class CmisClient(object):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().get(url,
+        resp, content = Rest().get(url,
                             username=self.username,
                             password=self.password,
                             **kwargs)
-        if type(result) == HTTPError:
-            self._processCommonErrors(result)
-            return result
+
+        if resp['status'] != '200':
+            self._processCommonErrors(resp, url)
+            return content
         else:
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
 
@@ -227,13 +229,13 @@ class CmisClient(object):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().delete(url,
+        resp, content = Rest().delete(url,
                                username=self.username,
                                password=self.password,
                                **kwargs)
-        if type(result) == HTTPError:
-            self._processCommonErrors(result)
-            return result
+        if resp['status'] != '200':
+            self._processCommonErrors(resp, url)
+            return content
         else:
             pass
 
@@ -252,25 +254,25 @@ class CmisClient(object):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().post(url,
+        resp, content = Rest().post(url,
                              payload,
                              contentType,
                              username=self.username,
                              password=self.password,
                              **kwargs)
-        if type(result) != HTTPError:
+        if resp['status'] == '200':
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
-        elif result.code == 201:
+        elif resp['status'] == '201':
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
         else:
-            self._processCommonErrors(result)
-            return result
+            self._processCommonErrors(resp, url)
+            return resp
 
     def put(self, url, payload, contentType, **kwargs):
 
@@ -287,24 +289,25 @@ class CmisClient(object):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().put(url,
+        resp, content = Rest().put(url,
                             payload,
                             contentType,
                             username=self.username,
                             password=self.password,
                             **kwargs)
-        if type(result) == HTTPError:
-            self._processCommonErrors(result)
-            return result
+        moduleLogger.debug("Back from PUT, status:%s" % resp['status'])
+        if resp['status'] != '200' and resp['status'] != '201':
+            self._processCommonErrors(resp, url)
+            return content
         else:
             #if result.headers['content-length'] != '0':
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 # This may happen and is normal
                 return None
 
-    def _processCommonErrors(self, error):
+    def _processCommonErrors(self, error, url):
 
         """
         Maps HTTPErrors that are common to all to exceptions. Only errors
@@ -312,20 +315,20 @@ class CmisClient(object):
         here. Callers should handle the rest.
         """
 
-        if error.status == 401:
-            raise PermissionDeniedException(error.status, error.url)
-        elif error.status == 400:
-            raise InvalidArgumentException(error.status, error.url)
-        elif error.status == 404:
-            raise ObjectNotFoundException(error.status, error.url)
-        elif error.status == 403:
-            raise PermissionDeniedException(error.status, error.url)
-        elif error.status == 405:
-            raise NotSupportedException(error.status, error.url)
-        elif error.status == 409:
-            raise UpdateConflictException(error.status, error.url)
-        elif error.status == 500:
-            raise RuntimeException(error.status, error.url)
+        if error['status'] == '401':
+            raise PermissionDeniedException(error['status'], url)
+        elif error['status'] == '400':
+            raise InvalidArgumentException(error['status'], url)
+        elif error['status'] == '404':
+            raise ObjectNotFoundException(error['status'], url)
+        elif error['status'] == '403':
+            raise PermissionDeniedException(error['status'], url)
+        elif error['status'] == '405':
+            raise NotSupportedException(error['status'], url)
+        elif error['status'] == '409':
+            raise UpdateConflictException(error['status'], url)
+        elif error['status'] == '500':
+            raise RuntimeException(error['status'], url)
 
     defaultRepository = property(getDefaultRepository)
     repositories = property(getRepositories)
@@ -2465,13 +2468,14 @@ class Document(CmisObject):
             srcUrl = contentElements[0].attributes['src'].value
 
             # the cmis client class parses non-error responses
-            result = Rest().get(srcUrl.encode('utf-8'),
+            result, content = Rest().get(srcUrl.encode('utf-8'),
                                 username=self._cmisClient.username,
                                 password=self._cmisClient.password,
                                 **self._cmisClient.extArgs)
-            if result.code != 200:
-                raise CmisException(result.code)
-            return result
+            moduleLogger.debug('back from GET, status: %s' % result['status'])
+            if result['status'] != '200':
+                raise CmisException(result['status'])
+            return StringIO.StringIO(content)
         else:
             # otherwise, try to return the value of the content element
             if contentElements[0].childNodes:

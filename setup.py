@@ -29,7 +29,8 @@ setup(
     description = 'Apache Chemistry CMIS client library for Python',
     version = version,
     install_requires = [
-        'iso8601'
+        'iso8601',
+        'httplib2'
         ],
     author = 'Apache Chemistry Project',
     author_email = 'dev@chemistry.apache.org',
