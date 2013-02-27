@@ -20,6 +20,7 @@
 Define package contents so that they are easy to import.
 """
 
-from model import CmisClient, Repository, Folder
+from model import CmisClient
+from domain import Repository, Folder
 
 __all__ = ["CmisClient", "Repository", "Folder"]

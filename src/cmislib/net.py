@@ -17,7 +17,9 @@
 #      under the License.
 #
 '''
-Module that knows how to connect to the AtomPub Binding of a CMIS repo
+Module that takes care of network communications for cmislib. It does
+not know anything about CMIS or do anything special with regard to the
+response it receives.
 '''
 
 from urllib import urlencode

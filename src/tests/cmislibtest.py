@@ -23,7 +23,8 @@ Unit tests for cmislib
 '''
 import unittest
 from unittest import TestSuite, TestLoader
-from cmislib.model import CmisClient, ACE
+from cmislib.model import CmisClient
+from cmislib.domain import ACE
 from cmislib.exceptions import \
                           ObjectNotFoundException, \
                           CmisException, \
@@ -1408,8 +1409,8 @@ class ACLTest(CmisTestBase):
         if not self._repo.getSupportedPermissions() in ['both', 'basic']:
             print 'Repository needs to support either both or basic permissions for this test'
             return
-        acl = self._testFolder.getACL()
-        acl.addEntry(ACE(settings.TEST_PRINCIPAL_ID, 'cmis:write', 'true'))
+        acl = self._testFolder.getACL()        
+        acl.addEntry(settings.TEST_PRINCIPAL_ID, 'cmis:write', 'true')
         acl = self._testFolder.applyACL(acl)
         # would be good to check that the permission we get back is what we set
         # but at least one server (Alf) appears to map the basic perm to a
