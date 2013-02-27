@@ -28,7 +28,7 @@ class Binding(object):
     def getRepositoryService():
         pass
 
-    def _processCommonErrors(self, error):
+    def _processCommonErrors(self, error, url):
 
         """
         Maps HTTPErrors that are common to all to exceptions. Only errors
@@ -36,20 +36,20 @@ class Binding(object):
         here. Callers should handle the rest.
         """
 
-        if error.status == 401:
-            raise PermissionDeniedException(error.status, error.url)
-        elif error.status == 400:
-            raise InvalidArgumentException(error.status, error.url)
-        elif error.status == 404:
-            raise ObjectNotFoundException(error.status, error.url)
-        elif error.status == 403:
-            raise PermissionDeniedException(error.status, error.url)
-        elif error.status == 405:
-            raise NotSupportedException(error.status, error.url)
-        elif error.status == 409:
-            raise UpdateConflictException(error.status, error.url)
-        elif error.status == 500:
-            raise RuntimeException(error.status, error.url)
+        if error['status'] == '401':
+            raise PermissionDeniedException(error['status'], url)
+        elif error['status'] == '400':
+            raise InvalidArgumentException(error['status'], url)
+        elif error['status'] == '404':
+            raise ObjectNotFoundException(error['status'], url)
+        elif error['status'] == '403':
+            raise PermissionDeniedException(error['status'], url)
+        elif error['status'] == '405':
+            raise NotSupportedException(error['status'], url)
+        elif error['status'] == '409':
+            raise UpdateConflictException(error['status'], url)
+        elif error['status'] == '500':
+            raise RuntimeException(error['status'], url)
 
 
 class RepositoryServiceIfc(object):

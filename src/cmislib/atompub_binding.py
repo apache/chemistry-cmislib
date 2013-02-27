@@ -114,16 +114,16 @@ class AtomPubBinding(Binding):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().get(url,
+        resp, content = Rest().get(url,
                             username=username,
                             password=password,
                             **kwargs)
-        if type(result) == HTTPError:
-            self._processCommonErrors(result)
-            return result
+        if resp['status'] != '200':
+            self._processCommonErrors(resp, url)
+            return content
         else:
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
 
@@ -141,13 +141,13 @@ class AtomPubBinding(Binding):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().delete(url,
+        resp, content = Rest().delete(url,
                                username=username,
                                password=password,
                                **kwargs)
-        if type(result) == HTTPError:
-            self._processCommonErrors(result)
-            return result
+        if resp['status'] != '200':
+            self._processCommonErrors(resp, url)
+            return content
         else:
             pass
 
@@ -166,25 +166,25 @@ class AtomPubBinding(Binding):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().post(url,
+        resp, content = Rest().post(url,
                              payload,
                              contentType,
                              username=username,
                              password=password,
                              **kwargs)
-        if type(result) != HTTPError:
+        if resp['status'] == '200':
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
-        elif result.code == 201:
+        elif resp['status'] == '201':
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
         else:
-            self._processCommonErrors(result)
-            return result
+            self._processCommonErrors(resp, url)
+            return resp
 
     def put(self, url, username, password, payload, contentType, **kwargs):
 
@@ -201,19 +201,19 @@ class AtomPubBinding(Binding):
         if (len(self.extArgs) > 0):
             kwargs.update(self.extArgs)
 
-        result = Rest().put(url,
+        resp, content = Rest().put(url,
                             payload,
                             contentType,
                             username=username,
                             password=password,
                             **kwargs)
-        if type(result) == HTTPError:
-            self._processCommonErrors(result)
-            return result
+        if resp['status'] != '200' and resp['status'] != '201':
+            self._processCommonErrors(resp, url)
+            return content
         else:
             #if result.headers['content-length'] != '0':
             try:
-                return minidom.parse(result)
+                return minidom.parseString(content)
             except ExpatError:
                 # This may happen and is normal
                 return None
@@ -425,9 +425,6 @@ class AtomPubCmisObject(CmisObject):
                                               self._cmisClient.password,
                                               **kwargs)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # return the result set
         return AtomPubResultSet(self._cmisClient, self._repository, result)
 
@@ -638,8 +635,6 @@ class AtomPubCmisObject(CmisObject):
                                                self.xmlDoc.toxml(encoding='utf-8'),
                                                ATOM_XML_ENTRY_TYPE,
                                                **args)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
     def delete(self, **kwargs):
 
@@ -660,9 +655,6 @@ class AtomPubCmisObject(CmisObject):
                                          self._cmisClient.username,
                                          self._cmisClient.password,
                                          **kwargs)
-
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
     def applyPolicy(self, policyId):
 
@@ -707,9 +699,6 @@ class AtomPubCmisObject(CmisObject):
                                                xmlDoc.toxml(encoding='utf-8'),
                                                ATOM_XML_TYPE)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # instantiate CmisObject objects with the results and return the list
         entryElements = result.getElementsByTagNameNS(ATOM_NS, 'entry')
         assert(len(entryElements) == 1), "Expected entry element in result from relationship URL post"
@@ -745,9 +734,6 @@ class AtomPubCmisObject(CmisObject):
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
-
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # return the result set
         return AtomPubResultSet(self._cmisClient, self._repository, result)
@@ -795,8 +781,6 @@ class AtomPubCmisObject(CmisObject):
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password)
-            if type(result) == HTTPError:
-                raise CmisException(result.code)
             return AtomPubACL(xmlDoc=result)
         else:
             raise NotSupportedException
@@ -828,8 +812,6 @@ class AtomPubCmisObject(CmisObject):
                                           self._cmisClient.password,
                                           acl.getXmlDoc().toxml(encoding='utf-8'),
                                           CMIS_ACL_TYPE)
-            if type(result) == HTTPError:
-                raise CmisException(result.code)
             return AtomPubACL(xmlDoc=result)
         else:
             raise NotSupportedException
@@ -1523,8 +1505,6 @@ class AtomPubRepository(object):
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **addOptions)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # instantiate CmisObject objects with the results and return the list
         entryElements = result.getElementsByTagNameNS(ATOM_NS, 'entry')
@@ -1590,8 +1570,6 @@ class AtomPubRepository(object):
                                                self._cmisClient.password,
                                                xmlDoc.toxml(encoding='utf-8'),
                                                CMIS_QUERY_TYPE)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # return the result set
         return AtomPubResultSet(self._cmisClient, self, result)
@@ -1650,8 +1628,6 @@ class AtomPubRepository(object):
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # return the result set
         return AtomPubChangeEntryResultSet(self._cmisClient, self, result)
@@ -1757,8 +1733,6 @@ class AtomPubRepository(object):
                                                self._cmisClient.password,
                                                xmlDoc.toxml(encoding='utf-8'),
                                                ATOM_XML_ENTRY_TYPE)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # what comes back is the XML for the new document,
         # so use it to instantiate a new document
@@ -1903,8 +1877,6 @@ class AtomPubRepository(object):
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
-        if (type(result) == HTTPError):
-            raise CmisException(result.code)
 
         # return the result set
         return AtomPubResultSet(self._cmisClient, self, result)
@@ -2020,8 +1992,6 @@ class AtomPubResultSet(ResultSet):
             result = self._cmisClient.binding.get(link.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password)
-            if (type(result) == HTTPError):
-                raise CmisException(result.code)
 
             # return the result
             self._xmlDoc = result
@@ -2249,9 +2219,6 @@ class AtomPubDocument(AtomPubCmisObject):
                                                entryXmlDoc.toxml(encoding='utf-8'),
                                                ATOM_XML_ENTRY_TYPE)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # now that the doc is checked out, we need to refresh the XML
         # to pick up the prop updates related to a checkout
         self.reload()
@@ -2372,9 +2339,6 @@ class AtomPubDocument(AtomPubCmisObject):
                                       ATOM_XML_TYPE,
                                       **kwargs)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         return AtomPubDocument(self._cmisClient, self._repository, xmlDoc=result)
 
     def getLatestVersion(self, **kwargs):
@@ -2443,9 +2407,6 @@ class AtomPubDocument(AtomPubCmisObject):
                                               self._cmisClient.password,
                                               **kwargs)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # return the result set
         return AtomPubResultSet(self._cmisClient, self._repository, result)
 
@@ -2479,13 +2440,13 @@ class AtomPubDocument(AtomPubCmisObject):
             srcUrl = contentElements[0].attributes['src'].value
 
             # the cmis client class parses non-error responses
-            result = Rest().get(srcUrl.encode('utf-8'),
+            result, content = Rest().get(srcUrl.encode('utf-8'),
                                 username=self._cmisClient.username,
                                 password=self._cmisClient.password,
                                 **self._cmisClient.extArgs)
-            if result.code != 200:
-                raise CmisException(result.code)
-            return result
+            if result['status'] != '200':
+                raise CmisException(result['status'])
+            return StringIO.StringIO(content)
         else:
             # otherwise, try to return the value of the content element
             if contentElements[0].childNodes:
@@ -2536,9 +2497,6 @@ class AtomPubDocument(AtomPubCmisObject):
                                       mimetype,
                                       **args)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # what comes back is the XML for the updated document,
         # which is not required by the spec to be the same document
         # we just updated, so use it to instantiate a new document
@@ -2576,8 +2534,6 @@ class AtomPubDocument(AtomPubCmisObject):
                                          self._cmisClient.username,
                                          self._cmisClient.password,
                                          **args)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
     def getRenditions(self):
 
@@ -2632,9 +2588,6 @@ class AtomPubDocument(AtomPubCmisObject):
                                               self._cmisClient.password,
                                               filter='cmis:path',
                                               includeRelativePathSegment=True)
-
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         paths = []
         rs = AtomPubResultSet(self._cmisClient, self._repository, result)
@@ -2702,8 +2655,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                                self._cmisClient.password,
                                                entryXml.toxml(encoding='utf-8'),
                                                ATOM_XML_ENTRY_TYPE)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # what comes back is the XML for the new folder,
         # so use it to instantiate a new folder then return it
@@ -2809,9 +2760,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                               self._cmisClient.password,
                                               **kwargs)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # return the result set
         return AtomPubResultSet(self._cmisClient, self._repository, result)
 
@@ -2897,9 +2845,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                               self._cmisClient.password,
                                               **kwargs)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # return the result set
         return AtomPubResultSet(self._cmisClient, self._repository, result)
 
@@ -2937,9 +2882,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                               self._cmisClient.password,
                                               **kwargs)
 
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
-
         # return the result set
         return AtomPubResultSet(self._cmisClient, self, result)
 
@@ -2956,9 +2898,6 @@ class AtomPubFolder(AtomPubCmisObject):
         result = self._cmisClient.binding.get(parentUrl.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password)
-
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # return the result set
         return AtomPubFolder(self._cmisClient, self._repository, xmlDoc=result)
@@ -2990,9 +2929,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                          self._cmisClient.username,
                                          self._cmisClient.password,
                                          **kwargs)
-
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
     def addObject(self, cmisObject, **kwargs):
 
@@ -3029,8 +2965,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                                cmisObject.xmlDoc.toxml(encoding='utf-8'),
                                                ATOM_XML_ENTRY_TYPE,
                                                **kwargs)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
     def removeObject(self, cmisObject):
 
@@ -3053,8 +2987,6 @@ class AtomPubFolder(AtomPubCmisObject):
                                                cmisObject.xmlDoc.toxml(encoding='utf-8'),
                                                ATOM_XML_ENTRY_TYPE,
                                                **args)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
     def getPaths(self):
         """
@@ -3321,8 +3253,6 @@ class AtomPubObjectType(ObjectType):
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
-        if type(result) == HTTPError:
-            raise CmisException(result.code)
 
         # instantiate CmisObject objects with the results and return the list
         entryElements = result.getElementsByTagNameNS(ATOM_NS, 'entry')
@@ -3758,8 +3688,6 @@ class AtomPubChangeEntry(ChangeEntry):
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password)
-            if type(result) == HTTPError:
-                raise CmisException(result.code)
             return AtomPubACL(xmlDoc=result)
 
     def getChangeTime(self):
@@ -3908,8 +3836,6 @@ class AtomPubChangeEntry(ChangeEntry):
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password)
-            if type(result) == HTTPError:
-                raise CmisException(result.code)
             return AtomPubACL(xmlDoc=result)
 
     def getChangeTime(self):

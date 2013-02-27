@@ -48,7 +48,7 @@ TEST_BINARY_2 = 'sample-a.pdf'
 # For repositories that support setting an ACL, the name of an existing
 # principal ID to add to the ACL of a test object. Some repositories care
 # if this ID doesn't exist. Some repositories don't.
-TEST_PRINCIPAL_ID = 'tuser1'
+TEST_PRINCIPAL_ID = 'anyone'
 # For repositories that may index test content asynchronously, the number of
 # times a query is retried before giving up.
 MAX_FULL_TEXT_TRIES = 10
