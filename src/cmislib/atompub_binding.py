@@ -32,7 +32,6 @@ from util import parseDateTimeValue
 import messages
 
 from urllib import quote
-from urllib2 import HTTPError
 from urlparse import urlparse, urlunparse
 import re
 import mimetypes
@@ -243,8 +242,6 @@ class RepositoryService(RepositoryServiceIfc):
 
     def getRepositories(self, client):
         result = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
-        if (type(result) == HTTPError):
-            raise RuntimeException()
 
         workspaceElements = result.getElementsByTagNameNS(APP_NS, 'workspace')
         # instantiate a Repository object using every workspace element

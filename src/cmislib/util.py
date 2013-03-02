@@ -22,6 +22,7 @@ Module containing handy utility functions.
 import re
 import iso8601
 import logging
+import datetime
 from cmislib.domain import CmisId, Document, Folder
 
 moduleLogger = logging.getLogger('cmislib.util')
@@ -68,14 +69,59 @@ def parsePropValue(value, nodeName):
     else:
         return value
 
+def parsePropValueByType(value, typeName):
+
+    """
+    Returns a properly-typed object based on the type as specified in the
+    node's property definition.
+    """
+
+    moduleLogger.debug('Inside parsePropValueByType: %s: %s' % (typeName, value))
+
+    if typeName == 'id':
+        if value:
+            return CmisId(value)
+        else:
+            return None
+    elif typeName == 'string':
+        return value
+    elif typeName == 'boolean':
+        #TODO
+        if not value:
+            return False
+        if type(value) == bool:
+            return value
+        else:
+            bDict = {'false': False, 'true': True}
+            return bDict[value.lower()]
+    elif typeName == 'integer':
+        if value:
+            return int(value)
+        else:
+            return 0
+    elif typeName == 'decimal':
+        if value:
+            return float(value)
+        else:
+            return 0.0
+    elif typeName == 'datetime':
+        #%z doesn't seem to work, so I'm going to trunc the offset
+        #not all servers return microseconds, so those go too
+        return parseDateTimeValue(value)
+    else:
+        return value
 
 def parseDateTimeValue(value):
 
     """
     Utility function to return a datetime from a string.
     """
-    return iso8601.parse_date(value)
-
+    if (type(value) == str):
+        return iso8601.parse_date(value)
+    elif (type(value) == int):
+        return datetime.datetime.fromtimestamp(value/1000)
+    else:
+        return
 
 def parseBoolValue(value):
 
