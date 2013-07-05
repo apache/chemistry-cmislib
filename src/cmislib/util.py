@@ -116,9 +116,9 @@ def parseDateTimeValue(value):
     """
     Utility function to return a datetime from a string.
     """
-    if (type(value) == str):
+    if type(value) == str:
         return iso8601.parse_date(value)
-    elif (type(value) == int):
+    elif type(value) == int:
         return datetime.datetime.fromtimestamp(value/1000)
     else:
         return
@@ -149,7 +149,7 @@ def toCMISValue(value):
         return 'false'
     elif value == True:
         return 'true'
-    elif value == None:
+    elif value is None:
         return 'none'
     else:
         return value

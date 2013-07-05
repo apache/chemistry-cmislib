@@ -604,13 +604,13 @@ class Repository(object):
          - depth
          - includePropertyDefinitions
 
-        >>> types = alfRepo.getTypeDescendants('cmis:folder')
+        >>> types = repo.getTypeDescendants('cmis:folder')
         >>> len(types)
         17
-        >>> types = alfRepo.getTypeDescendants('cmis:folder', depth=1)
+        >>> types = repo.getTypeDescendants('cmis:folder', depth=1)
         >>> len(types)
         12
-        >>> types = alfRepo.getTypeDescendants('cmis:folder', depth=2)
+        >>> types = repo.getTypeDescendants('cmis:folder', depth=2)
         >>> len(types)
         17
         """
@@ -957,7 +957,7 @@ class Repository(object):
         If the types collection is specified, the method returns the result of
         `getTypeDefinitions` and ignores any optional params passed in.
 
-        >>> from cmislib.model import TYPES_COLL
+        >>> from cmislib.atompub_binding import TYPES_COLL
         >>> types = repo.getCollection(TYPES_COLL)
         >>> len(types)
         4
@@ -967,7 +967,7 @@ class Repository(object):
         Otherwise, the collection URL is invoked, and a :class:`ResultSet` is
         returned.
 
-        >>> from cmislib.model import CHECKED_OUT_COLL
+        >>> from cmislib.atompub_binding import CHECKED_OUT_COLL
         >>> resultSet = repo.getCollection(CHECKED_OUT_COLL)
         >>> len(resultSet.getResults())
         1
@@ -993,32 +993,31 @@ class ResultSet(object):
     """
 
     def __iter__(self):
-        ''' Iterator for the result set '''
+        """ Iterator for the result set """
         return iter(self.getResults())
 
     def __getitem__(self, index):
-        ''' Getter for the result set '''
+        """ Getter for the result set """
         return self.getResults()[index]
 
     def __len__(self):
-        ''' Len method for the result set '''
+        """ Len method for the result set """
         return len(self.getResults())
 
     def reload(self):
 
-        '''
+        """
         Re-invokes the self link for the current set of results.
 
-        >>> resultSet = repo.getCollection(CHECKED_OUT_COLL)
         >>> resultSet.reload()
 
-        '''
+        """
 
         pass
 
     def getResults(self):
 
-        '''
+        """
         Returns the results that were fetched and cached by the get*Page call.
 
         >>> resultSet = repo.getCheckedOutDocs()
@@ -1028,22 +1027,22 @@ class ResultSet(object):
         ...     result
         ...
         <cmislib.model.Document object at 0x104851810>
-        '''
+        """
 
         pass
 
     def hasObject(self, objectId):
 
-        '''
+        """
         Returns True if the specified objectId is found in the list of results,
         otherwise returns False.
-        '''
+        """
 
         pass
 
     def getFirst(self):
 
-        '''
+        """
         Returns the first page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server returns a "first" link. Not all of them do.
@@ -1055,13 +1054,13 @@ class ResultSet(object):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         pass
 
     def getPrev(self):
 
-        '''
+        """
         Returns the prev page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server returns a "prev" link. Not all of them do.
@@ -1072,13 +1071,13 @@ class ResultSet(object):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         pass
 
     def getNext(self):
 
-        '''
+        """
         Returns the next page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type.
         >>> resultSet.hasNext()
@@ -1088,13 +1087,13 @@ class ResultSet(object):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         pass
 
     def getLast(self):
 
-        '''
+        """
         Returns the last page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server is returning a "last" link. Not all of them do.
@@ -1106,54 +1105,54 @@ class ResultSet(object):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         pass
 
     def hasNext(self):
 
-        '''
+        """
         Returns True if this page contains a next link.
 
         >>> resultSet.hasNext()
         True
-        '''
+        """
 
         pass
 
     def hasPrev(self):
 
-        '''
+        """
         Returns True if this page contains a prev link. Not all CMIS providers
         implement prev links consistently.
 
         >>> resultSet.hasPrev()
         True
-        '''
+        """
 
         pass
 
     def hasFirst(self):
 
-        '''
+        """
         Returns True if this page contains a first link. Not all CMIS providers
         implement first links consistently.
 
         >>> resultSet.hasFirst()
         True
-        '''
+        """
 
         pass
 
     def hasLast(self):
 
-        '''
+        """
         Returns True if this page contains a last link. Not all CMIS providers
         implement last links consistently.
 
         >>> resultSet.hasLast()
         True
-        '''
+        """
 
         pass
 
@@ -1767,7 +1766,7 @@ class ObjectType(object):
         """
         Gets the HREF for the link element with the specified rel and linkType.
 
-        >>> from cmislib.model import ATOM_XML_FEED_TYPE
+        >>> from cmislib.atompub_binding import ATOM_XML_FEED_TYPE
         >>> docType.getLink('down', ATOM_XML_FEED_TYPE)
         u'http://localhost:8080/alfresco/s/cmis/type/cmis:document/children'
         """
@@ -1908,14 +1907,14 @@ class ACL(object):
     Represents the Access Control List for an object.
     """
 
-    def addEntry(self, ace):
+    def addEntry(self, principalId, access, direct):
 
         """
         Adds an :class:`ACE` entry to the ACL.
 
         >>> acl = folder.getACL()
-        >>> acl.addEntry(ACE('jpotts', 'cmis:read', 'true'))
-        >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
+        >>> acl.addEntry('jpotts', 'cmis:read', 'true')
+        >>> acl.addEntry('jsmith', 'cmis:write', 'true')
         >>> acl.getEntries()
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
         """
@@ -1987,20 +1986,33 @@ class ACE(object):
     Represents an individual Access Control Entry.
     """
 
+    def __init__(self, principalId=None, permissions=None, direct=None):
+        """Constructor"""
+        self._principalId = principalId
+        if permissions:
+            if isinstance(permissions, str):
+                self._permissions = [permissions]
+            else:
+                self._permissions = permissions
+        self._direct = direct
+
+        self.logger = logging.getLogger('cmislib.model.ACE')
+        self.logger.info('Creating an instance of ACE')
+
     @property
     def principalId(self):
         """Getter for principalId"""
-        pass
+        return self._principalId
 
     @property
     def direct(self):
         """Getter for direct"""
-        pass
+        return self._direct
 
     @property
     def permissions(self):
         """Getter for permissions"""
-        pass
+        return self._permissions
 
 
 class ChangeEntry(object):

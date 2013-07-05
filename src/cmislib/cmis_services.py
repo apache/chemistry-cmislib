@@ -25,7 +25,7 @@ from exceptions import CmisException, RuntimeException, \
     UpdateConflictException
 
 class Binding(object):
-    def getRepositoryService():
+    def getRepositoryService(self):
         pass
 
     def _processCommonErrors(self, error, url):
@@ -53,8 +53,8 @@ class Binding(object):
 
 
 class RepositoryServiceIfc(object):
-    def getRepositories():
+    def getRepositories(self, client):
         pass
 
-    def getRepositoryInfo():
+    def getRepositoryInfo(self):
         pass

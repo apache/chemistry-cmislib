@@ -22,12 +22,11 @@ provider.
 """
 from cmis_services import RepositoryServiceIfc
 from cmis_services import Binding
-from domain import CmisId, CmisObject, Repository, Relationship, Policy, ObjectType, Property, Folder, Document, ACL, ACE, ChangeEntry, ResultSet, ChangeEntryResultSet, Rendition
+from domain import CmisId, CmisObject, ObjectType, Property, ACL, ACE, ChangeEntry, ResultSet, Rendition
 from net import RESTService as Rest
-from exceptions import CmisException, RuntimeException, \
+from exceptions import CmisException, \
     ObjectNotFoundException, InvalidArgumentException, \
-    PermissionDeniedException, NotSupportedException, \
-    UpdateConflictException
+    NotSupportedException
 from util import parseDateTimeValue
 import messages
 
@@ -37,14 +36,12 @@ import re
 import mimetypes
 from xml.parsers.expat import ExpatError
 import datetime
-import time
-import iso8601
 import StringIO
 import logging
 from xml.dom import minidom
 from util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue
 
-moduleLogger = logging.getLogger('cmislib.atompubbinding')
+moduleLogger = logging.getLogger('cmislib.atompub_binding')
 
 # Namespaces
 ATOM_NS = 'http://www.w3.org/2005/Atom'
@@ -110,7 +107,7 @@ class AtomPubBinding(Binding):
         """
 
         # merge the cmis client extended args with the ones that got passed in
-        if (len(self.extArgs) > 0):
+        if len(self.extArgs) > 0:
             kwargs.update(self.extArgs)
 
         resp, content = Rest().get(url,
@@ -137,7 +134,7 @@ class AtomPubBinding(Binding):
         """
 
         # merge the cmis client extended args with the ones that got passed in
-        if (len(self.extArgs) > 0):
+        if len(self.extArgs) > 0:
             kwargs.update(self.extArgs)
 
         resp, content = Rest().delete(url,
@@ -162,7 +159,7 @@ class AtomPubBinding(Binding):
         """
 
         # merge the cmis client extended args with the ones that got passed in
-        if (len(self.extArgs) > 0):
+        if len(self.extArgs) > 0:
             kwargs.update(self.extArgs)
 
         resp, content = Rest().post(url,
@@ -197,7 +194,7 @@ class AtomPubBinding(Binding):
         """
 
         # merge the cmis client extended args with the ones that got passed in
-        if (len(self.extArgs) > 0):
+        if len(self.extArgs) > 0:
             kwargs.update(self.extArgs)
 
         resp, content = Rest().put(url,
@@ -221,6 +218,7 @@ class AtomPubBinding(Binding):
 class RepositoryService(RepositoryServiceIfc):
     def __init__(self):
         self._uriTemplates = {}
+        self.logger = logging.getLogger('cmislib.atompub_binding.RepositoryService')
 
     def reload(self, obj):
         self.logger.debug('Reload called on object')
@@ -295,7 +293,7 @@ class AtomPubCmisObject(CmisObject):
         self._allowableActions = {}
         self.xmlDoc = xmlDoc
         self._kwargs = kwargs
-        self.logger = logging.getLogger('cmislib.model.CmisObject')
+        self.logger = logging.getLogger('cmislib.atompub_binding.AtomPubCmisObject')
         self.logger.info('Creating an instance of CmisObject')
 
     def __str__(self):
@@ -391,8 +389,8 @@ class AtomPubCmisObject(CmisObject):
         u'workspace://SpacesStore/dc26102b-e312-471b-b2af-91bfb0225339'
         """
 
-        if self._objectId == None:
-            if self.xmlDoc == None:
+        if self._objectId is None:
+            if self.xmlDoc is None:
                 self.logger.debug('Both objectId and xmlDoc were None, reloading')
                 self.reload()
             props = self.getProperties()
@@ -413,7 +411,7 @@ class AtomPubCmisObject(CmisObject):
         # get the appropriate 'up' link
         parentUrl = self._getLink(UP_REL)
 
-        if parentUrl == None:
+        if parentUrl is None:
             raise NotSupportedException('Root folder does not support getObjectParents')
 
         # invoke the URL
@@ -431,6 +429,39 @@ class AtomPubCmisObject(CmisObject):
         """
         # see sub-classes for implementation
         pass
+
+    def getRenditions(self):
+
+        """
+        Returns an array of :class:`Rendition` objects. The repository
+        must support the Renditions capability.
+
+        The following optional arguments are not currently supported:
+         - renditionFilter
+         - maxItems
+         - skipCount
+        """
+
+        # if Renditions capability is None, return notsupported
+        if self._repository.getCapabilities()['Renditions']:
+            pass
+        else:
+            raise NotSupportedException
+
+        if self.xmlDoc is None:
+            self.reload()
+
+        linkElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
+
+        renditions = []
+        for linkElement in linkElements:
+
+            if linkElement.attributes.has_key('rel'):
+                relAttr = linkElement.attributes['rel'].value
+
+                if relAttr == RENDITION_REL:
+                    renditions.append(AtomPubRendition(linkElement))
+        return renditions
 
     def getAllowableActions(self):
 
@@ -470,7 +501,7 @@ class AtomPubCmisObject(CmisObject):
         Returns the value of the object's cmis:title property.
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
 
         titleElement = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'title')[0]
@@ -502,7 +533,7 @@ class AtomPubCmisObject(CmisObject):
 
         #TODO implement filter
         if self._properties == {}:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             propertiesElement = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'properties')[0]
             #cpattern = re.compile(r'^property([\w]*)')
@@ -514,7 +545,7 @@ class AtomPubCmisObject(CmisObject):
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0] and \
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes:
                     valNodeList = node.getElementsByTagNameNS(CMIS_NS, 'value')
-                    if (len(valNodeList) == 1):
+                    if len(valNodeList) == 1:
                         propertyValue = parsePropValue(valNodeList[0].
                                                        childNodes[0].data,
                                                        node.localName)
@@ -549,7 +580,7 @@ class AtomPubCmisObject(CmisObject):
         u'system-overview.html'
         """
 
-        if self._name == None:
+        if self._name is None:
             self._name = self.getProperties()['cmis:name']
         return self._name
 
@@ -578,7 +609,7 @@ class AtomPubCmisObject(CmisObject):
         # if we have a change token, we must pass it back, per the spec
         args = {}
         if (self.properties.has_key('cmis:changeToken') and
-            self.properties['cmis:changeToken'] != None):
+                    self.properties['cmis:changeToken'] is not None):
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -626,7 +657,7 @@ class AtomPubCmisObject(CmisObject):
         args = {"sourceFolderId": sourceFolder.id}
 
         # post the Atom entry
-        result = self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        self._cmisClient.binding.post(postUrl.encode('utf-8'),
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                self.xmlDoc.toxml(encoding='utf-8'),
@@ -648,7 +679,7 @@ class AtomPubCmisObject(CmisObject):
         """
 
         url = self._getSelfLink()
-        result = self._cmisClient.binding.delete(url.encode('utf-8'),
+        self._cmisClient.binding.delete(url.encode('utf-8'),
                                          self._cmisClient.username,
                                          self._cmisClient.password,
                                          **kwargs)
@@ -688,7 +719,7 @@ class AtomPubCmisObject(CmisObject):
         xmlDoc = getEntryXmlDoc(self._repository, properties=props)
 
         url = self._getLink(RELATIONSHIPS_REL)
-        assert url != None, 'Could not determine relationships URL'
+        assert url is not None, 'Could not determine relationships URL'
 
         result = self._cmisClient.binding.post(url.encode('utf-8'),
                                                self._cmisClient.username,
@@ -725,7 +756,7 @@ class AtomPubCmisObject(CmisObject):
         """
 
         url = self._getLink(RELATIONSHIPS_REL)
-        assert url != None, 'Could not determine relationships URL'
+        assert url is not None, 'Could not determine relationships URL'
 
         result = self._cmisClient.binding.get(url.encode('utf-8'),
                                               self._cmisClient.username,
@@ -832,7 +863,7 @@ class AtomPubCmisObject(CmisObject):
         specified rel.
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
         linkElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
 
@@ -936,7 +967,7 @@ class AtomPubRepository(object):
             raise NotSupportedException(messages.NO_ACL_SUPPORT)
 
         if not self._permissions:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             suppEls = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'supportedPermissions')
             assert len(suppEls) == 1, 'Expected the repository service document to have one element named supportedPermissions'
@@ -973,7 +1004,7 @@ class AtomPubRepository(object):
             raise NotSupportedException(messages.NO_ACL_SUPPORT)
 
         if self._permDefs == {}:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             aclEls = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'aclCapability')
             assert len(aclEls) == 1, 'Expected the repository service document to have one element named aclCapability'
@@ -1022,7 +1053,7 @@ class AtomPubRepository(object):
             raise NotSupportedException(messages.NO_ACL_SUPPORT)
 
         if self._permMap == {}:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             aclEls = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'aclCapability')
             assert len(aclEls) == 1, 'Expected the repository service document to have one element named aclCapability'
@@ -1060,7 +1091,7 @@ class AtomPubRepository(object):
             raise NotSupportedException(messages.NO_ACL_SUPPORT)
 
         if not self._propagation:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             propEls = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'propagation')
             assert len(propEls) == 1, 'Expected the repository service document to have one element named propagation'
@@ -1078,8 +1109,8 @@ class AtomPubRepository(object):
         u'83beb297-a6fa-4ac5-844b-98c871c0eea9'
         """
 
-        if self._repositoryId == None:
-            if self.xmlDoc == None:
+        if self._repositoryId is None:
+            if self.xmlDoc is None:
                 self.reload()
             self._repositoryId = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'repositoryId')[0].firstChild.data
         return self._repositoryId
@@ -1094,8 +1125,8 @@ class AtomPubRepository(object):
         u'Main Repository'
         """
 
-        if self._repositoryName == None:
-            if self.xmlDoc == None:
+        if self._repositoryName is None:
+            if self.xmlDoc is None:
                 self.reload()
             self._repositoryName = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'repositoryName')[0].firstChild.data
         return self._repositoryName
@@ -1123,14 +1154,16 @@ class AtomPubRepository(object):
         """
 
         if not self._repositoryInfo:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             repoInfoElement = self.xmlDoc.getElementsByTagNameNS(CMISRA_NS, 'repositoryInfo')[0]
             for node in repoInfoElement.childNodes:
                 if node.nodeType == node.ELEMENT_NODE and node.localName != 'capabilities':
                     try:
                         data = node.childNodes[0].data
-                    except:
+                    except IndexError:
+                        data = None
+                    except AttributeError:
                         data = None
                     self._repositoryInfo[node.localName] = data
         return self._repositoryInfo
@@ -1161,7 +1194,7 @@ class AtomPubRepository(object):
         """
 
         if not self._capabilities:
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
             capabilitiesElement = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'capabilities')[0]
             for node in [e for e in capabilitiesElement.childNodes if e.nodeType == e.ELEMENT_NODE]:
@@ -1238,7 +1271,7 @@ class AtomPubRepository(object):
             entryElements = typesXmlDoc.getElementsByTagNameNS(ATOM_NS, 'entry')
             types = []
             for entryElement in entryElements:
-                objectType = ObjectType(self._cmisClient,
+                objectType = AtomPubObjectType(self._cmisClient,
                                         self,
                                         xmlDoc=entryElement)
                 types.append(objectType)
@@ -1278,13 +1311,13 @@ class AtomPubRepository(object):
          - depth
          - includePropertyDefinitions
 
-        >>> types = alfRepo.getTypeDescendants('cmis:folder')
+        >>> types = repo.getTypeDescendants('cmis:folder')
         >>> len(types)
         17
-        >>> types = alfRepo.getTypeDescendants('cmis:folder', depth=1)
+        >>> types = repo.getTypeDescendants('cmis:folder', depth=1)
         >>> len(types)
         12
-        >>> types = alfRepo.getTypeDescendants('cmis:folder', depth=2)
+        >>> types = repo.getTypeDescendants('cmis:folder', depth=2)
         >>> len(types)
         17
         """
@@ -1364,7 +1397,7 @@ class AtomPubRepository(object):
         Returns the HREF attribute of an Atom link element for the
         specified rel.
         """
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
 
         linkElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
@@ -1551,7 +1584,7 @@ class AtomPubRepository(object):
         True
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
 
         # get the URL this repository uses to accept query POSTs
@@ -1617,7 +1650,7 @@ class AtomPubRepository(object):
         datetime.datetime(2010, 2, 16, 20, 6, 37)
         """
 
-        if self.getCapabilities()['Changes'] == None:
+        if self.getCapabilities()['Changes'] is None:
             raise NotSupportedException(messages.NO_CHANGE_LOG_SUPPORT)
 
         changesUrl = self.getLink(CHANGE_LOG_REL)
@@ -1650,7 +1683,7 @@ class AtomPubRepository(object):
         """
 
         # if you didn't pass in a parent folder
-        if parentFolder == None:
+        if parentFolder is None:
             # if the repository doesn't require fileable objects to be filed
             if self.getCapabilities()['Unfiling']:
                 # has not been implemented
@@ -1697,7 +1730,7 @@ class AtomPubRepository(object):
 
         postUrl = ''
         # if you didn't pass in a parent folder
-        if parentFolder == None:
+        if parentFolder is None:
             # if the repository doesn't require fileable objects to be filed
             if self.getCapabilities()['Unfiling']:
                 # has not been implemented
@@ -1814,7 +1847,7 @@ class AtomPubRepository(object):
 
         if self._uriTemplates == {}:
 
-            if self.xmlDoc == None:
+            if self.xmlDoc is None:
                 self.reload()
 
             uriTemplateElements = self.xmlDoc.getElementsByTagNameNS(CMISRA_NS, 'uritemplate')
@@ -1849,7 +1882,7 @@ class AtomPubRepository(object):
         If the types collection is specified, the method returns the result of
         `getTypeDefinitions` and ignores any optional params passed in.
 
-        >>> from cmislib.model import TYPES_COLL
+        >>> from cmislib.atompub_binding import TYPES_COLL
         >>> types = repo.getCollection(TYPES_COLL)
         >>> len(types)
         4
@@ -1859,7 +1892,7 @@ class AtomPubRepository(object):
         Otherwise, the collection URL is invoked, and a :class:`ResultSet` is
         returned.
 
-        >>> from cmislib.model import CHECKED_OUT_COLL
+        >>> from cmislib.atompub_binding import CHECKED_OUT_COLL
         >>> resultSet = repo.getCollection(CHECKED_OUT_COLL)
         >>> len(resultSet.getResults())
         1
@@ -1884,7 +1917,7 @@ class AtomPubRepository(object):
         Returns the link HREF from the specified collectionType
         ('checkedout', for example).
 
-        >>> from cmislib.model import CHECKED_OUT_COLL
+        >>> from cmislib.atompub_binding import CHECKED_OUT_COLL
         >>> repo.getCollectionLink(CHECKED_OUT_COLL)
         u'http://localhost:8080/alfresco/s/cmis/checkedout'
 
@@ -1941,7 +1974,7 @@ class AtomPubResultSet(ResultSet):
     """
 
     def __init__(self, cmisClient, repository, xmlDoc):
-        ''' Constructor '''
+        """ Constructor """
         self._cmisClient = cmisClient
         self._repository = repository
         self._xmlDoc = xmlDoc
@@ -1950,21 +1983,21 @@ class AtomPubResultSet(ResultSet):
         self.logger.info('Creating an instance of ResultSet')
 
     def __iter__(self):
-        ''' Iterator for the result set '''
+        """ Iterator for the result set """
         return iter(self.getResults())
 
     def __getitem__(self, index):
-        ''' Getter for the result set '''
+        """ Getter for the result set """
         return self.getResults()[index]
 
     def __len__(self):
-        ''' Len method for the result set '''
+        """ Len method for the result set """
         return len(self.getResults())
 
     def _getLink(self, rel):
-        '''
+        """
         Returns the link found in the feed's XML for the specified rel.
-        '''
+        """
         linkElements = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
 
         for linkElement in linkElements:
@@ -1976,14 +2009,14 @@ class AtomPubResultSet(ResultSet):
                     return linkElement.attributes['href'].value
 
     def _getPageResults(self, rel):
-        '''
+        """
         Given a specified rel, does a get using that link (if one exists)
         and then converts the resulting XML into a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type.
 
         The results are kept around to facilitate repeated calls without moving
         the cursor.
-        '''
+        """
         link = self._getLink(rel)
         if link:
             result = self._cmisClient.binding.get(link.encode('utf-8'),
@@ -1997,20 +2030,20 @@ class AtomPubResultSet(ResultSet):
 
     def reload(self):
 
-        '''
+        """
         Re-invokes the self link for the current set of results.
 
         >>> resultSet = repo.getCollection(CHECKED_OUT_COLL)
         >>> resultSet.reload()
 
-        '''
+        """
 
         self.logger.debug('Reload called on result set')
         self._getPageResults(SELF_REL)
 
     def getResults(self):
 
-        '''
+        """
         Returns the results that were fetched and cached by the get*Page call.
 
         >>> resultSet = repo.getCheckedOutDocs()
@@ -2020,7 +2053,7 @@ class AtomPubResultSet(ResultSet):
         ...     result
         ...
         <cmislib.model.Document object at 0x104851810>
-        '''
+        """
         if self._results:
             return self._results
 
@@ -2039,10 +2072,10 @@ class AtomPubResultSet(ResultSet):
 
     def hasObject(self, objectId):
 
-        '''
+        """
         Returns True if the specified objectId is found in the list of results,
         otherwise returns False.
-        '''
+        """
 
         for obj in self.getResults():
             if obj.id == objectId:
@@ -2051,7 +2084,7 @@ class AtomPubResultSet(ResultSet):
 
     def getFirst(self):
 
-        '''
+        """
         Returns the first page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server returns a "first" link. Not all of them do.
@@ -2063,13 +2096,13 @@ class AtomPubResultSet(ResultSet):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         return self._getPageResults(FIRST_REL)
 
     def getPrev(self):
 
-        '''
+        """
         Returns the prev page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server returns a "prev" link. Not all of them do.
@@ -2080,13 +2113,13 @@ class AtomPubResultSet(ResultSet):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         return self._getPageResults(PREV_REL)
 
     def getNext(self):
 
-        '''
+        """
         Returns the next page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type.
         >>> resultSet.hasNext()
@@ -2096,13 +2129,13 @@ class AtomPubResultSet(ResultSet):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         return self._getPageResults(NEXT_REL)
 
     def getLast(self):
 
-        '''
+        """
         Returns the last page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server is returning a "last" link. Not all of them do.
@@ -2114,18 +2147,18 @@ class AtomPubResultSet(ResultSet):
         ...     result
         ...
         <cmislib.model.Document object at 0x10480bc90>
-        '''
+        """
 
         return self._getPageResults(LAST_REL)
 
     def hasNext(self):
 
-        '''
+        """
         Returns True if this page contains a next link.
 
         >>> resultSet.hasNext()
         True
-        '''
+        """
 
         if self._getLink(NEXT_REL):
             return True
@@ -2134,13 +2167,13 @@ class AtomPubResultSet(ResultSet):
 
     def hasPrev(self):
 
-        '''
+        """
         Returns True if this page contains a prev link. Not all CMIS providers
         implement prev links consistently.
 
         >>> resultSet.hasPrev()
         True
-        '''
+        """
 
         if self._getLink(PREV_REL):
             return True
@@ -2149,13 +2182,13 @@ class AtomPubResultSet(ResultSet):
 
     def hasFirst(self):
 
-        '''
+        """
         Returns True if this page contains a first link. Not all CMIS providers
         implement first links consistently.
 
         >>> resultSet.hasFirst()
         True
-        '''
+        """
 
         if self._getLink(FIRST_REL):
             return True
@@ -2164,13 +2197,13 @@ class AtomPubResultSet(ResultSet):
 
     def hasLast(self):
 
-        '''
+        """
         Returns True if this page contains a last link. Not all CMIS providers
         implement last links consistently.
 
         >>> resultSet.hasLast()
         True
-        '''
+        """
 
         if self._getLink(LAST_REL):
             return True
@@ -2318,6 +2351,10 @@ class AtomPubDocument(AtomPubCmisObject):
          - addACEs
          - removeACEs
         """
+
+        # major = true is supposed to be the default but inmemory 0.9 is throwing an error 500 without it
+        if not kwargs.has_key('major'):
+            kwargs['major'] = 'true'
 
         # Add checkin to kwargs and checkinComment, if it exists
         kwargs['checkin'] = 'true'
@@ -2469,7 +2506,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # there may be times when this URL is absent, but I'm not sure how to
         # set the content stream when that is the case
-        assert(srcUrl), 'Unable to determine content stream URL.'
+        assert srcUrl, 'Unable to determine content stream URL.'
 
         # need to determine the mime type
         mimetype = contentType
@@ -2482,7 +2519,7 @@ class AtomPubDocument(AtomPubCmisObject):
         # if we have a change token, we must pass it back, per the spec
         args = {}
         if (self.properties.has_key('cmis:changeToken') and
-            self.properties['cmis:changeToken'] != None):
+                    self.properties['cmis:changeToken'] is not None):
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -2517,53 +2554,20 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # there may be times when this URL is absent, but I'm not sure how to
         # delete the content stream when that is the case
-        assert(srcUrl), 'Unable to determine content stream URL.'
+        assert srcUrl, 'Unable to determine content stream URL.'
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
         if (self.properties.has_key('cmis:changeToken') and
-            self.properties['cmis:changeToken'] != None):
+                    self.properties['cmis:changeToken'] is not None):
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # delete the content stream
-        result = self._cmisClient.binding.delete(srcUrl.encode('utf-8'),
+        self._cmisClient.binding.delete(srcUrl.encode('utf-8'),
                                          self._cmisClient.username,
                                          self._cmisClient.password,
                                          **args)
-
-    def getRenditions(self):
-
-        """
-        Returns an array of :class:`Rendition` objects. The repository
-        must support the Renditions capability.
-
-        The following optional arguments are not currently supported:
-         - renditionFilter
-         - maxItems
-         - skipCount
-        """
-
-        # if Renditions capability is None, return notsupported
-        if self._repository.getCapabilities()['Renditions']:
-            pass
-        else:
-            raise NotSupportedException
-
-        if self.xmlDoc == None:
-            self.reload()
-
-        linkElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
-
-        renditions = []
-        for linkElement in linkElements:
-
-            if linkElement.attributes.has_key('rel'):
-                relAttr = linkElement.attributes['rel'].value
-
-                if relAttr == RENDITION_REL:
-                    renditions.append(AtomPubRendition(linkElement))
-        return renditions
 
     checkedOut = property(isCheckedOut)
 
@@ -2576,7 +2580,7 @@ class AtomPubDocument(AtomPubCmisObject):
         # get the appropriate 'up' link
         parentUrl = self._getLink(UP_REL)
 
-        if parentUrl == None:
+        if parentUrl is None:
             raise NotSupportedException('Root folder does not support getObjectParents')
 
         # invoke the URL
@@ -2873,7 +2877,7 @@ class AtomPubFolder(AtomPubCmisObject):
 
         # Get the descendants link and do a GET against it
         url = self._getLink(FOLDER_TREE_REL)
-        assert url != None, 'Unable to determine folder tree link'
+        assert url is not None, 'Unable to determine folder tree link'
         result = self._cmisClient.binding.get(url.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password,
@@ -2956,7 +2960,7 @@ class AtomPubFolder(AtomPubCmisObject):
         postUrl = self.getChildrenLink()
 
         # post the Atom entry
-        result = self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        self._cmisClient.binding.post(postUrl.encode('utf-8'),
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                cmisObject.xmlDoc.toxml(encoding='utf-8'),
@@ -2978,7 +2982,7 @@ class AtomPubFolder(AtomPubCmisObject):
         args = {"removeFrom": self.getObjectId()}
 
         # post the Atom entry to the unfiled collection
-        result = self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        self._cmisClient.binding.post(postUrl.encode('utf-8'),
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                cmisObject.xmlDoc.toxml(encoding='utf-8'),
@@ -3006,7 +3010,7 @@ class AtomPubRelationship(AtomPubCmisObject):
         Returns the :class:`CmisId` on the source side of the relationship.
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
         props = self.getProperties()
         return AtomPubCmisId(props['cmis:sourceId'])
@@ -3017,7 +3021,7 @@ class AtomPubRelationship(AtomPubCmisObject):
         Returns the :class:`CmisId` on the target side of the relationship.
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
         props = self.getProperties()
         return AtomPubCmisId(props['cmis:targetId'])
@@ -3089,8 +3093,8 @@ class AtomPubObjectType(ObjectType):
         'cmis:document'
         """
 
-        if self._typeId == None:
-            if self.xmlDoc == None:
+        if self._typeId is None:
+            if self.xmlDoc is None:
                 self.reload()
             self._typeId = CmisId(self._getElementValue(CMIS_NS, 'id'))
 
@@ -3102,7 +3106,7 @@ class AtomPubObjectType(ObjectType):
         Helper method to retrieve child element values from type XML.
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload()
         #typeEls = self.xmlDoc.getElementsByTagNameNS(CMISRA_NS, 'type')
         #assert len(typeEls) == 1, "Expected to find exactly one type element but instead found %d" % len(typeEls)
@@ -3177,7 +3181,7 @@ class AtomPubObjectType(ObjectType):
         """
         Gets the HREF for the link element with the specified rel and linkType.
 
-        >>> from cmislib.model import ATOM_XML_FEED_TYPE
+        >>> from cmislib.atompub_binding import ATOM_XML_FEED_TYPE
         >>> docType.getLink('down', ATOM_XML_FEED_TYPE)
         u'http://localhost:8080/alfresco/s/cmis/type/cmis:document/children'
         """
@@ -3217,7 +3221,7 @@ class AtomPubObjectType(ObjectType):
         ...    print 'Open choice:%s' % prop.openChoice
         """
 
-        if self.xmlDoc == None:
+        if self.xmlDoc is None:
             self.reload(includePropertyDefinitions='true')
         # Currently, property defs don't have an enclosing element. And, the
         # element name varies depending on type. Until that changes, I'm going
@@ -3507,10 +3511,11 @@ class AtomPubACL(ACL):
                         perms.append(permEl.childNodes[0].data)
                 # grab the direct value
                 dirEl = e.getElementsByTagNameNS(CMIS_NS, 'direct')[0]
+                direct = None
                 if dirEl and dirEl.childNodes:
                     direct = dirEl.childNodes[0].data
                 # create an ACE
-                if (len(perms) > 0):
+                if len(perms) > 0:
                     ace = AtomPubACE(principalId, perms, direct)
                     # append it to the dictionary
                     result[principalId] = ace
@@ -3560,37 +3565,7 @@ class AtomPubACL(ACL):
 
 class AtomPubACE(ACE):
 
-    """
-    Represents an individual Access Control Entry.
-    """
-
-    def __init__(self, principalId=None, permissions=None, direct=None):
-        """Constructor"""
-        self._principalId = principalId
-        if permissions:
-            if isinstance(permissions, str):
-                self._permissions = [permissions]
-            else:
-                self._permissions = permissions
-        self._direct = direct
-
-        self.logger = logging.getLogger('cmislib.model.ACE')
-        self.logger.info('Creating an instance of ACE')
-
-    @property
-    def principalId(self):
-        """Getter for principalId"""
-        return self._principalId
-
-    @property
-    def direct(self):
-        """Getter for direct"""
-        return self._direct
-
-    @property
-    def permissions(self):
-        """Getter for permissions"""
-        return self._permissions
+    pass
 
 
 class AtomPubChangeEntry(ChangeEntry):
@@ -3635,7 +3610,7 @@ class AtomPubChangeEntry(ChangeEntry):
         """
         Returns the unique ID of the change entry.
         """
-        if self._changeEntryId == None:
+        if self._changeEntryId is None:
             self._changeEntryId = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'id')[0].firstChild.data
         return self._changeEntryId
 
@@ -3643,7 +3618,7 @@ class AtomPubChangeEntry(ChangeEntry):
         """
         Returns the object ID of the object that changed.
         """
-        if self._objectId == None:
+        if self._objectId is None:
             props = self.getProperties()
             self._objectId = CmisId(props['cmis:objectId'])
         return self._objectId
@@ -3660,7 +3635,7 @@ class AtomPubChangeEntry(ChangeEntry):
          - security
         """
 
-        if self._changeType == None:
+        if self._changeType is None:
             self._changeType = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeType')[0].firstChild.data
         return self._changeType
 
@@ -3679,8 +3654,8 @@ class AtomPubChangeEntry(ChangeEntry):
             return
         aclEls = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'acl')
         aclUrl = self._getLink(ACL_REL)
-        if (len(aclEls) == 1):
-            return AtomPubACL(self._cmisClient, self._repository, aclEls[0])
+        if len(aclEls) == 1:
+            return AtomPubACL(aceList=aclEls[0])
         elif aclUrl:
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
                                               self._cmisClient.username,
@@ -3693,7 +3668,7 @@ class AtomPubChangeEntry(ChangeEntry):
         Returns a datetime object representing the time the change occurred.
         """
 
-        if self._changeTime == None:
+        if self._changeTime is None:
             self._changeTime = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeTime')[0].firstChild.data
         return parseDateTimeValue(self._changeTime)
 
@@ -3742,7 +3717,7 @@ class AtomPubChangeEntry(ChangeEntry):
     changeType = property(getChangeType)
     properties = property(getProperties)
 
-
+class AtomPubChangeEntry(object):
     """
     Represents a change log entry. Retrieve a list of change entries via
     :meth:`Repository.getContentChanges`.
@@ -3783,7 +3758,7 @@ class AtomPubChangeEntry(ChangeEntry):
         """
         Returns the unique ID of the change entry.
         """
-        if self._changeEntryId == None:
+        if self._changeEntryId is None:
             self._changeEntryId = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'id')[0].firstChild.data
         return self._changeEntryId
 
@@ -3791,7 +3766,7 @@ class AtomPubChangeEntry(ChangeEntry):
         """
         Returns the object ID of the object that changed.
         """
-        if self._objectId == None:
+        if self._objectId is None:
             props = self.getProperties()
             self._objectId = CmisId(props['cmis:objectId'])
         return self._objectId
@@ -3808,7 +3783,7 @@ class AtomPubChangeEntry(ChangeEntry):
          - security
         """
 
-        if self._changeType == None:
+        if self._changeType is None:
             self._changeType = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeType')[0].firstChild.data
         return self._changeType
 
@@ -3827,8 +3802,8 @@ class AtomPubChangeEntry(ChangeEntry):
             return
         aclEls = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'acl')
         aclUrl = self._getLink(ACL_REL)
-        if (len(aclEls) == 1):
-            return AtomPubACL(self._cmisClient, self._repository, aclEls[0])
+        if len(aclEls) == 1:
+            return AtomPubACL(aceList=aclEls[0])
         elif aclUrl:
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
                                               self._cmisClient.username,
@@ -3841,7 +3816,7 @@ class AtomPubChangeEntry(ChangeEntry):
         Returns a datetime object representing the time the change occurred.
         """
 
-        if self._changeTime == None:
+        if self._changeTime is None:
             self._changeTime = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeTime')[0].firstChild.data
         return parseDateTimeValue(self._changeTime)
 
@@ -4129,9 +4104,9 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
             I could do a lookup to the type definition, but that doesn't
             seem worth the performance hit
             """
-            if (propValue == None or (type(propValue) == list and propValue[0] == None)):
+            if propValue is None or (type(propValue) == list and propValue[0] is None):
                 # grab the prop type from the typeDef
-                if (typeDef == None):
+                if typeDef is None:
                     moduleLogger.debug('Looking up type def for: %s' % objectTypeId)
                     typeDef = repo.getTypeDefinition(objectTypeId)
                     #TODO what to do if type not found
@@ -4146,7 +4121,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
             propElement = entryXmlDoc.createElementNS(CMIS_NS, propElementName)
             propElement.setAttribute('propertyDefinitionId', propName)
             for val in propValueStrList:
-                if val == None:
+                if val is None:
                     continue
                 valElement = entryXmlDoc.createElementNS(CMIS_NS, 'cmis:value')
                 valText = entryXmlDoc.createTextNode(val)
@@ -4165,7 +4140,7 @@ def getElementNameAndValues(propType, propName, propValue, isList=False):
 
     moduleLogger.debug('Inside getElementNameAndValues')
     moduleLogger.debug('propType:%s propName:%s isList:%s' % (propType, propName, isList))
-    if (propType == 'id' or propType == CmisId):
+    if propType == 'id' or propType == CmisId:
         propElementName = 'cmis:propertyId'
         if isList:
             propValueStrList = []
@@ -4173,7 +4148,7 @@ def getElementNameAndValues(propType, propName, propValue, isList=False):
                 propValueStrList.append(val)
         else:
             propValueStrList = [propValue]
-    elif (propType == 'string' or propType == str):
+    elif propType == 'string' or propType == str:
         propElementName = 'cmis:propertyString'
         if isList:
             propValueStrList = []
@@ -4181,59 +4156,59 @@ def getElementNameAndValues(propType, propName, propValue, isList=False):
                 propValueStrList.append(val)
         else:
             propValueStrList = [propValue]
-    elif (propType == 'datetime' or propType == datetime.datetime):
+    elif propType == 'datetime' or propType == datetime.datetime:
         propElementName = 'cmis:propertyDateTime'
         if isList:
             propValueStrList = []
             for val in propValue:
-                if val != None:
+                if val is not None:
                     propValueStrList.append(val.isoformat())
                 else:
                     propValueStrList.append(val)
         else:
-            if propValue != None:
+            if propValue is not None:
                 propValueStrList = [propValue.isoformat()]
             else:
                 propValueStrList = [propValue]
-    elif (propType == 'boolean' or propType == bool):
+    elif propType == 'boolean' or propType == bool:
         propElementName = 'cmis:propertyBoolean'
         if isList:
             propValueStrList = []
             for val in propValue:
-                if val != None:
+                if val is not None:
                     propValueStrList.append(unicode(val).lower())
                 else:
                     propValueStrList.append(val)
         else:
-            if propValue != None:
+            if propValue is not None:
                 propValueStrList = [unicode(propValue).lower()]
             else:
                 propValueStrList = [propValue]
-    elif (propType == 'integer' or propType == int):
+    elif propType == 'integer' or propType == int:
         propElementName = 'cmis:propertyInteger'
         if isList:
             propValueStrList = []
             for val in propValue:
-                if val != None:
+                if val is not None:
                     propValueStrList.append(unicode(val))
                 else:
                     propValueStrList.append(val)
         else:
-            if propValue != None:
+            if propValue is not None:
                 propValueStrList = [unicode(propValue)]
             else:
                 propValueStrList = [propValue]
-    elif (propType == 'decimal' or propType == float):
+    elif propType == 'decimal' or propType == float:
         propElementName = 'cmis:propertyDecimal'
         if isList:
             propValueStrList = []
             for val in propValue:
-                if val != None:
+                if val is not None:
                     propValueStrList.append(unicode(val))
                 else:
                     propValueStrList.append(val)
         else:
-            if propValue != None:
+            if propValue is not None:
                 propValueStrList = [unicode(propValue)]
             else:
                 propValueStrList = [propValue]
@@ -4242,12 +4217,12 @@ def getElementNameAndValues(propType, propName, propValue, isList=False):
         if isList:
             propValueStrList = []
             for val in propValue:
-                if val != None:
+                if val is not None:
                     propValueStrList.append(unicode(val))
                 else:
                     propValueStrList.append(val)
         else:
-            if propValue != None:
+            if propValue is not None:
                 propValueStrList = [unicode(propValue)]
             else:
                 propValueStrList = [propValue]

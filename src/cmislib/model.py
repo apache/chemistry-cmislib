@@ -49,7 +49,7 @@ class CmisClient(object):
         self.username = username
         self.password = password
         self.extArgs = kwargs
-        if (kwargs.has_key('binding') and (isinstance(kwargs['binding'], Binding))):
+        if kwargs.has_key('binding') and (isinstance(kwargs['binding'], Binding)):
             self.binding = kwargs['binding']
         else:
             self.binding = AtomPubBinding(**kwargs)
