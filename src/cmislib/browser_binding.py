@@ -29,6 +29,7 @@ from util import parsePropValueByType, parseBoolValue
 import json
 import StringIO
 import logging
+from urllib import urlencode
 
 CMIS_FORM_TYPE = 'application/x-www-form-urlencoded;charset=utf-8'
 
@@ -69,7 +70,7 @@ class BrowserBinding(Binding):
             result = json.loads(content)
         return result
 
-    def post(self, url, username, password, payload, contentType, **kwargs):
+    def post(self, url, payload, contentType, username, password, **kwargs):
 
         """
         Does a post against the CMIS service. More than likely, you will not
@@ -91,7 +92,7 @@ class BrowserBinding(Binding):
                              username=username,
                              password=password,
                              **kwargs)
-        if resp['status'] != '200':
+        if resp['status'] != '200' and resp['status'] != '201':
             self._processCommonErrors(resp, url)
         else:
             result = json.loads(content)
@@ -1155,7 +1156,8 @@ class BrowserRepository(object):
     def createFolder(self,
                      parentFolder,
                      name,
-                     properties={}):
+                     properties={},
+                     **kwargs):
 
         """
         Creates a new :class:`Folder` object in the specified parentFolder.
@@ -1173,7 +1175,7 @@ class BrowserRepository(object):
          - removeACEs
         """
 
-        pass
+        return parentFolder.createFolder(name, properties, **kwargs)
 
     def createRelationship(self, sourceObj, targetObj, relType):
         """
@@ -1685,7 +1687,7 @@ class BrowserFolder(BrowserCmisObject):
     A container object that can hold other :class:`CmisObject` objects
     """
 
-    def createFolder(self, name, properties={}):
+    def createFolder(self, name, properties={}, **kwargs):
 
         """
         Creates a new :class:`Folder` using the properties provided.
@@ -1709,7 +1711,36 @@ class BrowserFolder(BrowserCmisObject):
          - removeACEs
         """
 
-        pass
+        # get the root folder URL
+        createFolderUrl = self._repository.getRootFolderUrl()
+
+        props = {"objectId" : self.id,
+                 "cmisaction" : "createFolder",
+                 "propertyId[0]" : "cmis:name",
+                 "propertyValue[0]" : name}
+
+        props["propertyId[1]"] = "cmis:objectTypeId"
+        if properties.has_key('cmis:objectTypeId'):
+            props["propertyValue[1]"] = properties['cmis:objectTypeId']
+        else:
+            props["propertyValue[1]"] = "cmis:folder"
+
+        propCount = 2
+        for prop in properties:
+            props["propertyId[%s]" % propCount] = prop.key
+            props["propertyValue[%s]" % propCount] = prop
+            propCount += 1
+
+        # invoke the URL
+        result = self._cmisClient.binding.post(createFolderUrl.encode('utf-8'),
+                                               urlencode(props),
+                                               'application/x-www-form-urlencoded',
+                                               self._cmisClient.username,
+                                               self._cmisClient.password,
+                                               **kwargs)
+
+        # return the result set
+        return BrowserFolder(self._cmisClient, self._repository, data=result)
 
     def createDocumentFromString(self,
                                  name,

@@ -50,6 +50,8 @@ class Binding(object):
             raise UpdateConflictException(error['status'], url)
         elif error['status'] == '500':
             raise RuntimeException(error['status'], url)
+        else:
+            raise CmisException(error['status'], url)
 
 
 class RepositoryServiceIfc(object):

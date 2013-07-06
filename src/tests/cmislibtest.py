@@ -52,7 +52,9 @@ class CmisTestBase(unittest.TestCase):
 
     def setUp(self):
         """ Create a root test folder for the test. """
-        self._cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        self._cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                      binding=settings.BINDING,
+                                      **settings.EXT_ARGS)
         self._repo = self._cmisClient.getDefaultRepository()
         self._rootFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH)
         self._folderName = " ".join(['cmislib', self.__class__.__name__, str(time())])
@@ -72,14 +74,18 @@ class CmisClientTest(unittest.TestCase):
 
     def testCmisClient(self):
         """Instantiate a CmisClient object"""
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         self.assert_(cmisClient is not None)
 
     def testGetRepositories(self):
         """Call getRepositories and make sure at least one comes back with
         an ID and a name
         """
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repoInfo = cmisClient.getRepositories()
         self.assert_(len(repoInfo) >= 1)
         self.assert_('repositoryId' in repoInfo[0])
@@ -87,14 +93,18 @@ class CmisClientTest(unittest.TestCase):
 
     def testDefaultRepository(self):
         """Get the default repository by calling the repo's service URL"""
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repo = cmisClient.getDefaultRepository()
         self.assert_(repo is not None)
         self.assert_(repo.getRepositoryId() is not None)
 
     def testGetRepository(self):
         """Get a repository by repository ID"""
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repo = cmisClient.getDefaultRepository()
         defaultRepoId = repo.getRepositoryId()
         defaultRepoName = repo.getRepositoryName()
@@ -105,12 +115,16 @@ class CmisClientTest(unittest.TestCase):
     # Error conditions
     def testCmisClientBadUrl(self):
         """Try to instantiate a CmisClient object with a known bad URL"""
-        cmisClient = CmisClient(settings.REPOSITORY_URL + 'foobar', settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL + 'foobar', settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         self.assertRaises(CmisException, cmisClient.getRepositories)
 
     def testGetRepositoryBadId(self):
         """Try to get a repository with a bad repo ID"""
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         self.assertRaises(ObjectNotFoundException,
                           cmisClient.getRepository,
                           '123FOO')
@@ -1311,7 +1325,9 @@ class TypeTest(unittest.TestCase):
     def testTypeDescendants(self):
         """Get the descendant types of the repository."""
 
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repo = cmisClient.getDefaultRepository()
         typeDefs = repo.getTypeDescendants()
         folderDef = None
@@ -1329,7 +1345,9 @@ class TypeTest(unittest.TestCase):
         #This test would be more interesting if there was a standard way to
         #deploy a custom model. Then we could look for custom types.
 
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repo = cmisClient.getDefaultRepository()
         typeDefs = repo.getTypeChildren()
         folderDef = None
@@ -1342,7 +1360,9 @@ class TypeTest(unittest.TestCase):
 
     def testTypeDefinition(self):
         """Get the cmis:document type and test a few props of the type."""
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repo = cmisClient.getDefaultRepository()
         docTypeDef = repo.getTypeDefinition('cmis:document')
         self.assertEquals('cmis:document', docTypeDef.getTypeId())
@@ -1350,7 +1370,9 @@ class TypeTest(unittest.TestCase):
 
     def testTypeProperties(self):
         """Get the properties for a type."""
-        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD, **settings.EXT_ARGS)
+        cmisClient = CmisClient(settings.REPOSITORY_URL, settings.USERNAME, settings.PASSWORD,
+                                binding=settings.BINDING,
+                                **settings.EXT_ARGS)
         repo = cmisClient.getDefaultRepository()
         docTypeDef = repo.getTypeDefinition('cmis:document')
         self.assertEquals('cmis:document', docTypeDef.getTypeId())

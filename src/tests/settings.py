@@ -16,17 +16,24 @@
 #      specific language governing permissions and limitations
 #      under the License.
 #
+from cmislib.atompub_binding import AtomPubBinding
+from cmislib.browser_binding import BrowserBinding
 
 #
 # Override these settings with values to match your environment.
 #
 # CMIS repository's service URL
 #REPOSITORY_URL = 'http://cmis.alfresco.com/s/cmis' # Alfresco demo
-REPOSITORY_URL = 'http://localhost:8080/chemistry/atom' # Apache Chemistry
-#REPOSITORY_URL = 'http://localhost:8080/alfresco/cmisatom'  # Alfresco 4.0
+#REPOSITORY_URL = 'http://localhost:8080/chemistry/atom' # Apache Chemistry AtomPub
+REPOSITORY_URL = 'http://localhost:8080/chemistry/browser' # Apache Chemistry Browser
+#REPOSITORY_URL = 'http://localhost:8080/alfresco/cmisatom'  # Alfresco 4.0 AtomPub
 #REPOSITORY_URL = 'http://localhost:8080/alfresco/s/api/cmis'  # Alfresco
 #REPOSITORY_URL = 'http://cmis.demo.nuxeo.org/nuxeo/atom/cmis' # Nuxeo demo
 #REPOSITORY_URL = 'http://localhost:8080/nuxeo/atom/cmis' # Nuxeo local
+
+# Choose a binding. The AtomPubBinding is the only one you should really be using right now
+#BINDING = AtomPubBinding()
+BINDING = BrowserBinding()
 
 # CMIS repository credentials
 USERNAME = 'admin'  # Alfresco
@@ -49,6 +56,7 @@ TEST_BINARY_2 = 'sample-a.pdf'
 # principal ID to add to the ACL of a test object. Some repositories care
 # if this ID doesn't exist. Some repositories don't.
 TEST_PRINCIPAL_ID = 'anyone'
+#TEST_PRINCIPAL_ID = 'admin'
 # For repositories that may index test content asynchronously, the number of
 # times a query is retried before giving up.
 MAX_FULL_TEXT_TRIES = 10
@@ -56,5 +64,6 @@ MAX_FULL_TEXT_TRIES = 10
 FULL_TEXT_WAIT = 10
 # Specify the type ID of a versionable type. If all types are versionable,
 # specify cmis:document
-VERSIONABLE_TYPE_ID = 'cmis:document'
-#VERSIONABLE_TYPE_ID = 'VersionableType'
+#VERSIONABLE_TYPE_ID = 'cmis:document'
+#VERSIONABLE_TYPE_ID = 'cmisbook:pdf'
+VERSIONABLE_TYPE_ID = 'VersionableType'
