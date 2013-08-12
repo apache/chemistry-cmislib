@@ -141,7 +141,7 @@ class AtomPubBinding(Binding):
                                username=username,
                                password=password,
                                **kwargs)
-        if resp['status'] != '200':
+        if resp['status'] != '200' and resp['status'] != '204':
             self._processCommonErrors(resp, url)
             return content
         else:
