@@ -2475,6 +2475,11 @@ class AtomPubDocument(AtomPubCmisObject):
 
         contentElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'content')
 
+        #CMIS-701
+        if len(contentElements) != 1:
+            self.reload()
+            contentElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'content')
+
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
