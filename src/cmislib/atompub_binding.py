@@ -1593,11 +1593,6 @@ class AtomPubRepository(object):
         # build the CMIS query XML that we're going to POST
         xmlDoc = self._getQueryXmlDoc(statement, **kwargs)
 
-        # debug
-        f = open('/var/tmp/query.xml', 'w')
-        f.write(xmlDoc.toxml(encoding='utf-8'))
-        f.close()
-
         # do the POST
         #print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
