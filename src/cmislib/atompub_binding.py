@@ -1593,6 +1593,11 @@ class AtomPubRepository(object):
         # build the CMIS query XML that we're going to POST
         xmlDoc = self._getQueryXmlDoc(statement, **kwargs)
 
+        # debug
+        f = open('/var/tmp/query.xml', 'w')
+        f.write(xmlDoc.toxml(encoding='utf-8'))
+        f.close()
+
         # do the POST
         #print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
@@ -1944,8 +1949,11 @@ class AtomPubRepository(object):
         cmisXmlDoc.appendChild(queryElement)
 
         statementElement = cmisXmlDoc.createElementNS(CMIS_NS, "statement")
-        cdataSection = cmisXmlDoc.createCDATASection(query)
-        statementElement.appendChild(cdataSection)
+        #CMIS-703
+        #cdataSection = cmisXmlDoc.createCDATASection(query)
+        #statementElement.appendChild(cdataSection)
+        textNode = cmisXmlDoc.createTextNode(query)
+        statementElement.appendChild(textNode)
         queryElement.appendChild(statementElement)
 
         for (k, v) in kwargs.items():
