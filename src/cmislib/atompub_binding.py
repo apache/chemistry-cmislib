@@ -498,7 +498,7 @@ class AtomPubCmisObject(CmisObject):
     def getTitle(self):
 
         """
-        Returns the value of the object's cmis:title property.
+        Returns the value of the object's atom:title property.
         """
 
         if self.xmlDoc is None:
