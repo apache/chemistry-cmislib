@@ -1027,7 +1027,7 @@ class BrowserRepository(object):
          - includeAllowableActions
         """
 
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self, objectId, **kwargs), **kwargs)
+        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self, CmisId(objectId), **kwargs), **kwargs)
 
     def query(self, statement, **kwargs):
 

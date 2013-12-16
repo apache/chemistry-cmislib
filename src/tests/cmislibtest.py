@@ -821,6 +821,26 @@ class DocumentTest(CmisTestBase):
         finally:
             pwcDoc.delete()
 
+    #CMIS-743
+    def testCheckoutAfterFetchByID(self):
+        """Create a test doc, fetch it by ID, then check it out"""
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
+        newDoc = self._testFolder.createDocument('testDocument', properties=props)
+        if not newDoc.allowableActions['canCheckOut']:
+            print 'The test doc cannot be checked out...skipping'
+            return
+        newDocIdStr = str(newDoc.id)
+        newDoc = self._repo.getObject(newDocIdStr)
+        pwcDoc = newDoc.checkout()
+        try:
+            self.assertTrue(newDoc.isCheckedOut())
+            self.assert_('cmis:objectId' in newDoc.getProperties())
+            self.assert_('cmis:objectId' in pwcDoc.getProperties())
+            checkedOutDocs = self._repo.getCollection('checkedout')
+            self.assertTrue(isInResultSet(checkedOutDocs, pwcDoc))
+        finally:
+            pwcDoc.delete()
+
     def testCheckin(self):
         """Create a document in a test folder, check it out, then in"""
         testFilename = settings.TEST_BINARY_1.split('/')[-1]

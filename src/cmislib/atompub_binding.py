@@ -1487,7 +1487,7 @@ class AtomPubRepository(object):
          - includeAllowableActions
         """
 
-        return getSpecializedObject(AtomPubCmisObject(self._cmisClient, self, objectId, **kwargs), **kwargs)
+        return getSpecializedObject(AtomPubCmisObject(self._cmisClient, self, CmisId(objectId), **kwargs), **kwargs)
 
     def getObjectByPath(self, path, **kwargs):
 
