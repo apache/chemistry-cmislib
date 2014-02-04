@@ -2466,8 +2466,9 @@ class AtomPubDocument(AtomPubCmisObject):
         The optional streamId argument is not yet supported.
         """
 
-        # TODO: Need to implement the streamId
+        self.reload()
 
+        # TODO: Need to implement the streamId
         contentElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'content')
 
         #CMIS-701
