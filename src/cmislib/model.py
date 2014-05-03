@@ -21,10 +21,11 @@ Module containing the CmisClient object, which is responsible for
 keeping track of connection information. The name 'model' is no longer
 really appropriate, but it is kept for backwards compatibility.
 """
-from atompub_binding import AtomPubBinding
-from cmis_services import Binding
-from domain import CmisObject, Repository
 import logging
+
+from atompub.binding import AtomPubBinding
+from cmis_services import Binding
+
 
 moduleLogger = logging.getLogger('cmislib.model')
 

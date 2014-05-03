@@ -20,15 +20,14 @@
 Module containing the Atom Pub binding-specific objects used to work with a CMIS
 provider.
 """
-from cmis_services import RepositoryServiceIfc
-from cmis_services import Binding
-from domain import CmisId, CmisObject, ObjectType, Property, ACL, ACE, ChangeEntry, ResultSet, Rendition
-from net import RESTService as Rest
-from exceptions import CmisException, \
+from cmislib.cmis_services import Binding, RepositoryServiceIfc
+from cmislib.domain import CmisId, CmisObject, ObjectType, Property, ACL, ACE, ChangeEntry, ResultSet, Rendition
+from cmislib.net import RESTService as Rest
+from cmislib.exceptions import CmisException, \
     ObjectNotFoundException, InvalidArgumentException, \
     NotSupportedException
-from util import parseDateTimeValue
-import messages
+from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue
+import cmislib.messages
 
 from urllib import quote
 from urlparse import urlparse, urlunparse
@@ -39,7 +38,6 @@ import datetime
 import StringIO
 import logging
 from xml.dom import minidom
-from util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue
 
 moduleLogger = logging.getLogger('cmislib.atompub_binding')
 
@@ -1882,7 +1880,7 @@ class AtomPubRepository(object):
         If the types collection is specified, the method returns the result of
         `getTypeDefinitions` and ignores any optional params passed in.
 
-        >>> from cmislib.atompub_binding import TYPES_COLL
+        >>> from cmislib.atompub.atompub_binding import TYPES_COLL
         >>> types = repo.getCollection(TYPES_COLL)
         >>> len(types)
         4
@@ -1892,7 +1890,7 @@ class AtomPubRepository(object):
         Otherwise, the collection URL is invoked, and a :class:`ResultSet` is
         returned.
 
-        >>> from cmislib.atompub_binding import CHECKED_OUT_COLL
+        >>> from cmislib.atompub.atompub_binding import CHECKED_OUT_COLL
         >>> resultSet = repo.getCollection(CHECKED_OUT_COLL)
         >>> len(resultSet.getResults())
         1
@@ -1917,7 +1915,7 @@ class AtomPubRepository(object):
         Returns the link HREF from the specified collectionType
         ('checkedout', for example).
 
-        >>> from cmislib.atompub_binding import CHECKED_OUT_COLL
+        >>> from cmislib.atompub.atompub_binding import CHECKED_OUT_COLL
         >>> repo.getCollectionLink(CHECKED_OUT_COLL)
         u'http://localhost:8080/alfresco/s/cmis/checkedout'
 
@@ -3189,7 +3187,7 @@ class AtomPubObjectType(ObjectType):
         """
         Gets the HREF for the link element with the specified rel and linkType.
 
-        >>> from cmislib.atompub_binding import ATOM_XML_FEED_TYPE
+        >>> from cmislib.atompub.atompub_binding import ATOM_XML_FEED_TYPE
         >>> docType.getLink('down', ATOM_XML_FEED_TYPE)
         u'http://localhost:8080/alfresco/s/cmis/type/cmis:document/children'
         """

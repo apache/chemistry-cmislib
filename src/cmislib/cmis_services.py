@@ -19,7 +19,7 @@
 """
 Module containing the base Binding class and other service objects.
 """
-from exceptions import CmisException, RuntimeException, \
+from cmislib.exceptions import CmisException, RuntimeException, \
     ObjectNotFoundException, InvalidArgumentException, \
     PermissionDeniedException, NotSupportedException, \
     UpdateConflictException

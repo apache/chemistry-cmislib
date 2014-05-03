@@ -957,7 +957,7 @@ class Repository(object):
         If the types collection is specified, the method returns the result of
         `getTypeDefinitions` and ignores any optional params passed in.
 
-        >>> from cmislib.atompub_binding import TYPES_COLL
+        >>> from cmislib.atompub.atompub_binding import TYPES_COLL
         >>> types = repo.getCollection(TYPES_COLL)
         >>> len(types)
         4
@@ -967,7 +967,7 @@ class Repository(object):
         Otherwise, the collection URL is invoked, and a :class:`ResultSet` is
         returned.
 
-        >>> from cmislib.atompub_binding import CHECKED_OUT_COLL
+        >>> from cmislib.atompub.atompub_binding import CHECKED_OUT_COLL
         >>> resultSet = repo.getCollection(CHECKED_OUT_COLL)
         >>> len(resultSet.getResults())
         1
@@ -1766,7 +1766,7 @@ class ObjectType(object):
         """
         Gets the HREF for the link element with the specified rel and linkType.
 
-        >>> from cmislib.atompub_binding import ATOM_XML_FEED_TYPE
+        >>> from cmislib.atompub.atompub_binding import ATOM_XML_FEED_TYPE
         >>> docType.getLink('down', ATOM_XML_FEED_TYPE)
         u'http://localhost:8080/alfresco/s/cmis/type/cmis:document/children'
         """

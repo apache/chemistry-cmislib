@@ -20,20 +20,20 @@
 Module containing the browser binding-specific objects used to work with a CMIS
 provider.
 """
-from cmis_services import RepositoryServiceIfc
-from cmis_services import Binding
-from net import RESTService as Rest
-from exceptions import CmisException, RuntimeException, ObjectNotFoundException
-from domain import CmisId, CmisObject, Repository, Relationship, Policy, ObjectType, Property, Folder, Document, ACL, ACE, ChangeEntry, ResultSet, ChangeEntryResultSet, Rendition
-from util import parsePropValueByType, parseBoolValue
+from cmislib.cmis_services import Binding, RepositoryServiceIfc
+from cmislib.domain import CmisId, CmisObject, Repository, Relationship, Policy, ObjectType, Property, Folder, Document, ACL, ACE, ChangeEntry, ResultSet, ChangeEntryResultSet, Rendition
+from cmislib.exceptions import CmisException, RuntimeException, ObjectNotFoundException
+from cmislib.net import RESTService as Rest
+from cmislib.util import parsePropValueByType, parseBoolValue
 import json
-import StringIO
 import logging
+import StringIO
+import time
 from urllib import urlencode, quote
 
 CMIS_FORM_TYPE = 'application/x-www-form-urlencoded;charset=utf-8'
 
-moduleLogger = logging.getLogger('cmislib.browser_binding')
+moduleLogger = logging.getLogger('cmislib.browser.binding')
 
 class BrowserBinding(Binding):
     def __init__(self, **kwargs):
@@ -1155,7 +1155,19 @@ class BrowserRepository(object):
         <cmislib.model.Document object at 0x101352ed0>
         """
 
-        pass
+        # if you didn't pass in a parent folder
+        if parentFolder is None:
+            # if the repository doesn't require fileable objects to be filed
+            if self.getCapabilities()['Unfiling']:
+                # has not been implemented
+                #postUrl = self.getCollectionLink(UNFILED_COLL)
+                raise NotImplementedError
+            else:
+                # this repo requires fileable objects to be filed
+                raise InvalidArgumentException
+
+        return parentFolder.createDocument(name, properties, StringIO.StringIO(contentString),
+            contentType, contentEncoding)
 
     def createDocument(self,
                        name,
@@ -1189,7 +1201,47 @@ class BrowserRepository(object):
          - removeACEs
         """
 
-        pass
+        # if you didn't pass in a parent folder
+        if parentFolder is None:
+            # if the repository doesn't require fileable objects to be filed
+            if self.getCapabilities()['Unfiling']:
+                # has not been implemented
+                raise NotImplementedError
+            else:
+                # this repo requires fileable objects to be filed
+                raise InvalidArgumentException
+
+        # get the root folder URL
+        createDocUrl = self.getRootFolderUrl()
+
+        props = {"objectId" : parentFolder.id,
+                 "cmisaction" : "createDocument",
+                 "propertyId[0]" : "cmis:name",
+                 "propertyValue[0]" : name}
+
+        props["propertyId[1]"] = "cmis:objectTypeId"
+        if properties.has_key('cmis:objectTypeId'):
+            props["propertyValue[1]"] = properties['cmis:objectTypeId']
+        else:
+            props["propertyValue[1]"] = "cmis:document"
+
+        propCount = 2
+        for prop in properties:
+            props["propertyId[%s]" % propCount] = prop.key
+            props["propertyValue[%s]" % propCount] = prop
+            propCount += 1
+
+        contentType, body = encode_multipart_formdata(props, contentFile, contentType)
+
+        # invoke the URL
+        result = self._cmisClient.binding.post(createDocUrl.encode('utf-8'),
+                                               body,
+                                               contentType,
+                                               self._cmisClient.username,
+                                               self._cmisClient.password)
+
+        # return the result set
+        return BrowserDocument(self._cmisClient, self, data=result)
 
     def createDocumentFromSource(self,
                                  sourceId,
@@ -1783,7 +1835,7 @@ class BrowserDocument(BrowserCmisObject):
         of cmis:path with the relativePathSegment.
         """
 
-        byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=parents"
+        byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=parents&includerelativepathsegment=true"
         result = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
                                                    self._cmisClient.username,
                                                    self._cmisClient.password)
@@ -1793,6 +1845,7 @@ class BrowserDocument(BrowserCmisObject):
         #TODO why is the call to getObjectParents() made if it isn't used?
         for res in result:
             path = res['object']['properties']['cmis:path']['value']
+            logging.debug(path)
             relativePathSegment = res['relativePathSegment']
 
             # concat with a slash
@@ -1881,39 +1934,12 @@ class BrowserFolder(BrowserCmisObject):
         >>> testFolder.createDocumentFromString('testdoc3', contentString='hello, world', contentType='text/plain')
         """
 
-        # get the root folder URL
-        createDocUrl = self._repository.getRootFolderUrl()
-
-        props = {"objectId" : self.id,
-                 "cmisaction" : "createDocument",
-                 "propertyId[0]" : "cmis:name",
-                 "propertyValue[0]" : name}
-
-        props["propertyId[1]"] = "cmis:objectTypeId"
-        if properties.has_key('cmis:objectTypeId'):
-            props["propertyValue[1]"] = properties['cmis:objectTypeId']
-        else:
-            props["propertyValue[1]"] = "cmis:document"
-
-        propCount = 2
-        for prop in properties:
-            props["propertyId[%s]" % propCount] = prop.key
-            props["propertyValue[%s]" % propCount] = prop
-            propCount += 1
-
-        #TODO this isn't working at the moment
-        props["content"] = contentString
-
-        # invoke the URL
-        result = self._cmisClient.binding.post(createDocUrl.encode('utf-8'),
-                                               urlencode(props),
-                                               'application/x-www-form-urlencoded',
-                                               self._cmisClient.username,
-                                               self._cmisClient.password)
-
-        # return the result set
-        return BrowserDocument(self._cmisClient, self._repository, data=result)
-
+        return self._repository.createDocumentFromString(name,
+                                                         properties,
+                                                         self,
+                                                         contentString,
+                                                         contentType,
+                                                         contentEncoding)
 
     def createDocument(self, name, properties={}, contentFile=None,
             contentType=None, contentEncoding=None):
@@ -1956,40 +1982,12 @@ class BrowserFolder(BrowserCmisObject):
          - removeACEs
         """
 
-        #TODO work in progress
-
-        # get the root folder URL
-        createDocUrl = self._repository.getRootFolderUrl()
-
-        props = {"objectId" : self.id,
-                 "cmisaction" : "createDocument",
-                 "propertyId[0]" : "cmis:name",
-                 "propertyValue[0]" : name}
-
-        props["propertyId[1]"] = "cmis:objectTypeId"
-        if properties.has_key('cmis:objectTypeId'):
-            pass
-        else:
-            props["propertyValue[1]"] = "cmis:document"
-
-        propCount = 2
-        for prop in properties:
-            props["propertyId[%s]" % propCount] = prop
-            props["propertyValue[%s]" % propCount] = properties[prop]
-            propCount += 1
-
-        #TODO this isn't working at the moment
-        props["content"] = 'this is a test'
-
-        # invoke the URL
-        result = self._cmisClient.binding.post(createDocUrl.encode('utf-8'),
-                                               urlencode(props),
-                                               'application/x-www-form-urlencoded',
-                                               self._cmisClient.username,
-                                               self._cmisClient.password)
-
-        # return the result set
-        return BrowserDocument(self._cmisClient, self._repository, data=result)
+        return self._repository.createDocument(name,
+                                               properties,
+                                               self,
+                                               contentFile,
+                                               contentType,
+                                               contentEncoding)
 
     def getChildren(self, **kwargs):
 
@@ -2896,3 +2894,36 @@ def getSpecializedObject(obj, **kwargs):
     # specify baseTypeId) or if the type isn't one of the known base
     # types, give the object back
     return obj
+
+def encode_multipart_formdata(fields, file, contentType):
+    """
+    fields is a sequence of (name, value) elements for regular form fields.
+    files is a sequence of (name, filename, value) elements for data to be uploaded as files
+    Return (content_type, body) ready for httplib.HTTP instance
+    """
+    boundary = 'aPacHeCheMIStrycMisLIb%s' % (int(time.time()))
+    crlf = '\r\n'
+    L = []
+    fileName = None
+    for (key, value) in fields.iteritems():
+        if (key == 'cmis:name'):
+            fileName = value
+        L.append('--' + boundary)
+        L.append('Content-Disposition: form-data; name="%s"' % key)
+        L.append('Content-Type: text/plain; charset=utf-8')
+        L.append('')
+        L.append(value)
+
+    if file:
+        L.append('--' + boundary)
+        L.append('Content-Disposition: form-data; name="%s"; filename=%s' % ('content', fileName))
+        L.append('Content-Type: %s' % contentType)
+        L.append('Content-Transfer-Encoding: binary')
+        L.append('')
+        L.append(file.read()) # content of file goes here
+
+    L.append('--' + boundary + '--')
+    L.append('')
+    body = crlf.join(L)
+    content_type = 'multipart/form-data; boundary=%s' % boundary
+    return content_type, body
