@@ -142,8 +142,8 @@ class BrowserCmisObject(object):
         self._properties = {}
         self._allowableActions = {}
         self.data = data
-        self._kwargs = kwargs
-        self.logger = logging.getLogger('cmislib.browser_binding.BrowserCmisObject')
+        self._extArgs = kwargs
+        self.logger = logging.getLogger('cmislib.browser.BrowserCmisObject')
         self.logger.info('Creating an instance of CmisObject')
 
     def __str__(self):
@@ -173,11 +173,8 @@ class BrowserCmisObject(object):
         '*'.
         """
 
-        if kwargs:
-            if self._kwargs:
-                self._kwargs.update(kwargs)
-            else:
-                self._kwargs = kwargs
+        if self._extArgs:
+            kwargs.update(self._extArgs)
 
         byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=object"
         self.data = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
@@ -520,7 +517,7 @@ class BrowserRepository(object):
         self._permMap = {}
         self._permissions = None
         self._propagation = None
-        self.logger = logging.getLogger('cmislib.browser_binding.BrowserRepository')
+        self.logger = logging.getLogger('cmislib.browser.BrowserRepository')
         self.logger.info('Creating an instance of Repository')
 
     def __str__(self):
@@ -648,10 +645,10 @@ class BrowserRepository(object):
         """
 
         if kwargs:
-            if self._kwargs:
-                self._kwargs.update(kwargs)
+            if self._extArgs:
+                self._extArgs.update(kwargs)
             else:
-                self._kwargs = kwargs
+                self._extArgs = kwargs
 
         #TODO why is quoting the path required for the browser binding and not for atom pub
         #on inmemory 0.9?
@@ -1227,8 +1224,8 @@ class BrowserRepository(object):
 
         propCount = 2
         for prop in properties:
-            props["propertyId[%s]" % propCount] = prop.key
-            props["propertyValue[%s]" % propCount] = prop
+            props["propertyId[%s]" % propCount] = prop
+            props["propertyValue[%s]" % propCount] = properties[prop]
             propCount += 1
 
         contentType, body = encode_multipart_formdata(props, contentFile, contentType)
@@ -1332,7 +1329,7 @@ class BrowserResultSet(object):
         self._repository = repository
         self._data = data
         self._results = []
-        self.logger = logging.getLogger('cmislib.model.browser_binding.BrowserResultSet')
+        self.logger = logging.getLogger('cmislib.browser.BrowserResultSet')
         self.logger.info('Creating an instance of ResultSet')
 
     def __iter__(self):
@@ -2266,10 +2263,10 @@ class BrowserObjectType(object):
         """ Constructor """
         self._cmisClient = cmisClient
         self._repository = repository
-        self._kwargs = None
+        self._extArgs = None
         self._typeId = typeId
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser_binding.BrowserObjectType')
+        self.logger = logging.getLogger('cmislib.browser.BrowserObjectType')
         self.logger.info('Creating an instance of BrowserObjectType')
 
     def __str__(self):
@@ -2412,10 +2409,8 @@ class BrowserObjectType(object):
         This method will reload the object's data from the CMIS service.
         """
         if kwargs:
-            if self._kwargs:
-                self._kwargs.update(kwargs)
-            else:
-                self._kwargs = kwargs
+            if self._extArgs:
+                kwargs.update(self._extArgs)
 
         typesUrl = self._repository.getRepositoryUrl()
         kwargs['cmisselector'] = 'typeDefinition'
@@ -2453,7 +2448,7 @@ class BrowserProperty(object):
     def __init__(self, data):
         """Constructor"""
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser_binding.BrowserProperty')
+        self.logger = logging.getLogger('cmislib.browser.BrowserProperty')
         self.logger.info('Creating an instance of BrowserProperty')
 
     def __str__(self):
@@ -2556,7 +2551,7 @@ class BrowserACL(object):
         else:
             self._data = None
 
-        self.logger = logging.getLogger('cmislib.browser_binding.BrowserACL')
+        self.logger = logging.getLogger('cmislib.browser.BrowserACL')
         self.logger.info('Creating an instance of ACL')
 
     def _getEntriesFromData(self):
@@ -2795,7 +2790,7 @@ class BrowserRendition(object):
     def __init__(self, propNode):
         """Constructor"""
         self.xmlDoc = propNode
-        self.logger = logging.getLogger('cmislib.browser_binding.BrowserRendition')
+        self.logger = logging.getLogger('cmislib.browser.BrowserRendition')
         self.logger.info('Creating an instance of Rendition')
 
     def __str__(self):

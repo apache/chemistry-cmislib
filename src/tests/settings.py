@@ -24,16 +24,16 @@ from cmislib.browser.binding import BrowserBinding
 #
 # CMIS repository's service URL
 #REPOSITORY_URL = 'http://cmis.alfresco.com/s/cmis' # Alfresco demo
-REPOSITORY_URL = 'http://localhost:8081/chemistry/atom' # Apache Chemistry AtomPub
-#REPOSITORY_URL = 'http://localhost:8081/chemistry/browser' # Apache Chemistry Browser
+#REPOSITORY_URL = 'http://localhost:8081/chemistry/atom' # Apache Chemistry AtomPub
+REPOSITORY_URL = 'http://localhost:8081/chemistry/browser' # Apache Chemistry Browser
 #REPOSITORY_URL = 'http://localhost:8080/alfresco/cmisatom'  # Alfresco 4.0 AtomPub
 #REPOSITORY_URL = 'http://localhost:8080/alfresco/s/api/cmis'  # Alfresco
 #REPOSITORY_URL = 'http://cmis.demo.nuxeo.org/nuxeo/atom/cmis' # Nuxeo demo
 #REPOSITORY_URL = 'http://localhost:8080/nuxeo/atom/cmis' # Nuxeo local
 
 # Choose a binding. The AtomPubBinding is the only one you should really be using right now
-BINDING = AtomPubBinding()
-#BINDING = BrowserBinding()
+#BINDING = AtomPubBinding()
+BINDING = BrowserBinding()
 
 # CMIS repository credentials
 USERNAME = 'admin'  # Alfresco

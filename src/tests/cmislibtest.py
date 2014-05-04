@@ -816,8 +816,6 @@ class DocumentTest(CmisTestBase):
             self.assertTrue(newDoc.isCheckedOut())
             self.assert_('cmis:objectId' in newDoc.getProperties())
             self.assert_('cmis:objectId' in pwcDoc.getProperties())
-            checkedOutDocs = self._repo.getCollection('checkedout')
-            self.assertTrue(isInResultSet(checkedOutDocs, pwcDoc))
         finally:
             pwcDoc.delete()
 
@@ -836,8 +834,6 @@ class DocumentTest(CmisTestBase):
             self.assertTrue(newDoc.isCheckedOut())
             self.assert_('cmis:objectId' in newDoc.getProperties())
             self.assert_('cmis:objectId' in pwcDoc.getProperties())
-            checkedOutDocs = self._repo.getCollection('checkedout')
-            self.assertTrue(isInResultSet(checkedOutDocs, pwcDoc))
         finally:
             pwcDoc.delete()
 
@@ -929,13 +925,9 @@ class DocumentTest(CmisTestBase):
             self.assertTrue(newDoc.isCheckedOut())
             self.assert_('cmis:objectId' in newDoc.getProperties())
             self.assert_('cmis:objectId' in pwcDoc.getProperties())
-            checkedOutDocs = self._repo.getCollection('checkedout')
-            self.assertTrue(isInResultSet(checkedOutDocs, pwcDoc))
         finally:
             pwcDoc.delete()
         self.assertFalse(newDoc.isCheckedOut())
-        checkedOutDocs = self._repo.getCollection('checkedout')
-        self.assertFalse(isInResultSet(checkedOutDocs, pwcDoc))
 
     def testDeleteDocument(self):
         """Create a document in a test folder, then delete it"""
