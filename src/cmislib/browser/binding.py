@@ -143,7 +143,7 @@ class BrowserCmisObject(object):
         self._allowableActions = {}
         self.data = data
         self._extArgs = kwargs
-        self.logger = logging.getLogger('cmislib.browser.BrowserCmisObject')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserCmisObject')
         self.logger.info('Creating an instance of CmisObject')
 
     def __str__(self):
@@ -517,7 +517,7 @@ class BrowserRepository(object):
         self._permMap = {}
         self._permissions = None
         self._propagation = None
-        self.logger = logging.getLogger('cmislib.browser.BrowserRepository')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserRepository')
         self.logger.info('Creating an instance of Repository')
 
     def __str__(self):
@@ -1323,13 +1323,14 @@ class BrowserResultSet(object):
     Represents a paged result set.
     """
 
-    def __init__(self, cmisClient, repository, data):
+    def __init__(self, cmisClient, repository, data, serializer=None):
         """ Constructor """
         self._cmisClient = cmisClient
         self._repository = repository
         self._data = data
+        self._serializer = serializer
         self._results = []
-        self.logger = logging.getLogger('cmislib.browser.BrowserResultSet')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserResultSet')
         self.logger.info('Creating an instance of ResultSet')
 
     def __iter__(self):
@@ -1374,20 +1375,7 @@ class BrowserResultSet(object):
             return self._results
 
         if self._data:
-            entries = []
-            for obj in self._data['objects']:
-                #some result sets have an enclosing object and some don't
-                dataObj = None
-                if isinstance(obj, dict) and obj.has_key('object'):
-                    dataObj = obj['object']
-                else:
-                    dataObj = obj
-                cmisObject = getSpecializedObject(BrowserCmisObject(self._cmisClient,
-                                                                    self._repository,
-                                                                    data=dataObj))
-                entries.append(cmisObject)
-
-            self._results = entries
+            self._results = self._serializer.fromJSON(self._cmisClient, self._repository, self._data)
 
         return self._results
 
@@ -1398,7 +1386,10 @@ class BrowserResultSet(object):
         otherwise returns False.
         """
 
-        pass
+        for obj in self.getResults():
+            if obj.id == objectId:
+                return True
+        return False
 
     def getFirst(self):
 
@@ -1478,7 +1469,19 @@ class BrowserResultSet(object):
         True
         """
 
-        pass
+        if self._data and 'hasMoreItems' in self._data:
+            return self._data['hasMoreItems']
+
+    def getNumItems(self):
+
+        """
+        Returns the number of items in the result set.
+        >>> resultSet.getNumItems()
+        3
+        """
+
+        if self._data:
+            return self._data['numItems']
 
     def hasPrev(self):
 
@@ -2015,7 +2018,7 @@ class BrowserFolder(BrowserCmisObject):
                                                    self._cmisClient.password,
                                                    **kwargs)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, result)
+        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=ChildrenSerializer())
 
     def getDescendants(self, **kwargs):
 
@@ -2055,7 +2058,7 @@ class BrowserFolder(BrowserCmisObject):
                                                    self._cmisClient.password,
                                                    **kwargs)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, result)
+        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=TreeSerializer())
 
 
     def getTree(self, **kwargs):
@@ -2084,7 +2087,13 @@ class BrowserFolder(BrowserCmisObject):
          u'subfolder'
         """
 
-        pass
+        byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=foldertree"
+        result = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
+                                                   self._cmisClient.username,
+                                                   self._cmisClient.password,
+                                                   **kwargs)
+        # return the result set
+        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=TreeSerializer())
 
     def getParent(self):
 
@@ -2266,7 +2275,7 @@ class BrowserObjectType(object):
         self._extArgs = None
         self._typeId = typeId
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser.BrowserObjectType')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserObjectType')
         self.logger.info('Creating an instance of BrowserObjectType')
 
     def __str__(self):
@@ -2448,7 +2457,7 @@ class BrowserProperty(object):
     def __init__(self, data):
         """Constructor"""
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser.BrowserProperty')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserProperty')
         self.logger.info('Creating an instance of BrowserProperty')
 
     def __str__(self):
@@ -2551,7 +2560,7 @@ class BrowserACL(object):
         else:
             self._data = None
 
-        self.logger = logging.getLogger('cmislib.browser.BrowserACL')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserACL')
         self.logger.info('Creating an instance of ACL')
 
     def _getEntriesFromData(self):
@@ -2790,7 +2799,7 @@ class BrowserRendition(object):
     def __init__(self, propNode):
         """Constructor"""
         self.xmlDoc = propNode
-        self.logger = logging.getLogger('cmislib.browser.BrowserRendition')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserRendition')
         self.logger.info('Creating an instance of Rendition')
 
     def __str__(self):
@@ -2922,3 +2931,47 @@ def encode_multipart_formdata(fields, file, contentType):
     body = crlf.join(L)
     content_type = 'multipart/form-data; boundary=%s' % boundary
     return content_type, body
+
+
+class ChildrenSerializer(object):
+    def fromJSON(self, client, repo, jsonObj):
+        entries = []
+        for obj in jsonObj['objects']:
+            dataObj = obj['object']
+            cmisObject = getSpecializedObject(BrowserCmisObject(client,
+                                                                repo,
+                                                                data=dataObj))
+            entries.append(cmisObject)
+
+        return entries
+
+
+class TreeSerializer(object):
+    '''
+    The AtomPubBinding may be returning descendants and trees as a flat list of results.
+    We should probably implement a Tree result set and return that here instead.
+    '''
+    def fromJSON(self, client, repo, jsonObj):
+        entries = self.getEntries(client, repo, jsonObj)
+
+        return entries
+
+    def getEntries(self, client, repo, jsonObj):
+        entries = []
+        for obj in jsonObj:
+            dataObj = obj['object']['object']
+            cmisObject = getSpecializedObject(BrowserCmisObject(client,
+                                                                repo,
+                                                                data=dataObj))
+            entries.append(cmisObject)
+
+            try:
+                dataObj = obj['children']
+                #if obj['object'].has_key('children'):
+                #    for child in obj['object']['children']:
+                childEntries = self.getEntries(client, repo, dataObj)
+                entries = entries + childEntries
+            except KeyError:
+                pass
+
+        return entries
