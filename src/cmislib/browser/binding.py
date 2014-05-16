@@ -1734,7 +1734,13 @@ class BrowserDocument(BrowserCmisObject):
         u'2.0'
         """
 
-        pass
+        doc = None
+        if kwargs.has_key('major') and kwargs['major'] == 'true':
+            doc = self._repository.getObject(self.getObjectId(), returnVersion='latestmajor')
+        else:
+            doc = self._repository.getObject(self.getObjectId(), returnVersion='latest')
+
+        return doc
 
     def getPropertiesOfLatestVersion(self, **kwargs):
 
@@ -1767,7 +1773,7 @@ class BrowserDocument(BrowserCmisObject):
                                               **kwargs)
 
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, data={'objects': result})
+        return BrowserResultSet(self._cmisClient, self._repository, data={'objects': result}, serializer=VersionsSerializer())
 
     def getContentStream(self):
 
@@ -2969,6 +2975,18 @@ class ChildrenSerializer(object):
         return entries
 
 
+class VersionsSerializer(object):
+    def fromJSON(self, client, repo, jsonObj):
+        entries = []
+        for obj in jsonObj['objects']:
+            cmisObject = getSpecializedObject(BrowserCmisObject(client,
+                                                                repo,
+                                                                data=obj))
+            entries.append(cmisObject)
+
+        return entries
+
+
 class TreeSerializer(object):
     '''
     The AtomPubBinding may be returning descendants and trees as a flat list of results.
@@ -2998,3 +3016,11 @@ class TreeSerializer(object):
                 pass
 
         return entries
+
+
+class FolderSerializer(object):
+    def fromJSON(self, client, repo, jsonString):
+        obj = json.loads(jsonString)
+        objectId = obj['succinctProperties']['cmis:objectId']
+        folder = BrowserFolder(client, repo, objectId, properties=obj['succinctProperties'])
+        return folder
