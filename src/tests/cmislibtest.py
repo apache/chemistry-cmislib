@@ -374,6 +374,9 @@ class RepositoryTest(CmisTestBase):
         subFolder = self._repo.getObjectByPath(subFolderPath)
         self.assertEquals(len(subFolder.getChildren().getResults()), 1)
 
+    # getting unfiled documents may work for the atom pub binding for some servers
+    # but it isn't part of the spec so removing this test for now
+    '''
     def testGetUnfiledDocs(self):
         """Tests the repository's unfiled collection"""
 
@@ -403,15 +406,17 @@ class RepositoryTest(CmisTestBase):
         # the doc should now be in the unfiled collection
         self.assertTrue(isInResultSet(self._repo.getUnfiledDocs(), newDoc))
         self.assertEquals('testdoc', newDoc.getTitle())
+    '''
 
-#    def testCreateUnfiledDocument(self):
-#        '''Create a new unfiled document'''
-#        if self._repo.getCapabilities()['Unfiling'] != True:
-#            print 'Repo does not support unfiling, skipping'
-#            return
-#        documentName = 'testDocument'
-#        newDoc = self._repo.createDocument(documentName)
-#        self.assertEquals(documentName, newDoc.getName())
+    # Create document without a parent folder is not yet implemented
+    # def testCreateUnfiledDocument(self):
+    #     '''Create a new unfiled document'''
+    #     if self._repo.getCapabilities()['Unfiling'] != True:
+    #         print 'Repo does not support unfiling, skipping'
+    #         return
+    #     documentName = 'testDocument'
+    #     newDoc = self._repo.createDocument(documentName)
+    #     self.assertEquals(documentName, newDoc.getName())
 
     def testMoveDocument(self):
         """Move a Document from one folder to another folder"""
