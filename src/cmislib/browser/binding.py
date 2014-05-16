@@ -1096,7 +1096,7 @@ class BrowserRepository(object):
         """
 
         # build the CMIS query XML that we're going to POST
-        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + statement
+        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + quote(statement)
 
         # do the POST
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
@@ -1107,7 +1107,7 @@ class BrowserRepository(object):
                                                **kwargs)
 
         # return the result set
-        return BrowserResultSet(self._cmisClient, self, result)
+        return BrowserResultSet(self._cmisClient, self, result, serializer=ResultsSerializer())
 
 
     def getContentChanges(self, **kwargs):
@@ -2993,6 +2993,18 @@ def encode_multipart_formdata(fields, file, contentType):
     body = crlf.join(L)
     content_type = 'multipart/form-data; boundary=%s' % boundary
     return content_type, body
+
+
+class ResultsSerializer(object):
+    def fromJSON(self, client, repo, jsonObj):
+        entries = []
+        for obj in jsonObj['results']:
+            cmisObject = getSpecializedObject(BrowserCmisObject(client,
+                                                                repo,
+                                                                data=obj))
+            entries.append(cmisObject)
+
+        return entries
 
 
 class ChildrenSerializer(object):

@@ -101,7 +101,12 @@ def parsePropValueByType(value, typeName):
             return 0
     elif typeName == 'decimal':
         if value:
-            return float(value)
+            # search result relevance is returning as an arrary of decimals
+            # in the browser binding for some reason
+            if isinstance(value, list):
+                return float(value[0])
+            else:
+                return float(value)
         else:
             return 0.0
     elif typeName == 'datetime':
