@@ -174,19 +174,21 @@ class BrowserCmisObject(object):
         """
 
         if self._extArgs:
-            kwargs.update(self._extArgs)
+            self._extArgs.update(kwargs)
+        else:
+            self._extArgs = kwargs
 
         byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=object"
         self.data = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
                                                    self._cmisClient.username,
                                                    self._cmisClient.password,
-                                                   **kwargs)
+                                                   **self._extArgs)
         self._initData()
 
         # if a returnVersion arg was passed in, it is possible we got back
         # a different object ID than the value we started with, so it needs
         # to be cleared out as well
-        if kwargs.has_key('returnVersion'):
+        if self._extArgs.has_key('returnVersion'):
             self._objectId = None
     
     def getObjectId(self):
@@ -664,12 +666,13 @@ class BrowserRepository(object):
          - includeAllowableActions
         """
 
+        '''
         if kwargs:
             if self._extArgs:
                 self._extArgs.update(kwargs)
             else:
                 self._extArgs = kwargs
-
+        '''
         #TODO why is quoting the path required for the browser binding and not for atom pub
         #on inmemory 0.9?
         #TODO maybe we should quote all urls in the net library instead of here
@@ -2439,7 +2442,7 @@ class BrowserObjectType(object):
         """
         if kwargs:
             if self._extArgs:
-                kwargs.update(self._extArgs)
+                self._extArgs.update(kwargs)
 
         typesUrl = self._repository.getRepositoryUrl()
         kwargs['cmisselector'] = 'typeDefinition'
