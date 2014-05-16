@@ -26,6 +26,7 @@ from urllib import urlencode
 import logging
 import httplib2
 
+
 class RESTService(object):
 
     """

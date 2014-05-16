@@ -84,6 +84,7 @@ CHECKED_OUT_COLL = 'checkedout'
 UNFILED_COLL = 'unfiled'
 ROOT_COLL = 'root'
 
+
 class AtomPubBinding(Binding):
     def __init__(self, **kwargs):
         self.extArgs = kwargs
@@ -109,9 +110,9 @@ class AtomPubBinding(Binding):
             kwargs.update(self.extArgs)
 
         resp, content = Rest().get(url,
-                            username=username,
-                            password=password,
-                            **kwargs)
+                                   username=username,
+                                   password=password,
+                                   **kwargs)
         if resp['status'] != '200':
             self._processCommonErrors(resp, url)
             return content
@@ -136,9 +137,9 @@ class AtomPubBinding(Binding):
             kwargs.update(self.extArgs)
 
         resp, content = Rest().delete(url,
-                               username=username,
-                               password=password,
-                               **kwargs)
+                                      username=username,
+                                      password=password,
+                                      **kwargs)
         if resp['status'] != '200' and resp['status'] != '204':
             self._processCommonErrors(resp, url)
             return content
@@ -161,11 +162,11 @@ class AtomPubBinding(Binding):
             kwargs.update(self.extArgs)
 
         resp, content = Rest().post(url,
-                             payload,
-                             contentType,
-                             username=username,
-                             password=password,
-                             **kwargs)
+                                    payload,
+                                    contentType,
+                                    username=username,
+                                    password=password,
+                                    **kwargs)
         if resp['status'] == '200':
             try:
                 return minidom.parseString(content)
@@ -196,16 +197,15 @@ class AtomPubBinding(Binding):
             kwargs.update(self.extArgs)
 
         resp, content = Rest().put(url,
-                            payload,
-                            contentType,
-                            username=username,
-                            password=password,
-                            **kwargs)
+                                   payload,
+                                   contentType,
+                                   username=username,
+                                   password=password,
+                                   **kwargs)
         if resp['status'] != '200' and resp['status'] != '201':
             self._processCommonErrors(resp, url)
             return content
         else:
-            #if result.headers['content-length'] != '0':
             try:
                 return minidom.parseString(content)
             except ExpatError:
@@ -221,10 +221,10 @@ class RepositoryService(RepositoryServiceIfc):
     def reload(self, obj):
         self.logger.debug('Reload called on object')
         obj.xmlDoc = obj._cmisClient.binding.get(obj._cmisClient.repositoryUrl.encode('utf-8'),
-                                         obj._cmisClient.username,
-                                         obj._cmisClient.password)
+                                                 obj._cmisClient.username,
+                                                 obj._cmisClient.password)
         obj._initData()
-        
+
     def getRepository(self, client, repositoryId):
         doc = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
         workspaceElements = doc.getElementsByTagNameNS(APP_NS, 'workspace')
@@ -329,14 +329,13 @@ class AtomPubCmisObject(CmisObject):
         # passed in, those will get tacked on to the query string as
         # "additional" options.
 
-        params = {
-              '{id}': self.getObjectId(),
-              '{filter}': '',
-              '{includeAllowableActions}': 'false',
-              '{includePolicyIds}': 'false',
-              '{includeRelationships}': '',
-              '{includeACL}': 'false',
-              '{renditionFilter}': ''}
+        params = {'{id}': self.getObjectId(),
+                  '{filter}': '',
+                  '{includeAllowableActions}': 'false',
+                  '{includePolicyIds}': 'false',
+                  '{includeRelationships}': '',
+                  '{includeACL}': 'false',
+                  '{renditionFilter}': ''}
 
         options = {}
         addOptions = {}  # args specified, but not in the template
@@ -529,15 +528,15 @@ class AtomPubCmisObject(CmisObject):
         The optional filter argument is not yet implemented.
         """
 
-        #TODO implement filter
+        # TODO implement filter
         if self._properties == {}:
             if self.xmlDoc is None:
                 self.reload()
             propertiesElement = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'properties')[0]
-            #cpattern = re.compile(r'^property([\w]*)')
+            # cpattern = re.compile(r'^property([\w]*)')
             for node in [e for e in propertiesElement.childNodes if e.nodeType == e.ELEMENT_NODE and e.namespaceURI == CMIS_NS]:
-                #propertyId, propertyString, propertyDateTime
-                #propertyType = cpattern.search(node.localName).groups()[0]
+                # propertyId, propertyString, propertyDateTime
+                # propertyType = cpattern.search(node.localName).groups()[0]
                 propertyName = node.attributes['propertyDefinitionId'].value
                 if node.childNodes and \
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0] and \
@@ -551,8 +550,8 @@ class AtomPubCmisObject(CmisObject):
                         propertyValue = []
                         for valNode in valNodeList:
                             propertyValue.append(parsePropValue(valNode.
-                                                       childNodes[0].data,
-                                                       node.localName))
+                                                                childNodes[0].data,
+                                                                node.localName))
                 else:
                     propertyValue = None
                 self._properties[propertyName] = propertyValue
@@ -606,15 +605,13 @@ class AtomPubCmisObject(CmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if (self.properties.has_key('cmis:changeToken') and
-                    self.properties['cmis:changeToken'] is not None):
+        if (self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None):
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # the getEntryXmlDoc function may need the object type
         objectTypeId = None
-        if (self.properties.has_key('cmis:objectTypeId') and
-            not properties.has_key('cmis:objectTypeId')):
+        if (self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId')):
             objectTypeId = self.properties['cmis:objectTypeId']
             self.logger.debug('This object type is:%s' % objectTypeId)
 
@@ -625,11 +622,11 @@ class AtomPubCmisObject(CmisObject):
 
         # do a PUT of the entry
         updatedXmlDoc = self._cmisClient.binding.put(selfUrl.encode('utf-8'),
-                                             self._cmisClient.username,
-                                             self._cmisClient.password,
-                                             xmlEntryDoc.toxml(encoding='utf-8'),
-                                             ATOM_XML_TYPE,
-                                             **args)
+                                                     self._cmisClient.username,
+                                                     self._cmisClient.password,
+                                                     xmlEntryDoc.toxml(encoding='utf-8'),
+                                                     ATOM_XML_TYPE,
+                                                     **args)
 
         # reset the xmlDoc for this object with what we got back from
         # the PUT, then call initData we dont' want to call
@@ -656,11 +653,11 @@ class AtomPubCmisObject(CmisObject):
 
         # post the Atom entry
         self._cmisClient.binding.post(postUrl.encode('utf-8'),
-                                               self._cmisClient.username,
-                                               self._cmisClient.password,
-                                               self.xmlDoc.toxml(encoding='utf-8'),
-                                               ATOM_XML_ENTRY_TYPE,
-                                               **args)
+                                      self._cmisClient.username,
+                                      self._cmisClient.password,
+                                      self.xmlDoc.toxml(encoding='utf-8'),
+                                      ATOM_XML_ENTRY_TYPE,
+                                      **args)
 
     def delete(self, **kwargs):
 
@@ -678,9 +675,9 @@ class AtomPubCmisObject(CmisObject):
 
         url = self._getSelfLink()
         self._cmisClient.binding.delete(url.encode('utf-8'),
-                                         self._cmisClient.username,
-                                         self._cmisClient.password,
-                                         **kwargs)
+                                        self._cmisClient.username,
+                                        self._cmisClient.password,
+                                        **kwargs)
 
     def applyPolicy(self, policyId):
 
@@ -805,8 +802,8 @@ class AtomPubCmisObject(CmisObject):
             # supported
             aclUrl = self._getLink(ACL_REL)
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
-                                              self._cmisClient.username,
-                                              self._cmisClient.password)
+                                                  self._cmisClient.username,
+                                                  self._cmisClient.password)
             return AtomPubACL(xmlDoc=result)
         else:
             raise NotSupportedException
@@ -834,10 +831,10 @@ class AtomPubCmisObject(CmisObject):
             aclUrl = self._getLink(ACL_REL)
             assert aclUrl, "Could not determine the object's ACL URL."
             result = self._cmisClient.binding.put(aclUrl.encode('utf-8'),
-                                          self._cmisClient.username,
-                                          self._cmisClient.password,
-                                          acl.getXmlDoc().toxml(encoding='utf-8'),
-                                          CMIS_ACL_TYPE)
+                                                  self._cmisClient.username,
+                                                  self._cmisClient.password,
+                                                  acl.getXmlDoc().toxml(encoding='utf-8'),
+                                                  CMIS_ACL_TYPE)
             return AtomPubACL(xmlDoc=result)
         else:
             raise NotSupportedException
@@ -1270,8 +1267,8 @@ class AtomPubRepository(object):
             types = []
             for entryElement in entryElements:
                 objectType = AtomPubObjectType(self._cmisClient,
-                                        self,
-                                        xmlDoc=entryElement)
+                                               self,
+                                               xmlDoc=entryElement)
                 types.append(objectType)
         # otherwise, if a typeId is not specified, return
         # the list of base types
@@ -1335,15 +1332,15 @@ class AtomPubRepository(object):
             raise NotSupportedException("Could not determine the type descendants URL")
 
         typesXmlDoc = self._cmisClient.binding.get(descendUrl.encode('utf-8'),
-                                              self._cmisClient.username,
-                                              self._cmisClient.password,
-                                              **kwargs)
+                                                   self._cmisClient.username,
+                                                   self._cmisClient.password,
+                                                   **kwargs)
         entryElements = typesXmlDoc.getElementsByTagNameNS(ATOM_NS, 'entry')
         types = []
         for entryElement in entryElements:
             objectType = AtomPubObjectType(self._cmisClient,
-                                    self,
-                                    xmlDoc=entryElement)
+                                           self,
+                                           xmlDoc=entryElement)
             types.append(objectType)
         return types
 
@@ -1372,8 +1369,8 @@ class AtomPubRepository(object):
         types = []
         for entryElement in entryElements:
             objectType = AtomPubObjectType(self._cmisClient,
-                                    self,
-                                    xmlDoc=entryElement)
+                                           self,
+                                           xmlDoc=entryElement)
             types.append(objectType)
         # return the result
         return types
@@ -1505,14 +1502,13 @@ class AtomPubRepository(object):
         template = self.getUriTemplates()['objectbypath']['template']
 
         # fill in the template with the path provided
-        params = {
-              '{path}': quote(path, '/'),
-              '{filter}': '',
-              '{includeAllowableActions}': 'false',
-              '{includePolicyIds}': 'false',
-              '{includeRelationships}': '',
-              '{includeACL}': 'false',
-              '{renditionFilter}': ''}
+        params = {'{path}': quote(path, '/'),
+                  '{filter}': '',
+                  '{includeAllowableActions}': 'false',
+                  '{includePolicyIds}': 'false',
+                  '{includeRelationships}': '',
+                  '{includeACL}': 'false',
+                  '{renditionFilter}': ''}
 
         options = {}
         addOptions = {}  # args specified, but not in the template
@@ -1592,7 +1588,7 @@ class AtomPubRepository(object):
         xmlDoc = self._getQueryXmlDoc(statement, **kwargs)
 
         # do the POST
-        #print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
+        # print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
                                                self._cmisClient.username,
                                                self._cmisClient.password,
@@ -1685,14 +1681,14 @@ class AtomPubRepository(object):
             # if the repository doesn't require fileable objects to be filed
             if self.getCapabilities()['Unfiling']:
                 # has not been implemented
-                #postUrl = self.getCollectionLink(UNFILED_COLL)
+                # postUrl = self.getCollectionLink(UNFILED_COLL)
                 raise NotImplementedError
             else:
                 # this repo requires fileable objects to be filed
                 raise InvalidArgumentException
 
         return parentFolder.createDocument(name, properties, StringIO.StringIO(contentString),
-            contentType, contentEncoding)
+                                           contentType, contentEncoding)
 
     def createDocument(self,
                        name,
@@ -1732,7 +1728,7 @@ class AtomPubRepository(object):
             # if the repository doesn't require fileable objects to be filed
             if self.getCapabilities()['Unfiling']:
                 # has not been implemented
-                #postUrl = self.getCollectionLink(UNFILED_COLL)
+                # postUrl = self.getCollectionLink(UNFILED_COLL)
                 raise NotImplementedError
             else:
                 # this repo requires fileable objects to be filed
@@ -1864,8 +1860,8 @@ class AtomPubRepository(object):
                         mediatype = node.childNodes[0].data
 
                 self._uriTemplates[templType] = UriTemplate(template,
-                                                       templType,
-                                                       mediatype)
+                                                            templType,
+                                                            mediatype)
 
         return self._uriTemplates
 
@@ -1942,9 +1938,9 @@ class AtomPubRepository(object):
         cmisXmlDoc.appendChild(queryElement)
 
         statementElement = cmisXmlDoc.createElementNS(CMIS_NS, "statement")
-        #CMIS-703
-        #cdataSection = cmisXmlDoc.createCDATASection(query)
-        #statementElement.appendChild(cdataSection)
+        # CMIS-703
+        # cdataSection = cmisXmlDoc.createCDATASection(query)
+        # statementElement.appendChild(cdataSection)
         textNode = cmisXmlDoc.createTextNode(query)
         statementElement.appendChild(textNode)
         queryElement.appendChild(statementElement)
@@ -2021,8 +2017,8 @@ class AtomPubResultSet(ResultSet):
         link = self._getLink(rel)
         if link:
             result = self._cmisClient.binding.get(link.encode('utf-8'),
-                                              self._cmisClient.username,
-                                              self._cmisClient.password)
+                                                  self._cmisClient.username,
+                                                  self._cmisClient.password)
 
             # return the result
             self._xmlDoc = result
@@ -2368,11 +2364,11 @@ class AtomPubDocument(AtomPubCmisObject):
         # Do a PUT of the empty ATOM to the self link
         url = self._getSelfLink()
         result = self._cmisClient.binding.put(url.encode('utf-8'),
-                                      self._cmisClient.username,
-                                      self._cmisClient.password,
-                                      entryXmlDoc.toxml(encoding='utf-8'),
-                                      ATOM_XML_TYPE,
-                                      **kwargs)
+                                              self._cmisClient.username,
+                                              self._cmisClient.password,
+                                              entryXmlDoc.toxml(encoding='utf-8'),
+                                              ATOM_XML_TYPE,
+                                              **kwargs)
 
         return AtomPubDocument(self._cmisClient, self._repository, xmlDoc=result)
 
@@ -2468,7 +2464,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         contentElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'content')
 
-        #CMIS-701
+        # CMIS-701
         if len(contentElements) != 1:
             self.reload()
             contentElements = self.xmlDoc.getElementsByTagNameNS(ATOM_NS, 'content')
@@ -2481,9 +2477,9 @@ class AtomPubDocument(AtomPubCmisObject):
 
             # the cmis client class parses non-error responses
             result, content = Rest().get(srcUrl.encode('utf-8'),
-                                username=self._cmisClient.username,
-                                password=self._cmisClient.password,
-                                **self._cmisClient.extArgs)
+                                         username=self._cmisClient.username,
+                                         password=self._cmisClient.password,
+                                         **self._cmisClient.extArgs)
             if result['status'] != '200':
                 raise CmisException(result['status'])
             return StringIO.StringIO(content)
@@ -2524,18 +2520,17 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if (self.properties.has_key('cmis:changeToken') and
-                    self.properties['cmis:changeToken'] is not None):
+        if (self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None):
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # put the content file
         result = self._cmisClient.binding.put(srcUrl.encode('utf-8'),
-                                      self._cmisClient.username,
-                                      self._cmisClient.password,
-                                      contentFile.read(),
-                                      mimetype,
-                                      **args)
+                                              self._cmisClient.username,
+                                              self._cmisClient.password,
+                                              contentFile.read(),
+                                              mimetype,
+                                              **args)
 
         # what comes back is the XML for the updated document,
         # which is not required by the spec to be the same document
@@ -2564,16 +2559,15 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if (self.properties.has_key('cmis:changeToken') and
-                    self.properties['cmis:changeToken'] is not None):
+        if (self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None):
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # delete the content stream
         self._cmisClient.binding.delete(srcUrl.encode('utf-8'),
-                                         self._cmisClient.username,
-                                         self._cmisClient.password,
-                                         **args)
+                                        self._cmisClient.username,
+                                        self._cmisClient.password,
+                                        **args)
 
     checkedOut = property(isCheckedOut)
 
@@ -2686,10 +2680,10 @@ class AtomPubFolder(AtomPubCmisObject):
         """
 
         return self._repository.createDocumentFromString(name, properties,
-            self, contentString, contentType, contentEncoding)
+                                                         self, contentString, contentType, contentEncoding)
 
     def createDocument(self, name, properties={}, contentFile=None,
-            contentType=None, contentEncoding=None):
+                       contentType=None, contentEncoding=None):
 
         """
         Creates a new Document object in the repository using
@@ -2933,9 +2927,9 @@ class AtomPubFolder(AtomPubCmisObject):
         # Get the descendants link and do a DELETE against it
         url = self._getLink(DOWN_REL, CMIS_TREE_TYPE_P)
         result = self._cmisClient.binding.delete(url.encode('utf-8'),
-                                         self._cmisClient.username,
-                                         self._cmisClient.password,
-                                         **kwargs)
+                                                 self._cmisClient.username,
+                                                 self._cmisClient.password,
+                                                 **kwargs)
 
     def addObject(self, cmisObject, **kwargs):
 
@@ -2967,11 +2961,11 @@ class AtomPubFolder(AtomPubCmisObject):
 
         # post the Atom entry
         self._cmisClient.binding.post(postUrl.encode('utf-8'),
-                                               self._cmisClient.username,
-                                               self._cmisClient.password,
-                                               cmisObject.xmlDoc.toxml(encoding='utf-8'),
-                                               ATOM_XML_ENTRY_TYPE,
-                                               **kwargs)
+                                      self._cmisClient.username,
+                                      self._cmisClient.password,
+                                      cmisObject.xmlDoc.toxml(encoding='utf-8'),
+                                      ATOM_XML_ENTRY_TYPE,
+                                      **kwargs)
 
     def removeObject(self, cmisObject):
 
@@ -2989,11 +2983,11 @@ class AtomPubFolder(AtomPubCmisObject):
 
         # post the Atom entry to the unfiled collection
         self._cmisClient.binding.post(postUrl.encode('utf-8'),
-                                               self._cmisClient.username,
-                                               self._cmisClient.password,
-                                               cmisObject.xmlDoc.toxml(encoding='utf-8'),
-                                               ATOM_XML_ENTRY_TYPE,
-                                               **args)
+                                      self._cmisClient.username,
+                                      self._cmisClient.password,
+                                      cmisObject.xmlDoc.toxml(encoding='utf-8'),
+                                      ATOM_XML_ENTRY_TYPE,
+                                      **args)
 
     def getPaths(self):
         """
@@ -3114,9 +3108,9 @@ class AtomPubObjectType(ObjectType):
 
         if self.xmlDoc is None:
             self.reload()
-        #typeEls = self.xmlDoc.getElementsByTagNameNS(CMISRA_NS, 'type')
-        #assert len(typeEls) == 1, "Expected to find exactly one type element but instead found %d" % len(typeEls)
-        #typeEl = typeEls[0]
+        # typeEls = self.xmlDoc.getElementsByTagNameNS(CMISRA_NS, 'type')
+        # assert len(typeEls) == 1, "Expected to find exactly one type element but instead found %d" % len(typeEls)
+        # typeEl = typeEls[0]
         typeEl = None
         for e in self.xmlDoc.childNodes:
             if e.nodeType == e.ELEMENT_NODE and e.localName == "type":
@@ -3543,19 +3537,19 @@ class AtomPubACL(ACL):
         aclEl.setAttribute('xmlns:cmis', CMIS_NS)
         for ace in self.getEntries().values():
             permEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:permission')
-            #principalId
+            # principalId
             prinEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:principal')
             prinIdEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:principalId')
             prinIdElText = xmlDoc.createTextNode(ace.principalId)
             prinIdEl.appendChild(prinIdElText)
             prinEl.appendChild(prinIdEl)
             permEl.appendChild(prinEl)
-            #direct
+            # direct
             directEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:direct')
             directElText = xmlDoc.createTextNode(ace.direct)
             directEl.appendChild(directElText)
             permEl.appendChild(directEl)
-            #permissions
+            # permissions
             for perm in ace.permissions:
                 permItemEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:permission')
                 permItemElText = xmlDoc.createTextNode(perm)
@@ -3664,8 +3658,8 @@ class AtomPubChangeEntry(ChangeEntry):
             return AtomPubACL(aceList=aclEls[0])
         elif aclUrl:
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
-                                              self._cmisClient.username,
-                                              self._cmisClient.password)
+                                                  self._cmisClient.username,
+                                                  self._cmisClient.password)
             return AtomPubACL(xmlDoc=result)
 
     def getChangeTime(self):
@@ -3694,8 +3688,8 @@ class AtomPubChangeEntry(ChangeEntry):
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0] and \
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes:
                     propertyValue = parsePropValue(
-                       node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes[0].data,
-                       node.localName)
+                        node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes[0].data,
+                        node.localName)
                 else:
                     propertyValue = None
                 self._properties[propertyName] = propertyValue
@@ -3722,6 +3716,7 @@ class AtomPubChangeEntry(ChangeEntry):
     changeTime = property(getChangeTime)
     changeType = property(getChangeType)
     properties = property(getProperties)
+
 
 class AtomPubChangeEntry(object):
     """
@@ -3812,8 +3807,8 @@ class AtomPubChangeEntry(object):
             return AtomPubACL(aceList=aclEls[0])
         elif aclUrl:
             result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
-                                              self._cmisClient.username,
-                                              self._cmisClient.password)
+                                                  self._cmisClient.username,
+                                                  self._cmisClient.password)
             return AtomPubACL(xmlDoc=result)
 
     def getChangeTime(self):
@@ -3842,8 +3837,8 @@ class AtomPubChangeEntry(object):
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0] and \
                    node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes:
                     propertyValue = parsePropValue(
-                       node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes[0].data,
-                       node.localName)
+                        node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes[0].data,
+                        node.localName)
                 else:
                     propertyValue = None
                 self._properties[propertyName] = propertyValue
@@ -4008,6 +4003,7 @@ class AtomPubCmisId(CmisId):
 
     pass
 
+
 def getSpecializedObject(obj, **kwargs):
 
     """
@@ -4034,8 +4030,9 @@ def getSpecializedObject(obj, **kwargs):
     # types, give the object back
     return obj
 
+
 def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=None,
-                    contentType=None, contentEncoding=None):
+                   contentType=None, contentEncoding=None):
 
     """
     Internal helper method that knows how to build an Atom entry based
@@ -4115,7 +4112,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
                 if typeDef is None:
                     moduleLogger.debug('Looking up type def for: %s' % objectTypeId)
                     typeDef = repo.getTypeDefinition(objectTypeId)
-                    #TODO what to do if type not found
+                    # TODO what to do if type not found
                 propType = typeDef.properties[propName].propertyType
             elif type(propValue) == list:
                 propType = type(propValue[0])
@@ -4136,6 +4133,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
             propsElement.appendChild(propElement)
 
     return entryXmlDoc
+
 
 def getElementNameAndValues(propType, propName, propValue, isList=False):
 
@@ -4249,4 +4247,3 @@ def getEmptyXmlDoc():
     entryElement.setAttribute('xmlns', ATOM_NS)
     entryXmlDoc.appendChild(entryElement)
     return entryXmlDoc
-

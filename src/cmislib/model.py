@@ -29,6 +29,7 @@ from cmis_services import Binding
 
 moduleLogger = logging.getLogger('cmislib.model')
 
+
 class CmisClient(object):
 
     """
@@ -98,7 +99,6 @@ class CmisClient(object):
         """
 
         return self.binding.getRepositoryService().getDefaultRepository(self)
-
 
     defaultRepository = property(getDefaultRepository)
     repositories = property(getRepositories)

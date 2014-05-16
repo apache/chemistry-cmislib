@@ -24,6 +24,7 @@ from cmislib.exceptions import CmisException, RuntimeException, \
     PermissionDeniedException, NotSupportedException, \
     UpdateConflictException
 
+
 class Binding(object):
     def getRepositoryService(self):
         pass

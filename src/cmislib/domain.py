@@ -23,6 +23,7 @@ import logging
 
 moduleLogger = logging.getLogger('cmislib.domain')
 
+
 class CmisObject(object):
 
     """
@@ -47,7 +48,7 @@ class CmisObject(object):
         """
 
         pass
-    
+
     def getObjectId(self):
 
         """
@@ -359,7 +360,7 @@ class Repository(object):
         """
 
         pass
-    
+
     def getRepositoryName(self):
 
         """
@@ -1382,6 +1383,7 @@ class Document(CmisObject):
 
         pass
 
+
 class Folder(CmisObject):
 
     """
@@ -1435,7 +1437,7 @@ class Folder(CmisObject):
         pass
 
     def createDocument(self, name, properties={}, contentFile=None,
-            contentType=None, contentEncoding=None):
+                       contentType=None, contentEncoding=None):
 
         """
         Creates a new Document object in the repository using
@@ -1623,7 +1625,7 @@ class Folder(CmisObject):
         """
 
         pass
-    
+
     def getPaths(self):
         """
         Returns the paths as a list of strings. The spec says folders cannot

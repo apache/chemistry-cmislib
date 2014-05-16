@@ -27,6 +27,7 @@ from cmislib.domain import CmisId, Document, Folder
 
 moduleLogger = logging.getLogger('cmislib.util')
 
+
 def multiple_replace(aDict, text):
 
     """
@@ -41,6 +42,7 @@ def multiple_replace(aDict, text):
 
     # For each match, look-up corresponding value in dictionary
     return regex.sub(lambda mo: aDict[mo.string[mo.start():mo.end()]], text)
+
 
 def parsePropValue(value, nodeName):
 
@@ -63,11 +65,12 @@ def parsePropValue(value, nodeName):
     elif nodeName == 'propertyDecimal':
         return float(value)
     elif nodeName == 'propertyDateTime':
-        #%z doesn't seem to work, so I'm going to trunc the offset
-        #not all servers return microseconds, so those go too
+        # %z doesn't seem to work, so I'm going to trunc the offset
+        # not all servers return microseconds, so those go too
         return parseDateTimeValue(value)
     else:
         return value
+
 
 def parsePropValueByType(value, typeName):
 
@@ -86,7 +89,6 @@ def parsePropValueByType(value, typeName):
     elif typeName == 'string':
         return value
     elif typeName == 'boolean':
-        #TODO
         if not value:
             return False
         if type(value) == bool:
@@ -110,11 +112,12 @@ def parsePropValueByType(value, typeName):
         else:
             return 0.0
     elif typeName == 'datetime':
-        #%z doesn't seem to work, so I'm going to trunc the offset
-        #not all servers return microseconds, so those go too
+        # %z doesn't seem to work, so I'm going to trunc the offset
+        # not all servers return microseconds, so those go too
         return parseDateTimeValue(value)
     else:
         return value
+
 
 def parseDateTimeValue(value):
 
@@ -124,9 +127,10 @@ def parseDateTimeValue(value):
     if type(value) == str:
         return iso8601.parse_date(value)
     elif type(value) == int:
-        return datetime.datetime.fromtimestamp(value/1000)
+        return datetime.datetime.fromtimestamp(value / 1000)
     else:
         return
+
 
 def parseBoolValue(value):
 
@@ -150,13 +154,11 @@ def toCMISValue(value):
     Utility function to convert Python values to CMIS string values
     """
 
-    if value == False:
+    if value is False:
         return 'false'
-    elif value == True:
+    elif value is True:
         return 'true'
     elif value is None:
         return 'none'
     else:
         return value
-
-
