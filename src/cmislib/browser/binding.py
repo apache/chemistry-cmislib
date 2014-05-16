@@ -323,7 +323,27 @@ class BrowserCmisObject(object):
 
         """
 
-        pass
+        # get the root folder URL
+        updateUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.id
+
+        props = {"cmisaction" : "update"}
+
+        propCount = 0
+        for prop in properties:
+            props["propertyId[%s]" % propCount] = prop
+            props["propertyValue[%s]" % propCount] = properties[prop]
+            propCount += 1
+
+        # invoke the URL
+        result = self._cmisClient.binding.post(updateUrl.encode('utf-8'),
+                                               urlencode(props),
+                                               'application/x-www-form-urlencoded',
+                                               self._cmisClient.username,
+                                               self._cmisClient.password)
+
+        self.data = result
+        self._initData()
+        return self
 
     def move(self, sourceFolder, targetFolder):
 
