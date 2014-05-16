@@ -1821,10 +1821,7 @@ class BrowserDocument(BrowserCmisObject):
         """
 
         # get the root folder URL
-        createDocUrl = self._repository.getRootFolderUrl()
-
-        props = {"objectId" : self.id,
-                 "cmisaction" : "setContent"}
+        createDocUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.id + "&cmisaction=setContent"
 
         contentType, body = encode_multipart_formdata(None, contentFile, contentType)
 
@@ -1877,8 +1874,27 @@ class BrowserDocument(BrowserCmisObject):
          - skipCount
         """
 
-        #TODO to be implemented
-        pass
+        # if Renditions capability is None, return notsupported
+        if self._repository.getCapabilities()['Renditions']:
+            pass
+        else:
+            raise NotSupportedException
+
+        renditions = []
+
+        contentUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=renditions&renditionFilter=*"
+        result, content = Rest().get(contentUrl.encode('utf-8'),
+                                              self._cmisClient.username,
+                                              self._cmisClient.password,
+                                              **self._cmisClient.extArgs)
+        if result['status'] != '200':
+            raise CmisException(result['status'])
+
+        resultObj = json.loads(content)
+        for rendObj in resultObj:
+            renditions.append(BrowserRendition(rendObj))
+
+        return renditions
 
     checkedOut = property(isCheckedOut)
 
@@ -2850,9 +2866,9 @@ class BrowserRendition(object):
     This class represents a Rendition.
     """
 
-    def __init__(self, propNode):
+    def __init__(self, data):
         """Constructor"""
-        self.xmlDoc = propNode
+        self.data = data
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserRendition')
         self.logger.info('Creating an instance of Rendition')
 
@@ -2862,48 +2878,39 @@ class BrowserRendition(object):
 
     def getStreamId(self):
         """Getter for the rendition's stream ID"""
-        #TODO need to implement
-        pass
+        return self.data['streamId']
 
     def getMimeType(self):
         """Getter for the rendition's mime type"""
-        #TODO need to implement
-        pass
+        return self.data['mimeType']
 
     def getLength(self):
         """Getter for the renditions's length"""
-        #TODO need to implement
-        pass
+        return self.data['length']
 
     def getTitle(self):
         """Getter for the renditions's title"""
-        #TODO need to implement
-        pass
+        return self.data['title']
 
     def getKind(self):
         """Getter for the renditions's kind"""
-        #TODO need to implement
-        pass
+        return self.data['kind']
 
     def getHeight(self):
         """Getter for the renditions's height"""
-        #TODO need to implement
-        pass
+        return self.data['height']
 
     def getWidth(self):
         """Getter for the renditions's width"""
-        #TODO need to implement
-        pass
+        return self.data['width']
 
     def getHref(self):
         """Getter for the renditions's href"""
-        #TODO need to implement
-        pass
+        return self.data['href']
 
     def getRenditionDocumentId(self):
         """Getter for the renditions's width"""
-        #TODO need to implement
-        pass
+        return self.data['renditionDocumentId']
 
     streamId = property(getStreamId)
     mimeType = property(getMimeType)
@@ -2971,7 +2978,7 @@ def encode_multipart_formdata(fields, file, contentType):
             L.append('Content-Disposition: form-data; name="%s"' % key)
             L.append('Content-Type: text/plain; charset=utf-8')
             L.append('')
-            L.append(value)
+            L.append(value.encode('utf-8'))
 
     if file:
         L.append('--' + boundary)
