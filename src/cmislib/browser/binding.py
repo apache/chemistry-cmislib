@@ -22,7 +22,7 @@ provider.
 """
 from cmislib.cmis_services import Binding, RepositoryServiceIfc
 from cmislib.domain import CmisId, CmisObject, Repository, Relationship, Policy, ObjectType, Property, Folder, Document, ACL, ACE, ChangeEntry, ResultSet, ChangeEntryResultSet, Rendition
-from cmislib.exceptions import CmisException, RuntimeException, ObjectNotFoundException
+from cmislib.exceptions import CmisException, NotSupportedException, ObjectNotFoundException, RuntimeException
 from cmislib.net import RESTService as Rest
 from cmislib.util import parsePropValueByType, parseBoolValue
 import json
@@ -222,13 +222,16 @@ class BrowserCmisObject(object):
         """
         #TODO add kwargs logic here
 
+        if not self.getAllowableActions()['canGetObjectParents']:
+            raise NotSupportedException('Object does not support getObjectParents')
+
         byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=parents"
         result = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
                                                    self._cmisClient.username,
                                                    self._cmisClient.password,
                                                    **kwargs)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, {'objects': result})
+        return BrowserResultSet(self._cmisClient, self._repository, {'objects': result}, serializer=ChildrenSerializer())
 
     def getPaths(self):
         """
@@ -1751,7 +1754,9 @@ class BrowserDocument(BrowserCmisObject):
         The optional major and filter arguments are supported.
         """
 
-        pass
+        latestDoc = self.getLatestVersion(**kwargs)
+
+        return latestDoc.getProperties()
 
     def getAllVersions(self, **kwargs):
 
@@ -1815,13 +1820,33 @@ class BrowserDocument(BrowserCmisObject):
          - overwriteFlag=None
         """
 
-        pass
+        # get the root folder URL
+        createDocUrl = self._repository.getRootFolderUrl()
+
+        props = {"objectId" : self.id,
+                 "cmisaction" : "setContent"}
+
+        contentType, body = encode_multipart_formdata(None, contentFile, contentType)
+
+        # invoke the URL
+        result = self._cmisClient.binding.post(createDocUrl.encode('utf-8'),
+                                               body,
+                                               contentType,
+                                               self._cmisClient.username,
+                                               self._cmisClient.password)
+
+        # return the result set
+        return BrowserDocument(self._cmisClient, self, data=result)
+
 
     def deleteContentStream(self):
 
         """
         Delete's the content stream associated with this object.
         """
+
+        if not self.allowableActions['canDeleteContentStream']:
+            raise CmisException('Not allowed to delete the content stream')
 
         delUrl = self._repository.getRootFolderUrl()
 
@@ -2938,14 +2963,15 @@ def encode_multipart_formdata(fields, file, contentType):
     crlf = '\r\n'
     L = []
     fileName = None
-    for (key, value) in fields.iteritems():
-        if (key == 'cmis:name'):
-            fileName = value
-        L.append('--' + boundary)
-        L.append('Content-Disposition: form-data; name="%s"' % key)
-        L.append('Content-Type: text/plain; charset=utf-8')
-        L.append('')
-        L.append(value)
+    if fields:
+        for (key, value) in fields.iteritems():
+            if (key == 'cmis:name'):
+                fileName = value
+            L.append('--' + boundary)
+            L.append('Content-Disposition: form-data; name="%s"' % key)
+            L.append('Content-Type: text/plain; charset=utf-8')
+            L.append('')
+            L.append(value)
 
     if file:
         L.append('--' + boundary)
