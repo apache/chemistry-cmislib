@@ -511,8 +511,32 @@ class BrowserCmisObject(object):
         >>> acl.getEntries()
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
         """
+        if self._repository.getCapabilities()['ACL'] == 'manage':
+            # if the ACL capability is manage, this must be
+            # supported
+            # but it also depends on the canApplyACL allowable action
+            # for this object
+            if not isinstance(acl, ACL):
+                raise CmisException('The ACL to apply must be an instance of the ACL class.')
+            # get the root folder URL
+            aclUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.id + "&cmisaction=applyACL"
 
-        pass
+            aclJSON = ACLSerializer().toJSON(acl)
+
+            contentType, body = encode_multipart_formdata(None, StringIO.StringIO(aclJSON), 'application/json')
+
+            # invoke the URL
+            result = self._cmisClient.binding.post(aclUrl.encode('utf-8'),
+                                                   body,
+                                                   contentType,
+                                                   self._cmisClient.username,
+                                                   self._cmisClient.password)
+
+            # return the result set
+            return BrowserACL(data=result)
+        else:
+            raise NotSupportedException
+
 
     allowableActions = property(getAllowableActions)
     name = property(getName)
@@ -734,8 +758,15 @@ class BrowserRepository(object):
         cmis:read
         cmis:write
         """
-        #TODO need to implement
-        pass
+        if not self.getCapabilities()['ACL']:
+            raise NotSupportedException(messages.NO_ACL_SUPPORT)
+
+        permData = self.data['aclCapabilities']['permissions']
+        perms = {}
+        for entry in permData:
+            perms[entry['permission']] = entry['description']
+
+        return perms
 
     def getPermissionMap(self):
 
@@ -762,8 +793,15 @@ class BrowserRepository(object):
         cmis:all
         {http://www.alfresco.org/model/content/1.0}lockable.CheckIn
         """
-        #TODO need to implement
-        pass
+        if not self.getCapabilities()['ACL']:
+            raise NotSupportedException(messages.NO_ACL_SUPPORT)
+
+        permData = self.data['aclCapabilities']['permissionMapping']
+        permMap = {}
+        for entry in permData:
+            permMap[entry['key']] = entry['permission']
+
+        return permMap
 
     def getPropagation(self):
 
@@ -777,8 +815,10 @@ class BrowserRepository(object):
         >>> repo.propagation
         u'propagate'
         """
-        #TODO need to implement
-        pass
+        if not self.getCapabilities()['ACL']:
+            raise NotSupportedException(messages.NO_ACL_SUPPORT)
+
+        return self.data['aclCapabilities']['propagation']
 
     def getCapabilities(self):
 
@@ -2606,7 +2646,7 @@ class BrowserProperty(object):
     openChoice = property(isOpenChoice)
 
 
-class BrowserACL(object):
+class BrowserACL(ACL):
 
     """
     Represents the Access Control List for an object.
@@ -2648,7 +2688,7 @@ class BrowserACL(object):
                 result[principalId] = ace
         return result
             
-    def addEntry(self, ace):
+    def addEntry(self, principalId, access, direct):
 
         """
         Adds an :class:`ACE` entry to the ACL.
@@ -2660,7 +2700,8 @@ class BrowserACL(object):
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
         """
 
-        pass
+        ace = BrowserACE(principalId, access, direct)
+        self._entries[ace.principalId] = ace
 
     def removeEntry(self, principalId):
 
@@ -2674,7 +2715,8 @@ class BrowserACL(object):
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
         """
 
-        pass
+        if self._entries.has_key(principalId):
+            del(self._entries[principalId])
 
     def clearEntries(self):
 
@@ -2694,7 +2736,8 @@ class BrowserACL(object):
         >>> acl.getXmlDoc()
         """
 
-        pass
+        self._entries.clear()
+        self.results = None
 
     def getEntries(self):
 
@@ -3069,3 +3112,17 @@ class FolderSerializer(object):
         objectId = obj['succinctProperties']['cmis:objectId']
         folder = BrowserFolder(client, repo, objectId, properties=obj['succinctProperties'])
         return folder
+
+
+class ACLSerializer(object):
+    def toJSON(self, acl):
+        entries = acl.getEntries()
+        aces = []
+        for key in entries:
+            entryJSON = {}
+            entryJSON['isDirect'] = entries[key].direct
+            entryJSON['prinipcal'] = {'principalId': entries[key].principalId}
+            entryJSON['permissions'] = entries[key].permissions
+            aces.append(entryJSON)
+
+        return json.dumps(aces)
