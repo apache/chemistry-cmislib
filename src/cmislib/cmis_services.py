@@ -16,6 +16,7 @@
 #      specific language governing permissions and limitations
 #      under the License.
 #
+
 """
 Module containing the base Binding class and other service objects.
 """
@@ -26,7 +27,17 @@ from cmislib.exceptions import CmisException, RuntimeException, \
 
 
 class Binding(object):
+
+    """
+    Represents the binding used to communicate with the CMIS server.
+    """
+
     def getRepositoryService(self):
+
+        """
+        Returns the repository service specific to this binding.
+        """
+
         pass
 
     def _processCommonErrors(self, error, url):
@@ -56,8 +67,23 @@ class Binding(object):
 
 
 class RepositoryServiceIfc(object):
+
+    """
+    Defines the interface for the repository service.
+    """
+
     def getRepositories(self, client):
+
+        """
+        Returns a list of repositories for this server.
+        """
+
         pass
 
     def getRepositoryInfo(self):
+
+        """
+        Returns the repository information for this server.
+        """
+
         pass

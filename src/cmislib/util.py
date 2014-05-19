@@ -23,7 +23,7 @@ import re
 import iso8601
 import logging
 import datetime
-from cmislib.domain import CmisId, Document, Folder
+from cmislib.domain import CmisId
 
 moduleLogger = logging.getLogger('cmislib.util')
 
@@ -79,7 +79,7 @@ def parsePropValueByType(value, typeName):
     node's property definition.
     """
 
-    moduleLogger.debug('Inside parsePropValueByType: %s: %s' % (typeName, value))
+    moduleLogger.debug('Inside parsePropValueByType: %s: %s', typeName, value)
 
     if typeName == 'id':
         if value:

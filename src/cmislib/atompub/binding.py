@@ -22,12 +22,12 @@ provider.
 """
 from cmislib.cmis_services import Binding, RepositoryServiceIfc
 from cmislib.domain import CmisId, CmisObject, ObjectType, Property, ACL, ACE, ChangeEntry, ResultSet, Rendition
+from cmislib import messages
 from cmislib.net import RESTService as Rest
 from cmislib.exceptions import CmisException, \
     ObjectNotFoundException, InvalidArgumentException, \
     NotSupportedException
 from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue
-import cmislib.messages
 
 from urllib import quote
 from urlparse import urlparse, urlunparse
@@ -86,6 +86,12 @@ ROOT_COLL = 'root'
 
 
 class AtomPubBinding(Binding):
+
+    """
+    The binding responsible for talking to the CMIS server via the AtomPub
+    Publishing Protocol.
+    """
+
     def __init__(self, **kwargs):
         self.extArgs = kwargs
 
@@ -214,11 +220,19 @@ class AtomPubBinding(Binding):
 
 
 class RepositoryService(RepositoryServiceIfc):
+
+    """
+    The repository service for the AtomPub binding.
+    """
+
     def __init__(self):
         self._uriTemplates = {}
         self.logger = logging.getLogger('cmislib.atompub_binding.RepositoryService')
 
     def reload(self, obj):
+
+        """ Reloads the state of the repository object."""
+
         self.logger.debug('Reload called on object')
         obj.xmlDoc = obj._cmisClient.binding.get(obj._cmisClient.repositoryUrl.encode('utf-8'),
                                                  obj._cmisClient.username,
@@ -226,6 +240,11 @@ class RepositoryService(RepositoryServiceIfc):
         obj._initData()
 
     def getRepository(self, client, repositoryId):
+
+        """
+        Get the repository for the specified repositoryId.
+        """
+
         doc = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
         workspaceElements = doc.getElementsByTagNameNS(APP_NS, 'workspace')
 
@@ -237,6 +256,11 @@ class RepositoryService(RepositoryServiceIfc):
         raise ObjectNotFoundException(url=client.repositoryUrl)
 
     def getRepositories(self, client):
+
+        """
+        Get all of the repositories provided by the server.
+        """
+
         result = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
 
         workspaceElements = result.getElementsByTagNameNS(APP_NS, 'workspace')
@@ -252,6 +276,11 @@ class RepositoryService(RepositoryServiceIfc):
         return repositories
 
     def getDefaultRepository(self, client):
+
+        """
+        Returns the default repository for the server via the AtomPub binding.
+        """
+
         doc = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
         workspaceElements = doc.getElementsByTagNameNS(APP_NS, 'workspace')
         # instantiate a Repository object with the first workspace
@@ -605,15 +634,15 @@ class AtomPubCmisObject(CmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if (self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None):
+        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # the getEntryXmlDoc function may need the object type
         objectTypeId = None
-        if (self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId')):
+        if self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId'):
             objectTypeId = self.properties['cmis:objectTypeId']
-            self.logger.debug('This object type is:%s' % objectTypeId)
+            self.logger.debug('This object type is:%s', objectTypeId)
 
         # build the entry based on the properties provided
         xmlEntryDoc = getEntryXmlDoc(self._repository, objectTypeId, properties)
@@ -2520,7 +2549,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if (self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None):
+        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -2559,7 +2588,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if (self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None):
+        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -3432,7 +3461,7 @@ class AtomPubACL(ACL):
         """
 
         if self._entries.has_key(principalId):
-            del(self._entries[principalId])
+            del self._entries[principalId]
 
     def clearEntries(self):
 
@@ -3565,160 +3594,15 @@ class AtomPubACL(ACL):
 
 class AtomPubACE(ACE):
 
+    """
+    Represents an ACE for the AtomPub binding.
+    """
+
     pass
 
 
 class AtomPubChangeEntry(ChangeEntry):
 
-    """
-    Represents a change log entry. Retrieve a list of change entries via
-    :meth:`Repository.getContentChanges`.
-
-    >>> for changeEntry in rs:
-    ...     changeEntry.objectId
-    ...     changeEntry.id
-    ...     changeEntry.changeType
-    ...     changeEntry.changeTime
-    ...
-    'workspace://SpacesStore/0e2dc775-16b7-4634-9e54-2417a196829b'
-    u'urn:uuid:0e2dc775-16b7-4634-9e54-2417a196829b'
-    u'created'
-    datetime.datetime(2010, 2, 11, 12, 55, 14)
-    'workspace://SpacesStore/bd768f9f-99a7-4033-828d-5b13f96c6923'
-    u'urn:uuid:bd768f9f-99a7-4033-828d-5b13f96c6923'
-    u'updated'
-    datetime.datetime(2010, 2, 11, 12, 55, 13)
-    'workspace://SpacesStore/572c2cac-6b26-4cd8-91ad-b2931fe5b3fb'
-    u'urn:uuid:572c2cac-6b26-4cd8-91ad-b2931fe5b3fb'
-    u'updated'
-    """
-
-    def __init__(self, cmisClient, repository, xmlDoc):
-        """Constructor"""
-        self._cmisClient = cmisClient
-        self._repository = repository
-        self._xmlDoc = xmlDoc
-        self._properties = {}
-        self._objectId = None
-        self._changeEntryId = None
-        self._changeType = None
-        self._changeTime = None
-        self.logger = logging.getLogger('cmislib.model.ChangeEntry')
-        self.logger.info('Creating an instance of ChangeEntry')
-
-    def getId(self):
-        """
-        Returns the unique ID of the change entry.
-        """
-        if self._changeEntryId is None:
-            self._changeEntryId = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'id')[0].firstChild.data
-        return self._changeEntryId
-
-    def getObjectId(self):
-        """
-        Returns the object ID of the object that changed.
-        """
-        if self._objectId is None:
-            props = self.getProperties()
-            self._objectId = CmisId(props['cmis:objectId'])
-        return self._objectId
-
-    def getChangeType(self):
-
-        """
-        Returns the type of change that occurred. The resulting value must be
-        one of:
-
-         - created
-         - updated
-         - deleted
-         - security
-        """
-
-        if self._changeType is None:
-            self._changeType = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeType')[0].firstChild.data
-        return self._changeType
-
-    def getACL(self):
-
-        """
-        Gets the :class:`ACL` object that is included with this Change Entry.
-        """
-
-        # if you call getContentChanges with includeACL=true, you will get a
-        # cmis:ACL entry. change entries don't appear to have a self URL so
-        # instead of doing a reload with includeACL set to true, we'll either
-        # see if the XML already has an ACL element and instantiate an ACL with
-        # it, or we'll get the ACL_REL link, invoke that, and return the result
-        if not self._repository.getCapabilities()['ACL']:
-            return
-        aclEls = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'acl')
-        aclUrl = self._getLink(ACL_REL)
-        if len(aclEls) == 1:
-            return AtomPubACL(aceList=aclEls[0])
-        elif aclUrl:
-            result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
-                                                  self._cmisClient.username,
-                                                  self._cmisClient.password)
-            return AtomPubACL(xmlDoc=result)
-
-    def getChangeTime(self):
-
-        """
-        Returns a datetime object representing the time the change occurred.
-        """
-
-        if self._changeTime is None:
-            self._changeTime = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'changeTime')[0].firstChild.data
-        return parseDateTimeValue(self._changeTime)
-
-    def getProperties(self):
-
-        """
-        Returns the properties of the change entry. Note that depending on the
-        capabilities of the repository ("capabilityChanges") the list may not
-        include the actual property values that changed.
-        """
-
-        if self._properties == {}:
-            propertiesElement = self._xmlDoc.getElementsByTagNameNS(CMIS_NS, 'properties')[0]
-            for node in [e for e in propertiesElement.childNodes if e.nodeType == e.ELEMENT_NODE]:
-                propertyName = node.attributes['propertyDefinitionId'].value
-                if node.childNodes and \
-                   node.getElementsByTagNameNS(CMIS_NS, 'value')[0] and \
-                   node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes:
-                    propertyValue = parsePropValue(
-                        node.getElementsByTagNameNS(CMIS_NS, 'value')[0].childNodes[0].data,
-                        node.localName)
-                else:
-                    propertyValue = None
-                self._properties[propertyName] = propertyValue
-        return self._properties
-
-    def _getLink(self, rel):
-
-        """
-        Returns the HREF attribute of an Atom link element for the
-        specified rel.
-        """
-
-        linkElements = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
-
-        for linkElement in linkElements:
-            if linkElement.attributes.has_key('rel'):
-                relAttr = linkElement.attributes['rel'].value
-
-                if relAttr == rel:
-                    return linkElement.attributes['href'].value
-
-    id = property(getId)
-    objectId = property(getObjectId)
-    changeTime = property(getChangeTime)
-    changeType = property(getChangeType)
-    properties = property(getProperties)
-
-
-class AtomPubChangeEntry(object):
     """
     Represents a change log entry. Retrieve a list of change entries via
     :meth:`Repository.getContentChanges`.
@@ -4099,18 +3983,18 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
 
         typeDef = None
         for propName, propValue in properties.items():
-            """
+            '''
             the name of the element here is significant: it includes the
             data type. I should be able to figure out the right type based
             on the actual type of the object passed in.
 
             I could do a lookup to the type definition, but that doesn't
             seem worth the performance hit
-            """
+            '''
             if propValue is None or (type(propValue) == list and propValue[0] is None):
                 # grab the prop type from the typeDef
                 if typeDef is None:
-                    moduleLogger.debug('Looking up type def for: %s' % objectTypeId)
+                    moduleLogger.debug('Looking up type def for: %s', objectTypeId)
                     typeDef = repo.getTypeDefinition(objectTypeId)
                     # TODO what to do if type not found
                 propType = typeDef.properties[propName].propertyType
@@ -4143,7 +4027,7 @@ def getElementNameAndValues(propType, propName, propValue, isList=False):
     """
 
     moduleLogger.debug('Inside getElementNameAndValues')
-    moduleLogger.debug('propType:%s propName:%s isList:%s' % (propType, propName, isList))
+    moduleLogger.debug('propType:%s propName:%s isList:%s', propType, propName, isList)
     if propType == 'id' or propType == CmisId:
         propElementName = 'cmis:propertyId'
         if isList:
