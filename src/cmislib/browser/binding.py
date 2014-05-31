@@ -671,11 +671,12 @@ class BrowserRepository(object):
                         'productVersion': self.data['productVersion'], 'rootFolderId': self.data['rootFolderId'],
                         'latestChangeLogToken': self.data['latestChangeLogToken'],
                         'cmisVersionSupported': self.data['cmisVersionSupported'],
-                        'thinClientURI': self.data['thinClientURI'],
                         'changesIncomplete': self.data['changesIncomplete'],
                         'changesOnType': self.data['changesOnType'],
                         'principalIdAnonymous': self.data['principalIdAnonymous'],
                         'principalIdAnyone': self.data['principalIdAnyone']}
+            if self.data.has_key('thinClientURI'):
+                repoInfo['thinClientURI'] = self.data['thinClientURI']
             if self.data.has_key('extendedFeatures'):
                 repoInfo['extendedFeatures'] = self.data['extendedFeatures']
             self._repositoryInfo = repoInfo
@@ -1180,10 +1181,10 @@ class BrowserRepository(object):
 
         # do the POST
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
-                                               self._cmisClient.username,
-                                               self._cmisClient.password,
                                                None,
                                                CMIS_FORM_TYPE,
+                                               self._cmisClient.username,
+                                               self._cmisClient.password,
                                                **kwargs)
 
         # return the result set
