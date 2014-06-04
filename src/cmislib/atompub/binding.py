@@ -1182,7 +1182,9 @@ class AtomPubRepository(object):
                 self.reload()
             repoInfoElement = self.xmlDoc.getElementsByTagNameNS(CMISRA_NS, 'repositoryInfo')[0]
             for node in repoInfoElement.childNodes:
-                if node.nodeType == node.ELEMENT_NODE and node.localName != 'capabilities':
+                if node.nodeType == node.ELEMENT_NODE and \
+                   node.localName != 'capabilities' and \
+                   node.localName != 'aclCapability':
                     try:
                         data = node.childNodes[0].data
                     except IndexError:
@@ -3416,15 +3418,14 @@ class AtomPubACL(ACL):
     def __init__(self, aceList=None, xmlDoc=None):
 
         """
-        Constructor. Pass in either a list of :class:`ACE` objects or the XML
-        representation of the ACL. If you have only one ACE, don't worry about
-        the list--the constructor will convert it to a list for you.
+        Constructor. Pass in either a dict of :class:`ACE` objects keyed to the
+        principalId or the XML representation of the ACL.
         """
 
         if aceList:
             self._entries = aceList
         else:
-            self._entries = {}
+            self._entries = None
         if xmlDoc:
             self._xmlDoc = xmlDoc
             self._entries = self._getEntriesFromXml()
@@ -3434,24 +3435,41 @@ class AtomPubACL(ACL):
         self.logger = logging.getLogger('cmislib.model.ACL')
         self.logger.info('Creating an instance of ACL')
 
-    def addEntry(self, principalId, access, direct):
+    def addEntry(self, principalId, access, direct=True):
 
         """
         Adds an :class:`ACE` entry to the ACL.
 
+        The default for direct is True but you can override it if needed.
+
         >>> acl = folder.getACL()
-        >>> acl.addEntry('jpotts', 'cmis:read', 'true')
-        >>> acl.addEntry('jsmith', 'cmis:write', 'true')
+        >>> acl.addEntry('jpotts', 'cmis:read')
+        >>> acl.addEntry('jsmith', 'cmis:write')
         >>> acl.getEntries()
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
         """
         ace = AtomPubACE(principalId, access, direct)
-        self._entries[ace.principalId] = ace
+        if not self._entries:
+            self._entries = {ace.principalId : ace}
+        else:
+            if self._entries.has_key(principalId):
+                if access not in self._entries[principalId].permissions:
+                    perms = self._entries[principalId].permissions
+                    perms.append(access)
+                    self.removeEntry(principalId)
+                    if not self._entries:
+                        self._entries = {principalId : AtomPubACE(principalId, perms, direct)}
+                    else:
+                        self._entries[principalId] = AtomPubACE(principalId, perms, direct)
+            else:
+                self._entries[ace.principalId] = ace
 
     def removeEntry(self, principalId):
 
         """
-        Removes the :class:`ACE` entry given a specific principalId.
+        Removes the :class:`ACE` entry given a specific principalId. If a given
+        principalId has more than one permission, calling removeEntry will
+        remove the entry completely.
 
         >>> acl.getEntries()
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
@@ -3462,6 +3480,8 @@ class AtomPubACL(ACL):
 
         if self._entries.has_key(principalId):
             del self._entries[principalId]
+            if len(self._entries) == 0:
+                self.clearEntries()
 
     def clearEntries(self):
 
@@ -3470,8 +3490,8 @@ class AtomPubACL(ACL):
         XML representation of the ACL.
 
         >>> acl = ACL()
-        >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
-        >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
+        >>> acl.addEntry(ACE('jsmith', 'cmis:write'))
+        >>> acl.addEntry(ACE('jpotts', 'cmis:write'))
         >>> acl.entries
         {'jpotts': <cmislib.model.ACE object at 0x1012c7310>, 'jsmith': <cmislib.model.ACE object at 0x100528490>}
         >>> acl.getXmlDoc()
@@ -3481,7 +3501,7 @@ class AtomPubACL(ACL):
         >>> acl.getXmlDoc()
         """
 
-        self._entries.clear()
+        self._entries = None
         self._xmlDoc = None
 
     def getEntries(self):
@@ -3491,8 +3511,8 @@ class AtomPubACL(ACL):
         Entry in the ACL. The key value is the ACE principalid.
 
         >>> acl = ACL()
-        >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
-        >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
+        >>> acl.addEntry(ACE('jsmith', 'cmis:write'))
+        >>> acl.addEntry(ACE('jpotts', 'cmis:write'))
         >>> for ace in acl.entries.values():
         ...     print 'principal:%s has the following permissions...' % ace.principalId
         ...     for perm in ace.permissions:
@@ -3522,7 +3542,9 @@ class AtomPubACL(ACL):
 
         if not self._xmlDoc:
             return
+
         result = {}
+
         # first child is the root node, cmis:acl
         for e in self._xmlDoc.childNodes[0].childNodes:
             if e.localName == 'permission':
@@ -3542,7 +3564,7 @@ class AtomPubACL(ACL):
                 dirEl = e.getElementsByTagNameNS(CMIS_NS, 'direct')[0]
                 direct = None
                 if dirEl and dirEl.childNodes:
-                    direct = dirEl.childNodes[0].data
+                    direct = parseBoolValue(dirEl.childNodes[0].data)
                 # create an ACE
                 if len(perms) > 0:
                     ace = AtomPubACE(principalId, perms, direct)
@@ -3558,36 +3580,37 @@ class AtomPubACL(ACL):
         XML Document.
         """
 
-        if not self.getEntries():
-            return
-
         xmlDoc = minidom.Document()
         aclEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:acl')
         aclEl.setAttribute('xmlns:cmis', CMIS_NS)
-        for ace in self.getEntries().values():
+        if self.getEntries():
+            for ace in self.getEntries().values():
+                # only want direct permissions
+                if ace.direct:
+                    permEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:permission')
+                    # principalId
+                    prinEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:principal')
+                    prinIdEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:principalId')
+                    prinIdElText = xmlDoc.createTextNode(ace.principalId)
+                    prinIdEl.appendChild(prinIdElText)
+                    prinEl.appendChild(prinIdEl)
+                    permEl.appendChild(prinEl)
+                    # permissions
+                    for perm in ace.permissions:
+                        permItemEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:permission')
+                        permItemElText = xmlDoc.createTextNode(perm)
+                        permItemEl.appendChild(permItemElText)
+                        permEl.appendChild(permItemEl)
+                    directEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:direct')
+                    directElText = xmlDoc.createTextNode(toCMISValue(ace.direct))
+                    directEl.appendChild(directElText)
+                    permEl.appendChild(directEl)
+                    aclEl.appendChild(permEl)
+        else:
             permEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:permission')
-            # principalId
-            prinEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:principal')
-            prinIdEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:principalId')
-            prinIdElText = xmlDoc.createTextNode(ace.principalId)
-            prinIdEl.appendChild(prinIdElText)
-            prinEl.appendChild(prinIdEl)
-            permEl.appendChild(prinEl)
-            # direct
-            directEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:direct')
-            directElText = xmlDoc.createTextNode(ace.direct)
-            directEl.appendChild(directElText)
-            permEl.appendChild(directEl)
-            # permissions
-            for perm in ace.permissions:
-                permItemEl = xmlDoc.createElementNS(CMIS_NS, 'cmis:permission')
-                permItemElText = xmlDoc.createTextNode(perm)
-                permItemEl.appendChild(permItemElText)
-                permEl.appendChild(permItemEl)
             aclEl.appendChild(permEl)
         xmlDoc.appendChild(aclEl)
-        self._xmlDoc = xmlDoc
-        return self._xmlDoc
+        return xmlDoc
 
     entries = property(getEntries)
 

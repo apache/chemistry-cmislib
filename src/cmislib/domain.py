@@ -1999,7 +1999,7 @@ class ACE(object):
         self._direct = direct
 
         self.logger = logging.getLogger('cmislib.model.ACE')
-        self.logger.info('Creating an instance of ACE')
+        self.logger.info('Creating an instance of ACE for %s' % principalId)
 
     @property
     def principalId(self):

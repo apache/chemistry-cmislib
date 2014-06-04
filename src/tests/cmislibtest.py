@@ -1459,8 +1459,8 @@ class ACLTest(CmisTestBase):
         if not self._repo.getSupportedPermissions() in ['both', 'basic']:
             print 'Repository needs to support either both or basic permissions for this test'
             return
-        acl = self._testFolder.getACL()        
-        acl.addEntry(settings.TEST_PRINCIPAL_ID, 'cmis:write', 'true')
+        acl = self._testFolder.getACL()
+        acl.addEntry(settings.TEST_PRINCIPAL_ID, 'cmis:write')
         acl = self._testFolder.applyACL(acl)
         # would be good to check that the permission we get back is what we set
         # but at least one server (Alf) appears to map the basic perm to a
