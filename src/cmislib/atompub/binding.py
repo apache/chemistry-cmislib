@@ -242,7 +242,7 @@ class RepositoryService(RepositoryServiceIfc):
         """ Reloads the state of the repository object."""
 
         self.logger.debug('Reload called on object')
-        obj.xmlDoc = obj._cmisClient.binding.get(obj._cmisClient.repositoryUrl.encode('utf-8'),
+        obj.xmlDoc = obj._cmisClient.binding.get(obj._cmisClient.repositoryUrl,
                                                  obj._cmisClient.username,
                                                  obj._cmisClient.password)
         obj._initData()
@@ -389,7 +389,7 @@ class AtomPubCmisObject(CmisObject):
         # fill in the template
         byObjectIdUrl = multiple_replace(params, template)
 
-        self.xmlDoc = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
+        self.xmlDoc = self._cmisClient.binding.get(byObjectIdUrl,
                                                    self._cmisClient.username,
                                                    self._cmisClient.password,
                                                    **addOptions)
@@ -449,7 +449,7 @@ class AtomPubCmisObject(CmisObject):
             raise NotSupportedException('Root folder does not support getObjectParents')
 
         # invoke the URL
-        result = self._cmisClient.binding.get(parentUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(parentUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -658,7 +658,7 @@ class AtomPubCmisObject(CmisObject):
         self.logger.debug('xmlEntryDoc:' + xmlEntryDoc.toxml())
 
         # do a PUT of the entry
-        updatedXmlDoc = self._cmisClient.binding.put(selfUrl.encode('utf-8'),
+        updatedXmlDoc = self._cmisClient.binding.put(selfUrl,
                                                      self._cmisClient.username,
                                                      self._cmisClient.password,
                                                      xmlEntryDoc.toxml(encoding='utf-8'),
@@ -689,7 +689,7 @@ class AtomPubCmisObject(CmisObject):
         args = {"sourceFolderId": sourceFolder.id}
 
         # post the Atom entry
-        self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        self._cmisClient.binding.post(postUrl,
                                       self._cmisClient.username,
                                       self._cmisClient.password,
                                       self.xmlDoc.toxml(encoding='utf-8'),
@@ -711,7 +711,7 @@ class AtomPubCmisObject(CmisObject):
         """
 
         url = self._getSelfLink()
-        self._cmisClient.binding.delete(url.encode('utf-8'),
+        self._cmisClient.binding.delete(url,
                                         self._cmisClient.username,
                                         self._cmisClient.password,
                                         **kwargs)
@@ -753,7 +753,7 @@ class AtomPubCmisObject(CmisObject):
         url = self._getLink(RELATIONSHIPS_REL)
         assert url is not None, 'Could not determine relationships URL'
 
-        result = self._cmisClient.binding.post(url.encode('utf-8'),
+        result = self._cmisClient.binding.post(url,
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                xmlDoc.toxml(encoding='utf-8'),
@@ -790,7 +790,7 @@ class AtomPubCmisObject(CmisObject):
         url = self._getLink(RELATIONSHIPS_REL)
         assert url is not None, 'Could not determine relationships URL'
 
-        result = self._cmisClient.binding.get(url.encode('utf-8'),
+        result = self._cmisClient.binding.get(url,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -838,7 +838,7 @@ class AtomPubCmisObject(CmisObject):
             # if the ACL capability is discover or manage, this must be
             # supported
             aclUrl = self._getLink(ACL_REL)
-            result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
+            result = self._cmisClient.binding.get(aclUrl,
                                                   self._cmisClient.username,
                                                   self._cmisClient.password)
             return AtomPubACL(xmlDoc=result)
@@ -867,7 +867,7 @@ class AtomPubCmisObject(CmisObject):
                 raise CmisException('The ACL to apply must be an instance of the ACL class.')
             aclUrl = self._getLink(ACL_REL)
             assert aclUrl, "Could not determine the object's ACL URL."
-            result = self._cmisClient.binding.put(aclUrl.encode('utf-8'),
+            result = self._cmisClient.binding.put(aclUrl,
                                                   self._cmisClient.username,
                                                   self._cmisClient.password,
                                                   acl.getXmlDoc().toxml(encoding='utf-8'),
@@ -961,7 +961,7 @@ class AtomPubRepository(object):
         repository.
         """
         self.logger.debug('Reload called on object')
-        self.xmlDoc = self._cmisClient.binding.get(self._cmisClient.repositoryUrl.encode('utf-8'),
+        self.xmlDoc = self._cmisClient.binding.get(self._cmisClient.repositoryUrl,
                                                    self._cmisClient.username,
                                                    self._cmisClient.password)
         self._initData()
@@ -1299,7 +1299,7 @@ class AtomPubRepository(object):
         if typeId:
             targetType = self.getTypeDefinition(typeId)
             childrenUrl = targetType.getLink(DOWN_REL, ATOM_XML_FEED_TYPE_P)
-            typesXmlDoc = self._cmisClient.binding.get(childrenUrl.encode('utf-8'),
+            typesXmlDoc = self._cmisClient.binding.get(childrenUrl,
                                                        self._cmisClient.username,
                                                        self._cmisClient.password)
             entryElements = typesXmlDoc.getElementsByTagNameNS(ATOM_NS, 'entry')
@@ -1370,7 +1370,7 @@ class AtomPubRepository(object):
         if not descendUrl:
             raise NotSupportedException("Could not determine the type descendants URL")
 
-        typesXmlDoc = self._cmisClient.binding.get(descendUrl.encode('utf-8'),
+        typesXmlDoc = self._cmisClient.binding.get(descendUrl,
                                                    self._cmisClient.username,
                                                    self._cmisClient.password,
                                                    **kwargs)
@@ -1564,7 +1564,7 @@ class AtomPubRepository(object):
         byObjectPathUrl = multiple_replace(params, template)
 
         # do a GET against the URL
-        result = self._cmisClient.binding.get(byObjectPathUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(byObjectPathUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **addOptions)
@@ -1628,7 +1628,7 @@ class AtomPubRepository(object):
 
         # do the POST
         # print 'posting:%s' % xmlDoc.toxml(encoding='utf-8')
-        result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
+        result = self._cmisClient.binding.post(queryUrl,
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                xmlDoc.toxml(encoding='utf-8'),
@@ -1687,7 +1687,7 @@ class AtomPubRepository(object):
             raise NotSupportedException(messages.NO_CHANGE_LOG_SUPPORT)
 
         changesUrl = self.getLink(CHANGE_LOG_REL)
-        result = self._cmisClient.binding.get(changesUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(changesUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -1791,7 +1791,7 @@ class AtomPubRepository(object):
                                 contentType, contentEncoding)
 
         # post the Atom entry
-        result = self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        result = self._cmisClient.binding.post(postUrl,
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                xmlDoc.toxml(encoding='utf-8'),
@@ -1936,7 +1936,7 @@ class AtomPubRepository(object):
         elif collectionType == TYPES_COLL:
             return self.getTypeDefinitions()
 
-        result = self._cmisClient.binding.get(self.getCollectionLink(collectionType).encode('utf-8'),
+        result = self._cmisClient.binding.get(self.getCollectionLink(collectionType),
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -2055,7 +2055,7 @@ class AtomPubResultSet(ResultSet):
         """
         link = self._getLink(rel)
         if link:
-            result = self._cmisClient.binding.get(link.encode('utf-8'),
+            result = self._cmisClient.binding.get(link,
                                                   self._cmisClient.username,
                                                   self._cmisClient.password)
 
@@ -2279,7 +2279,7 @@ class AtomPubDocument(AtomPubCmisObject):
         entryXmlDoc = getEntryXmlDoc(self._repository, properties=properties)
 
         # post it to to the checkedout collection URL
-        result = self._cmisClient.binding.post(checkoutUrl.encode('utf-8'),
+        result = self._cmisClient.binding.post(checkoutUrl,
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                entryXmlDoc.toxml(encoding='utf-8'),
@@ -2402,7 +2402,7 @@ class AtomPubDocument(AtomPubCmisObject):
         # Get the self link
         # Do a PUT of the empty ATOM to the self link
         url = self._getSelfLink()
-        result = self._cmisClient.binding.put(url.encode('utf-8'),
+        result = self._cmisClient.binding.put(url,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               entryXmlDoc.toxml(encoding='utf-8'),
@@ -2472,7 +2472,7 @@ class AtomPubDocument(AtomPubCmisObject):
         versionsUrl = self._getLink(VERSION_HISTORY_REL)
 
         # invoke the URL
-        result = self._cmisClient.binding.get(versionsUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(versionsUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -2515,7 +2515,7 @@ class AtomPubDocument(AtomPubCmisObject):
             srcUrl = contentElements[0].attributes['src'].value
 
             # the cmis client class parses non-error responses
-            result, content = Rest().get(srcUrl.encode('utf-8'),
+            result, content = Rest().get(srcUrl,
                                          username=self._cmisClient.username,
                                          password=self._cmisClient.password,
                                          **self._cmisClient.extArgs)
@@ -2564,7 +2564,7 @@ class AtomPubDocument(AtomPubCmisObject):
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # put the content file
-        result = self._cmisClient.binding.put(srcUrl.encode('utf-8'),
+        result = self._cmisClient.binding.put(srcUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               contentFile.read(),
@@ -2603,7 +2603,7 @@ class AtomPubDocument(AtomPubCmisObject):
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # delete the content stream
-        self._cmisClient.binding.delete(srcUrl.encode('utf-8'),
+        self._cmisClient.binding.delete(srcUrl,
                                         self._cmisClient.username,
                                         self._cmisClient.password,
                                         **args)
@@ -2623,7 +2623,7 @@ class AtomPubDocument(AtomPubCmisObject):
             raise NotSupportedException('Root folder does not support getObjectParents')
 
         # invoke the URL
-        result = self._cmisClient.binding.get(parentUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(parentUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               filter='cmis:path',
@@ -2690,7 +2690,7 @@ class AtomPubFolder(AtomPubCmisObject):
         entryXml = getEntryXmlDoc(self._repository, properties=properties)
 
         # post the Atom entry
-        result = self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        result = self._cmisClient.binding.post(postUrl,
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                entryXml.toxml(encoding='utf-8'),
@@ -2795,7 +2795,7 @@ class AtomPubFolder(AtomPubCmisObject):
         # get the appropriate 'down' link
         childrenUrl = self.getChildrenLink()
         # invoke the URL
-        result = self._cmisClient.binding.get(childrenUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(childrenUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -2880,7 +2880,7 @@ class AtomPubFolder(AtomPubCmisObject):
         descendantsUrl = self.getDescendantsLink()
 
         # invoke the URL
-        result = self._cmisClient.binding.get(descendantsUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(descendantsUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -2917,7 +2917,7 @@ class AtomPubFolder(AtomPubCmisObject):
         # Get the descendants link and do a GET against it
         url = self._getLink(FOLDER_TREE_REL)
         assert url is not None, 'Unable to determine folder tree link'
-        result = self._cmisClient.binding.get(url.encode('utf-8'),
+        result = self._cmisClient.binding.get(url,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -2935,7 +2935,7 @@ class AtomPubFolder(AtomPubCmisObject):
         # get the appropriate 'up' link
         parentUrl = self._getLink(UP_REL)
         # invoke the URL
-        result = self._cmisClient.binding.get(parentUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(parentUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password)
 
@@ -2965,7 +2965,7 @@ class AtomPubFolder(AtomPubCmisObject):
 
         # Get the descendants link and do a DELETE against it
         url = self._getLink(DOWN_REL, CMIS_TREE_TYPE_P)
-        result = self._cmisClient.binding.delete(url.encode('utf-8'),
+        result = self._cmisClient.binding.delete(url,
                                                  self._cmisClient.username,
                                                  self._cmisClient.password,
                                                  **kwargs)
@@ -2999,7 +2999,7 @@ class AtomPubFolder(AtomPubCmisObject):
         postUrl = self.getChildrenLink()
 
         # post the Atom entry
-        self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        self._cmisClient.binding.post(postUrl,
                                       self._cmisClient.username,
                                       self._cmisClient.password,
                                       cmisObject.xmlDoc.toxml(encoding='utf-8'),
@@ -3021,7 +3021,7 @@ class AtomPubFolder(AtomPubCmisObject):
         args = {"removeFrom": self.getObjectId()}
 
         # post the Atom entry to the unfiled collection
-        self._cmisClient.binding.post(postUrl.encode('utf-8'),
+        self._cmisClient.binding.post(postUrl,
                                       self._cmisClient.username,
                                       self._cmisClient.password,
                                       cmisObject.xmlDoc.toxml(encoding='utf-8'),
@@ -3289,7 +3289,7 @@ class AtomPubObjectType(ObjectType):
         template = templates['typebyid']['template']
         params = {'{id}': self._typeId}
         byTypeIdUrl = multiple_replace(params, template)
-        result = self._cmisClient.binding.get(byTypeIdUrl.encode('utf-8'),
+        result = self._cmisClient.binding.get(byTypeIdUrl,
                                               self._cmisClient.username,
                                               self._cmisClient.password,
                                               **kwargs)
@@ -3721,7 +3721,7 @@ class AtomPubChangeEntry(ChangeEntry):
         if len(aclEls) == 1:
             return AtomPubACL(aceList=aclEls[0])
         elif aclUrl:
-            result = self._cmisClient.binding.get(aclUrl.encode('utf-8'),
+            result = self._cmisClient.binding.get(aclUrl,
                                                   self._cmisClient.username,
                                                   self._cmisClient.password)
             return AtomPubACL(xmlDoc=result)
