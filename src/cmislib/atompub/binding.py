@@ -29,13 +29,21 @@ from cmislib.exceptions import CmisException, \
     NotSupportedException
 from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue
 
-from urllib import quote
-from urlparse import urlparse, urlunparse
+import sys
+
+if sys.version_info >= (3,):
+     from urllib.parse import quote
+     from urllib.parse import urlparse, urlunparse
+     from io import StringIO
+else:
+     from urllib import quote
+     from urlparse import urlparse, urlunparse
+     import StringIO
+
 import re
 import mimetypes
 from xml.parsers.expat import ExpatError
 import datetime
-import StringIO
 import logging
 from xml.dom import minidom
 
