@@ -398,7 +398,7 @@ class AtomPubCmisObject(CmisObject):
         # if a returnVersion arg was passed in, it is possible we got back
         # a different object ID than the value we started with, so it needs
         # to be cleared out as well
-        if options.has_key('returnVersion') or addOptions.has_key('returnVersion'):
+        if 'returnVersion' in options or 'returnVersion' in addOptions:
             self._objectId = None
 
     def _initData(self):
@@ -490,7 +490,7 @@ class AtomPubCmisObject(CmisObject):
         renditions = []
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel'):
+            if 'rel' in linkElement.attributes:
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == RENDITION_REL:
@@ -642,13 +642,13 @@ class AtomPubCmisObject(CmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
+        if 'cmis:changeToken' in self.properties and self.properties['cmis:changeToken'] is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # the getEntryXmlDoc function may need the object type
         objectTypeId = None
-        if self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' in  self.properties and 'cmis:objectTypeId' not in properties:
             objectTypeId = self.properties['cmis:objectTypeId']
             self.logger.debug('This object type is:%s', objectTypeId)
 
@@ -902,16 +902,16 @@ class AtomPubCmisObject(CmisObject):
         for linkElement in linkElements:
 
             if ltype:
-                if linkElement.attributes.has_key('rel'):
+                if 'rel' in linkElement.attributes.keys():
                     relAttr = linkElement.attributes['rel'].value
 
-                    if ltype and linkElement.attributes.has_key('type'):
+                    if ltype and 'type' in linkElement.attributes.keys():
                         typeAttr = linkElement.attributes['type'].value
 
                         if relAttr == rel and ltype.match(typeAttr):
                             return linkElement.attributes['href'].value
             else:
-                if linkElement.attributes.has_key('rel'):
+                if 'rel' in linkElement.attributes.keys():
                     relAttr = linkElement.attributes['rel'].value
 
                     if relAttr == rel:
@@ -1438,7 +1438,7 @@ class AtomPubRepository(object):
 
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel'):
+            if 'rel' in linkElement.attributes.keys():
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == rel:
@@ -1780,7 +1780,7 @@ class AtomPubRepository(object):
 
         # hardcoding to cmis:document if it wasn't
         # passed in via props
-        if not properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' not in properties.keys():
             properties['cmis:objectTypeId'] = CmisId('cmis:document')
         # and if it was passed in, making sure it is a CmisId
         elif not isinstance(properties['cmis:objectTypeId'], CmisId):
@@ -2038,7 +2038,7 @@ class AtomPubResultSet(ResultSet):
 
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel'):
+            if 'rel' in linkElement.attributes.keys():
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == rel:
@@ -2389,7 +2389,7 @@ class AtomPubDocument(AtomPubCmisObject):
         """
 
         # major = true is supposed to be the default but inmemory 0.9 is throwing an error 500 without it
-        if not kwargs.has_key('major'):
+        if 'major' not in kwargs.keys():
             kwargs['major'] = 'true'
 
         # Add checkin to kwargs and checkinComment, if it exists
@@ -2438,7 +2438,7 @@ class AtomPubDocument(AtomPubCmisObject):
         """
 
         doc = None
-        if kwargs.has_key('major') and kwargs['major'] == 'true':
+        if 'major' in kwargs.keys() and kwargs['major'] == 'true':
             doc = self._repository.getObject(self.getObjectId(), returnVersion='latestmajor')
         else:
             doc = self._repository.getObject(self.getObjectId(), returnVersion='latest')
@@ -2511,7 +2511,7 @@ class AtomPubDocument(AtomPubCmisObject):
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
-        if contentElements[0].attributes.has_key('src'):
+        if 'src' in contentElements[0].attributes.keys():
             srcUrl = contentElements[0].attributes['src'].value
 
             # the cmis client class parses non-error responses
@@ -2542,7 +2542,7 @@ class AtomPubDocument(AtomPubCmisObject):
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
-        if contentElements[0].attributes.has_key('src'):
+        if 'src' in contentElements[0].attributes.keys():
             srcUrl = contentElements[0].attributes['src'].value
 
         # there may be times when this URL is absent, but I'm not sure how to
@@ -2559,7 +2559,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
+        if 'cmis:changeToken' in self.properties.keys() and self.properties['cmis:changeToken'] is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -2589,7 +2589,7 @@ class AtomPubDocument(AtomPubCmisObject):
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
-        if contentElements[0].attributes.has_key('src'):
+        if 'src' in contentElements[0].attributes.keys():
             srcUrl = contentElements[0].attributes['src'].value
 
         # there may be times when this URL is absent, but I'm not sure how to
@@ -2598,7 +2598,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
+        if 'cmis:changeToken' in self.properties.keys() and self.properties['cmis:changeToken'] is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -2680,7 +2680,7 @@ class AtomPubFolder(AtomPubCmisObject):
         properties['cmis:name'] = name
 
         # hardcoding to cmis:folder if it wasn't passed in via props
-        if not properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' not in properties.keys():
             properties['cmis:objectTypeId'] = CmisId('cmis:folder')
         # and checking to make sure the object type ID is an instance of CmisId
         elif not isinstance(properties['cmis:objectTypeId'], CmisId):
@@ -3229,7 +3229,7 @@ class AtomPubObjectType(ObjectType):
 
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel') and linkElement.attributes.has_key('type'):
+            if 'rel' in linkElement.attributes.keys() and 'type' in linkElement.attributes.keys():
                 relAttr = linkElement.attributes['rel'].value
                 typeAttr = linkElement.attributes['type'].value
 
@@ -3460,7 +3460,7 @@ class AtomPubACL(ACL):
         if not self._entries:
             self._entries = {ace.principalId : ace}
         else:
-            if self._entries.has_key(principalId):
+            if principalId in self._entries.keys():
                 if access not in self._entries[principalId].permissions:
                     perms = self._entries[principalId].permissions
                     perms.append(access)
@@ -3486,7 +3486,7 @@ class AtomPubACL(ACL):
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
         """
 
-        if self._entries.has_key(principalId):
+        if principalId in self._entries.keys():
             del self._entries[principalId]
             if len(self._entries) == 0:
                 self.clearEntries()
@@ -3769,7 +3769,7 @@ class AtomPubChangeEntry(ChangeEntry):
         linkElements = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
 
         for linkElement in linkElements:
-            if linkElement.attributes.has_key('rel'):
+            if 'rel' in linkElement.attributes.keys():
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == rel:
@@ -3853,22 +3853,22 @@ class AtomPubRendition(Rendition):
 
     def getStreamId(self):
         """Getter for the rendition's stream ID"""
-        if self.xmlDoc.attributes.has_key('streamId'):
+        if 'streamId' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['streamId'].value
 
     def getMimeType(self):
         """Getter for the rendition's mime type"""
-        if self.xmlDoc.attributes.has_key('type'):
+        if 'type' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['type'].value
 
     def getLength(self):
         """Getter for the renditions's length"""
-        if self.xmlDoc.attributes.has_key('length'):
+        if 'length' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['length'].value
 
     def getTitle(self):
         """Getter for the renditions's title"""
-        if self.xmlDoc.attributes.has_key('title'):
+        if 'title' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['title'].value
 
     def getKind(self):
@@ -3878,22 +3878,22 @@ class AtomPubRendition(Rendition):
 
     def getHeight(self):
         """Getter for the renditions's height"""
-        if self.xmlDoc.attributes.has_key('height'):
+        if 'height' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['height'].value
 
     def getWidth(self):
         """Getter for the renditions's width"""
-        if self.xmlDoc.attributes.has_key('width'):
+        if 'width' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['width'].value
 
     def getHref(self):
         """Getter for the renditions's href"""
-        if self.xmlDoc.attributes.has_key('href'):
+        if 'href' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['href'].value
 
     def getRenditionDocumentId(self):
         """Getter for the renditions's width"""
-        if self.xmlDoc.attributes.has_key('renditionDocumentId'):
+        if 'renditionDocumentId' in self.xmlDoc.attributes.keys():
             return self.xmlDoc.attributes['renditionDocumentId'].value
 
     streamId = property(getStreamId)
@@ -4003,7 +4003,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
 
     if properties:
         # a name is required for most things, but not for a checkout
-        if properties.has_key('cmis:name'):
+        if 'cmis:name' in properties.keys():
             titleElement = entryXmlDoc.createElementNS(ATOM_NS, "title")
             titleText = entryXmlDoc.createTextNode(properties['cmis:name'])
             titleElement.appendChild(titleText)
