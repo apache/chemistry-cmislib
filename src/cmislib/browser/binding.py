@@ -986,7 +986,6 @@ class BrowserRepository(object):
             typesUrl += "&typeId=%s" % (quote(typeId))
         if depth is not None:
             typesUrl += "&depth=%s" % (depth)
-        print typesUrl
 
         result = self._cmisClient.binding.get(typesUrl,
                                               self._cmisClient.username,

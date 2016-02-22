@@ -30,6 +30,7 @@ from cmislib.exceptions import CmisException, \
 from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue
 
 import sys
+import base64
 
 if sys.version_info >= (3,):
      from urllib.parse import quote
@@ -3984,8 +3985,14 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
         # and that element takes precedence over ATOM_NS content if it is
         # present, so it seems reasonable to use CMIS_RA content for now
         # and encode everything.
+        readingContent = contentFile.read()
 
-        fileData = contentFile.read().encode("base64")
+        if not isinstance(readingContent,bytes):
+             readingContent = bytes(readingContent, encoding='utf-8')
+
+        content = base64.b64encode(readingContent)
+
+        fileData = content.decode('utf-8')
         mediaElement = entryXmlDoc.createElementNS(CMISRA_NS, 'cmisra:mediatype')
         mediaElementText = entryXmlDoc.createTextNode(mimetype)
         mediaElement.appendChild(mediaElementText)
