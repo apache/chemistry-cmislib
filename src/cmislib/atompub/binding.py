@@ -35,7 +35,7 @@ import base64
 if sys.version_info >= (3,):
      from urllib.parse import quote
      from urllib.parse import urlparse, urlunparse
-     from io import StringIO
+     import io as StringIO
 else:
      from urllib import quote
      from urlparse import urlparse, urlunparse
