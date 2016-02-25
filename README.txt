@@ -25,3 +25,6 @@ Documentation that tells you what this is all about can be found in the doc
 directory. Please see the doc for dependencies, required CMIS version level,
 required Python version, etc.
 
+NOTES
+
+To works with Python 2.7 and 3, checkout to branch trunk
