@@ -2043,13 +2043,14 @@ class BrowserFolder(BrowserCmisObject):
         props["propertyId[1]"] = "cmis:objectTypeId"
         if properties.has_key('cmis:objectTypeId'):
             props["propertyValue[1]"] = properties['cmis:objectTypeId']
+            del properties['cmis:objectTypeId']
         else:
             props["propertyValue[1]"] = "cmis:folder"
 
         propCount = 2
-        for prop in properties:
-            props["propertyId[%s]" % propCount] = prop.key
-            props["propertyValue[%s]" % propCount] = prop
+        for key, val in properties.items():
+            props["propertyId[%s]" % propCount] = key
+            props["propertyValue[%s]" % propCount] = val
             propCount += 1
 
         # invoke the URL
