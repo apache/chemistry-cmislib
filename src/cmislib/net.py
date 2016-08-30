@@ -51,7 +51,7 @@ class RESTService(object):
             if 'headers' in kwargs:
                 headers = kwargs['headers']
                 del kwargs['headers']
-                self.logger.debug('Headers passed in:' + headers)
+                self.logger.debug('Headers passed in: %s', headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -74,7 +74,7 @@ class RESTService(object):
             if 'headers' in kwargs:
                 headers = kwargs['headers']
                 del kwargs['headers']
-                self.logger.debug('Headers passed in:' + headers)
+                self.logger.debug('Headers passed in: %s', headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -107,7 +107,7 @@ class RESTService(object):
             if 'headers' in kwargs:
                 headers = kwargs['headers']
                 del kwargs['headers']
-                self.logger.debug('Headers passed in:' + headers)
+                self.logger.debug('Headers passed in: %s', headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
@@ -141,7 +141,7 @@ class RESTService(object):
             if 'headers' in kwargs:
                 headers = kwargs['headers']
                 del kwargs['headers']
-                self.logger.debug('Headers passed in:' + headers)
+                self.logger.debug('Headers passed in: %s', headers)
             if url.find('?') >= 0:
                 url = url + '&' + urlencode(kwargs)
             else:
