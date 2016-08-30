@@ -309,18 +309,18 @@ class RepositoryTest(CmisTestBase):
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         doc10 = self._testFolder.createDocument(fileName, contentFile=f, properties=props)
         doc10Id = doc10.getObjectId()
-        if not doc10.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc10.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
-        if not doc11.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc11.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
-        if not doc20.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc20.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc20.checkout()
@@ -811,9 +811,9 @@ class DocumentTest(CmisTestBase):
 
     def testCheckout(self):
         """Create a document in a test folder, then check it out"""
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         newDoc = self._testFolder.createDocument('testDocument', properties=props)
-        if not newDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in newDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwcDoc = newDoc.checkout()
@@ -829,7 +829,7 @@ class DocumentTest(CmisTestBase):
         """Create a test doc, fetch it by ID, then check it out"""
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         newDoc = self._testFolder.createDocument('testDocument', properties=props)
-        if not newDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in newDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         newDocIdStr = str(newDoc.id)
@@ -846,11 +846,11 @@ class DocumentTest(CmisTestBase):
         """Create a document in a test folder, check it out, then in"""
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
         contentFile = open(testFilename, 'rb')
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
         contentFile.close()
         self.assertEquals(testFilename, testDoc.getName())
-        if not testDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwcDoc = testDoc.checkout()
@@ -869,11 +869,11 @@ class DocumentTest(CmisTestBase):
         """Checkin a document with a comment"""
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
         contentFile = open(testFilename, 'rb')
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
         contentFile.close()
         self.assertEquals(testFilename, testDoc.getName())
-        if not testDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwcDoc = testDoc.checkout()
@@ -896,13 +896,13 @@ class DocumentTest(CmisTestBase):
 
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
         contentFile = open(testFilename, 'rb')
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
         contentFile.close()
         self.assertEquals(testFilename, testDoc.getName())
         # Alfresco has a bug where if you get the PWC this way
         # the checkin will not be successful
-        if not testDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         testDoc.checkout()
@@ -920,9 +920,9 @@ class DocumentTest(CmisTestBase):
     def testCancelCheckout(self):
         """Create a document in a test folder, check it out, then cancel
         checkout"""
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         newDoc = self._testFolder.createDocument('testDocument', properties=props)
-        if not newDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in newDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwcDoc = newDoc.checkout()
@@ -947,20 +947,20 @@ class DocumentTest(CmisTestBase):
         """Get latest version of an object"""
         f = open(settings.TEST_BINARY_1, 'rb')
         fileName = settings.TEST_BINARY_1.split('/')[-1]
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         doc10 = self._testFolder.createDocument(fileName, contentFile=f, properties=props)
-        if not doc10.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc10.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
-        if not doc11.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc11.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
-        if not doc20.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc20.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc20.checkout()
@@ -977,14 +977,14 @@ class DocumentTest(CmisTestBase):
         """Get properties of latest version of an object"""
         f = open(settings.TEST_BINARY_1, 'rb')
         fileName = settings.TEST_BINARY_1.split('/')[-1]
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         doc10 = self._testFolder.createDocument(fileName, contentFile=f, properties=props)
-        if not doc10.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc10.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
-        if not doc11.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc11.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc11.checkout()
@@ -992,7 +992,7 @@ class DocumentTest(CmisTestBase):
         # what comes back from a checkin may not include all props, so reload
         doc20.reload()
         doc20Label = doc20.getProperties()['cmis:versionLabel']
-        if not doc20.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc20.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc20.checkout()
@@ -1097,13 +1097,13 @@ class DocumentTest(CmisTestBase):
 
         # create a test document
         contentFile = open(testFile1, 'rb')
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         newDoc = self._testFolder.createDocument(fileName, contentFile=contentFile, properties=props)
         origMimeType = newDoc.properties['cmis:contentStreamMimeType']
         contentFile.close()
 
         # checkout the file
-        if not newDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in newDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = newDoc.checkout()
@@ -1183,7 +1183,7 @@ class DocumentTest(CmisTestBase):
         fileName = settings.TEST_BINARY_1.split('/')[-1]
         newDoc = self._testFolder.createDocument(fileName, contentFile=contentFile, properties=props)
         contentFile.close()
-        if not newDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in newDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = newDoc.checkout()
@@ -1252,14 +1252,14 @@ class DocumentTest(CmisTestBase):
 
     def testGetAllVersions(self):
         """Get all versions of an object"""
-        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}        
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         testDoc = self._testFolder.createDocument('testdoc', properties=props)
-        if not testDoc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = testDoc.checkout()
         doc = pwc.checkin()  # 2.0
-        if not doc.allowableActions['canCheckOut']:
+        if not 'canCheckOut' in doc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
         pwc = doc.checkout()
