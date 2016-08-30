@@ -2918,7 +2918,7 @@ class AtomPubFolder(AtomPubCmisObject):
                                               **kwargs)
 
         # return the result set
-        return AtomPubResultSet(self._cmisClient, self, result)
+        return AtomPubResultSet(self._cmisClient, self._repository, result)
 
     def getParent(self):
 
