@@ -314,7 +314,14 @@ class BrowserCmisObject(object):
             if self.data is None:
                 self.reload()
             for prop in self.data['properties'].itervalues():
-                self._properties[prop['id']] = parsePropValueByType(prop['value'], prop['type'])
+                # property could be multi-valued
+                if type(prop['value']) is list:
+                    propVal = []
+                    for val in prop['value']:
+                        propVal.append(parsePropValueByType(val, prop['type']))
+                    self._properties[prop['id']] = propVal
+                else:
+                    self._properties[prop['id']] = parsePropValueByType(prop['value'], prop['type'])
 
         return self._properties
 
@@ -353,11 +360,7 @@ class BrowserCmisObject(object):
 
         props = {"cmisaction": "update"}
 
-        propCount = 0
-        for prop in properties:
-            props["propertyId[%s]" % propCount] = prop
-            props["propertyValue[%s]" % propCount] = properties[prop]
-            propCount += 1
+        setProps(properties, props, initialIndex=0)
 
         # invoke the URL
         result = self._cmisClient.binding.post(updateUrl.encode('utf-8'),
@@ -1325,14 +1328,11 @@ class BrowserRepository(object):
         props["propertyId[1]"] = "cmis:objectTypeId"
         if properties.has_key('cmis:objectTypeId'):
             props["propertyValue[1]"] = properties['cmis:objectTypeId']
+            del properties['cmis:objectTypeId']
         else:
             props["propertyValue[1]"] = "cmis:document"
 
-        propCount = 2
-        for prop in properties:
-            props["propertyId[%s]" % propCount] = prop
-            props["propertyValue[%s]" % propCount] = properties[prop]
-            propCount += 1
+        setProps(properties, props, initialIndex=2)
 
         contentType, body = encode_multipart_formdata(props, contentFile, contentType)
 
@@ -2047,11 +2047,7 @@ class BrowserFolder(BrowserCmisObject):
         else:
             props["propertyValue[1]"] = "cmis:folder"
 
-        propCount = 2
-        for key, val in properties.items():
-            props["propertyId[%s]" % propCount] = key
-            props["propertyValue[%s]" % propCount] = val
-            propCount += 1
+        setProps(properties, props, initialIndex=2)
 
         # invoke the URL
         result = self._cmisClient.binding.post(createFolderUrl.encode('utf-8'),
@@ -3023,6 +3019,24 @@ class BrowserCmisId(str):
     """
 
     pass
+
+
+def setProps(properties, props, initialIndex=0):
+    """
+    Transform key, value from properties into props list items in the format
+    expected by the HTTP POST request
+    """
+    i = initialIndex
+    for key, val in properties.items():
+        props["propertyId[%s]" % i] = key
+        if hasattr(val, '__iter__'):
+            j = 0
+            for v in val:
+                props["propertyValue[%s][%s]" % (i, j)] = v
+                j += 1
+        else:
+            props["propertyValue[%s]" % i] = val
+        i += 1
 
 
 def getSpecializedObject(obj, **kwargs):
