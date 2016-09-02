@@ -733,7 +733,8 @@ class ChangeEntryTest(CmisTestBase):
         """Get the content changes and inspect Change Entry props"""
 
         # need to check changes capability
-        if not self._repo.capabilities['Changes']:
+        changeCap = self._repo.capabilities['Changes']
+        if changeCap == 'none':
             print messages.NO_CHANGE_LOG_SUPPORT
             return
 
@@ -751,8 +752,13 @@ class ChangeEntryTest(CmisTestBase):
         """Gets the ACL that is included with a Change Entry."""
 
         # need to check changes capability
-        if not self._repo.capabilities['Changes']:
+        changeCap = self._repo.capabilities['Changes']
+        if changeCap == 'none':
             print messages.NO_CHANGE_LOG_SUPPORT
+            return
+
+        if changeCap == 'objectidsonly':
+            print messages.NO_CHANGE_OBJECT_SUPPORT
             return
 
         # need to check ACL capability
@@ -786,8 +792,12 @@ class ChangeEntryTest(CmisTestBase):
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if not changeCap:
+        if changeCap == 'none':
             print messages.NO_CHANGE_LOG_SUPPORT
+            return
+
+        if changeCap == 'objectidsonly':
+            print messages.NO_CHANGE_OBJECT_SUPPORT
             return
 
         # need to test once without includeProperties set. the objectID should be there

@@ -1238,8 +1238,20 @@ class BrowserRepository(object):
         >>> rs[0].changeTime
         datetime.datetime(2010, 2, 16, 20, 6, 37)
         """
+        if self.getCapabilities()['Changes'] is None:
+            raise NotSupportedException(messages.NO_CHANGE_LOG_SUPPORT)
 
-        pass
+        changesUrl = self.getRootFolderUrl() + "?selector=contentChanges"
+
+        result = self._cmisClient.binding.get(changesUrl,
+                                              self._cmisClient.username,
+                                              self._cmisClient.password,
+                                              **kwargs)
+
+        return BrowserResultSet(self._cmisClient,
+                                self,
+                                data=result,
+                                serializer=ChangeEntrySerializer())
 
     def createDocumentFromString(self,
                                  name,
@@ -2727,7 +2739,7 @@ class BrowserACL(ACL):
                 result[principalId] = ace
         return result
 
-    def addEntry(self, principalId, access, direct):
+    def addEntry(self, principalId, access, direct=True):
 
         """
         Adds an :class:`ACE` entry to the ACL.
@@ -2844,6 +2856,19 @@ class BrowserChangeEntry(ChangeEntry):
     u'updated'
     """
 
+    def __init__(self, cmisClient, repository, data):
+        """Constructor"""
+        self._cmisClient = cmisClient
+        self._repository = repository
+        self._data = data
+        self._properties = {}
+        self._objectId = None
+        self._changeEntryId = None
+        self._changeType = None
+        self._changeTime = None
+        self.logger = logging.getLogger('cmislib.model.ChangeEntry')
+        self.logger.info('Creating an instance of ChangeEntry')
+
     def getId(self):
         """
         Returns the unique ID of the change entry.
@@ -2942,9 +2967,18 @@ class BrowserChangeEntryResultSet(BrowserResultSet):
         """
         Overriding to make it work with a list instead of a dict.
         """
-        # TODO need to implement
-        pass
+        if self._results:
+            return self._results
 
+        if self._data:
+            entries = []
+            for entry in self._data:
+                changeEntry = BrowserChangeEntry(self._cmisClient, self._repository, entry)
+                entries.append(changeEntry)
+
+            self._results = entries
+
+        return self._results
 
 class BrowserRendition(object):
 
@@ -3233,3 +3267,24 @@ class ACLSerializer(object):
             aces.append(entryJSON)
 
         return json.dumps(aces)
+
+class ChangeEntrySerializer(object):
+
+    """
+    Responsible for serializing lists of change entries.
+    """
+
+    def fromJSON(self, client, repo, jsonObj):
+        """Transforms from JSON to the object."""
+        self.logger = logging.getLogger('cmislib.browser.binding.ChangeEntrySerializer')
+        entries = []
+        for obj in jsonObj['objects']:
+            self.logger.debug("Parsing a change entry object")
+            dataObj = obj['object']
+            cmisObject = getSpecializedObject(BrowserChangeEntry(client,
+                                                                 repo,
+                                                                 data=dataObj))
+            self.logger.debug("Parsed a change entry object, appending")
+            entries.append(cmisObject)
+
+        return entries
