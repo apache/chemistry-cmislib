@@ -734,7 +734,7 @@ class ChangeEntryTest(CmisTestBase):
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if changeCap == 'none':
+        if changeCap == None or changeCap == 'none':
             print messages.NO_CHANGE_LOG_SUPPORT
             return
 
@@ -743,7 +743,7 @@ class ChangeEntryTest(CmisTestBase):
         rs = self._repo.getContentChanges()
         self.assertTrue(len(rs) > 0)
         changeEntry = rs[0]
-        self.assertTrue(changeEntry.id)
+        self.assertTrue(changeEntry.objectId)
         self.assertTrue(changeEntry.changeType in ['created', 'updated', 'deleted', 'security'])
         self.assertTrue(changeEntry.changeTime)
 
@@ -753,7 +753,7 @@ class ChangeEntryTest(CmisTestBase):
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if changeCap == 'none':
+        if changeCap == None or changeCap == 'none':
             print messages.NO_CHANGE_LOG_SUPPORT
             return
 
@@ -792,7 +792,7 @@ class ChangeEntryTest(CmisTestBase):
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if changeCap == 'none':
+        if changeCap == None or changeCap == 'none':
             print messages.NO_CHANGE_LOG_SUPPORT
             return
 

@@ -25,7 +25,7 @@ from cmislib.domain import CmisId, CmisObject, ObjectType, ACL, ACE, ChangeEntry
 from cmislib.exceptions import CmisException, InvalidArgumentException,\
                                NotSupportedException, ObjectNotFoundException
 from cmislib.net import RESTService as Rest
-from cmislib.util import parsePropValueByType
+from cmislib.util import parsePropValueByType, parseDateTimeValue
 import json
 import logging
 import StringIO
@@ -587,7 +587,7 @@ class BrowserRepository(object):
 
     def __str__(self):
         """To string"""
-        return self.getRepositoryName()
+        return self.getRepositoryId()
 
     def _initData(self):
         """
@@ -1241,7 +1241,7 @@ class BrowserRepository(object):
         if self.getCapabilities()['Changes'] is None:
             raise NotSupportedException(messages.NO_CHANGE_LOG_SUPPORT)
 
-        changesUrl = self.getRootFolderUrl() + "?selector=contentChanges"
+        changesUrl = self.getRepositoryUrl() + "?cmisselector=contentChanges"
 
         result = self._cmisClient.binding.get(changesUrl,
                                               self._cmisClient.username,
@@ -2871,17 +2871,23 @@ class BrowserChangeEntry(ChangeEntry):
 
     def getId(self):
         """
-        Returns the unique ID of the change entry.
+        Returns the unique ID of the change entry. This is not actually required
+        by the spec and is absent in the browser binding for the Apache chemistry
+        in-memory repository.
         """
-        # TODO need to implement
-        pass
+        if self._changeEntryId is None:
+            if 'id' in self._data.keys():
+                self._changeEntryId = self._data.get('id')
+        return self._changeEntryId
 
     def getObjectId(self):
         """
         Returns the object ID of the object that changed.
         """
-        # TODO need to implement
-        pass
+        if self._objectId is None:
+            if 'cmis:objectId' in self._data.get('properties').keys():
+                self._objectId = self._data.get('properties').get('cmis:objectId').get('value')
+        return self._objectId
 
     def getChangeType(self):
 
@@ -2894,8 +2900,10 @@ class BrowserChangeEntry(ChangeEntry):
          - deleted
          - security
         """
-        # TODO need to implement
-        pass
+        if self._changeType is None:
+            self._changeType = self._data.get('changeEventInfo').get('changeType')
+
+        return self._changeType
 
     def getACL(self):
 
@@ -2910,8 +2918,11 @@ class BrowserChangeEntry(ChangeEntry):
         """
         Returns a datetime object representing the time the change occurred.
         """
-        # TODO need to implement
-        pass
+        if self._changeTime is None:
+            if 'changeTime' in self._data.get('changeEventInfo').keys():
+                self._changeTime = self._data.get('changeEventInfo').get('changeTime')
+
+        return parseDateTimeValue(self._changeTime)
 
     def getProperties(self):
 
@@ -2920,8 +2931,19 @@ class BrowserChangeEntry(ChangeEntry):
         capabilities of the repository ("capabilityChanges") the list may not
         include the actual property values that changed.
         """
-        # TODO need to implement
-        pass
+        if not self._properties:
+            props = self._data.get('properties')
+            for prop in self._data.get('properties').itervalues():
+                # property could be multi-valued
+                if type(prop['value']) is list:
+                    propVal = []
+                    for val in prop['value']:
+                        propVal.append(parsePropValueByType(val, prop['type']))
+                    self._properties[prop['id']] = propVal
+                else:
+                    self._properties[prop['id']] = parsePropValueByType(prop['value'], prop['type'])
+
+        return self._properties
 
     id = property(getId)
     objectId = property(getObjectId)
@@ -3305,10 +3327,9 @@ class ChangeEntrySerializer(object):
         entries = []
         for obj in jsonObj['objects']:
             self.logger.debug("Parsing a change entry object")
-            dataObj = obj['object']
-            cmisObject = getSpecializedObject(BrowserChangeEntry(client,
-                                                                 repo,
-                                                                 data=dataObj))
+            cmisObject = BrowserChangeEntry(client,
+                                            repo,
+                                            data=obj)
             self.logger.debug("Parsed a change entry object, appending")
             entries.append(cmisObject)
 
