@@ -948,7 +948,7 @@ class AtomPubRepository(object):
 
     def __str__(self):
         """To string"""
-        return self.getRepositoryName()
+        return self.getRepositoryId()
 
     def reload(self):
         """
@@ -1155,7 +1155,11 @@ class AtomPubRepository(object):
         if self._repositoryName is None:
             if self.xmlDoc is None:
                 self.reload()
-            self._repositoryName = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'repositoryName')[0].firstChild.data
+            if self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'repositoryName')[0].firstChild:
+                self._repositoryName = self.xmlDoc.getElementsByTagNameNS(CMIS_NS, 'repositoryName')[0].firstChild.data
+            else:
+                self._repositoryName = u''
+
         return self._repositoryName
 
     def getRepositoryInfo(self):
