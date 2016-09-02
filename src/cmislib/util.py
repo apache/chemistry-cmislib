@@ -124,11 +124,12 @@ def parseDateTimeValue(value):
     """
     Utility function to return a datetime from a string.
     """
-    if type(value) == str:
+    if type(value) == str or type(value) == unicode:
         return iso8601.parse_date(value)
     elif type(value) == int:
         return datetime.datetime.fromtimestamp(value / 1000)
     else:
+        moduleLogger.debug('Could not parse dt value of type: %s' % type(value))
         return
 
 
