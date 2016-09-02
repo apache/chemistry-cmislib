@@ -364,7 +364,7 @@ class BrowserCmisObject(object):
 
         # invoke the URL
         result = self._cmisClient.binding.post(updateUrl.encode('utf-8'),
-                                               urlencode(props),
+                                               safe_urlencode(props),
                                                'application/x-www-form-urlencoded',
                                                self._cmisClient.username,
                                                self._cmisClient.password)
@@ -393,7 +393,7 @@ class BrowserCmisObject(object):
 
         # invoke the URL
         self._cmisClient.binding.post(moveUrl.encode('utf-8'),
-                                      urlencode(props),
+                                      safe_urlencode(props),
                                       'application/x-www-form-urlencoded',
                                       self._cmisClient.username,
                                       self._cmisClient.password)
@@ -421,7 +421,7 @@ class BrowserCmisObject(object):
 
         # invoke the URL
         self._cmisClient.binding.post(delUrl.encode('utf-8'),
-                                      urlencode(props),
+                                      safe_urlencode(props),
                                       'application/x-www-form-urlencoded',
                                       self._cmisClient.username,
                                       self._cmisClient.password,
@@ -1667,7 +1667,7 @@ class BrowserDocument(BrowserCmisObject):
 
         # invoke the URL
         result = self._cmisClient.binding.post(coUrl.encode('utf-8'),
-                                               urlencode(props),
+                                               safe_urlencode(props),
                                                'application/x-www-form-urlencoded',
                                                self._cmisClient.username,
                                                self._cmisClient.password)
@@ -1694,7 +1694,7 @@ class BrowserDocument(BrowserCmisObject):
 
         # invoke the URL
         self._cmisClient.binding.post(coUrl.encode('utf-8'),
-                                      urlencode(props),
+                                      safe_urlencode(props),
                                       'application/x-www-form-urlencoded',
                                       self._cmisClient.username,
                                       self._cmisClient.password)
@@ -1794,7 +1794,7 @@ class BrowserDocument(BrowserCmisObject):
 
         # invoke the URL
         result = self._cmisClient.binding.post(ciUrl.encode('utf-8'),
-                                               urlencode(props),
+                                               safe_urlencode(props),
                                                'application/x-www-form-urlencoded',
                                                self._cmisClient.username,
                                                self._cmisClient.password,
@@ -1945,7 +1945,7 @@ class BrowserDocument(BrowserCmisObject):
 
         # invoke the URL
         self._cmisClient.binding.post(delUrl.encode('utf-8'),
-                                      urlencode(props),
+                                      safe_urlencode(props),
                                       'application/x-www-form-urlencoded',
                                       self._cmisClient.username,
                                       self._cmisClient.password)
@@ -2063,7 +2063,7 @@ class BrowserFolder(BrowserCmisObject):
 
         # invoke the URL
         result = self._cmisClient.binding.post(createFolderUrl.encode('utf-8'),
-                                               urlencode(props),
+                                               safe_urlencode(props),
                                                'application/x-www-form-urlencoded',
                                                self._cmisClient.username,
                                                self._cmisClient.password,
@@ -2281,7 +2281,7 @@ class BrowserFolder(BrowserCmisObject):
 
         # invoke the URL
         self._cmisClient.binding.post(delUrl.encode('utf-8'),
-                                      urlencode(props),
+                                      safe_urlencode(props),
                                       'application/x-www-form-urlencoded',
                                       self._cmisClient.username,
                                       self._cmisClient.password,
@@ -2321,7 +2321,7 @@ class BrowserFolder(BrowserCmisObject):
 
         # invoke the URL
         result = self._cmisClient.binding.post(addUrl.encode('utf-8'),
-                                               urlencode(props),
+                                               safe_urlencode(props),
                                                'application/x-www-form-urlencoded',
                                                self._cmisClient.username,
                                                self._cmisClient.password,
@@ -2344,7 +2344,7 @@ class BrowserFolder(BrowserCmisObject):
 
         # invoke the URL
         result = self._cmisClient.binding.post(remUrl.encode('utf-8'),
-                                               urlencode(props),
+                                               safe_urlencode(props),
                                                'application/x-www-form-urlencoded',
                                                self._cmisClient.username,
                                                self._cmisClient.password)
@@ -3056,10 +3056,12 @@ class BrowserCmisId(str):
 
 
 def setProps(properties, props, initialIndex=0):
+
     """
     Transform key, value from properties into props list items in the format
     expected by the HTTP POST request
     """
+
     i = initialIndex
     for key, val in properties.items():
         props["propertyId[%s]" % i] = key
@@ -3101,11 +3103,13 @@ def getSpecializedObject(obj, **kwargs):
 
 
 def encode_multipart_formdata(fields, contentFile, contentType):
+
     """
     fields is a sequence of (name, value) elements for regular form fields.
     files is a sequence of (name, filename, value) elements for data to be uploaded as files
     Return (content_type, body) ready for httplib.HTTP instance
     """
+
     boundary = 'aPacHeCheMIStrycMisLIb%s' % (int(time.time()))
     crlf = '\r\n'
     L = []
@@ -3133,6 +3137,27 @@ def encode_multipart_formdata(fields, contentFile, contentType):
     body = crlf.join(L)
     content_type = 'multipart/form-data; boundary=%s' % boundary
     return content_type, body
+
+
+def safe_urlencode(in_dict):
+
+    """
+    Safe encoding of values taking care of unicode values
+    urllib.urlencode doesn't like unicode values
+    """
+
+    def encoded_dict(in_dict):
+        out_dict = {}
+        for k, v in in_dict.iteritems():
+            if isinstance(v, unicode):
+                v = v.encode('utf8')
+            elif isinstance(v, str):
+                # Must be encoded in UTF-8
+                v.decode('utf8')
+            out_dict[k] = v
+        return out_dict
+
+    return urlencode(encoded_dict(in_dict))
 
 
 class ResultsSerializer(object):
