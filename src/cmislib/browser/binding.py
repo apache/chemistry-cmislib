@@ -1755,7 +1755,8 @@ class BrowserDocument(BrowserCmisObject):
         self.reload()
         return self.getProperties()['cmis:versionSeriesCheckedOutBy']
 
-    def checkin(self, checkinComment=None, **kwargs):
+    def checkin(self, checkinComment=None, contentFile=None, contentType=None,
+                properties=None, **kwargs):
 
         """
         Checks in this :class:`Document` which must be a private
@@ -1772,9 +1773,6 @@ class BrowserDocument(BrowserCmisObject):
         False
 
         The following optional arguments are NOT supported:
-         - major
-         - properties
-         - contentStream
          - policies
          - addACEs
          - removeACEs
@@ -1784,21 +1782,29 @@ class BrowserDocument(BrowserCmisObject):
         if not kwargs.has_key('major'):
             kwargs['major'] = 'true'
 
-        kwargs['checkinComment'] = checkinComment
+        else:
+            kwargs['major'] = 'false'
+        props = {
+            'checkinComment': checkinComment or "",
+        }
+        props.update(kwargs)
+        propCount = 0
+        properties = properties or {}
+        for key, value in properties.iteritems():
+            props["propertyId[%s]" % propCount] = key
+            props["propertyValue[%s]" % propCount] = value
+            propCount += 1
 
-        ciUrl = self._repository.getRootFolderUrl()
+        ciUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.id + "&cmisaction=checkin"
 
-        # TODO don't hardcode major flag
-        props = {"objectId": self.id,
-                 "cmisaction": "checkIn"}
+        contentType, body = encode_multipart_formdata(props, contentFile, contentType)
 
         # invoke the URL
         result = self._cmisClient.binding.post(ciUrl.encode('utf-8'),
-                                               safe_urlencode(props),
-                                               'application/x-www-form-urlencoded',
+                                               body,
+                                               contentType,
                                                self._cmisClient.username,
-                                               self._cmisClient.password,
-                                               **kwargs)
+                                               self._cmisClient.password)
 
         return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
