@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #      Licensed to the Apache Software Foundation (ASF) under one
 #      or more contributor license agreements.  See the NOTICE file
@@ -715,7 +716,7 @@ class BrowserRepository(object):
          - includeAllowableActions
         """
 
-        byPathUrl = self.getRootFolderUrl() + quote(path) + "?cmisselector=object"
+        byPathUrl = self.getRootFolderUrl() + safe_quote(path) + "?cmisselector=object"
         result = self._cmisClient.binding.get(byPathUrl.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password,
@@ -926,7 +927,7 @@ class BrowserRepository(object):
         typesUrl = self.getRepositoryUrl() + "?cmisselector=typeChildren"
 
         if typeId is not None:
-            typesUrl += "&typeId=%s" % (quote(typeId))
+            typesUrl += "&typeId=%s" % (safe_quote(typeId))
 
         result = self._cmisClient.binding.get(typesUrl,
                                               self._cmisClient.username,
@@ -986,7 +987,7 @@ class BrowserRepository(object):
         typesUrl = self.getRepositoryUrl() + "?cmisselector=typeDescendants"
 
         if typeId is not None:
-            typesUrl += "&typeId=%s" % (quote(typeId))
+            typesUrl += "&typeId=%s" % (safe_quote(typeId))
         if depth is not None:
             typesUrl += "&depth=%s" % (depth)
         print typesUrl
@@ -1180,7 +1181,7 @@ class BrowserRepository(object):
         """
 
         # build the CMIS query XML that we're going to POST
-        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + quote(statement)
+        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + safe_quote(statement)
 
         # do the POST
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
@@ -3161,6 +3162,15 @@ def encode_multipart_formdata(fields, contentFile, contentType):
     return content_type, body
 
 
+def to_utf8(value):
+
+    """ Safe encodng of value to utf-8 taking care of unicode values
+    """
+    if isinstance(value, unicode):
+        value = value.encode('utf8')
+    return value
+
+
 def safe_urlencode(in_dict):
 
     """
@@ -3171,15 +3181,20 @@ def safe_urlencode(in_dict):
     def encoded_dict(in_dict):
         out_dict = {}
         for k, v in in_dict.iteritems():
-            if isinstance(v, unicode):
-                v = v.encode('utf8')
-            elif isinstance(v, str):
-                # Must be encoded in UTF-8
-                v.decode('utf8')
-            out_dict[k] = v
+            out_dict[k] = to_utf8(v)
         return out_dict
 
     return urlencode(encoded_dict(in_dict))
+
+
+def safe_quote(value):
+
+    """
+    Safe encoding of value taking care of unicode value
+    urllib.quote doesn't like unicode values
+    """
+
+    return quote(to_utf8(value))
 
 
 class ResultsSerializer(object):

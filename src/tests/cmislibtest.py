@@ -346,33 +346,34 @@ class RepositoryTest(CmisTestBase):
     def testGetObjectByPath(self):
         """Create test objects (one folder, one document) then try to get
         them by path"""
-        # names of folders and test docs
-        parentFolderName = 'testGetObjectByPath folder'
-        subFolderName = 'subfolder'
-        docName = 'testdoc'
+        # names of folders and test docs (without and with unicode char)
+        for suffix in ['', u'_éà€$']:
+            parentFolderName = 'testGetObjectByPath folder' + suffix
+            subFolderName = 'subfolder' + suffix
+            docName = 'testdoc' + suffix
 
-        # create the folder structure
-        parentFolder = self._testFolder.createFolder(parentFolderName)
-        subFolder = parentFolder.createFolder(subFolderName)
-        # use the subfolder path to get the folder by path
-        subFolderPath = subFolder.getProperties().get("cmis:path")
-        searchFolder = self._repo.getObjectByPath(subFolderPath)
-        self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
+            # create the folder structure
+            parentFolder = self._testFolder.createFolder(parentFolderName)
+            subFolder = parentFolder.createFolder(subFolderName)
+            # use the subfolder path to get the folder by path
+            subFolderPath = subFolder.getProperties().get("cmis:path")
+            searchFolder = self._repo.getObjectByPath(subFolderPath)
+            self.assertEquals(subFolder.getObjectId(), searchFolder.getObjectId())
 
-        # create a test doc
-        doc = subFolder.createDocument(docName)
-        # ask the doc for its paths
-        searchDocPaths = doc.getPaths()
-        # for each path in the list, try to get the object by path
-        # this is better than building a path with the doc's name b/c the name
-        # isn't guaranteed to be used as the path segment (see CMIS-232)
-        for path in searchDocPaths:
-            searchDoc = self._repo.getObjectByPath(path)
-            self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
+            # create a test doc
+            doc = subFolder.createDocument(docName)
+            # ask the doc for its paths
+            searchDocPaths = doc.getPaths()
+            # for each path in the list, try to get the object by path
+            # this is better than building a path with the doc's name b/c the name
+            # isn't guaranteed to be used as the path segment (see CMIS-232)
+            for path in searchDocPaths:
+                searchDoc = self._repo.getObjectByPath(path)
+                self.assertEquals(doc.getObjectId(), searchDoc.getObjectId())
 
-        # get the subfolder by path, then ask for its children
-        subFolder = self._repo.getObjectByPath(subFolderPath)
-        self.assertEquals(len(subFolder.getChildren().getResults()), 1)
+            # get the subfolder by path, then ask for its children
+            subFolder = self._repo.getObjectByPath(subFolderPath)
+            self.assertEquals(len(subFolder.getChildren().getResults()), 1)
 
     # getting unfiled documents may work for the atom pub binding for some servers
     # but it isn't part of the spec so removing this test for now
