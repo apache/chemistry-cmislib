@@ -167,7 +167,7 @@ class BrowserCmisObject(object):
         self.data = data
         self._extArgs = kwargs
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserCmisObject')
-        self.logger.info('Creating an instance of CmisObject')
+        self.logger.debug('Creating an instance of BrowserCmisObject')
 
     def __str__(self):
         """To string"""
@@ -594,7 +594,7 @@ class BrowserRepository(object):
         self._permissions = None
         self._propagation = None
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserRepository')
-        self.logger.info('Creating an instance of Repository')
+        self.logger.debug('Creating an instance of BrowserRepository')
 
     def __str__(self):
         """To string"""
@@ -1460,7 +1460,7 @@ class BrowserResultSet(object):
         self._serializer = serializer
         self._results = []
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserResultSet')
-        self.logger.info('Creating an instance of ResultSet')
+        self.logger.debug('Creating an instance of BrowserResultSet')
 
     def __iter__(self):
         """ Iterator for the result set """
@@ -2449,7 +2449,7 @@ class BrowserObjectType(ObjectType):
         self._typeId = typeId
         self.data = data
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserObjectType')
-        self.logger.info('Creating an instance of BrowserObjectType')
+        self.logger.debug('Creating an instance of BrowserObjectType')
 
     def __str__(self):
         """To string"""
@@ -2631,7 +2631,7 @@ class BrowserProperty(object):
         """Constructor"""
         self.data = data
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserProperty')
-        self.logger.info('Creating an instance of BrowserProperty')
+        self.logger.debug('Creating an instance of BrowserProperty')
 
     def __str__(self):
         """To string"""
@@ -2734,7 +2734,7 @@ class BrowserACL(ACL):
             self._data = None
 
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserACL')
-        self.logger.info('Creating an instance of ACL')
+        self.logger.debug('Creating an instance of BrowserACL')
 
     def _getEntriesFromData(self):
 
@@ -2883,8 +2883,8 @@ class BrowserChangeEntry(ChangeEntry):
         self._changeEntryId = None
         self._changeType = None
         self._changeTime = None
-        self.logger = logging.getLogger('cmislib.model.ChangeEntry')
-        self.logger.info('Creating an instance of ChangeEntry')
+        self.logger = logging.getLogger('cmislib.browser.binding.BrowserChangeEntry')
+        self.logger.debug('Creating an instance of BrowserChangeEntry')
 
     def getId(self):
         """
@@ -3029,7 +3029,7 @@ class BrowserRendition(object):
         """Constructor"""
         self.data = data
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserRendition')
-        self.logger.info('Creating an instance of Rendition')
+        self.logger.debug('Creating an instance of BrowserRendition')
 
     def __str__(self):
         """To string"""

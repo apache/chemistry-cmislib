@@ -329,8 +329,8 @@ class Repository(object):
         self._permMap = {}
         self._permissions = None
         self._propagation = None
-        self.logger = logging.getLogger('cmislib.model.Repository')
-        self.logger.info('Creating an instance of Repository')
+        self.logger = logging.getLogger('cmislib.domain.Repository')
+        self.logger.debug('Creating an instance of Repository')
 
     def __str__(self):
         """To string"""
@@ -2006,8 +2006,8 @@ class ACE(object):
                 self._permissions = permissions
         self._direct = direct
 
-        self.logger = logging.getLogger('cmislib.model.ACE')
-        self.logger.info('Creating an instance of ACE for %s' % principalId)
+        self.logger = logging.getLogger('cmislib.domain.ACE')
+        self.logger.debug('Creating an instance of ACE for %s' % principalId)
 
     @property
     def principalId(self):

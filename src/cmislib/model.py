@@ -57,7 +57,7 @@ class CmisClient(object):
         else:
             self.binding = AtomPubBinding(**kwargs)
         self.logger = logging.getLogger('cmislib.model.CmisClient')
-        self.logger.info('Creating an instance of CmisClient')
+        self.logger.debug('Creating an instance of CmisClient')
 
     def __str__(self):
         """To string"""

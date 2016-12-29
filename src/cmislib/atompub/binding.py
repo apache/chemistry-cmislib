@@ -40,7 +40,7 @@ import StringIO
 import logging
 from xml.dom import minidom
 
-moduleLogger = logging.getLogger('cmislib.atompub_binding')
+moduleLogger = logging.getLogger('cmislib.atompub.binding')
 
 # Namespaces
 ATOM_NS = 'http://www.w3.org/2005/Atom'
@@ -228,7 +228,7 @@ class RepositoryService(RepositoryServiceIfc):
 
     def __init__(self):
         self._uriTemplates = {}
-        self.logger = logging.getLogger('cmislib.atompub_binding.RepositoryService')
+        self.logger = logging.getLogger('cmislib.atompub.binding.RepositoryService')
 
     def reload(self, obj):
 
@@ -321,8 +321,8 @@ class AtomPubCmisObject(CmisObject):
         self._allowableActions = {}
         self.xmlDoc = xmlDoc
         self._kwargs = kwargs
-        self.logger = logging.getLogger('cmislib.atompub_binding.AtomPubCmisObject')
-        self.logger.info('Creating an instance of CmisObject')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubCmisObject')
+        self.logger.debug('Creating an instance of AtomPubCmisObject')
 
     def __str__(self):
         """To string"""
@@ -953,8 +953,8 @@ class AtomPubRepository(object):
         self._permMap = {}
         self._permissions = None
         self._propagation = None
-        self.logger = logging.getLogger('cmislib.model.Repository')
-        self.logger.info('Creating an instance of Repository')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubRepository')
+        self.logger.debug('Creating an instance of AtomPubRepository')
 
     def __str__(self):
         """To string"""
@@ -2024,8 +2024,8 @@ class AtomPubResultSet(ResultSet):
         self._repository = repository
         self._xmlDoc = xmlDoc
         self._results = []
-        self.logger = logging.getLogger('cmislib.model.ResultSet')
-        self.logger.info('Creating an instance of ResultSet')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubResultSet')
+        self.logger.debug('Creating an instance of AtomPubResultSet')
 
     def __iter__(self):
         """ Iterator for the result set """
@@ -3133,8 +3133,8 @@ class AtomPubObjectType(ObjectType):
         self._kwargs = None
         self._typeId = typeId
         self.xmlDoc = xmlDoc
-        self.logger = logging.getLogger('cmislib.model.ObjectType')
-        self.logger.info('Creating an instance of ObjectType')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubObjectType')
+        self.logger.debug('Creating an instance of AtomPubObjectType')
 
     def __str__(self):
         """To string"""
@@ -3344,8 +3344,8 @@ class AtomPubProperty(Property):
     def __init__(self, propNode):
         """Constructor"""
         self.xmlDoc = propNode
-        self.logger = logging.getLogger('cmislib.model.Property')
-        self.logger.info('Creating an instance of Property')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubProperty')
+        self.logger.debug('Creating an instance of AtomPubProperty')
 
     def __str__(self):
         """To string"""
@@ -3458,8 +3458,8 @@ class AtomPubACL(ACL):
         else:
             self._xmlDoc = None
 
-        self.logger = logging.getLogger('cmislib.model.ACL')
-        self.logger.info('Creating an instance of ACL')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubACL')
+        self.logger.debug('Creating an instance of AtomPubACL')
 
     def addEntry(self, principalId, access, direct=True):
 
@@ -3685,8 +3685,8 @@ class AtomPubChangeEntry(ChangeEntry):
         self._changeEntryId = None
         self._changeType = None
         self._changeTime = None
-        self.logger = logging.getLogger('cmislib.model.ChangeEntry')
-        self.logger.info('Creating an instance of ChangeEntry')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubChangeEntry')
+        self.logger.debug('Creating an instance of AtomPubChangeEntry')
 
     def getId(self):
         """
@@ -3862,8 +3862,8 @@ class AtomPubRendition(Rendition):
     def __init__(self, propNode):
         """Constructor"""
         self.xmlDoc = propNode
-        self.logger = logging.getLogger('cmislib.model.Rendition')
-        self.logger.info('Creating an instance of Rendition')
+        self.logger = logging.getLogger('cmislib.atompub.binding.AtomPubRendition')
+        self.logger.debug('Creating an instance of AtomPubRendition')
 
     def __str__(self):
         """To string"""
