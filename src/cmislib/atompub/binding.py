@@ -2363,7 +2363,8 @@ class AtomPubDocument(AtomPubCmisObject):
         self.reload()
         return self.getProperties()['cmis:versionSeriesCheckedOutBy']
 
-    def checkin(self, checkinComment=None, **kwargs):
+    def checkin(self, checkinComment=None, contentFile=None, contentType=None,
+                properties=None, **kwargs):
 
         """
         Checks in this :class:`Document` which must be a private
@@ -2379,10 +2380,7 @@ class AtomPubDocument(AtomPubCmisObject):
         >>> doc.isCheckedOut()
         False
 
-        The following optional arguments are supported:
-         - major
-         - properties
-         - contentStream
+        The following optional arguments are NOT supported:
          - policies
          - addACEs
          - removeACEs
@@ -2396,8 +2394,19 @@ class AtomPubDocument(AtomPubCmisObject):
         kwargs['checkin'] = 'true'
         kwargs['checkinComment'] = checkinComment
 
-        # Build an empty ATOM entry
-        entryXmlDoc = getEmptyXmlDoc()
+        if not properties and not contentFile:
+            # Build an empty ATOM entry
+            entryXmlDoc = getEmptyXmlDoc()
+        else:
+            # the getEntryXmlDoc function may need the object type
+            objectTypeId = None
+            if self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId'):
+                objectTypeId = self.properties['cmis:objectTypeId']
+                self.logger.debug('This object type is:%s', objectTypeId)
+
+            # build the entry based on the properties provided
+            entryXmlDoc = getEntryXmlDoc(
+                self._repository, objectTypeId, properties, contentFile, contentType)
 
         # Get the self link
         # Do a PUT of the empty ATOM to the self link

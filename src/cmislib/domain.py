@@ -1241,7 +1241,8 @@ class Document(CmisObject):
 
         pass
 
-    def checkin(self, checkinComment=None, **kwargs):
+    def checkin(self, checkinComment=None, contentFile=None, contentType=None,
+                properties=None, **kwargs):
 
         """
         Checks in this :class:`Document` which must be a private
@@ -1257,15 +1258,11 @@ class Document(CmisObject):
         >>> doc.isCheckedOut()
         False
 
-        The following optional arguments are supported:
-         - major
-         - properties
-         - contentStream
+        The following optional arguments are NOT supported:
          - policies
          - addACEs
          - removeACEs
         """
-
         pass
 
     def getLatestVersion(self, **kwargs):
