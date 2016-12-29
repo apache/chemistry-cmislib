@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #      Licensed to the Apache Software Foundation (ASF) under one
 #      or more contributor license agreements.  See the NOTICE file
@@ -24,8 +25,44 @@ import iso8601
 import logging
 import datetime
 from cmislib.domain import CmisId
+from urllib import quote
 
 moduleLogger = logging.getLogger('cmislib.util')
+
+
+def to_utf8(value):
+
+    """ Safe encodng of value to utf-8 taking care of unicode values
+    """
+    if isinstance(value, unicode):
+        value = value.encode('utf8')
+    return value
+
+
+def safe_urlencode(in_dict):
+
+    """
+    Safe encoding of values taking care of unicode values
+    urllib.urlencode doesn't like unicode values
+    """
+
+    def encoded_dict(in_dict):
+        out_dict = {}
+        for k, v in in_dict.iteritems():
+            out_dict[k] = to_utf8(v)
+        return out_dict
+
+    return urlencode(encoded_dict(in_dict))
+
+
+def safe_quote(value):
+
+    """
+    Safe encoding of value taking care of unicode value
+    urllib.quote doesn't like unicode values
+    """
+
+    return quote(to_utf8(value))
 
 
 def multiple_replace(aDict, text):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #      Licensed to the Apache Software Foundation (ASF) under one
 #      or more contributor license agreements.  See the NOTICE file
@@ -25,7 +26,7 @@ from cmislib.domain import CmisId, CmisObject, ObjectType, ACL, ACE, ChangeEntry
 from cmislib.exceptions import CmisException, InvalidArgumentException,\
                                NotSupportedException, ObjectNotFoundException
 from cmislib.net import RESTService as Rest
-from cmislib.util import parsePropValueByType, parseDateTimeValue
+from cmislib.util import parsePropValueByType, parseDateTimeValue, safe_quote
 import json
 import logging
 import StringIO
@@ -715,7 +716,7 @@ class BrowserRepository(object):
          - includeAllowableActions
         """
 
-        byPathUrl = self.getRootFolderUrl() + quote(path) + "?cmisselector=object"
+        byPathUrl = self.getRootFolderUrl() + safe_quote(path) + "?cmisselector=object"
         result = self._cmisClient.binding.get(byPathUrl.encode('utf-8'),
                                               self._cmisClient.username,
                                               self._cmisClient.password,
@@ -926,7 +927,7 @@ class BrowserRepository(object):
         typesUrl = self.getRepositoryUrl() + "?cmisselector=typeChildren"
 
         if typeId is not None:
-            typesUrl += "&typeId=%s" % (quote(typeId))
+            typesUrl += "&typeId=%s" % (safe_quote(typeId))
 
         result = self._cmisClient.binding.get(typesUrl,
                                               self._cmisClient.username,
@@ -986,7 +987,7 @@ class BrowserRepository(object):
         typesUrl = self.getRepositoryUrl() + "?cmisselector=typeDescendants"
 
         if typeId is not None:
-            typesUrl += "&typeId=%s" % (quote(typeId))
+            typesUrl += "&typeId=%s" % (safe_quote(typeId))
         if depth is not None:
             typesUrl += "&depth=%s" % (depth)
         print typesUrl
@@ -1180,7 +1181,7 @@ class BrowserRepository(object):
         """
 
         # build the CMIS query XML that we're going to POST
-        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + quote(statement)
+        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + safe_quote(statement)
 
         # do the POST
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
@@ -3159,27 +3160,6 @@ def encode_multipart_formdata(fields, contentFile, contentType):
     body = crlf.join(L)
     content_type = 'multipart/form-data; boundary=%s' % boundary
     return content_type, body
-
-
-def safe_urlencode(in_dict):
-
-    """
-    Safe encoding of values taking care of unicode values
-    urllib.urlencode doesn't like unicode values
-    """
-
-    def encoded_dict(in_dict):
-        out_dict = {}
-        for k, v in in_dict.iteritems():
-            if isinstance(v, unicode):
-                v = v.encode('utf8')
-            elif isinstance(v, str):
-                # Must be encoded in UTF-8
-                v.decode('utf8')
-            out_dict[k] = v
-        return out_dict
-
-    return urlencode(encoded_dict(in_dict))
 
 
 class ResultsSerializer(object):

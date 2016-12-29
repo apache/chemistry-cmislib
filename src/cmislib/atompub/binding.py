@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 #      Licensed to the Apache Software Foundation (ASF) under one
 #      or more contributor license agreements.  See the NOTICE file
@@ -27,7 +28,7 @@ from cmislib.net import RESTService as Rest
 from cmislib.exceptions import CmisException, \
     ObjectNotFoundException, InvalidArgumentException, \
     NotSupportedException
-from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue
+from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue, safe_quote
 
 from urllib import quote
 from urlparse import urlparse, urlunparse
@@ -1540,7 +1541,7 @@ class AtomPubRepository(object):
         template = self.getUriTemplates()['objectbypath']['template']
 
         # fill in the template with the path provided
-        params = {'{path}': quote(path, '/'),
+        params = {'{path}': safe_quote(path),
                   '{filter}': '',
                   '{includeAllowableActions}': 'false',
                   '{includePolicyIds}': 'false',
