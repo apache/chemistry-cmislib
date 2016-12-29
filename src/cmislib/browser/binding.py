@@ -556,11 +556,20 @@ class BrowserCmisObject(object):
         else:
             raise NotSupportedException
 
+    def getRepository(self):
+
+        """
+        Returns the object's repository
+        """
+
+        return self._repository
+
     allowableActions = property(getAllowableActions)
     name = property(getName)
     id = property(getObjectId)
     properties = property(getProperties)
     ACL = property(getACL)
+    repository = property(getRepository)
 
 
 class BrowserRepository(object):

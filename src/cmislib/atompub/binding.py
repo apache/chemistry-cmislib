@@ -913,12 +913,21 @@ class AtomPubCmisObject(CmisObject):
                     if relAttr == rel:
                         return linkElement.attributes['href'].value
 
+    def getRepository(self):
+
+        """
+        Returns the object's repository
+        """
+
+        return self._repository
+
     allowableActions = property(getAllowableActions)
     name = property(getName)
     id = property(getObjectId)
     properties = property(getProperties)
     title = property(getTitle)
     ACL = property(getACL)
+    repository = property(getRepository)
 
 
 class AtomPubRepository(object):
