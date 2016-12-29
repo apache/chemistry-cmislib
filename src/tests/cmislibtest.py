@@ -899,6 +899,48 @@ class DocumentTest(CmisTestBase):
             if testDoc.isCheckedOut():
                 pwcDoc.delete()
 
+    def testCheckinContentAndProperties(self):
+        """Checkin a document with a new content a modifed properties"""
+        testFilename = settings.TEST_BINARY_1.split('/')[-1]
+        contentFile = open(testFilename, 'rb')
+        props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
+        testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
+        contentFile.close()
+        self.assertEquals(testFilename, testDoc.getName())
+        if not 'canCheckOut' in testDoc.allowableActions.keys():
+            print 'The test doc cannot be checked out...skipping'
+            return
+        pwcDoc = testDoc.checkout()
+
+        try:
+            self.assertTrue(testDoc.isCheckedOut())
+            testFile2 = settings.TEST_BINARY_2
+            testFile2Size = os.path.getsize(testFile2)
+            exportFile2 = testFile2.replace('.', 'export.')
+            contentFile2 = open(testFile2, 'rb')
+            props = {'cmis:name': 'testDocument2'}
+            testDoc = pwcDoc.checkin(
+                contentFile=contentFile2,
+                properties=props)
+            contentFile2.close()
+            self.assertFalse(testDoc.isCheckedOut())
+            self.assertEqual('testDocument2', testDoc.getName())
+
+            # expport the result
+            result = testDoc.getContentStream()
+            outfile = open(exportFile2, 'wb')
+            outfile.write(result.read())
+            result.close()
+            outfile.close()
+
+            # the file we exported should be the same size as the file we
+            # originally created
+            self.assertEquals(testFile2Size, os.path.getsize(exportFile2))
+
+        finally:
+            if testDoc.isCheckedOut():
+                pwcDoc.delete()
+
     def testCheckinAfterGetPWC(self):
         """Create a document in a test folder, check it out, call getPWC, then checkin"""
         if not self._repo.getCapabilities()['PWCUpdatable'] == True:
