@@ -23,7 +23,7 @@ Examples
 ========
 There's nothing in cmislib that is specific to any particular vendor. Once you give it your CMIS provider's service URL and some credentials, it figures out where to go from there.
 
-Let's look at some examples using Alfresco's public CMIS repository.
+Let's look at some examples using a local install of Alfresco Community Edition.
 
 -----------------------
 Get a Repository object
@@ -34,33 +34,36 @@ Get a Repository object
 
     >>> from cmislib import CmisClient
 
- #. Point the CmisClient at the repository's service URL 
+ #. Point the CmisClient at the repository's service URL
 
-    >>> client = CmisClient('http://cmis.alfresco.com/cmisatom', 'admin', 'admin')
+    >>> client = CmisClient('http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom', 'admin', 'admin')
 
  #. Get the default repository for the service
 
     >>> repo = client.defaultRepository
     >>> repo.id
-    u'83beb297-a6fa-4ac5-844b-98c871c0eea9'
+    u'-default-'
 
  #. Get the repository's properties. This for-loop spits out everything cmislib knows about the repo.
 
     >>> repo.name
-    u'Main Repository'
+    u''
     >>> info = repo.info
     >>> for k,v in info.items():
         ...     print "%s:%s" % (k,v)
         ...
-        cmisSpecificationTitle:Version 1.0 Committee Draft 04
-        cmisVersionSupported:1.0
+        cmisVersionSupported:1.1
+        principalAnonymous:guest
+        principalAnyone:GROUP_EVERYONE
         repositoryDescription:None
-        productVersion:3.2.0 (r2 2440)
-        rootFolderId:workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348
-        repositoryId:83beb297-a6fa-4ac5-844b-98c871c0eea9
-        repositoryName:Main Repository
+        changesOnType:cmis:folder
+        changesIncomplete:true
+        productVersion:5.2.0 (r133656-b12)
+        rootFolderId:000f9013-af35-430e-912f-67328f106279
+        repositoryId:-default-
+        repositoryName:None
         vendorName:Alfresco
-        productName:Alfresco Repository (Community)
+        productName:Alfresco Community
 
 -------------------
 Folders & Documents
@@ -73,7 +76,7 @@ Once you've got the Repository object you can start working with folders.
     >>> root = repo.rootFolder
     >>> someFolder = root.createFolder('someFolder')
     >>> someFolder.id
-    u'workspace://SpacesStore/91f344ef-84e7-43d8-b379-959c0be7e8fc'
+    u'92133bfd-8b69-4e97-9af2-761a09f29e01'
 
  #. Then, you can create some content:
 
@@ -87,12 +90,12 @@ Once you've got the Repository object you can start working with folders.
     ...     print '%s:%s' % (k,v)
     ...
     cmis:contentStreamMimeType:text/plain
-    cmis:creationDate:2009-12-18T10:59:26.667-06:00
+    cmis:creationDate:2016-12-29 14:53:47.430000-06:00
     cmis:baseTypeId:cmis:document
     cmis:isLatestMajorVersion:false
     cmis:isImmutable:false
     cmis:isMajorVersion:false
-    cmis:objectId:workspace://SpacesStore/2cf36ad5-92b0-4731-94a4-9f3fef25b479
+    cmis:objectId:c4bc9d00-5bf0-404d-8f0a-a6260f6d21ae;1.0
 
 ----------------------------------
 Searching For & Retrieving Objects
@@ -102,11 +105,8 @@ There are several different ways to grab an object:
  * You can run a CMIS query
  * You can ask the repository to give you one for a specific path or object ID
  * You can traverse the repository using a folder's children and/or descendants
- 
+
  #. Let's find the doc we just created with a full-text search.
-  
-    .. note::
-       Note that I'm currently seeing a problem with Alfresco in which the CMIS service returns one less result than what's really there):
 
     >>> results = repo.query("select * from cmis:document where contains('test')")
     >>> for result in results:
@@ -119,19 +119,19 @@ There are several different ways to grab an object:
 
     >>> someDoc = repo.getObjectByPath('/someFolder/Test Document')
     >>> someDoc.id
-    u'workspace://SpacesStore/2cf36ad5-92b0-4731-94a4-9f3fef25b479'
+    'c4bc9d00-5bf0-404d-8f0a-a6260f6d21ae;1.0'
 
  #. Or their object ID, like this:
- 
-    >>> someDoc = repo.getObject('workspace://SpacesStore/2cf36ad5-92b0-4731-94a4-9f3fef25b479')
+
+    >>> someDoc = repo.getObject('c4bc9d00-5bf0-404d-8f0a-a6260f6d21ae;1.0')
     >>> someDoc.name
     u'Test Document'
- 
+
  #. Folder objects have getChildren() and getDescendants() methods that will return a list of :class:`CmisObject` objects:
- 
-	>>> children= someFolder.getChildren()
+
+	>>> children = someFolder.getChildren()
 	>>> for child in children:
 	...     print child.name
-	... 
+	...
 	Test Document
-	Test Document2  
+	Test Document2

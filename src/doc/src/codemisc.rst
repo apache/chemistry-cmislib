@@ -16,9 +16,31 @@
    specific language governing permissions and limitations
    under the License.
 
-Sample Data
-===========
+Miscellaneous Code
+==================
 
-The /path/to/cmislib/src/data directory contains some sample XML responses from a CMIS service. These are for sample and development purposes and can safely be ignored if you are an end-user of the library.
+This page documents modules of lesser importance.
 
-In some cases there are two files for the same response. For example, 'types.xml' came from Alfresco while 'types.chemistry.xml' came from the simple Apache Chemistry test server.
+The :mod:`cmislib.cmis_services` Module
+---------------------------------------
+
+.. automodule:: cmislib.cmis_services
+   :members:
+
+The :mod:`cmislib.exceptions` Module
+------------------------------------
+
+.. automodule:: cmislib.exceptions
+   :members:
+
+The :mod:`cmislib.messages` Module
+------------------------------------
+
+.. automodule:: cmislib.messages
+  :members:
+
+The :mod:`cmislib.util` Module
+------------------------------
+
+.. automodule:: cmislib.util
+   :members:

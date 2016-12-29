@@ -31,7 +31,7 @@ This code includes unit tests. To run the tests::
    python cmislibtest.py
 
 .. note::
-   http://cmis.alfresco.com is a freely-available, hosted CMIS service. If you want to use that for testing, the URL is http://cmis.alfresco.com/s/cmis and the username and password are admin/admin. See the wiki for other known CMIS test servers.
+   See the wiki for other known CMIS test servers.
 
 If everything goes well, you should see::
 

@@ -32,11 +32,12 @@ Contents:
    about.rst
    install.rst
    examples.rst
+   bindings.rst
    code.rst
+   codemisc.rst
    devguide.rst
    tests.rst
    docs.rst
-   sample-data.rst
 
 Indices and tables
 ==================
@@ -44,4 +45,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

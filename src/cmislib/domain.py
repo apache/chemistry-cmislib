@@ -18,7 +18,7 @@
 #      under the License.
 #
 """
-Module containing the domain objects used to work with a CMIS provider.
+This module contains the domain objects used to work with a CMIS provider.
 """
 import logging
 
@@ -161,7 +161,7 @@ class CmisObject(object):
         u'someFolder2'
         >>> props = {'cmis:name': 'someFolderFoo'}
         >>> folder.updateProperties(props)
-        <cmislib.model.Folder object at 0x103ab1210>
+        <cmislib.atompub.binding.AtomPubFolder object at 0x103ab1210>
         >>> folder.getName()
         u'someFolderFoo'
 
@@ -269,7 +269,7 @@ class CmisObject(object):
 
         >>> acl = folder.getACL()
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
+        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x10071a8d0>, 'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x10071a590>}
 
         The optional onlyBasicPermissions argument is currently not supported.
         """
@@ -286,7 +286,7 @@ class CmisObject(object):
         >>> acl = folder.getACL()
         >>> acl.addEntry(ACE('jdoe', 'cmis:write', 'true'))
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
+        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x10071a8d0>, 'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x10071a590>}
         """
 
         pass
@@ -853,7 +853,7 @@ class Repository(object):
         with a StringIO and then calls createDocument.
 
         >>> repo.createDocumentFromString('testdoc5', parentFolder=testFolder, contentString='Hello, World!', contentType='text/plain')
-        <cmislib.model.Document object at 0x101352ed0>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x101352ed0>
         """
 
         pass
@@ -878,7 +878,7 @@ class Repository(object):
 
         >>> f = open('sample-a.pdf', 'rb')
         >>> doc = folder.createDocument('sample-a.pdf', contentFile=f)
-        <cmislib.model.Document object at 0x105be5e10>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x105be5e10>
         >>> f.close()
         >>> doc.getTitle()
         u'sample-a.pdf'
@@ -1037,7 +1037,7 @@ class ResultSet(object):
         >>> for result in resultSet.getResults():
         ...     result
         ...
-        <cmislib.model.Document object at 0x104851810>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x104851810>
         """
 
         pass
@@ -1064,7 +1064,7 @@ class ResultSet(object):
         >>> for result in results:
         ...     result
         ...
-        <cmislib.model.Document object at 0x10480bc90>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x10480bc90>
         """
 
         pass
@@ -1081,7 +1081,7 @@ class ResultSet(object):
         >>> for result in results:
         ...     result
         ...
-        <cmislib.model.Document object at 0x10480bc90>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x10480bc90>
         """
 
         pass
@@ -1097,7 +1097,7 @@ class ResultSet(object):
         >>> for result in results:
         ...     result
         ...
-        <cmislib.model.Document object at 0x10480bc90>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x10480bc90>
         """
 
         pass
@@ -1115,7 +1115,7 @@ class ResultSet(object):
         >>> for result in results:
         ...     result
         ...
-        <cmislib.model.Document object at 0x10480bc90>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x10480bc90>
         """
 
         pass
@@ -1217,7 +1217,7 @@ class Document(CmisObject):
         >>> doc.isCheckedOut()
         False
         >>> doc.checkout()
-        <cmislib.model.Document object at 0x103a25ad0>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x103a25ad0>
         >>> pwc = doc.getPrivateWorkingCopy()
         >>> pwc.getTitle()
         u'sample-b (Working Copy).pdf'
@@ -1263,7 +1263,7 @@ class Document(CmisObject):
         >>> doc.isCheckedOut()
         True
         >>> pwc.checkin()
-        <cmislib.model.Document object at 0x103a8ae90>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x103a8ae90>
         >>> doc.isCheckedOut()
         False
 
@@ -1461,7 +1461,7 @@ class Folder(CmisObject):
 
         >>> f = open('250px-Cmis_logo.png', 'rb')
         >>> subFolder.createDocument('logo.png', contentFile=f)
-        <cmislib.model.Document object at 0x10410fa10>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x10410fa10>
         >>> f.close()
 
         If you wanted to set one or more properties when creating the doc, pass
@@ -1470,7 +1470,7 @@ class Folder(CmisObject):
         >>> props = {'cmis:someProp':'someVal'}
         >>> f = open('250px-Cmis_logo.png', 'rb')
         >>> subFolder.createDocument('logo.png', props, contentFile=f)
-        <cmislib.model.Document object at 0x10410fa10>
+        <cmislib.atompub.binding.AtomPubDocument object at 0x10410fa10>
         >>> f.close()
 
         To specify a custom object type, pass in a property called
@@ -1926,7 +1926,7 @@ class ACL(object):
         >>> acl.addEntry('jpotts', 'cmis:read', 'true')
         >>> acl.addEntry('jsmith', 'cmis:write', 'true')
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
+        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x100731410>, u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>, 'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>, 'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x1005a2210>}
         """
 
         pass
@@ -1937,10 +1937,10 @@ class ACL(object):
         Removes the :class:`ACE` entry given a specific principalId.
 
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
+        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x100731410>, u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>, 'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>, 'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x1005a2210>}
         >>> acl.removeEntry('jsmith')
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
+        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x100731410>, u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>, 'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>}
         """
 
         pass
@@ -1955,7 +1955,7 @@ class ACL(object):
         >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
         >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
         >>> acl.entries
-        {'jpotts': <cmislib.model.ACE object at 0x1012c7310>, 'jsmith': <cmislib.model.ACE object at 0x100528490>}
+        {'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1012c7310>, 'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x100528490>}
         >>> acl.getXmlDoc()
         <xml.dom.minidom.Document instance at 0x1012cbb90>
         >>> acl.clearEntries()

@@ -18,7 +18,7 @@
 #      under the License.
 #
 """
-Module containing the CmisClient object, which is responsible for
+The model module contains the CmisClient object, which is responsible for
 keeping track of connection information. The name 'model' is no longer
 really appropriate, but it is kept for backwards compatibility.
 """

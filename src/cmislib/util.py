@@ -18,7 +18,7 @@
 #      under the License.
 #
 """
-Module containing handy utility functions.
+This module contains handy utility functions.
 """
 import re
 import iso8601

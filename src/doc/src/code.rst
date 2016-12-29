@@ -22,27 +22,35 @@ Code
 The :mod:`cmislib.model` Module
 -------------------------------
 
-The :mod:`cmislib.model` Module contains all the CMIS domain objects. The ones you will work with are listed as top level package elements. When working with the repository, the first thing you need to do is grab an instance of :class:`cmislib.CmisClient`, passing it the repository endpoint URL, username, and password.
+When working with the repository, the first thing you need to do is grab an instance of :class:`cmislib.CmisClient`, passing it the repository endpoint URL, username, and password.
 
-For example, in Alfresco 4 and higher, the repository endpoint is
-'http://localhost:8080/alfresco/cmisatom'. In earlier versions of
-Alfresco, the endpoint is
-'http://localhost:8080/alfresco/s/api/cmis'. In both cases, the
-default username and password are 'admin' and 'admin'.
+For example, in Alfresco 4.2 and higher, the repository endpoint for CMIS 1.1 and the Atom Pub binding is
+'http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom'. Earlier versions have different URLs.
+The default username and password are typically 'admin' and 'admin'.
 
->>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
+So, to connect to an Alfresco server running on localhost, you would use:
+
+>>> cmisClient = cmislib.CmisClient('http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/atom', 'admin', 'admin')
 
 From there you can get the default repository...
 
 >>> repo = cmisClient.defaultRepository
 
-or a specific repository if you know the repository ID.
+An Alfresco server has a single repository. Servers from other vendors may have multiple repositories. In those cases, you can get a specific repository if you know the repository ID.
 
 >>> repo = cmisClient.getRepository('83beb297-a6fa-4ac5-844b-98c871c0eea9')
 
 Once you have that, you're off to the races. Use the :class:`cmislib.Repository` class to create new :class:`cmislib.Folder` and :class:`cmislib.Document` objects, perform searches, etc.
 
 .. automodule:: cmislib.model
+   :members:
+
+The :mod:`cmislib.domain` Module
+--------------------------------
+
+These are the generic domain objects that establish the interface to the cmislib API. Regardless of which actual binding you use (AtomPub or Browser), you will work with these objects.
+
+.. automodule:: cmislib.domain
    :members:
 
 The :mod:`cmislib.net` Module
@@ -52,7 +60,7 @@ The :mod:`cmislib.net` Module contains the classes used by :mod:`cmislib.model.C
 
 .. automodule:: cmislib.net
    :members: RESTService
-   
+
 The :mod:`tests` Module
 -------------------------------
 

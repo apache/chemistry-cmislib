@@ -22,15 +22,15 @@ Installation
 Requirements
 ------------
 These requirements must be met:
- - Python 2.6.x
- - CMIS provider compliant with CMIS 1.0
+ - Python 2.6.x or Python 2.7.x. Python 3.x is not supported.
+ - CMIS provider compliant with CMIS 1.0 or CMIS 1.1
 
 Steps
 -----
  #. If you don't have `Python <http://www.python.org>`_ installed already, do so.
  #. If you don't have `setuptools <http://pypi.python.org/pypi/setuptools>`_ installed already, do so.
  #. Once setuptools is installed, type `easy_install cmislib`
- #. That's it! 
+ #. That's it!
 
 Once you do that, you should be able to fire up Python on the command-line and import cmislib successfully.
 
