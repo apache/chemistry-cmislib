@@ -299,6 +299,14 @@ class CmisObject(object):
 
         pass
 
+    def getRepository(self):
+
+        """
+        Returns the object's repository
+        """
+
+        pass
+
     allowableActions = property(getAllowableActions)
     name = property(getName)
     id = property(getObjectId)
