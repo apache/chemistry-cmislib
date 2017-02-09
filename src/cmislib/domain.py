@@ -2024,6 +2024,24 @@ class ACE(object):
         """Getter for permissions"""
         return self._permissions
 
+    def __cmp__(self, other):
+        if (
+            isinstance(other, self.__class__) and
+            self.principalId == other.principalId and
+            self.direct  == other.direct and
+            not(set(self.permissions) ^ set(other.permissions))
+            ):
+            return 0
+        return -1
+
+    def copy(self):
+        """
+        return a deep copy of the ace instance
+        """
+        return self.__class__(
+            principalId=self.principalId, permissions=self.permissions[:],
+            direct=self.direct)
+
 
 class ChangeEntry(object):
 
