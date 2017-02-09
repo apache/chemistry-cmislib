@@ -1191,12 +1191,15 @@ class BrowserRepository(object):
         """
 
         # build the CMIS query XML that we're going to POST
-        queryUrl = self.getRepositoryUrl() + "?cmisaction=query&q=" + safe_quote(statement)
+        queryUrl = self.getRepositoryUrl() + "?cmisaction=query"
+
+        contentType, body = encode_multipart_formdata(
+            {'q': statement}, None, None)
 
         # do the POST
         result = self._cmisClient.binding.post(queryUrl.encode('utf-8'),
-                                               None,
-                                               CMIS_FORM_TYPE,
+                                               body,
+                                               contentType,
                                                self._cmisClient.username,
                                                self._cmisClient.password,
                                                **kwargs)
