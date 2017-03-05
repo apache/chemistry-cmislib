@@ -540,9 +540,17 @@ class BrowserCmisObject(object):
             # get the root folder URL
             aclUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.id + "&cmisaction=applyACL"
 
-            aclJSON = ACLSerializer().toJSON(acl)
+            fields = {}
+            for i, entry in enumerate(acl.getAddedAces()):
+                fields['addACEPrincipal[%d]' % i] = entry.principalId
+                for j, perm in enumerate(entry.permissions):
+                    fields['addACEPermission[%d][%d]'% (i, j)] = perm
+            for i, entry in enumerate(acl.getRemovedAces()):
+                fields['removeACEPrincipal[%d]' % i] = entry.principalId
+                for j, perm in enumerate(entry.permissions):
+                    fields['removeACEPermission[%d][%d]' % (i, j)] = perm
 
-            contentType, body = encode_multipart_formdata(None, StringIO.StringIO(aclJSON), 'application/json')
+            contentType, body = encode_multipart_formdata(fields, None, None)
 
             # invoke the URL
             result = self._cmisClient.binding.post(aclUrl.encode('utf-8'),
@@ -2723,18 +2731,34 @@ class BrowserACL(ACL):
         the list--the constructor will convert it to a list for you.
         """
 
+        self._entries = {}
         if aceList:
-            self._entries = aceList
-        else:
-            self._entries = {}
+            for ace in aceList:
+                if not isinstance(ace, BrowserACE):
+                    raise CmisException('Items into the aceList must be an instance of the BrowserACEclass.')
+                self._entries[ace.principalId] = ace
+
         if data:
             self._data = data
             self._entries = self._getEntriesFromData()
         else:
             self._data = None
 
+        self._originalEntries = self._copy_entries()
+
         self.logger = logging.getLogger('cmislib.browser.binding.BrowserACL')
         self.logger.debug('Creating an instance of BrowserACL')
+
+    def _copy_entries(self):
+        """
+        Internal method used to keep a copy of the original entries of ACL
+        :return:
+        """
+
+        result = {}
+        for principalId, ace in self._entries.iteritems():
+            result[principalId] = ace.copy()
+        return result
 
     def _getEntriesFromData(self):
 
@@ -2797,11 +2821,8 @@ class BrowserACL(ACL):
         >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
         >>> acl.entries
         {'jpotts': <cmislib.model.ACE object at 0x1012c7310>, 'jsmith': <cmislib.model.ACE object at 0x100528490>}
-        >>> acl.getXmlDoc()
-        <xml.dom.minidom.Document instance at 0x1012cbb90>
         >>> acl.clearEntries()
         >>> acl.entries
-        >>> acl.getXmlDoc()
         """
 
         self._entries.clear()
@@ -2837,6 +2858,69 @@ class BrowserACL(ACL):
                 return self._entries
 
     entries = property(getEntries)
+
+    def getOriginalEntries(self):
+        return self._originalEntries
+
+    originalEntries = property(getOriginalEntries)
+
+    def getRemovedAces(self):
+
+        """
+        Returns a list of removed ACE. The list is based on a difference
+        between the original data and the current state
+
+        """
+        entries = self.entries
+        originalEntries = self.originalEntries
+        removedAces = []
+        for principalId, original in originalEntries.iteritems():
+            current = entries.get(principalId)
+            if not current:
+                removedAces.append(original.copy())
+                continue
+            if current.direct != original.direct:
+                removedAces.append(original.copy())
+                continue
+            originalPerms = set(original.permissions)
+            currentPerms = set(current.permissions)
+            removedPerms = originalPerms - currentPerms
+            if removedPerms:
+                removedAces.append(BrowserACE(
+                    principalId=principalId,
+                    permissions=list(removedPerms),
+                    direct=original.direct
+                ))
+        return removedAces
+
+    def getAddedAces(self):
+
+        """
+        Returns the list of new ACE. The list is based on a difference
+        between the original data and the current state
+
+        """
+        entries = self.entries
+        originalEntries = self.originalEntries
+        addedAces = []
+        for principalId, current in entries.iteritems():
+            original = originalEntries.get(principalId)
+            if not original:
+                addedAces.append(current.copy())
+                continue
+            if current.direct != original.direct:
+                addedAces.append(current.copy())
+                continue
+            originalPerms = set(original.permissions)
+            currentPerms = set(current.permissions)
+            addedPerms = currentPerms - originalPerms
+            if addedPerms:
+                addedAces.append(BrowserACE(
+                    principalId=principalId,
+                    permissions=list(addedPerms),
+                    direct=current.direct
+                ))
+        return addedAces
 
 
 class BrowserACE(ACE):
