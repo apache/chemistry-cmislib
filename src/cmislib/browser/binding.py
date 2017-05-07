@@ -1104,34 +1104,6 @@ class BrowserRepository(object):
                                 self,
                                 data=result)
 
-    def getUnfiledDocs(self, **kwargs):
-
-        """
-        Returns a ResultSet of :class:`CmisObject` objects that
-        are currently unfiled.
-
-        >>> rs = repo.getUnfiledDocs()
-        >>> len(rs.getResults())
-        2
-        >>> for doc in repo.getUnfiledDocs().getResults():
-        ...     doc.getTitle()
-        ...
-        u'sample-a.pdf'
-        u'sample-b.pdf'
-
-        These optional arguments are supported:
-         - folderId
-         - maxItems
-         - skipCount
-         - orderBy
-         - filter
-         - includeRelationships
-         - renditionFilter
-         - includeAllowableActions
-        """
-
-        pass
-
     def getObject(self,
                   objectId,
                   **kwargs):

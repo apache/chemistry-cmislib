@@ -375,40 +375,6 @@ class RepositoryTest(CmisTestBase):
             subFolder = self._repo.getObjectByPath(subFolderPath)
             self.assertEquals(len(subFolder.getChildren().getResults()), 1)
 
-    # getting unfiled documents may work for the atom pub binding for some servers
-    # but it isn't part of the spec so removing this test for now
-    '''
-    def testGetUnfiledDocs(self):
-        """Tests the repository's unfiled collection"""
-
-        if not self._repo.getCapabilities()['Unfiling']:
-            print 'Repo does not support unfiling, skipping'
-            return
-
-        # create a test folder and test doc
-        testFolder = self._testFolder.createFolder('unfile test')
-        newDoc = testFolder.createDocument('testdoc')
-
-        # make sure the new doc isn't in the unfiled collection
-        try:
-            rs = self._repo.getUnfiledDocs()
-            self.assertFalse(isInResultSet(rs, newDoc))
-        except NotSupportedException:
-            print 'This repository does not support read access to the unfiled collection...skipping'
-            return
-
-        # delete the test folder and tell it to unfile the testdoc
-        objId = newDoc.getObjectId()
-        testFolder.deleteTree(unfileObjects='unfile')
-
-        # grab the document by object ID
-        newDoc = self._repo.getObject(objId)
-
-        # the doc should now be in the unfiled collection
-        self.assertTrue(isInResultSet(self._repo.getUnfiledDocs(), newDoc))
-        self.assertEquals('testdoc', newDoc.getTitle())
-    '''
-
     # Create document without a parent folder is not yet implemented
     # def testCreateUnfiledDocument(self):
     #     '''Create a new unfiled document'''
