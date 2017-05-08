@@ -451,8 +451,26 @@ class BrowserCmisObject(object):
         {u'cmis:objectId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:creationDate': None, u'cmis:objectTypeId': u'R:cmiscustom:assoc', u'cmis:lastModificationDate': None, u'cmis:targetId': u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1', u'cmis:lastModifiedBy': None, u'cmis:baseTypeId': u'cmis:relationship', u'cmis:sourceId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:changeToken': None, u'cmis:createdBy': None}
 
         """
+        if not self.allowableActions['canCreateRelationship']:
+            raise CmisException('Not allowed to create a relationship')
+        url = self._repository.getRepositoryUrl()
+        props = {
+            'cmisaction': 'createRelationship',
+        }
 
-        pass
+        setProps({
+            'cmis:sourceId': self.getObjectId(),
+            'cmis:targetId': targetObj.getObjectId(),
+            'cmis:objectTypeId': relTypeId
+        }, props)
+
+        # invoke the URL
+        result = self._cmisClient.binding.post(url.encode('utf-8'),
+                                               safe_urlencode(props),
+                                               'application/x-www-form-urlencoded',
+                                               self._cmisClient.username,
+                                               self._cmisClient.password)
+        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
     def getRelationships(self, **kwargs):
 
@@ -476,8 +494,13 @@ class BrowserCmisObject(object):
          - filter
          - includeAllowableActions
         """
-
-        pass
+        byObjectIdUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=relationships"
+        result = self._cmisClient.binding.get(byObjectIdUrl.encode('utf-8'),
+                                              self._cmisClient.username,
+                                              self._cmisClient.password,
+                                              **kwargs)
+        # return the result set
+        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=RelationShipsSerializer())
 
     def removePolicy(self, policyId):
 
@@ -1427,8 +1450,7 @@ class BrowserRepository(object):
          - addACEs
          - removeACEs
         """
-
-        pass
+        return sourceObj.createRelationship(targetObj, relType)
 
     def createPolicy(self, properties):
         """
@@ -2386,7 +2408,7 @@ class BrowserFolder(BrowserCmisObject):
         return [self.properties['cmis:path']]
 
 
-class BrowserRelationship(CmisObject):
+class BrowserRelationship(BrowserCmisObject):
 
     """
     Defines a relationship object between two :class:`CmisObjects` objects
@@ -2397,16 +2419,14 @@ class BrowserRelationship(CmisObject):
         """
         Returns the :class:`CmisId` on the source side of the relationship.
         """
-        # TODO need to implement
-        pass
+        return BrowserCmisId(self.properties['cmis:sourceId'])
 
     def getTargetId(self):
 
         """
         Returns the :class:`CmisId` on the target side of the relationship.
         """
-        # TODO need to implement
-        pass
+        return BrowserCmisId(self.properties['cmis:targetId'])
 
     def getSource(self):
 
@@ -2414,8 +2434,9 @@ class BrowserRelationship(CmisObject):
         Returns an instance of the appropriate child-type of :class:`CmisObject`
         for the source side of the relationship.
         """
-        # TODO need to implement
-        pass
+
+        sourceId = self.getSourceId()
+        return getSpecializedObject(self._repository.getObject(sourceId))
 
     def getTarget(self):
 
@@ -2423,8 +2444,9 @@ class BrowserRelationship(CmisObject):
         Returns an instance of the appropriate child-type of :class:`CmisObject`
         for the target side of the relationship.
         """
-        # TODO need to implement
-        pass
+
+        targetId = self.getTargetId()
+        return getSpecializedObject(self._repository.getObject(targetId))
 
     sourceId = property(getSourceId)
     targetId = property(getTargetId)
@@ -3294,6 +3316,24 @@ class ChildrenSerializer(object):
             cmisObject = getSpecializedObject(BrowserCmisObject(client,
                                                                 repo,
                                                                 data=dataObj))
+            entries.append(cmisObject)
+
+        return entries
+
+
+class RelationShipsSerializer(object):
+
+    """
+    Responsible for serializing lists of relationships.
+    """
+
+    def fromJSON(self, client, repo, jsonObj):
+        """Transforms from JSON to the object."""
+        entries = []
+        for obj in jsonObj['objects']:
+            cmisObject = getSpecializedObject(BrowserCmisObject(client,
+                                                                repo,
+                                                                data=obj))
             entries.append(cmisObject)
 
         return entries
