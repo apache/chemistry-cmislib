@@ -1334,6 +1334,25 @@ class DocumentTest(CmisTestBase):
         paths = testDoc.getPaths()
         self.assertTrue(len(paths) >= 1)
 
+    def testRelationship(self):
+        testDoc = self._testFolder.createDocument('testdoc')
+        testDoc2 = self._testFolder.createDocument('testdoc2')
+        relations = testDoc.getRelationships(relationshipDirection="either")
+        self.assertEqual(0, len(relations))
+        if not testDoc.getAllowableActions().get('canCreateRelationship'):
+            print 'createRelationship not supported, skipping'
+            return
+        else:
+            print(testDoc.getAllowableActions())
+        relation = testDoc.createRelationship(testDoc2, 'R:cmis:relationship')
+        self.assertEqual(testDoc.getObjectId(), relation.source.getObjectId())
+        self.assertEqual(testDoc2.getObjectId(), relation.target.getObjectId())
+        relations = testDoc.getRelationships()
+        self.assertEqual(1, len(relations))
+        relation = relations[0]
+        self.assertEqual(testDoc.getObjectId(), relation.source.getObjectId())
+        self.assertEqual(testDoc2.getObjectId(), relation.target.getObjectId())
+
     def testRenditions(self):
         """Get the renditions for a document"""
         if not self._repo.getCapabilities().has_key('Renditions'):
