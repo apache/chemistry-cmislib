@@ -8,8 +8,6 @@ setup.py
 dist/hash-sign.sh
 dist/release.sh
 src/cmislib/__init__.py
-src/cmislib/atompub_binding.py
-src/cmislib/browser_binding.py
 src/cmislib/cmis_services.py
 src/cmislib/domain.py
 src/cmislib/exceptions.py
@@ -24,6 +22,10 @@ src/cmislib.egg-info/SOURCES.txt
 src/cmislib.egg-info/dependency_links.txt
 src/cmislib.egg-info/requires.txt
 src/cmislib.egg-info/top_level.txt
+src/cmislib/atompub/__init__.py
+src/cmislib/atompub/binding.py
+src/cmislib/browser/__init__.py
+src/cmislib/browser/binding.py
 src/doc/src/Makefile
 src/doc/src/about.rst
 src/doc/src/code.rst
@@ -44,4 +46,3 @@ src/tests/250px-Cmis_logo.png
 src/tests/__init__.py
 src/tests/cmislibtest.py
 src/tests/sample-a.pdf
-src/tests/settings.py
