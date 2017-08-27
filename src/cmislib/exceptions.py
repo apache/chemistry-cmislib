@@ -21,6 +21,8 @@
 """
 This module contains exceptions used throughout the API.
 """
+
+
 class CmisException(Exception):
 
     """

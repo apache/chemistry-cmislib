@@ -1075,6 +1075,7 @@ class ResultSet(object):
         Returns the prev page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type. This only
         works when the server returns a "prev" link. Not all of them do.
+
         >>> resultSet.hasPrev()
         True
         >>> results = resultSet.getPrev()
@@ -1091,6 +1092,7 @@ class ResultSet(object):
         """
         Returns the next page of results as a dictionary of
         :class:`CmisObject` objects or its appropriate sub-type.
+
         >>> resultSet.hasNext()
         True
         >>> results = resultSet.getNext()
@@ -2028,9 +2030,8 @@ class ACE(object):
         if (
             isinstance(other, self.__class__) and
             self.principalId == other.principalId and
-            self.direct  == other.direct and
-            not(set(self.permissions) ^ set(other.permissions))
-            ):
+            self.direct == other.direct and
+            not(set(self.permissions) ^ set(other.permissions))):
             return 0
         return -1
 

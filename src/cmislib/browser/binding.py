@@ -28,11 +28,11 @@ from cmislib.exceptions import CmisException, InvalidArgumentException,\
 from cmislib.net import RESTService as Rest
 from cmislib.util import parsePropValueByType, parseDateTimeValue, safe_quote,\
                         safe_urlencode
+from cmislib import messages
 import json
 import logging
 import StringIO
 import time
-from urllib import urlencode, quote
 
 CMIS_FORM_TYPE = 'application/x-www-form-urlencoded;charset=utf-8'
 
@@ -117,6 +117,11 @@ class RepositoryService(RepositoryServiceIfc):
     """
 
     def getRepository(self, client, repositoryId):
+
+        """
+        Gets the repository for the specified repository ID.
+        """
+
         result = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
 
         if repositoryId in result:
@@ -125,6 +130,11 @@ class RepositoryService(RepositoryServiceIfc):
         raise ObjectNotFoundException(url=client.repositoryUrl)
 
     def getRepositories(self, client):
+
+        """
+        Gets all of the repositories for this client.
+        """
+
         result = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
 
         repositories = []
@@ -569,7 +579,7 @@ class BrowserCmisObject(object):
             for i, entry in enumerate(acl.getAddedAces()):
                 fields['addACEPrincipal[%d]' % i] = entry.principalId
                 for j, perm in enumerate(entry.permissions):
-                    fields['addACEPermission[%d][%d]'% (i, j)] = perm
+                    fields['addACEPermission[%d][%d]' % (i, j)] = perm
             for i, entry in enumerate(acl.getRemovedAces()):
                 fields['removeACEPrincipal[%d]' % i] = entry.principalId
                 for j, perm in enumerate(entry.permissions):
@@ -2859,6 +2869,11 @@ class BrowserACL(ACL):
     entries = property(getEntries)
 
     def getOriginalEntries(self):
+
+        """
+        Returns the original entries.
+        """
+
         return self._originalEntries
 
     originalEntries = property(getOriginalEntries)
@@ -3033,7 +3048,7 @@ class BrowserChangeEntry(ChangeEntry):
         """
         if not self._properties:
             props = self._data.get('properties')
-            for prop in self._data.get('properties').itervalues():
+            for prop in props.itervalues():
                 # property could be multi-valued
                 if type(prop['value']) is list:
                     propVal = []
@@ -3101,6 +3116,7 @@ class BrowserChangeEntryResultSet(BrowserResultSet):
             self._results = entries
 
         return self._results
+
 
 class BrowserRendition(object):
 
@@ -3411,6 +3427,7 @@ class ACLSerializer(object):
             aces.append(entryJSON)
 
         return json.dumps(aces)
+
 
 class ChangeEntrySerializer(object):
 

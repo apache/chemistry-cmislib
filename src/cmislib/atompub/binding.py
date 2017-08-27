@@ -581,8 +581,8 @@ class AtomPubCmisObject(CmisObject):
                         for valNode in valNodeList:
                             try:
                                 propertyValue.append(parsePropValue(valNode.
-                                                                childNodes[0].data,
-                                                                node.localName))
+                                                            childNodes[0].data,
+                                                            node.localName))
                             except IndexError:
                                 pass
                 else:
@@ -3476,7 +3476,7 @@ class AtomPubACL(ACL):
         """
         ace = AtomPubACE(principalId, access, direct)
         if not self._entries:
-            self._entries = {ace.principalId : ace}
+            self._entries = {ace.principalId: ace}
         else:
             if self._entries.has_key(principalId):
                 if access not in self._entries[principalId].permissions:
@@ -3484,7 +3484,7 @@ class AtomPubACL(ACL):
                     perms.append(access)
                     self.removeEntry(principalId)
                     if not self._entries:
-                        self._entries = {principalId : AtomPubACE(principalId, perms, direct)}
+                        self._entries = {principalId: AtomPubACE(principalId, perms, direct)}
                     else:
                         self._entries[principalId] = AtomPubACE(principalId, perms, direct)
             else:
