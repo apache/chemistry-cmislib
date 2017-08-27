@@ -1498,6 +1498,7 @@ class ACLTest(CmisTestBase):
             print 'Repository needs to support either both or basic permissions for this test'
             return
         acl = self._testFolder.getACL()
+        acl.removeEntry(settings.TEST_PRINCIPAL_ID)
         acl.addEntry(settings.TEST_PRINCIPAL_ID, 'cmis:write')
         acl = self._testFolder.applyACL(acl)
         # would be good to check that the permission we get back is what we set
