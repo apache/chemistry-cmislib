@@ -56,7 +56,7 @@ class CmisTestBase(unittest.TestCase):
                                       binding=settings.BINDING,
                                       **settings.EXT_ARGS)
         self._repo = self._cmisClient.getDefaultRepository()
-        self._rootFolder = self._repo.getObjectByPath(settings.TEST_ROOT_PATH)
+        self._rootFolder = self._repo.getRootFolder()
         self._folderName = " ".join(['cmislib', self.__class__.__name__, str(time())])
         self._testFolder = self._rootFolder.createFolder(self._folderName)
 
