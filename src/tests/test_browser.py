@@ -23,7 +23,7 @@ Unit tests for logic unique to the Browser binding
 """
 
 import unittest
-from unittest import TestSuite, TestLoader
+
 from cmislib.browser.binding import BrowserACE
 from cmislib.browser.binding import BrowserACL
 
@@ -95,8 +95,3 @@ class BrowserACLTest(unittest.TestCase):
         self.assertEqual(
             toCheck,
             BrowserACE(self.aceUser1.principalId, ['cmis:write'], True))
-
-if __name__ == "__main__":
-    tts = TestSuite()
-    tts.addTests(TestLoader().loadTestsFromTestCase(BrowserACLTest))
-    unittest.TextTestRunner().run(tts)
