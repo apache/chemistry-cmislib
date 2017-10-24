@@ -1956,7 +1956,7 @@ class BrowserDocument(BrowserCmisObject):
                                                self._cmisClient.password)
 
         # return the result set
-        return BrowserDocument(self._cmisClient, self, data=result)
+        return BrowserDocument(self._cmisClient, self._repository, data=result)
 
     def deleteContentStream(self):
 
