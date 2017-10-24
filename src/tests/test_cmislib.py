@@ -1149,7 +1149,7 @@ class DocumentTest(CmisTestBase):
         exportFile1 = testFile1.replace('.', 'export.')
         testFile2 = settings.TEST_BINARY_2
         testFile2Size = os.path.getsize(testFile2)
-        exportFile2 = testFile1.replace('.', 'export.')
+        exportFile2 = testFile2.replace('.', 'export.')
 
         # create a test document
         fileName = testFile1.split('/')[-1]
@@ -1332,7 +1332,11 @@ class DocumentTest(CmisTestBase):
         if not testDoc.getAllowableActions().get('canCreateRelationship'):
             print 'createRelationship not supported, skipping'
             return
-        relation = testDoc.createRelationship(testDoc2, 'R:cmis:relationship')
+        if not self._repo.getTypeDefinition('R:cm:replaces'):
+            print 'createRelationship not supported, skipping'
+            return
+
+        relation = testDoc.createRelationship(testDoc2, 'R:cm:replaces')
         self.assertEqual(testDoc.getObjectId(), relation.source.getObjectId())
         self.assertEqual(testDoc2.getObjectId(), relation.target.getObjectId())
         relations = testDoc.getRelationships()
