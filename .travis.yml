@@ -19,7 +19,8 @@ install:
 before_script:
   # install alfresco
   - git clone https://github.com/keensoft/alfresco-docker-template
-  - cd alfresco-docker-template/templates/201702-GA && docker-compose up -d
+  - cd alfresco-docker-template/templates/201702-GA
+  - travis_wait docker-compose up -d
   - cd $TRAVIS_BUILD_DIR
   # wait alfresco startup complete
   - until $(curl -sSf http://localhost/alfresco  -o /dev/null); do sleep 5 ; done
