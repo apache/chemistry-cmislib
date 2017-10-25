@@ -1925,7 +1925,7 @@ class BrowserDocument(BrowserCmisObject):
         if not self.getAllowableActions()['canGetContentStream']:
             return None
 
-        contentUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&selector=content"
+        contentUrl = self._repository.getRootFolderUrl() + "?objectId=" + self.getObjectId() + "&cmisselector=content"
         result, content = Rest().get(contentUrl.encode('utf-8'),
                                      self._cmisClient.username,
                                      self._cmisClient.password,
@@ -1956,7 +1956,7 @@ class BrowserDocument(BrowserCmisObject):
                                                self._cmisClient.password)
 
         # return the result set
-        return BrowserDocument(self._cmisClient, self, data=result)
+        return BrowserDocument(self._cmisClient, self._repository, data=result)
 
     def deleteContentStream(self):
 
