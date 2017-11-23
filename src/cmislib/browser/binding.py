@@ -221,7 +221,7 @@ class BrowserCmisObject(object):
         # if a returnVersion arg was passed in, it is possible we got back
         # a different object ID than the value we started with, so it needs
         # to be cleared out as well
-        if self._extArgs.has_key('returnVersion'):
+        if 'returnVersion' in self._extArgs:
             self._objectId = None
 
     def getObjectId(self):
@@ -294,7 +294,7 @@ class BrowserCmisObject(object):
 
         if self._allowableActions == {}:
             self.reload(includeAllowableActions=True)
-            assert self.data.has_key('allowableActions'), "Expected object data to have an allowableActions key"
+            assert 'allowableActions' in self.data, "Expected object data to have an allowableActions key"
             allowableActions = self.data['allowableActions']
             self._allowableActions = allowableActions
 
@@ -732,9 +732,9 @@ class BrowserRepository(object):
                         'changesOnType': self.data['changesOnType'],
                         'principalIdAnonymous': self.data['principalIdAnonymous'],
                         'principalIdAnyone': self.data['principalIdAnyone']}
-            if self.data.has_key('thinClientURI'):
+            if 'thinClientURI' in self.data:
                 repoInfo['thinClientURI'] = self.data['thinClientURI']
-            if self.data.has_key('extendedFeatures'):
+            if 'extendedFeatures' in self.data:
                 repoInfo['extendedFeatures'] = self.data['extendedFeatures']
             self._repositoryInfo = repoInfo
         return self._repositoryInfo
@@ -795,8 +795,8 @@ class BrowserRepository(object):
         if not self._permissions:
             if self.data is None:
                 self.reload()
-            if self.data.has_key('aclCapabilities'):
-                if self.data['aclCapabilities'].has_key('supportedPermissions'):
+            if 'aclCapabilities' in self.data:
+                if 'supportedPermissions' in self.data['aclCapabilities']:
                     self._permissions = self.data['aclCapabilities']['supportedPermissions']
         return self._permissions
 
@@ -915,7 +915,7 @@ class BrowserRepository(object):
             if self.data is None:
                 self.reload()
             caps = {}
-            if self.data.has_key('capabilities'):
+            if 'capabilities' in self.data:
                 for cap in self.data['capabilities'].keys():
                     key = cap.replace('capability', '')
                     caps[key] = self.data['capabilities'][cap]
@@ -1364,7 +1364,7 @@ class BrowserRepository(object):
                  "propertyValue[0]": name}
 
         props["propertyId[1]"] = "cmis:objectTypeId"
-        if properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' in properties:
             props["propertyValue[1]"] = properties['cmis:objectTypeId']
             del properties['cmis:objectTypeId']
         else:
@@ -1805,7 +1805,7 @@ class BrowserDocument(BrowserCmisObject):
         """
         # TODO implement optional arguments
         # major = true is supposed to be the default but inmemory 0.9 is throwing an error 500 without it
-        if not kwargs.has_key('major'):
+        if 'major' not in kwargs:
             kwargs['major'] = 'true'
         else:
             kwargs['major'] = 'false'
@@ -1861,7 +1861,7 @@ class BrowserDocument(BrowserCmisObject):
         """
 
         doc = None
-        if kwargs.has_key('major') and kwargs['major'] == 'true':
+        if kwargs.get('major') == 'true':
             doc = self._repository.getObject(self.getObjectId(), returnVersion='latestmajor')
         else:
             doc = self._repository.getObject(self.getObjectId(), returnVersion='latest')
@@ -1972,7 +1972,7 @@ class BrowserDocument(BrowserCmisObject):
         props = {"objectId": self.id,
                  "cmisaction": "deleteContent"}
 
-        if self.properties.has_key('cmis:changeToken'):
+        if 'cmis:changeToken' in self.properties:
             props["changeToken"] = self.properties['cmis:changeToken']
 
         # invoke the URL
@@ -2085,7 +2085,7 @@ class BrowserFolder(BrowserCmisObject):
                  "propertyValue[0]": name}
 
         props["propertyId[1]"] = "cmis:objectTypeId"
-        if properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' in properties:
             props["propertyValue[1]"] = properties['cmis:objectTypeId']
             del properties['cmis:objectTypeId']
         else:
@@ -2287,7 +2287,7 @@ class BrowserFolder(BrowserCmisObject):
         """
         The optional filter argument is not yet supported.
         """
-        if self.properties.has_key('cmis:parentId') and self.properties['cmis:parentId'] is not None:
+        if self.properties.get('cmis:parentId') is not None:
             return BrowserFolder(self._cmisClient, self._repository, objectId=self.properties['cmis:parentId'])
 
     def deleteTree(self, **kwargs):
@@ -2596,7 +2596,7 @@ class BrowserObjectType(ObjectType):
         ...    print 'Open choice:%s' % prop.openChoice
         """
 
-        if self.data is None or not self.data.has_key('propertyDefinitions'):
+        if self.data is None or 'propertyDefinitions' not in self.data:
             self.reload()
         props = {}
         for prop in self.data['propertyDefinitions'].keys():
@@ -2816,7 +2816,7 @@ class BrowserACL(ACL):
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
         """
 
-        if self._entries.has_key(principalId):
+        if principalId in self._entries:
             del self._entries[principalId]
 
     def clearEntries(self):
@@ -3385,7 +3385,7 @@ class TreeSerializer(object):
             entries.append(cmisThing)
             try:
                 dataObj = obj['children']
-                # if obj['object'].has_key('children'):
+                # if 'children' in obj['object']:
                 #    for child in obj['object']['children']:
                 childEntries = self.getEntries(client, repo, dataObj)
                 entries = entries + childEntries

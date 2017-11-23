@@ -42,7 +42,7 @@ class TestACL:
             print messages.NO_ACL_SUPPORT
             return
         supportedPerms = self._repo.getPermissionDefinitions()
-        assert supportedPerms.has_key('cmis:write')
+        assert 'cmis:write' in supportedPerms
 
     def testPermissionMap(self):
         """Test the permission mapping"""
@@ -50,7 +50,7 @@ class TestACL:
             print messages.NO_ACL_SUPPORT
             return
         permMap = self._repo.getPermissionMap()
-        assert permMap.has_key('canGetProperties.Object')
+        assert 'canGetProperties.Object' in permMap
         assert len(permMap['canGetProperties.Object']) > 0
 
     def testPropagation(self):
@@ -88,4 +88,4 @@ class TestACL:
         # would be good to check that the permission we get back is what we set
         # but at least one server (Alf) appears to map the basic perm to a
         # repository-specific perm
-        assert acl.getEntries().has_key(self.acl_principal_id)
+        assert self.acl_principal_id in acl.getEntries()

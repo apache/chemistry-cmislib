@@ -318,8 +318,7 @@ class TestDocument:
         assert testFile1Size == os.path.getsize(exportFile1)
 
         # checkout the file
-        if newDoc.allowableActions.has_key('canCheckOut') and \
-                newDoc.allowableActions['canCheckOut'] == True:
+        if newDoc.allowableActions.get('canCheckOut') == True:
             pass
         else:
             pytest.skip('The test doc cannot be checked out...skipping')
@@ -584,14 +583,13 @@ class TestDocument:
 
     def testRenditions(self):
         """Get the renditions for a document"""
-        if not self._repo.getCapabilities().has_key('Renditions'):
+        if 'Renditions' not in self._repo.getCapabilities():
             pytest.skip('Repo does not support unfiling, skipping')
 
         testDoc = self._testFolder.createDocumentFromString(
             'testdoc.txt', contentString='test', contentType='text/plain')
         sleep(10)
-        if (testDoc.getAllowableActions().has_key('canGetRenditions') and
-            testDoc.getAllowableActions()['canGetRenditions'] == True):
+        if testDoc.getAllowableActions().get('canGetRenditions') == True:
             rends = testDoc.getRenditions()
             assert len(rends) >= 1
         else:
