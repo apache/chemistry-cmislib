@@ -34,7 +34,7 @@ from cmislib.exceptions import CmisException, InvalidArgumentException, \
     NotSupportedException, ObjectNotFoundException
 from cmislib.net import RESTService as Rest
 from cmislib.util import parsePropValueByType, parseDateTimeValue, safe_quote, \
-    safe_urlencode
+    safe_urlencode, iteritems, itervalues
 
 if sys.version_info >= (3,):
     import io as StringIO
@@ -146,7 +146,7 @@ class RepositoryService(RepositoryServiceIfc):
         result = client.binding.get(client.repositoryUrl, client.username, client.password, **client.extArgs)
 
         repositories = []
-        for repo in result.itervalues():
+        for repo in itervalues(result):
             repositories.append({'repositoryId': repo['repositoryId'],
                                  'repositoryName': repo['repositoryName']})
         return repositories
@@ -163,7 +163,7 @@ class RepositoryService(RepositoryServiceIfc):
         # instantiate a Repository object with the first workspace
         # element we find
         repository = None
-        for repo in result.itervalues():
+        for repo in itervalues(result):
             repository = BrowserRepository(client, repo)
         return repository
 
@@ -333,7 +333,7 @@ class BrowserCmisObject(object):
         if self._properties == {}:
             if self.data is None:
                 self.reload()
-            for prop in self.data['properties'].itervalues():
+            for prop in itervalues(self.data['properties']):
                 # property could be multi-valued
                 if type(prop['value']) is list:
                     propVal = []
@@ -1823,7 +1823,7 @@ class BrowserDocument(BrowserCmisObject):
         props.update(kwargs)
         propCount = 0
         properties = properties or {}
-        for key, value in properties.iteritems():
+        for key, value in iteritems(properties):
             props["propertyId[%s]" % propCount] = key
             props["propertyValue[%s]" % propCount] = value
             propCount += 1
@@ -2772,7 +2772,7 @@ class BrowserACL(ACL):
         """
 
         result = {}
-        for principalId, ace in self._entries.iteritems():
+        for principalId, ace in iteritems(self._entries):
             result[principalId] = ace.copy()
         return result
 
@@ -2895,7 +2895,7 @@ class BrowserACL(ACL):
         entries = self.entries
         originalEntries = self.originalEntries
         removedAces = []
-        for principalId, original in originalEntries.iteritems():
+        for principalId, original in iteritems(originalEntries):
             current = entries.get(principalId)
             if not current:
                 removedAces.append(original.copy())
@@ -2924,7 +2924,7 @@ class BrowserACL(ACL):
         entries = self.entries
         originalEntries = self.originalEntries
         addedAces = []
-        for principalId, current in entries.iteritems():
+        for principalId, current in iteritems(entries):
             original = originalEntries.get(principalId)
             if not original:
                 addedAces.append(current.copy())
@@ -3055,7 +3055,7 @@ class BrowserChangeEntry(ChangeEntry):
         """
         if not self._properties:
             props = self._data.get('properties')
-            for prop in props.itervalues():
+            for prop in itervalues(props):
                 # property could be multi-valued
                 if type(prop['value']) is list:
                     propVal = []
@@ -3260,7 +3260,7 @@ def encode_multipart_formdata(fields, contentFile, contentType):
     L = []
     fileName = None
     if fields:
-        for (key, value) in fields.iteritems():
+        for (key, value) in iteritems(fields):
             if key == 'cmis:name':
                 fileName = value
             L.append('--' + boundary)
