@@ -103,6 +103,6 @@ class TestQuery:
             found = isInResultSet(resultSet, self._testContent2)
             if not found:
                 maxTries -= 1
-                print 'Not found...sleeping for 10 secs. Remaining tries:%d' % maxTries
+                prin('Not found...sleeping for 10 secs. Remaining tries:%d' % maxTries)
                 sleep(10)
         assert found

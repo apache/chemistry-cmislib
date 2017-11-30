@@ -231,7 +231,7 @@ class TestFolder:
     def testAddObject(self):
         """Add an existing object to another folder"""
         if not self._repo.getCapabilities()['Multifiling']:
-            print 'This repository does not allow multifiling, skipping'
+            print('This repository does not allow multifiling, skipping')
             return
 
         subFolder1 = self._testFolder.createFolder('sub1')
@@ -246,7 +246,7 @@ class TestFolder:
     def testRemoveObject(self):
         """Remove an existing object from a secondary folder"""
         if not self._repo.getCapabilities()['Unfiling']:
-            print 'This repository does not allow unfiling, skipping'
+            print('This repository does not allow unfiling, skipping')
             return
 
         subFolder1 = self._testFolder.createFolder('sub1')
