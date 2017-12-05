@@ -108,20 +108,11 @@ class AtomPubBinding(Binding):
     """
 
     def __init__(self, **kwargs):
-        self.extArgs = kwargs
+        super(AtomPubBinding, self).__init__(**kwargs)
         self.user_agent = 'cmislib/atompub +http://chemistry.apache.org/'
 
     def getRepositoryService(self):
         return RepositoryService()
-
-    def _get_http_headers(self, **kwargs):
-        headers = {}
-        if kwargs:
-            if 'headers' in kwargs:
-                headers = kwargs['headers']
-                del kwargs['headers']
-        headers['User-Agent'] = self.user_agent
-        return headers
 
     def get(self, url, session, **kwargs):
 
@@ -135,36 +126,12 @@ class AtomPubBinding(Binding):
         the root folder (:class:`Repository.getRootFolder`) and drill down from
         there.
         """
-
-        # merge the cmis client extended args with the ones that got passed in
-        if len(self.extArgs) > 0:
-            kwargs.update(self.extArgs)
-
-        headers = self._get_http_headers(**kwargs)
-        response = session.get(url, params=kwargs, headers=headers)
+        response = super(AtomPubBinding, self).get(url, session, **kwargs)
         if '+xml' in response.headers.get('content-type'):
             try:
                 return minidom.parse(BytesIO(response.content))
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
-        return response
-
-    def delete(self, url, session, **kwargs):
-
-        """
-        Does a delete against the CMIS service. More than likely, you will not
-        need to call this method. Instead, let the other objects do it for you.
-
-        For example, to delete a folder you'd call :class:`Folder.delete` and
-        to delete a document you'd call :class:`Document.delete`.
-        """
-
-        # merge the cmis client extended args with the ones that got passed in
-        if len(self.extArgs) > 0:
-            kwargs.update(self.extArgs)
-
-        headers = self._get_http_headers(**kwargs)
-        response = session.delete(url, params=kwargs, headers=headers)
         return response
 
     def post(self, url, session, payload, contentType, **kwargs):
@@ -179,15 +146,11 @@ class AtomPubBinding(Binding):
         """
 
         # merge the cmis client extended args with the ones that got passed in
-        if len(self.extArgs) > 0:
-            kwargs.update(self.extArgs)
-        headers = self._get_http_headers(**kwargs)
-        headers['Content-Type'] = contentType
-        result = session.post(
-            url, params=kwargs, data=payload, headers=headers)
-        if result.text:
+        response = super(AtomPubBinding, self).post(
+            url, session, payload, contentType, **kwargs)
+        if response.content and '+xml' in response.headers.get('content-type'):
             try:
-                return minidom.parse(BytesIO(result.content))
+                return minidom.parse(BytesIO(response.content))
             except ExpatError:
                 raise CmisException('Could not parse server response', url)
         return None
@@ -202,20 +165,12 @@ class AtomPubBinding(Binding):
         :class:`CmisObject.updateProperties`. Or, to check in a document that's
         been checked out, you'd call :class:`Document.checkin` on the PWC.
         """
-
-        # merge the cmis client extended args with the ones that got passed in
-        if len(self.extArgs) > 0:
-            kwargs.update(self.extArgs)
-
-        headers = self._get_http_headers(**kwargs)
-        headers['Content-Type'] = contentType
-        response = session.put(url, data=payload, params=kwargs, headers=headers)
-        if response.text:
+        response = super(AtomPubBinding, self).put(url, session, payload, contentType, **kwargs)
+        if response.content and '+xml' in response.headers.get('content-type'):
             try:
-                return minidom.parseString(response.text)
+                return minidom.parse(BytesIO(response.content))
             except ExpatError:
-                # This may happen and is normal
-                return None
+                raise CmisException('Could not parse server response', url)
         return None
 
 

@@ -49,20 +49,11 @@ class BrowserBinding(Binding):
     """
 
     def __init__(self, **kwargs):
-        self.extArgs = kwargs
+        super(BrowserBinding, self).__init__(**kwargs)
         self.user_agent = 'cmislib/browser +http://chemistry.apache.org/'
 
     def getRepositoryService(self):
         return RepositoryService()
-
-    def _get_http_headers(self, **kwargs):
-        headers = {}
-        if kwargs:
-            if 'headers' in kwargs:
-                headers = kwargs['headers']
-                del kwargs['headers']
-        headers['User-Agent'] = self.user_agent
-        return headers
 
     def get(self, url, session, **kwargs):
 
@@ -76,13 +67,7 @@ class BrowserBinding(Binding):
         the root folder (:class:`Repository.getRootFolder`) and drill down from
         there.
         """
-
-        # merge the cmis client extended args with the ones that got passed in
-        if len(self.extArgs) > 0:
-            kwargs.update(self.extArgs)
-
-        headers = self._get_http_headers(**kwargs)
-        response = session.get(url, params=kwargs, headers=headers)
+        response = super(BrowserBinding, self).get(url, session, **kwargs)
         if 'application/json' in response.headers.get('content-type'):
             return response.json()
         return response
@@ -97,16 +82,10 @@ class BrowserBinding(Binding):
         :class:`CmisObject.updateProperties`. Or, to check in a document that's
         been checked out, you'd call :class:`Document.checkin` on the PWC.
         """
-
-        # merge the cmis client extended args with the ones that got passed in
-        if len(self.extArgs) > 0:
-            kwargs.update(self.extArgs)
-        headers = self._get_http_headers(**kwargs)
-        headers['Content-Type'] = contentType
-        result = session.post(
-            url, params=kwargs, data=payload, headers=headers)
-        if result.text:
-            return result.json()
+        response = super(BrowserBinding, self).post(
+            url, session, payload, contentType, **kwargs)
+        if response.content and 'application/json' in response.headers.get('content-type'):
+            return response.json()
         return None
 
 
