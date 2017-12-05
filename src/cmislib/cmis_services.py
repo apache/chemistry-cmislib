@@ -41,30 +41,31 @@ class Binding(object):
 
         pass
 
-    def _processCommonErrors(self, error, url):
+    def _processCommonErrors(self, response):
 
         """
         Maps HTTPErrors that are common to all to exceptions. Only errors
         that are truly global, like 401 not authorized, should be handled
         here. Callers should handle the rest.
         """
-
-        if error['status'] == '401':
-            raise PermissionDeniedException(error['status'], url)
-        elif error['status'] == '400':
-            raise InvalidArgumentException(error['status'], url)
-        elif error['status'] == '404':
-            raise ObjectNotFoundException(error['status'], url)
-        elif error['status'] == '403':
-            raise PermissionDeniedException(error['status'], url)
-        elif error['status'] == '405':
-            raise NotSupportedException(error['status'], url)
-        elif error['status'] == '409':
-            raise UpdateConflictException(error['status'], url)
-        elif error['status'] == '500':
-            raise RuntimeException(error['status'], url)
+        status_code = response.status_code
+        url = response.url
+        if status_code == 401:
+            raise PermissionDeniedException(status_code, url, response.text)
+        elif status_code == 400:
+            raise InvalidArgumentException(status_code, url, response.text)
+        elif status_code == 404:
+            raise ObjectNotFoundException(status_code, url, response.text)
+        elif status_code == 403:
+            raise PermissionDeniedException(status_code, url, response.text)
+        elif status_code == 405:
+            raise NotSupportedException(status_code, url, response.text)
+        elif status_code == 409:
+            raise UpdateConflictException(status_code, url, response.text)
+        elif status_code == 500:
+            raise RuntimeException(status_code, url, response.text)
         else:
-            raise CmisException(error['status'], url)
+            raise CmisException(status_code, url, response.text)
 
 
 class RepositoryServiceIfc(object):

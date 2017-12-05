@@ -23,6 +23,7 @@ keeping track of connection information. The name 'model' is no longer
 really appropriate, but it is kept for backwards compatibility.
 """
 import logging
+import requests
 
 from cmislib.atompub.binding import AtomPubBinding
 from cmislib.cmis_services import Binding
@@ -52,6 +53,9 @@ class CmisClient(object):
         self.username = username
         self.password = password
         self.extArgs = kwargs
+        self.session = requests.session()
+        self.session.auth =(self.username, self.password)
+        self.session.hooks = {'response': self._check_response_status }
         if 'binding' in kwargs and (isinstance(kwargs['binding'],Binding)):
             self.binding = kwargs['binding']
         else:
@@ -62,6 +66,18 @@ class CmisClient(object):
     def __str__(self):
         """To string"""
         return 'CMIS client connection to %s' % self.repositoryUrl
+
+    def _check_response_status(self, response, *ags, **kwargs):
+        """
+        A callback function called by 'requests' after a call to the cmis
+        container
+        :param response: the response object
+        :param ags:
+        :param kwargs:
+        :return:
+        """
+        if not response.ok:
+            self.binding._processCommonErrors(response)
 
     def getRepositories(self):
 
