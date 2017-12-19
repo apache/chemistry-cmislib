@@ -86,7 +86,8 @@ class CmisObject(object):
     def getAllowableActions(self):
 
         """
-        Returns a dictionary of allowable actions, keyed off of the action name.
+        Returns a dictionary of allowable actions, keyed off of the action
+        name.
 
         >>> actions = doc.getAllowableActions()
         >>> for a in actions:
@@ -130,7 +131,8 @@ class CmisObject(object):
         cmis:isLatestMajorVersion: false
         cmis:isImmutable: false
         cmis:isMajorVersion: false
-        cmis:objectId: workspace://SpacesStore/dc26102b-e312-471b-b2af-91bfb0225339
+        cmis:objectId:
+            workspace://SpacesStore/dc26102b-e312-471b-b2af-91bfb0225339
 
         The optional filter argument is not yet implemented.
         """
@@ -215,7 +217,19 @@ class CmisObject(object):
 
         >>> rel = tstDoc1.createRelationship(tstDoc2, 'R:cmiscustom:assoc')
         >>> rel.getProperties()
-        {u'cmis:objectId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:creationDate': None, u'cmis:objectTypeId': u'R:cmiscustom:assoc', u'cmis:lastModificationDate': None, u'cmis:targetId': u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1', u'cmis:lastModifiedBy': None, u'cmis:baseTypeId': u'cmis:relationship', u'cmis:sourceId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:changeToken': None, u'cmis:createdBy': None}
+        {u'cmis:objectId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:creationDate': None,
+         u'cmis:objectTypeId': u'R:cmiscustom:assoc',
+         u'cmis:lastModificationDate': None,
+         u'cmis:targetId':
+             u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1',
+         u'cmis:lastModifiedBy': None,
+         u'cmis:baseTypeId': u'cmis:relationship',
+         u'cmis:sourceId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:changeToken': None,
+         u'cmis:createdBy': None}
 
         """
 
@@ -232,7 +246,19 @@ class CmisObject(object):
         1
         >>> rel = rels.getResults().values()[0]
         >>> rel.getProperties()
-        {u'cmis:objectId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:creationDate': None, u'cmis:objectTypeId': u'R:cmiscustom:assoc', u'cmis:lastModificationDate': None, u'cmis:targetId': u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1', u'cmis:lastModifiedBy': None, u'cmis:baseTypeId': u'cmis:relationship', u'cmis:sourceId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:changeToken': None, u'cmis:createdBy': None}
+        {u'cmis:objectId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:creationDate': None,
+         u'cmis:objectTypeId': u'R:cmiscustom:assoc',
+         u'cmis:lastModificationDate': None,
+         u'cmis:targetId':
+             u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1',
+         u'cmis:lastModifiedBy': None,
+         u'cmis:baseTypeId': u'cmis:relationship',
+         u'cmis:sourceId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:changeToken': None,
+         u'cmis:createdBy': None}
 
         The following optional arguments are supported:
          - includeSubRelationshipTypes
@@ -269,7 +295,9 @@ class CmisObject(object):
 
         >>> acl = folder.getACL()
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x10071a8d0>, 'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x10071a590>}
+        {u'GROUP_EVERYONE':
+             <cmislib.atompub.binding.AtomPubACE object at 0x10071a8d0>,
+         'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x10071a590>}
 
         The optional onlyBasicPermissions argument is currently not supported.
         """
@@ -286,7 +314,9 @@ class CmisObject(object):
         >>> acl = folder.getACL()
         >>> acl.addEntry(ACE('jdoe', 'cmis:write', 'true'))
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x10071a8d0>, 'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x10071a590>}
+        {u'GROUP_EVERYONE':
+             <cmislib.atompub.binding.AtomPubACE object at 0x10071a8d0>,
+         'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x10071a590>}
         """
 
         pass
@@ -398,7 +428,8 @@ class Repository(object):
         cmisVersionSupported:1.0
         repositoryDescription:None
         productVersion:3.2.0 (r2 2440)
-        rootFolderId:workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348
+        rootFolderId:
+            workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348
         repositoryId:83beb297-a6fa-4ac5-844b-98c871c0eea9
         repositoryName:Main Repository
         vendorName:Alfresco
@@ -429,8 +460,10 @@ class Repository(object):
         values are:
 
          - basic: indicates that the CMIS Basic permissions are supported
-         - repository: indicates that repository specific permissions are supported
-         - both: indicates that both CMIS basic permissions and repository specific permissions are supported
+         - repository: indicates that repository specific permissions are
+                       supported
+         - both: indicates that both CMIS basic permissions and repository
+                 specific permissions are supported
 
         >>> repo.supportedPermissions
         u'both'
@@ -551,7 +584,8 @@ class Repository(object):
         """
         Returns a :class:`Folder` object for a specified folderId
 
-        >>> someFolder = repo.getFolder('workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348')
+        >>> someFolder = repo.getFolder(
+        ...    'workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348')
         >>> someFolder.getObjectId()
         u'workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348'
         """
@@ -727,7 +761,8 @@ class Repository(object):
         """
         Returns an object given the specified object ID.
 
-        >>> doc = repo.getObject('workspace://SpacesStore/f0c8b90f-bec0-4405-8b9c-2ab570589808')
+        >>> doc = repo.getObject(
+        ...    'workspace://SpacesStore/f0c8b90f-bec0-4405-8b9c-2ab570589808')
         >>> doc.getTitle()
         u'sample-b.pdf'
 
@@ -852,7 +887,9 @@ class Repository(object):
         This method is essentially a convenience method that wraps your string
         with a StringIO and then calls createDocument.
 
-        >>> repo.createDocumentFromString('testdoc5', parentFolder=testFolder, contentString='Hello, World!', contentType='text/plain')
+        >>> repo.createDocumentFromString(
+        ...    'testdoc5', parentFolder=testFolder,
+        ...    contentString='Hello, World!', contentType='text/plain')
         <cmislib.atompub.binding.AtomPubDocument object at 0x101352ed0>
         """
 
@@ -1441,7 +1478,9 @@ class Folder(CmisObject):
         This method is essentially a convenience method that wraps your string
         with a StringIO and then calls createDocument.
 
-        >>> testFolder.createDocumentFromString('testdoc3', contentString='hello, world', contentType='text/plain')
+        >>> testFolder.createDocumentFromString(
+        ...    'testdoc3', contentString='hello, world',
+        ...    contentType='text/plain')
         """
 
         pass
@@ -1671,8 +1710,8 @@ class Relationship(CmisObject):
     def getSource(self):
 
         """
-        Returns an instance of the appropriate child-type of :class:`CmisObject`
-        for the source side of the relationship.
+        Returns an instance of the appropriate child-type of
+        :class:`CmisObject` for the source side of the relationship.
         """
 
         pass
@@ -1680,8 +1719,8 @@ class Relationship(CmisObject):
     def getTarget(self):
 
         """
-        Returns an instance of the appropriate child-type of :class:`CmisObject`
-        for the target side of the relationship.
+        Returns an instance of the appropriate child-type of
+        :class:`CmisObject` for the target side of the relationship.
         """
 
         pass
@@ -1928,7 +1967,11 @@ class ACL(object):
         >>> acl.addEntry('jpotts', 'cmis:read', 'true')
         >>> acl.addEntry('jsmith', 'cmis:write', 'true')
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x100731410>, u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>, 'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>, 'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x1005a2210>}
+        {u'GROUP_EVERYONE':
+             <cmislib.atompub.binding.AtomPubACE object at 0x100731410>,
+         u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>,
+         'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>,
+         'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x1005a2210>}
         """
 
         pass
@@ -1939,10 +1982,17 @@ class ACL(object):
         Removes the :class:`ACE` entry given a specific principalId.
 
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x100731410>, u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>, 'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>, 'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x1005a2210>}
+        {u'GROUP_EVERYONE':
+             <cmislib.atompub.binding.AtomPubACE object at 0x100731410>,
+         u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>,
+         'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>,
+         'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x1005a2210>}
         >>> acl.removeEntry('jsmith')
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.atompub.binding.AtomPubACE object at 0x100731410>, u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>, 'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>}
+        {u'GROUP_EVERYONE':
+            <cmislib.atompub.binding.AtomPubACE object at 0x100731410>,
+         u'jdoe': <cmislib.atompub.binding.AtomPubACE object at 0x100731150>,
+         'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1005a22d0>}
         """
 
         pass
@@ -1957,7 +2007,8 @@ class ACL(object):
         >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
         >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
         >>> acl.entries
-        {'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1012c7310>, 'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x100528490>}
+        {'jpotts': <cmislib.atompub.binding.AtomPubACE object at 0x1012c7310>,
+         'jsmith': <cmislib.atompub.binding.AtomPubACE object at 0x100528490>}
         >>> acl.getXmlDoc()
         <xml.dom.minidom.Document instance at 0x1012cbb90>
         >>> acl.clearEntries()
@@ -1977,7 +2028,8 @@ class ACL(object):
         >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
         >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
         >>> for ace in acl.entries.values():
-        ...     print 'principal:%s has the following permissions...' % ace.principalId
+        ...     print 'principal:%s has the following '\
+        ...        'permissions...' % ace.principalId
         ...     for perm in ace.permissions:
         ...             print perm
         ...
@@ -2031,7 +2083,7 @@ class ACE(object):
             isinstance(other, self.__class__) and
             self.principalId == other.principalId and
             self.direct == other.direct and
-            not(set(self.permissions) ^ set(other.permissions))):
+                not(set(self.permissions) ^ set(other.permissions))):
             return True
         return False
 

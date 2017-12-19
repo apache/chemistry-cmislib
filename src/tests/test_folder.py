@@ -70,7 +70,8 @@ class TestFolder:
         assert isInResultSet(resultSet, grandChild)
 
         # test getting descendants with depth=-1
-        resultSet = self._testFolder.getDescendants()  # -1 is the default depth
+        # -1 is the default depth
+        resultSet = self._testFolder.getDescendants()
         assert resultSet is not None
         assert 3 == len(resultSet.getResults())
         assert isInResultSet(resultSet, childFolder1)
@@ -159,16 +160,18 @@ class TestFolder:
         # should be filtered if the server chooses to do so.
 
         # test when used with getObjectByPath
-        searchFolder = self._repo.getObjectByPath(subFolderPath,
-                        filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
+        searchFolder = self._repo.getObjectByPath(
+            subFolderPath,
+            filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         assert subFolder.getObjectId() == searchFolder.getObjectId()
         assert 'cmis:objectId' in searchFolder.getProperties()
         assert 'cmis:objectTypeId' in searchFolder.getProperties()
         assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test when used with getObjectByPath + reload
-        searchFolder = self._repo.getObjectByPath(subFolderPath,
-                        filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
+        searchFolder = self._repo.getObjectByPath(
+            subFolderPath,
+            filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         assert subFolder.getObjectId() == searchFolder.getObjectId()
         assert 'cmis:objectId' in searchFolder.getProperties()
@@ -176,16 +179,18 @@ class TestFolder:
         assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test when used with getObject
-        searchFolder = self._repo.getObject(subFolder.getObjectId(),
-                        filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
+        searchFolder = self._repo.getObject(
+            subFolder.getObjectId(),
+            filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         assert subFolder.getObjectId() == searchFolder.getObjectId()
         assert 'cmis:objectId' in searchFolder.getProperties()
         assert 'cmis:objectTypeId' in searchFolder.getProperties()
         assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test when used with getObject + reload
-        searchFolder = self._repo.getObject(subFolder.getObjectId(),
-                        filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
+        searchFolder = self._repo.getObject(
+            subFolder.getObjectId(),
+            filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         assert subFolder.getObjectId() == searchFolder.getObjectId()
         assert 'cmis:objectId' in searchFolder.getProperties()
@@ -231,8 +236,7 @@ class TestFolder:
     def testAddObject(self):
         """Add an existing object to another folder"""
         if not self._repo.getCapabilities()['Multifiling']:
-            print('This repository does not allow multifiling, skipping')
-            return
+            pytest.skip('This repository does not allow multifiling, skipping')
 
         subFolder1 = self._testFolder.createFolder('sub1')
         doc = subFolder1.createDocument('testdoc1')
@@ -241,13 +245,14 @@ class TestFolder:
         assert len(subFolder2.getChildren()) == 0
         subFolder2.addObject(doc)
         assert len(subFolder2.getChildren()) == 1
-        assert subFolder1.getChildren()[0].name == subFolder2.getChildren()[0].name
+        assert (
+            subFolder1.getChildren()[0].name ==
+            subFolder2.getChildren()[0].name)
 
     def testRemoveObject(self):
         """Remove an existing object from a secondary folder"""
         if not self._repo.getCapabilities()['Unfiling']:
-            print('This repository does not allow unfiling, skipping')
-            return
+            pytest.skip('This repository does not allow unfiling, skipping')
 
         subFolder1 = self._testFolder.createFolder('sub1')
         doc = subFolder1.createDocument('testdoc1')
@@ -256,7 +261,9 @@ class TestFolder:
         assert len(subFolder2.getChildren()) == 0
         subFolder2.addObject(doc)
         assert len(subFolder2.getChildren()) == 1
-        assert subFolder1.getChildren()[0].name == subFolder2.getChildren()[0].name
+        assert (
+            subFolder1.getChildren()[0].name ==
+            subFolder2.getChildren()[0].name)
         subFolder2.removeObject(doc)
         assert len(subFolder2.getChildren()) == 0
         assert len(subFolder1.getChildren()) == 1
@@ -278,7 +285,8 @@ class TestFolder:
     def testBadParentFolder(self):
         """Try to create a folder on a bad/bogus/deleted parent
         folder object"""
-        firstFolder = self._testFolder.createFolder('testBadParentFolder folder')
+        firstFolder = self._testFolder.createFolder(
+            'testBadParentFolder folder')
         assert 'cmis:objectId' in firstFolder.getProperties()
         firstFolder.delete()
         # folder isn't in the repo anymore, but I still have the object

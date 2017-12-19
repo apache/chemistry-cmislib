@@ -32,7 +32,7 @@ class TestBrowserACL(unittest.TestCase):
 
     def setUp(self):
         self.aceUser1 = BrowserACE(
-            principalId='user1',permissions='cmis:read', direct=True)
+            principalId='user1', permissions='cmis:read', direct=True)
         self.aceUser2 = BrowserACE(
             principalId='user2', permissions=['cmis:read', 'cmis:write'],
             direct=False)
@@ -83,7 +83,7 @@ class TestBrowserACL(unittest.TestCase):
             BrowserACE('user3', ['cmis:all', 'cmis:write'], True)
         # add a new entry for an exising principal
         self.acl.addEntry(
-            self.aceUser1.principalId, ['cmis:read','cmis:write'])
+            self.aceUser1.principalId, ['cmis:read', 'cmis:write'])
         addedAces = self.acl.getAddedAces()
         assert len(addedAces) == 2
         toCheck = None

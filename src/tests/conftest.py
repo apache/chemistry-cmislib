@@ -94,7 +94,7 @@ def cmis_conf(request):
     request.cls.max_full_text_tries = MAX_FULL_TEXT_TRIES
     for field in param._fields:
         setattr(request.cls, field, getattr(param, field))
-    request.cls.fixture_id =  '{name}-{binding}'.format(
+    request.cls.fixture_id = '{name}-{binding}'.format(
         name=param.env_name,
         binding=param.binding.__class__.__name__
     )

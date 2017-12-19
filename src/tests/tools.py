@@ -69,5 +69,6 @@ def skipIf(fixtureIds):
 def skipIfAlfrescoBrowserBinding(func):
     return skipIf(['alfresco-BrowserBinding'])(func)
 
+
 def skipIfAlfrescoPubBinding(func):
     return skipIf(['alfresco-AtomPubBinding'])(func)
