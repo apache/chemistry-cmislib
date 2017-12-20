@@ -252,7 +252,7 @@ class RepositoryService(RepositoryServiceIfc):
         for workspaceElement in workspaceElements:
             idElement = workspaceElement.getElementsByTagNameNS(CMIS_NS, 'repositoryId')
             if idElement[0].childNodes[0].data == repositoryId:
-                return AtomPubRepository(self, workspaceElement)
+                return AtomPubRepository(client, workspaceElement)
 
         raise ObjectNotFoundException(url=client.repositoryUrl)
 
