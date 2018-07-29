@@ -30,13 +30,38 @@ from cmislib.domain import CmisId
 if sys.version_info >= (3,):
     from urllib.parse import urlencode, quote
 
+    text_type = str
+
+    def to_native(source, encoding='utf-8', falsy_empty=False):
+        if not source and falsy_empty:
+            return ''
+
+        if isinstance(source, bytes):
+            return source.decode(encoding)
+
+        return str(source)
+
     def itervalues(d):
         return iter(d.values())
 
     def iteritems(d):
         return iter(d.items())
+
+    def is_unicode(value):
+        return type(value) == str
 else:
     from urllib import urlencode, quote
+
+    text_type = unicode
+
+    def to_native(source, encoding='utf-8', falsy_empty=False):
+        if not source and falsy_empty:
+            return ''
+
+        if isinstance(source, text_type):
+            return source.encode(encoding)
+
+        return str(source)
 
     def itervalues(d):
         return d.itervalues()
@@ -44,6 +69,8 @@ else:
     def iteritems(d):
         return d.iteritems()
 
+    def is_unicode(value):
+        return isinstance(value, unicode)
 
 moduleLogger = logging.getLogger('cmislib.util')
 
@@ -52,7 +79,7 @@ def to_utf8(value):
 
     """ Safe encodng of value to utf-8 taking care of unicode values
     """
-    if isinstance(value, unicode):
+    if is_unicode(value):
         value = value.encode('utf8')
     return value
 
@@ -179,7 +206,7 @@ def parseDateTimeValue(value):
     """
     Utility function to return a datetime from a string.
     """
-    if type(value) == str or type(value) == unicode:
+    if type(value) == str or is_unicode(value):
         return iso8601.parse_date(value)
     elif type(value) == int:
         return datetime.datetime.fromtimestamp(value / 1000)

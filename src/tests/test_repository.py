@@ -21,6 +21,7 @@ import pytest
 
 from cmislib.exceptions import \
     ObjectNotFoundException
+from cmislib import util
 
 
 @pytest.mark.usefixtures('cmis_env', 'binary_files')
@@ -86,7 +87,8 @@ class TestRepository:
                                            contentString=contentString,
                                            contentType='text/plain')
         assert documentName == newDoc.getName()
-        assert newDoc.getContentStream().read() == contentString
+        assert util.to_native(
+            newDoc.getContentStream().read()) == contentString
 
     # CMIS-279
     def testCreateDocumentUnicode(self):

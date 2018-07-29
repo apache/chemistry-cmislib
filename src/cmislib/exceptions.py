@@ -29,10 +29,12 @@ class CmisException(Exception):
     Common base class for all exceptions.
     """
 
-    def __init__(self, status=None, url=None):
-        Exception.__init__(self, "Error %s at %s" % (status, url))
+    def __init__(self, status=None, url=None, details=None):
+        Exception.__init__(
+            self, "Error %s at %s \n %s" % (status, url, details))
         self.status = status
         self.url = url
+        self.details = details
 
 
 class InvalidArgumentException(CmisException):

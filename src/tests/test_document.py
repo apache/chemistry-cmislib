@@ -28,7 +28,7 @@ from cmislib.exceptions import \
     NotSupportedException
 from .tools import skipIfAlfrescoPubBinding
 from .tools import skipIfAlfrescoBrowserBinding
-
+from cmislib import util
 
 @pytest.mark.usefixtures('cmis_env', 'binary_files')
 class TestDocument:
@@ -470,7 +470,7 @@ class TestDocument:
         newDoc = self._testFolder.createDocumentFromString(documentName,
             contentString=contentString, contentType='text/plain')
         assert documentName == newDoc.getName()
-        assert newDoc.getContentStream().read() == contentString
+        assert util.to_native(newDoc.getContentStream().read()) == contentString
 
     def testCreateDocumentPlain(self):
         """Create a plain document using a file from the file system"""
@@ -480,7 +480,7 @@ class TestDocument:
             testFile.write('This is a sample text file line 2.\n')
             testFile.write('This is a sample text file line 3.\n')
 
-        with open(testFilename, 'r') as contentFile:
+        with open(testFilename, 'rb') as contentFile:
             newDoc = self._testFolder.createDocument(
                 testFilename, contentFile=contentFile)
         assert testFilename == newDoc.getName()
@@ -489,7 +489,7 @@ class TestDocument:
         # file we sent
         result = newDoc.getContentStream()
         exportFilename = testFilename.replace('txt', 'export.txt')
-        with closing(result), open(exportFilename, 'w') as outfile:
+        with closing(result), open(exportFilename, 'wb') as outfile:
             outfile.write(result.read())
         assert os.path.getsize(testFilename) == \
                           os.path.getsize(exportFilename)

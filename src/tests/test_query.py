@@ -67,6 +67,15 @@ class TestQuery:
         resultSet = self._repo.query(querySimpleSelect)
         assert isInResultSet(resultSet, self._testContent2)
 
+    def testPropertyWithAccent(self):
+        """Find content matching cmis:name property"""
+        name = self._testContent2.getProperties()['cmis:name']
+        new_name = u'éà€ô' + name
+        self._testContent2.updateProperties({'cmis:name': name})
+        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name = '" + name + "'"
+        resultSet = self._repo.query(querySimpleSelect)
+        assert isInResultSet(resultSet, self._testContent2)
+
     @skipIfAlfrescoBrowserBinding
     def testFullText(self):
         """Find content using a full-text query"""

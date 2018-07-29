@@ -19,7 +19,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.6.0'
+version = '0.7.0.dev1'
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -30,7 +30,8 @@ setup(
     version = version,
     install_requires = [
         'iso8601',
-        'httplib2'
+        'requests',
+        'requests-toolbelt',
         ],
     author = 'Apache Chemistry Project',
     author_email = 'dev@chemistry.apache.org',
@@ -39,14 +40,17 @@ setup(
     package_dir = {'':'src'},
     packages = find_packages('src', exclude=['tests']),
     #include_package_data = True,
-    exclude_package_data = {'':['tests']},
+    exclude_package_data = {'': ['tests']},
     long_description = read('README.txt'),
     classifiers = [
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
-        "Programming Language :: Python",
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         "Topic :: Software Development :: Libraries",
         ],
 )
