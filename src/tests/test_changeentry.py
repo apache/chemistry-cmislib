@@ -35,7 +35,7 @@ class TestChangeEntry:
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
         if changeCap == None or changeCap == 'none':
-            print messages.NO_CHANGE_LOG_SUPPORT
+            print(messages.NO_CHANGE_LOG_SUPPORT)
             return
 
         # at least one change should have been made due to the creation of the
@@ -54,16 +54,16 @@ class TestChangeEntry:
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
         if changeCap == None or changeCap == 'none':
-            print messages.NO_CHANGE_LOG_SUPPORT
+            print(messages.NO_CHANGE_LOG_SUPPORT)
             return
 
         if changeCap == 'objectidsonly':
-            print messages.NO_CHANGE_OBJECT_SUPPORT
+            print(messages.NO_CHANGE_OBJECT_SUPPORT)
             return
 
         # need to check ACL capability
         if not self._repo.capabilities['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
 
         # need to test once with includeACL set to true
@@ -93,11 +93,11 @@ class TestChangeEntry:
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
         if changeCap == None or changeCap == 'none':
-            print messages.NO_CHANGE_LOG_SUPPORT
+            print(messages.NO_CHANGE_LOG_SUPPORT)
             return
 
         if changeCap == 'objectidsonly':
-            print messages.NO_CHANGE_OBJECT_SUPPORT
+            print(messages.NO_CHANGE_OBJECT_SUPPORT)
             return
 
         # need to test once without includeProperties set. the objectID should be there

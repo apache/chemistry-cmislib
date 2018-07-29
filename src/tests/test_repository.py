@@ -114,18 +114,18 @@ class TestRepository:
                 fileName, contentFile=f, properties=props)
         doc10Id = doc10.getObjectId()
         if not 'canCheckOut' in doc10.allowableActions.keys():
-            print 'The test doc cannot be checked out...skipping'
+            print('The test doc cannot be checked out...skipping')
             return
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
         if not 'canCheckOut' in doc11.allowableActions.keys():
-            print 'The test doc cannot be checked out...skipping'
+            print('The test doc cannot be checked out...skipping')
             return
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
         if not 'canCheckOut' in doc20.allowableActions.keys():
-            print 'The test doc cannot be checked out...skipping'
+            print('The test doc cannot be checked out...skipping')
             return
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
@@ -183,7 +183,7 @@ class TestRepository:
     # def testCreateUnfiledDocument(self):
     #     '''Create a new unfiled document'''
     #     if self._repo.getCapabilities()['Unfiling'] != True:
-    #         print 'Repo does not support unfiling, skipping'
+    #         print ('Repo does not support unfiling, skipping')
     #         return
     #     documentName = 'testDocument'
     #     newDoc = self._repo.createDocument(documentName)

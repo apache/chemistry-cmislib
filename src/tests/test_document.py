@@ -344,7 +344,7 @@ class TestDocument:
     def testSetContentStreamPWCMimeType(self):
         """Check the mimetype after the PWC checkin"""
         if self._repo.getCapabilities()['ContentStreamUpdatability'] == 'none':
-            print 'This repository does not allow content stream updates, skipping'
+            print('This repository does not allow content stream updates, skipping')
             return
 
         testFile1 = self.binary_file_1
@@ -434,7 +434,7 @@ class TestDocument:
             newDoc = self._testFolder.createDocument(
                 fileName, contentFile=f, properties=props)
         if not 'canCheckOut' in newDoc.allowableActions.keys():
-            print 'The test doc cannot be checked out...skipping'
+            print('The test doc cannot be checked out...skipping')
             return
         pwc = newDoc.checkout()
         pwc.deleteContentStream()

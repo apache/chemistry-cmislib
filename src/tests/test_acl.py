@@ -32,14 +32,14 @@ class TestACL:
     def testSupportedPermissions(self):
         """Test the value of supported permissions enum"""
         if not self._repo.getCapabilities()['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
         assert self._repo.getSupportedPermissions() in ['basic', 'repository', 'both']
 
     def testPermissionDefinitions(self):
         """Test the list of permission definitions"""
         if not self._repo.getCapabilities()['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
         supportedPerms = self._repo.getPermissionDefinitions()
         assert 'cmis:write' in supportedPerms
@@ -47,7 +47,7 @@ class TestACL:
     def testPermissionMap(self):
         """Test the permission mapping"""
         if not self._repo.getCapabilities()['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
         permMap = self._repo.getPermissionMap()
         assert 'canGetProperties.Object' in permMap
@@ -56,14 +56,14 @@ class TestACL:
     def testPropagation(self):
         """Test the propagation setting"""
         if not self._repo.getCapabilities()['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
         assert self._repo.getPropagation() in ['objectonly', 'propagate', 'repositorydetermined']
 
     def testGetObjectACL(self):
         """Test getting an object's ACL"""
         if not self._repo.getCapabilities()['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
         acl = self._testFolder.getACL()
         for entry in acl.getEntries().values():
@@ -73,13 +73,13 @@ class TestACL:
     def testApplyACL(self):
         """Test updating an object's ACL"""
         if not self._repo.getCapabilities()['ACL']:
-            print messages.NO_ACL_SUPPORT
+            print(messages.NO_ACL_SUPPORT)
             return
         if not self._repo.getCapabilities()['ACL'] == 'manage':
-            print 'Repository does not support manage ACL'
+            print('Repository does not support manage ACL')
             return
         if not self._repo.getSupportedPermissions() in ['both', 'basic']:
-            print 'Repository needs to support either both or basic permissions for this test'
+            print('Repository needs to support either both or basic permissions for this test')
             return
         acl = self._testFolder.getACL()
         acl.removeEntry(self.acl_principal_id)
