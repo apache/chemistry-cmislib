@@ -29,8 +29,20 @@ from cmislib.domain import CmisId
 
 if sys.version_info >= (3,):
     from urllib.parse import urlencode, quote
+
+    def itervalues(d):
+        return iter(d.values())
+
+    def iteritems(d):
+        return iter(d.items())
 else:
     from urllib import urlencode, quote
+
+    def itervalues(d):
+        return d.itervalues()
+
+    def iteritems(d):
+        return d.iteritems()
 
 
 moduleLogger = logging.getLogger('cmislib.util')
@@ -54,7 +66,7 @@ def safe_urlencode(in_dict):
 
     def encoded_dict(in_dict):
         out_dict = {}
-        for k, v in in_dict.iteritems():
+        for k, v in iteritems(in_dict):
             out_dict[k] = to_utf8(v)
         return out_dict
 
