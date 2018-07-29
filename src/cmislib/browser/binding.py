@@ -21,18 +21,26 @@
 Module containing the browser binding-specific objects used to work with a CMIS
 provider.
 """
-from cmislib.cmis_services import Binding, RepositoryServiceIfc
-from cmislib.domain import CmisId, CmisObject, ObjectType, ACL, ACE, ChangeEntry
-from cmislib.exceptions import CmisException, InvalidArgumentException,\
-                               NotSupportedException, ObjectNotFoundException
-from cmislib.net import RESTService as Rest
-from cmislib.util import parsePropValueByType, parseDateTimeValue, safe_quote,\
-                        safe_urlencode
-from cmislib import messages
 import json
 import logging
-import StringIO
+import sys
 import time
+
+from cmislib import messages
+from cmislib.cmis_services import Binding, RepositoryServiceIfc
+from cmislib.domain import CmisId, CmisObject, ObjectType, ACL, ACE, \
+    ChangeEntry
+from cmislib.exceptions import CmisException, InvalidArgumentException, \
+    NotSupportedException, ObjectNotFoundException
+from cmislib.net import RESTService as Rest
+from cmislib.util import parsePropValueByType, parseDateTimeValue, safe_quote, \
+    safe_urlencode
+
+if sys.version_info >= (3,):
+    import io as StringIO
+else:
+    import StringIO
+
 
 CMIS_FORM_TYPE = 'application/x-www-form-urlencoded;charset=utf-8'
 
@@ -1043,7 +1051,6 @@ class BrowserRepository(object):
             typesUrl += "&typeId=%s" % (safe_quote(typeId))
         if depth is not None:
             typesUrl += "&depth=%s" % (depth)
-        print typesUrl
 
         result = self._cmisClient.binding.get(typesUrl,
                                               self._cmisClient.username,

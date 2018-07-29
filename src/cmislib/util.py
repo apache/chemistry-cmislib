@@ -20,12 +20,18 @@
 """
 This module contains handy utility functions.
 """
+import sys
 import re
 import iso8601
 import logging
 import datetime
 from cmislib.domain import CmisId
-from urllib import urlencode, quote
+
+if sys.version_info >= (3,):
+    from urllib.parse import urlencode, quote
+else:
+    from urllib import urlencode, quote
+
 
 moduleLogger = logging.getLogger('cmislib.util')
 

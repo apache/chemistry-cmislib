@@ -22,23 +22,30 @@ Module containing the Atom Pub binding-specific objects used to work with a CMIS
 provider.
 """
 import sys
+import datetime
+import logging
+import mimetypes
+import re
+from xml.dom import minidom
+from xml.parsers.expat import ExpatError
 
 from cmislib import messages
-from cmislib.net import RESTService as Rest
+from cmislib.cmis_services import Binding, RepositoryServiceIfc
+from cmislib.domain import CmisId, CmisObject, ObjectType, Property, ACL, ACE, \
+    ChangeEntry, ResultSet, Rendition
 from cmislib.exceptions import CmisException, \
     ObjectNotFoundException, InvalidArgumentException, \
     NotSupportedException
-from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, toCMISValue, parseDateTimeValue, safe_quote
+from cmislib.net import RESTService as Rest
+from cmislib.util import multiple_replace, parsePropValue, parseBoolValue, \
+    toCMISValue, parseDateTimeValue, safe_quote
 
-from urllib import quote
-from urlparse import urlparse, urlunparse
-import re
-import mimetypes
-from xml.parsers.expat import ExpatError
-import datetime
-import StringIO
-import logging
-from xml.dom import minidom
+if sys.version_info >= (3,):
+    from urllib.parse import urlparse, urlunparse
+    import io as StringIO
+else:
+    from urlparse import urlparse, urlunparse
+    import StringIO
 
 moduleLogger = logging.getLogger('cmislib.atompub.binding')
 
