@@ -1,0 +1,31 @@
+version: '2'
+services:
+   alfresco:
+       image: "pdubois/docker-alfresco:master"
+       ports:
+        - "8443"
+       environment:
+        - INITIAL_PASS=admun
+        - CONTAINER_FUNCTION=tomcat
+        - ALF_1=db.url.EQ.jdbc:postgresql:\/\/postgres:5432\/alfresco
+        - ALF_2=db.password.EQ.mysecretpassword  
+        - ALF_3=db.username.EQ.postgres
+        - ALF_4=index.subsystem.name.EQ.solr6
+        - ALF_5=solr.secureComms.EQ.none
+        - ALF_6=solr.host.EQ.solr6
+        - ALF_7=solr.port.EQ.8983
+        - ALF_8=solr.port.ssl.EQ.8443
+        - DB_CONTAINER_NAME=postgres
+       depends_on:
+        - postgres
+        - solr6
+   postgres:
+       image: postgres:9.4.4
+       environment:
+        - POSTGRES_PASSWORD=mysecretpassword
+   solr6: 
+       image: pdubois/solr6:latest
+       environment:
+        - ALFRESCO_HOST=alfresco
+        - XMS=2048
+        - XMX=2048
