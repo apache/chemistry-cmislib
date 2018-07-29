@@ -21,8 +21,8 @@
 Module containing the Atom Pub binding-specific objects used to work with a CMIS
 provider.
 """
-from cmislib.cmis_services import Binding, RepositoryServiceIfc
-from cmislib.domain import CmisId, CmisObject, ObjectType, Property, ACL, ACE, ChangeEntry, ResultSet, Rendition
+import sys
+
 from cmislib import messages
 from cmislib.net import RESTService as Rest
 from cmislib.exceptions import CmisException, \
@@ -84,6 +84,13 @@ TYPES_COLL = 'types'
 CHECKED_OUT_COLL = 'checkedout'
 UNFILED_COLL = 'unfiled'
 ROOT_COLL = 'root'
+
+
+def node_has_attibute(node, key):
+    if sys.version_info.major == 2:
+        return node.attributes.has_key(key)
+    else:
+        return key in node.attributes
 
 
 class AtomPubBinding(Binding):
@@ -483,7 +490,7 @@ class AtomPubCmisObject(CmisObject):
         renditions = []
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel'):
+            if node_has_attibute(linkElement, 'rel'):
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == RENDITION_REL:
@@ -898,16 +905,16 @@ class AtomPubCmisObject(CmisObject):
         for linkElement in linkElements:
 
             if ltype:
-                if linkElement.attributes.has_key('rel'):
+                if node_has_attibute(linkElement, 'rel'):
                     relAttr = linkElement.attributes['rel'].value
 
-                    if ltype and linkElement.attributes.has_key('type'):
+                    if ltype and node_has_attibute(linkElement, 'type'):
                         typeAttr = linkElement.attributes['type'].value
 
                         if relAttr == rel and ltype.match(typeAttr):
                             return linkElement.attributes['href'].value
             else:
-                if linkElement.attributes.has_key('rel'):
+                if node_has_attibute(linkElement, 'rel'):
                     relAttr = linkElement.attributes['rel'].value
 
                     if relAttr == rel:
@@ -1447,7 +1454,7 @@ class AtomPubRepository(object):
 
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel'):
+            if node_has_attibute(linkElement, 'rel'):
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == rel:
@@ -2047,7 +2054,7 @@ class AtomPubResultSet(ResultSet):
 
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel'):
+            if node_has_attibute(linkElement, 'rel'):
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == rel:
@@ -2528,7 +2535,7 @@ class AtomPubDocument(AtomPubCmisObject):
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
-        if contentElements[0].attributes.has_key('src'):
+        if node_has_attibute(contentElements[0], 'src'):
             srcUrl = contentElements[0].attributes['src'].value
 
             # the cmis client class parses non-error responses
@@ -2559,7 +2566,7 @@ class AtomPubDocument(AtomPubCmisObject):
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
-        if contentElements[0].attributes.has_key('src'):
+        if node_has_attibute(contentElements[0], 'src'):
             srcUrl = contentElements[0].attributes['src'].value
 
         # there may be times when this URL is absent, but I'm not sure how to
@@ -2606,7 +2613,7 @@ class AtomPubDocument(AtomPubCmisObject):
         assert(len(contentElements) == 1), 'Expected to find exactly one atom:content element.'
 
         # if the src element exists, follow that
-        if contentElements[0].attributes.has_key('src'):
+        if node_has_attibute(contentElements[0], 'src'):
             srcUrl = contentElements[0].attributes['src'].value
 
         # there may be times when this URL is absent, but I'm not sure how to
@@ -3246,7 +3253,7 @@ class AtomPubObjectType(ObjectType):
 
         for linkElement in linkElements:
 
-            if linkElement.attributes.has_key('rel') and linkElement.attributes.has_key('type'):
+            if node_has_attibute(linkElement, 'rel') and node_has_attibute(linkElement, 'type'):
                 relAttr = linkElement.attributes['rel'].value
                 typeAttr = linkElement.attributes['type'].value
 
@@ -3786,7 +3793,7 @@ class AtomPubChangeEntry(ChangeEntry):
         linkElements = self._xmlDoc.getElementsByTagNameNS(ATOM_NS, 'link')
 
         for linkElement in linkElements:
-            if linkElement.attributes.has_key('rel'):
+            if node_has_attibute(linkElement, 'rel'):
                 relAttr = linkElement.attributes['rel'].value
 
                 if relAttr == rel:
@@ -3870,22 +3877,22 @@ class AtomPubRendition(Rendition):
 
     def getStreamId(self):
         """Getter for the rendition's stream ID"""
-        if self.xmlDoc.attributes.has_key('streamId'):
+        if node_has_attibute(self.xmlDoc, 'streamId'):
             return self.xmlDoc.attributes['streamId'].value
 
     def getMimeType(self):
         """Getter for the rendition's mime type"""
-        if self.xmlDoc.attributes.has_key('type'):
+        if node_has_attibute(self.xmlDoc, 'type'):
             return self.xmlDoc.attributes['type'].value
 
     def getLength(self):
         """Getter for the renditions's length"""
-        if self.xmlDoc.attributes.has_key('length'):
+        if node_has_attibute(self.xmlDoc, 'length'):
             return self.xmlDoc.attributes['length'].value
 
     def getTitle(self):
         """Getter for the renditions's title"""
-        if self.xmlDoc.attributes.has_key('title'):
+        if node_has_attibute(self.xmlDoc, 'title'):
             return self.xmlDoc.attributes['title'].value
 
     def getKind(self):
@@ -3895,22 +3902,22 @@ class AtomPubRendition(Rendition):
 
     def getHeight(self):
         """Getter for the renditions's height"""
-        if self.xmlDoc.attributes.has_key('height'):
+        if node_has_attibute(self.xmlDoc, 'height'):
             return self.xmlDoc.attributes['height'].value
 
     def getWidth(self):
         """Getter for the renditions's width"""
-        if self.xmlDoc.attributes.has_key('width'):
+        if node_has_attibute(self.xmlDoc, 'width'):
             return self.xmlDoc.attributes['width'].value
 
     def getHref(self):
         """Getter for the renditions's href"""
-        if self.xmlDoc.attributes.has_key('href'):
+        if node_has_attibute(self.xmlDoc, 'href'):
             return self.xmlDoc.attributes['href'].value
 
     def getRenditionDocumentId(self):
         """Getter for the renditions's width"""
-        if self.xmlDoc.attributes.has_key('renditionDocumentId'):
+        if node_has_attibute(self.xmlDoc, 'renditionDocumentId'):
             return self.xmlDoc.attributes['renditionDocumentId'].value
 
     streamId = property(getStreamId)
