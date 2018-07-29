@@ -34,9 +34,8 @@ class TestChangeEntry:
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if changeCap == None or changeCap == 'none':
-            print(messages.NO_CHANGE_LOG_SUPPORT)
-            return
+        if changeCap is None or changeCap == 'none':
+            pytest.skip(messages.NO_CHANGE_LOG_SUPPORT)
 
         # at least one change should have been made due to the creation of the
         # test documents
@@ -44,7 +43,8 @@ class TestChangeEntry:
         assert len(rs) > 0
         changeEntry = rs[0]
         assert changeEntry.objectId
-        assert changeEntry.changeType in ['created', 'updated', 'deleted', 'security']
+        assert changeEntry.changeType in [
+            'created', 'updated', 'deleted', 'security']
         assert changeEntry.changeTime
 
     def testGetACL(self):
@@ -53,18 +53,15 @@ class TestChangeEntry:
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if changeCap == None or changeCap == 'none':
-            print(messages.NO_CHANGE_LOG_SUPPORT)
-            return
+        if changeCap is None or changeCap == 'none':
+            pytest.skip(messages.NO_CHANGE_LOG_SUPPORT)
 
         if changeCap == 'objectidsonly':
-            print(messages.NO_CHANGE_OBJECT_SUPPORT)
-            return
+            pytest.skip(messages.NO_CHANGE_OBJECT_SUPPORT)
 
         # need to check ACL capability
         if not self._repo.capabilities['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
+            pytest.skip(messages.NO_ACL_SUPPORT)
 
         # need to test once with includeACL set to true
         rs = self._repo.getContentChanges(includeACL='true')
@@ -92,21 +89,21 @@ class TestChangeEntry:
 
         # need to check changes capability
         changeCap = self._repo.capabilities['Changes']
-        if changeCap == None or changeCap == 'none':
-            print(messages.NO_CHANGE_LOG_SUPPORT)
-            return
+        if changeCap is None or changeCap == 'none':
+            pytest.skip(messages.NO_CHANGE_LOG_SUPPORT)
 
         if changeCap == 'objectidsonly':
-            print(messages.NO_CHANGE_OBJECT_SUPPORT)
-            return
+            pytest.skip(messages.NO_CHANGE_OBJECT_SUPPORT)
 
-        # need to test once without includeProperties set. the objectID should be there
+        # need to test once without includeProperties set. the objectID
+        # should be there
         rs = self._repo.getContentChanges()
         assert len(rs) > 0
         changeEntry = rs[0]
         assert changeEntry.properties['cmis:objectId']
 
-        # need to test once with includeProperties set. the objectID should be there plus object props
+        # need to test once with includeProperties set. the objectID
+        # should be there plus object props
         if changeCap in ['properties', 'all']:
             rs = self._repo.getContentChanges(includeProperties='true')
             assert len(rs) > 0

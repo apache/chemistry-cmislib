@@ -28,7 +28,6 @@ from cmislib.exceptions import CmisException, RuntimeException, \
 
 
 class Binding(object):
-
     """
     Represents the binding used to communicate with the CMIS server.
     """
@@ -130,7 +129,6 @@ class Binding(object):
         headers['Content-Type'] = contentType
         return session.put(url, data=payload, params=kwargs, headers=headers)
 
-
     def _processCommonErrors(self, response):
 
         """
@@ -159,13 +157,11 @@ class Binding(object):
 
 
 class RepositoryServiceIfc(object):
-
     """
     Defines the interface for the repository service.
     """
 
     def getRepositories(self, client):
-
         """
         Returns a list of repositories for this server.
         """
@@ -173,7 +169,6 @@ class RepositoryServiceIfc(object):
         pass
 
     def getRepositoryInfo(self):
-
         """
         Returns the repository information for this server.
         """

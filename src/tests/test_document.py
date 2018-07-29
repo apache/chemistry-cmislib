@@ -30,6 +30,7 @@ from .tools import skipIfAlfrescoPubBinding
 from .tools import skipIfAlfrescoBrowserBinding
 from cmislib import util
 
+
 @pytest.mark.usefixtures('cmis_env', 'binary_files')
 class TestDocument:
 
@@ -40,7 +41,7 @@ class TestDocument:
         props = {'cmis:objectTypeId': self.versionable_type_id}
         newDoc = self._testFolder.createDocument(
             'testDocument', properties=props)
-        if not 'canCheckOut' in newDoc.allowableActions.keys():
+        if 'canCheckOut' not in newDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwcDoc = newDoc.checkout()
         try:
@@ -50,13 +51,13 @@ class TestDocument:
         finally:
             pwcDoc.delete()
 
-    #CMIS-743
+    # CMIS-743
     def testCheckoutAfterFetchByID(self):
         """Create a test doc, fetch it by ID, then check it out"""
         props = {'cmis:objectTypeId': self.versionable_type_id}
         newDoc = self._testFolder.createDocument(
             'testDocument', properties=props)
-        if not 'canCheckOut' in newDoc.allowableActions.keys():
+        if 'canCheckOut' not in newDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         newDocIdStr = str(newDoc.id)
         newDoc = self._repo.getObject(newDocIdStr)
@@ -77,7 +78,7 @@ class TestDocument:
             testDoc = self._testFolder.createDocument(
                 testFilename, contentFile=f, properties=props)
         assert testFilename == testDoc.getName()
-        if not 'canCheckOut' in testDoc.allowableActions.keys():
+        if 'canCheckOut' not in testDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwcDoc = testDoc.checkout()
 
@@ -99,15 +100,15 @@ class TestDocument:
             testDoc = self._testFolder.createDocument(
                 testFilename, contentFile=f, properties=props)
         assert testFilename == testDoc.getName()
-        if not 'canCheckOut' in testDoc.allowableActions.keys():
+        if 'canCheckOut' not in testDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwcDoc = testDoc.checkout()
         try:
             assert testDoc.isCheckedOut()
             testDoc = pwcDoc.checkin(checkinComment='Just a few changes')
             assert not testDoc.isCheckedOut()
-            assert 'Just a few changes' == \
-                          testDoc.getProperties()['cmis:checkinComment']
+            assert ('Just a few changes' ==
+                    testDoc.getProperties()['cmis:checkinComment'])
         finally:
             if testDoc.isCheckedOut():
                 pwcDoc.delete()
@@ -121,7 +122,7 @@ class TestDocument:
             testDoc = self._testFolder.createDocument(
                 testFilename, contentFile=f, properties=props)
         assert testFilename == testDoc.getName()
-        if not 'canCheckOut' in testDoc.allowableActions.keys():
+        if 'canCheckOut' not in testDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwcDoc = testDoc.checkout()
         try:
@@ -157,7 +158,7 @@ class TestDocument:
         """Create a document in a test folder, check it out, call getPWC,
         then checkin
         """
-        if not self._repo.getCapabilities()['PWCUpdatable'] == True:
+        if not self._repo.getCapabilities()['PWCUpdatable']:
             pytest.skip('Repository does not support PWCUpdatable, skipping')
         testFilename = self.binary_filename_1
         props = {'cmis:objectTypeId': self.versionable_type_id}
@@ -167,7 +168,7 @@ class TestDocument:
         assert testFilename == testDoc.getName()
         # Alfresco has a bug where if you get the PWC this way
         # the checkin will not be successful
-        if not 'canCheckOut' in testDoc.allowableActions.keys():
+        if 'canCheckOut' not in testDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         testDoc.checkout()
         pwcDoc = testDoc.getPrivateWorkingCopy()
@@ -187,7 +188,7 @@ class TestDocument:
         props = {'cmis:objectTypeId': self.versionable_type_id}
         newDoc = self._testFolder.createDocument(
             'testDocument', properties=props)
-        if not 'canCheckOut' in newDoc.allowableActions.keys():
+        if 'canCheckOut' not in newDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwcDoc = newDoc.checkout()
         try:
@@ -214,16 +215,16 @@ class TestDocument:
         with open(self.binary_file_1, 'rb') as f:
             doc10 = self._testFolder.createDocument(
                 fileName, contentFile=f, properties=props)
-        if not 'canCheckOut' in doc10.allowableActions.keys():
+        if 'canCheckOut' not in doc10.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
-        if not 'canCheckOut' in doc11.allowableActions.keys():
+        if 'canCheckOut' not in doc11.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
-        if not 'canCheckOut' in doc20.allowableActions.keys():
+        if 'canCheckOut' not in doc20.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
@@ -242,18 +243,18 @@ class TestDocument:
         with open(self.binary_file_1, 'rb') as f:
             doc10 = self._testFolder.createDocument(
                 fileName, contentFile=f, properties=props)
-        if not 'canCheckOut' in doc10.allowableActions.keys():
+        if 'canCheckOut' not in doc10.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
-        if not 'canCheckOut' in doc11.allowableActions.keys():
+        if 'canCheckOut' not in doc11.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         # what comes back from a checkin may not include all props, so reload
         doc20.reload()
         doc20Label = doc20.getProperties()['cmis:versionLabel']
-        if not 'canCheckOut' in doc20.allowableActions.keys():
+        if 'canCheckOut' not in doc20.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
@@ -318,7 +319,7 @@ class TestDocument:
         assert testFile1Size == os.path.getsize(exportFile1)
 
         # checkout the file
-        if newDoc.allowableActions.get('canCheckOut') == True:
+        if newDoc.allowableActions.get('canCheckOut'):
             pass
         else:
             pytest.skip('The test doc cannot be checked out...skipping')
@@ -344,8 +345,8 @@ class TestDocument:
     def testSetContentStreamPWCMimeType(self):
         """Check the mimetype after the PWC checkin"""
         if self._repo.getCapabilities()['ContentStreamUpdatability'] == 'none':
-            print('This repository does not allow content stream updates, skipping')
-            return
+            pytest.skip('This repository does not allow content stream '
+                        'updates, skipping')
 
         testFile1 = self.binary_file_1
         fileName = testFile1.split('/')[-1]
@@ -358,7 +359,7 @@ class TestDocument:
         origMimeType = newDoc.properties['cmis:contentStreamMimeType']
 
         # checkout the file
-        if not 'canCheckOut' in newDoc.allowableActions.keys():
+        if 'canCheckOut' not in newDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = newDoc.checkout()
 
@@ -371,14 +372,15 @@ class TestDocument:
 
         # CMIS-231 the checked in doc should have the same mime type as
         # the original document
-        assert origMimeType == \
-                          newDoc.properties['cmis:contentStreamMimeType']
+        assert (origMimeType ==
+                newDoc.properties['cmis:contentStreamMimeType'])
 
     @skipIfAlfrescoPubBinding
     @skipIfAlfrescoBrowserBinding
     def testSetContentStreamDoc(self):
         """Set the content stream on a doc that's not checked out"""
-        if self._repo.getCapabilities()['ContentStreamUpdatability'] != 'anytime':
+        if self._repo.getCapabilities()[
+                'ContentStreamUpdatability'] != 'anytime':
             pytest.skip('This repository does not allow content stream '
                         'updates on the doc, skipping')
 
@@ -424,7 +426,7 @@ class TestDocument:
             pytest.skip(
                 'This repository does not allow content stream updates, '
                 'skipping')
-        if not self._repo.getCapabilities()['PWCUpdatable'] == True:
+        if not self._repo.getCapabilities()['PWCUpdatable']:
             pytest.skip('Repository does not support PWCUpdatable, skipping')
 
         # create a test document
@@ -433,9 +435,8 @@ class TestDocument:
         with open(self.binary_file_1, 'rb') as f:
             newDoc = self._testFolder.createDocument(
                 fileName, contentFile=f, properties=props)
-        if not 'canCheckOut' in newDoc.allowableActions.keys():
-            print('The test doc cannot be checked out...skipping')
-            return
+        if 'canCheckOut' not in newDoc.allowableActions.keys():
+            pytest.skip('The test doc cannot be checked out...skipping')
         pwc = newDoc.checkout()
         pwc.deleteContentStream()
         with pytest.raises(CmisException):
@@ -457,8 +458,8 @@ class TestDocument:
         exportFilename = testFilename.replace('.', 'export.')
         with closing(result), open(exportFilename, 'wb') as outfile:
             outfile.write(result.read())
-        assert os.path.getsize(testFile) == \
-                          os.path.getsize(exportFilename)
+        assert (os.path.getsize(testFile) ==
+                os.path.getsize(exportFilename))
 
         # cleanup
         os.remove(exportFilename)
@@ -467,10 +468,13 @@ class TestDocument:
         """Create a new document from a string"""
         documentName = 'testDocument'
         contentString = 'Test content string'
-        newDoc = self._testFolder.createDocumentFromString(documentName,
-            contentString=contentString, contentType='text/plain')
+        newDoc = self._testFolder.createDocumentFromString(
+            documentName,
+            contentString=contentString,
+            contentType='text/plain')
         assert documentName == newDoc.getName()
-        assert util.to_native(newDoc.getContentStream().read()) == contentString
+        assert util.to_native(
+            newDoc.getContentStream().read()) == contentString
 
     def testCreateDocumentPlain(self):
         """Create a plain document using a file from the file system"""
@@ -491,8 +495,8 @@ class TestDocument:
         exportFilename = testFilename.replace('txt', 'export.txt')
         with closing(result), open(exportFilename, 'wb') as outfile:
             outfile.write(result.read())
-        assert os.path.getsize(testFilename) == \
-                          os.path.getsize(exportFilename)
+        assert (os.path.getsize(testFilename) ==
+                os.path.getsize(exportFilename))
 
         # export
         os.remove(exportFilename)
@@ -502,27 +506,20 @@ class TestDocument:
         """Get all versions of an object"""
         props = {'cmis:objectTypeId': self.versionable_type_id}
         testDoc = self._testFolder.createDocument('testdoc', properties=props)
-        if not 'canCheckOut' in testDoc.allowableActions.keys():
+        if 'canCheckOut' not in testDoc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = testDoc.checkout()
         doc = pwc.checkin()  # 2.0
-        if not 'canCheckOut' in doc.allowableActions.keys():
+        if 'canCheckOut' not in doc.allowableActions.keys():
             pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc.checkout()
         doc = pwc.checkin()  # 3.0
         # what comes back from a checkin may not include all props, so reload
         doc.reload()
         # InMemory 0.9 is using 'V 3.0' so this test fails with that server
-        #self.assertEquals('3.0', doc.getProperties()['cmis:versionLabel'])
+        # self.assertEquals('3.0', doc.getProperties()['cmis:versionLabel'])
         rs = doc.getAllVersions()
         assert 3 == len(rs.getResults())
-#        for count in range(0, 3):
-#            if count == 0:
-#                self.assertEquals('true',
-#                             rs.getResults().values()[count].getProperties()['cmis:isLatestVersion'])
-#            else:
-#                self.assertEquals('false',
-#                             rs.getResults().values()[count].getProperties()['cmis:isLatestVersion'])
 
     def testGetObjectParents(self):
         """Gets all object parents of an CmisObject"""
@@ -548,7 +545,9 @@ class TestDocument:
         assert len(subFolder2.getChildren()) == 0
         subFolder2.addObject(doc)
         assert len(subFolder2.getChildren()) == 1
-        assert subFolder1.getChildren()[0].name == subFolder2.getChildren()[0].name
+        assert (
+            subFolder1.getChildren()[0].name ==
+            subFolder2.getChildren()[0].name)
         parentNames = ['sub1', 'sub2']
         for parent in doc.getObjectParents():
             parentNames.remove(parent.name)
@@ -589,7 +588,7 @@ class TestDocument:
         testDoc = self._testFolder.createDocumentFromString(
             'testdoc.txt', contentString='test', contentType='text/plain')
         sleep(10)
-        if testDoc.getAllowableActions().get('canGetRenditions') == True:
+        if testDoc.getAllowableActions().get('canGetRenditions'):
             rends = testDoc.getRenditions()
             assert len(rends) >= 1
         else:

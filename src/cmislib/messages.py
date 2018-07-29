@@ -23,4 +23,5 @@ This module contains common strings.
 """
 NO_ACL_SUPPORT = 'This repository does not support ACLs'
 NO_CHANGE_LOG_SUPPORT = 'This repository does not support change logs'
-NO_CHANGE_OBJECT_SUPPORT = 'This repository does not support change log entries as objects'
+NO_CHANGE_OBJECT_SUPPORT = \
+    'This repository does not support change log entries as objects'

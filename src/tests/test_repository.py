@@ -75,17 +75,19 @@ class TestRepository:
     def testCreateDocument(self):
         """Create a new 'content-less' document"""
         documentName = 'testDocument'
-        newDoc = self._repo.createDocument(documentName, parentFolder=self._testFolder)
+        newDoc = self._repo.createDocument(
+            documentName, parentFolder=self._testFolder)
         assert documentName == newDoc.getName()
 
     def testCreateDocumentFromString(self):
         """Create a new document from a string"""
         documentName = 'testDocument'
         contentString = 'Test content string'
-        newDoc = self._repo.createDocumentFromString(documentName,
-                                           parentFolder=self._testFolder,
-                                           contentString=contentString,
-                                           contentType='text/plain')
+        newDoc = self._repo.createDocumentFromString(
+            documentName,
+            parentFolder=self._testFolder,
+            contentString=contentString,
+            contentType='text/plain')
         assert documentName == newDoc.getName()
         assert util.to_native(
             newDoc.getContentStream().read()) == contentString
@@ -94,7 +96,8 @@ class TestRepository:
     def testCreateDocumentUnicode(self):
         """Create a new doc with unicode characters in the name"""
         documentName = u'abc cdeöäüß%§-_caféè.txt'
-        newDoc = self._repo.createDocument(documentName, parentFolder=self._testFolder)
+        newDoc = self._repo.createDocument(
+            documentName, parentFolder=self._testFolder)
         assert documentName == newDoc.getName()
 
     def testGetObject(self):
@@ -115,20 +118,17 @@ class TestRepository:
             doc10 = self._testFolder.createDocument(
                 fileName, contentFile=f, properties=props)
         doc10Id = doc10.getObjectId()
-        if not 'canCheckOut' in doc10.allowableActions.keys():
-            print('The test doc cannot be checked out...skipping')
-            return
+        if 'canCheckOut' not in doc10.allowableActions.keys():
+            pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc10.checkout()
         doc11 = pwc.checkin(major='false')  # checkin a minor version, 1.1
-        if not 'canCheckOut' in doc11.allowableActions.keys():
-            print('The test doc cannot be checked out...skipping')
-            return
+        if 'canCheckOut' not in doc11.allowableActions.keys():
+            pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc11.checkout()
         doc20 = pwc.checkin()  # checkin a major version, 2.0
         doc20Id = doc20.getObjectId()
-        if not 'canCheckOut' in doc20.allowableActions.keys():
-            print('The test doc cannot be checked out...skipping')
-            return
+        if 'canCheckOut' not in doc20.allowableActions.keys():
+            pytest.skip('The test doc cannot be checked out...skipping')
         pwc = doc20.checkout()
         doc21 = pwc.checkin(major='false')  # checkin a minor version, 2.1
         doc21Id = doc21.getObjectId()
@@ -136,7 +136,8 @@ class TestRepository:
         docLatest = self._repo.getObject(doc10Id, returnVersion='latest')
         assert doc21Id == docLatest.getObjectId()
 
-        docLatestMajor = self._repo.getObject(doc10Id, returnVersion='latestmajor')
+        docLatestMajor = self._repo.getObject(
+            doc10Id, returnVersion='latestmajor')
         assert doc20Id == docLatestMajor.getObjectId()
 
     def testGetFolder(self):
@@ -171,8 +172,9 @@ class TestRepository:
             # ask the doc for its paths
             searchDocPaths = doc.getPaths()
             # for each path in the list, try to get the object by path
-            # this is better than building a path with the doc's name b/c the name
-            # isn't guaranteed to be used as the path segment (see CMIS-232)
+            # this is better than building a path with the doc's name b/c
+            # the name isn't guaranteed to be used as the path segment
+            # (see CMIS-232)
             for path in searchDocPaths:
                 searchDoc = self._repo.getObjectByPath(path)
                 assert doc.getObjectId() == searchDoc.getObjectId()
@@ -203,12 +205,12 @@ class TestRepository:
         assert len(subFolder2.getChildren()) == 1
         assert doc.name == subFolder2.getChildren()[0].name
 
-    #Exceptions
+    # Exceptions
 
     def testGetObjectBadId(self):
         """Attempt to get an object using a known bad ID"""
-        # this object ID is implementation specific (Alfresco) but is universally
-        # bad so it should work for all repositories
+        # this object ID is implementation specific (Alfresco) but is
+        # universally bad so it should work for all repositories
         with pytest.raises(ObjectNotFoundException):
             self._repo.getObject(self._testFolder.getObjectId()[:-5] + 'BADID')
 

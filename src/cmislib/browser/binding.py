@@ -41,7 +41,6 @@ moduleLogger = logging.getLogger('cmislib.browser.binding')
 
 
 class BrowserBinding(Binding):
-
     """
     Implements the Browser Binding to communicate with the CMIS server. The
     Browser Binding uses only GET and POST. It sends JSON and HTML forms and
@@ -84,13 +83,13 @@ class BrowserBinding(Binding):
         """
         response = super(BrowserBinding, self).post(
             url, session, payload, contentType, **kwargs)
-        if response.content and 'application/json' in response.headers.get('content-type'):
+        if response.content and 'application/json' in response.headers.get(
+                'content-type'):
             return response.json()
         return None
 
 
 class RepositoryService(RepositoryServiceIfc):
-
     """
     Defines the repository service for the Browser Binding.
     """
@@ -101,7 +100,8 @@ class RepositoryService(RepositoryServiceIfc):
         Gets the repository for the specified repository ID.
         """
 
-        result = client.binding.get(client.repositoryUrl, client.session, **client.extArgs)
+        result = client.binding.get(
+            client.repositoryUrl, client.session, **client.extArgs)
 
         if repositoryId in result:
             return BrowserRepository(client, result[repositoryId])
@@ -114,7 +114,8 @@ class RepositoryService(RepositoryServiceIfc):
         Gets all of the repositories for this client.
         """
 
-        result = client.binding.get(client.repositoryUrl, client.session, **client.extArgs)
+        result = client.binding.get(
+            client.repositoryUrl, client.session, **client.extArgs)
 
         repositories = []
         for repo in itervalues(result):
@@ -130,7 +131,8 @@ class RepositoryService(RepositoryServiceIfc):
         list.
         """
 
-        result = client.binding.get(client.repositoryUrl, client.session, **client.extArgs)
+        result = client.binding.get(
+            client.repositoryUrl, client.session, **client.extArgs)
         # instantiate a Repository object with the first workspace
         # element we find
         repository = None
@@ -140,13 +142,13 @@ class RepositoryService(RepositoryServiceIfc):
 
 
 class BrowserCmisObject(object):
-
     """
     Common ancestor class for other CMIS domain objects such as
     :class:`Document` and :class:`Folder`.
     """
 
-    def __init__(self, cmisClient, repository, objectId=None, data=None, **kwargs):
+    def __init__(self, cmisClient, repository, objectId=None, data=None,
+                 **kwargs):
         """ Constructor """
         self._cmisClient = cmisClient
         self._repository = repository
@@ -155,7 +157,8 @@ class BrowserCmisObject(object):
         self._allowableActions = {}
         self.data = data
         self._extArgs = kwargs
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserCmisObject')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserCmisObject')
         self.logger.debug('Creating an instance of BrowserCmisObject')
 
     def __str__(self):
@@ -195,9 +198,8 @@ class BrowserCmisObject(object):
         }
         params.update(self._extArgs)
         url = self._repository.getRootFolderUrl()
-        self.data = self._cmisClient.binding.get(url,
-                                                 self._cmisClient.session,
-                                                 **params)
+        self.data = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         self._initData()
 
         # if a returnVersion arg was passed in, it is possible we got back
@@ -218,7 +220,8 @@ class BrowserCmisObject(object):
 
         if self._objectId is None:
             if self.data is None:
-                self.logger.debug('Both objectId and data were None, reloading')
+                self.logger.debug(
+                    'Both objectId and data were None, reloading')
                 self.reload()
             props = self.getProperties()
             self._objectId = CmisId(props['cmis:objectId'])
@@ -237,7 +240,8 @@ class BrowserCmisObject(object):
         """
 
         if not self.getAllowableActions()['canGetObjectParents']:
-            raise NotSupportedException('Object does not support getObjectParents')
+            raise NotSupportedException(
+                'Object does not support getObjectParents')
 
         url = self._repository.getRootFolderUrl()
         params = {
@@ -245,11 +249,12 @@ class BrowserCmisObject(object):
             'cmisselector': 'parents',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, {'objects': result}, serializer=ChildrenSerializer())
+        return BrowserResultSet(self._cmisClient, self._repository,
+                                {'objects': result},
+                                serializer=ChildrenSerializer())
 
     def getPaths(self):
         """
@@ -261,7 +266,8 @@ class BrowserCmisObject(object):
     def getAllowableActions(self):
 
         """
-        Returns a dictionary of allowable actions, keyed off of the action name.
+        Returns a dictionary of allowable actions, keyed off of the action
+        name.
 
         >>> actions = doc.getAllowableActions()
         >>> for a in actions:
@@ -280,7 +286,8 @@ class BrowserCmisObject(object):
 
         if self._allowableActions == {}:
             self.reload(includeAllowableActions=True)
-            assert 'allowableActions' in self.data, "Expected object data to have an allowableActions key"
+            assert 'allowableActions' in self.data,\
+                "Expected object data to have an allowableActions key"
             allowableActions = self.data['allowableActions']
             self._allowableActions = allowableActions
 
@@ -303,7 +310,8 @@ class BrowserCmisObject(object):
         cmis:isLatestMajorVersion: false
         cmis:isImmutable: false
         cmis:isMajorVersion: false
-        cmis:objectId: workspace://SpacesStore/dc26102b-e312-471b-b2af-91bfb0225339
+        cmis:objectId:
+            workspace://SpacesStore/dc26102b-e312-471b-b2af-91bfb0225339
 
         The optional filter argument is not yet implemented.
         """
@@ -319,7 +327,8 @@ class BrowserCmisObject(object):
                         propVal.append(parsePropValueByType(val, prop['type']))
                     self._properties[prop['id']] = propVal
                 else:
-                    self._properties[prop['id']] = parsePropValueByType(prop['value'], prop['type'])
+                    self._properties[prop['id']] = parsePropValueByType(
+                        prop['value'], prop['type'])
 
         return self._properties
 
@@ -361,10 +370,8 @@ class BrowserCmisObject(object):
         setProps(properties, props, initialIndex=0)
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
 
         self.data = result
         self._initData()
@@ -389,11 +396,8 @@ class BrowserCmisObject(object):
                  "targetFolderId": targetFolder.id}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        self._cmisClient.binding.post(url,
-                                      self._cmisClient.session,
-                                      data,
-                                      data.content_type)
-
+        self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
         return
 
     def delete(self, **kwargs):
@@ -416,12 +420,8 @@ class BrowserCmisObject(object):
                  "cmisaction": "delete"}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        self._cmisClient.binding.post(url,
-                                      self._cmisClient.session,
-                                      data,
-                                      data.content_type,
-                                      **kwargs)
-
+        self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type, **kwargs)
         return
 
     def applyPolicy(self, policyId):
@@ -441,7 +441,19 @@ class BrowserCmisObject(object):
 
         >>> rel = tstDoc1.createRelationship(tstDoc2, 'R:cmiscustom:assoc')
         >>> rel.getProperties()
-        {u'cmis:objectId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:creationDate': None, u'cmis:objectTypeId': u'R:cmiscustom:assoc', u'cmis:lastModificationDate': None, u'cmis:targetId': u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1', u'cmis:lastModifiedBy': None, u'cmis:baseTypeId': u'cmis:relationship', u'cmis:sourceId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:changeToken': None, u'cmis:createdBy': None}
+        {u'cmis:objectId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:creationDate': None,
+         u'cmis:objectTypeId': u'R:cmiscustom:assoc',
+         u'cmis:lastModificationDate': None,
+         u'cmis:targetId':
+             u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1',
+         u'cmis:lastModifiedBy': None,
+         u'cmis:baseTypeId': u'cmis:relationship',
+         u'cmis:sourceId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:changeToken': None,
+         u'cmis:createdBy': None}
 
         """
 
@@ -459,11 +471,10 @@ class BrowserCmisObject(object):
         }, props)
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type)
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
+        return getSpecializedObject(
+            BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
     def getRelationships(self, **kwargs):
 
@@ -476,7 +487,19 @@ class BrowserCmisObject(object):
         1
         >>> rel = rels.getResults().values()[0]
         >>> rel.getProperties()
-        {u'cmis:objectId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:creationDate': None, u'cmis:objectTypeId': u'R:cmiscustom:assoc', u'cmis:lastModificationDate': None, u'cmis:targetId': u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1', u'cmis:lastModifiedBy': None, u'cmis:baseTypeId': u'cmis:relationship', u'cmis:sourceId': u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25', u'cmis:changeToken': None, u'cmis:createdBy': None}
+        {u'cmis:objectId':
+            u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:creationDate': None,
+         u'cmis:objectTypeId': u'R:cmiscustom:assoc',
+         u'cmis:lastModificationDate': None,
+         u'cmis:targetId':
+             u'workspace://SpacesStore/0ca1aa08-cb49-42e2-8881-53aa8496a1c1',
+         u'cmis:lastModifiedBy': None,
+         u'cmis:baseTypeId': u'cmis:relationship',
+         u'cmis:sourceId':
+             u'workspace://SpacesStore/271c48dd-6548-4771-a8f5-0de69b7cdc25',
+         u'cmis:changeToken': None,
+         u'cmis:createdBy': None}
 
         The following optional arguments are supported:
          - includeSubRelationshipTypes
@@ -494,11 +517,11 @@ class BrowserCmisObject(object):
             'cmisselector': 'relationships',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=RelationShipsSerializer())
+        return BrowserResultSet(self._cmisClient, self._repository, result,
+                                serializer=RelationShipsSerializer())
 
     def removePolicy(self, policyId):
 
@@ -523,7 +546,8 @@ class BrowserCmisObject(object):
 
         >>> acl = folder.getACL()
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
+        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>,
+         'jdoe': <cmislib.model.ACE object at 0x10071a590>}
 
         The optional onlyBasicPermissions argument is currently not supported.
         """
@@ -537,9 +561,8 @@ class BrowserCmisObject(object):
                 'cmisselector': 'object',
                 'includeACL': True
             }
-            result = self._cmisClient.binding.get(url,
-                                                  self._cmisClient.session,
-                                                  **params)
+            result = self._cmisClient.binding.get(
+                url, self._cmisClient.session, **params)
             return BrowserACL(data=result['acl'])
         else:
             raise NotSupportedException
@@ -554,7 +577,8 @@ class BrowserCmisObject(object):
         >>> acl = folder.getACL()
         >>> acl.addEntry(ACE('jdoe', 'cmis:write', 'true'))
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>, 'jdoe': <cmislib.model.ACE object at 0x10071a590>}
+        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x10071a8d0>,
+         'jdoe': <cmislib.model.ACE object at 0x10071a590>}
         """
         if self._repository.getCapabilities()['ACL'] == 'manage':
             # if the ACL capability is manage, this must be
@@ -562,7 +586,8 @@ class BrowserCmisObject(object):
             # but it also depends on the canApplyACL allowable action
             # for this object
             if not isinstance(acl, ACL):
-                raise CmisException('The ACL to apply must be an instance of the ACL class.')
+                raise CmisException(
+                    'The ACL to apply must be an instance of the ACL class.')
             # get the root folder URL
             url = self._repository.getRootFolderUrl()
 
@@ -582,10 +607,8 @@ class BrowserCmisObject(object):
             data = encode_multipart_formdata(props, None, None)
 
             # invoke the URL
-            result = self._cmisClient.binding.post(url,
-                                                   self._cmisClient.session,
-                                                   data,
-                                                   data.content_type)
+            result = self._cmisClient.binding.post(
+                url, self._cmisClient.session, data, data.content_type)
 
             # return the result set
             return BrowserACL(data=result)
@@ -629,7 +652,8 @@ class BrowserRepository(object):
         self._permMap = {}
         self._permissions = None
         self._propagation = None
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserRepository')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserRepository')
         self.logger.debug('Creating an instance of BrowserRepository')
 
     def __str__(self):
@@ -699,7 +723,7 @@ class BrowserRepository(object):
         u'Main Repository'
         >>> info = repo.getRepositoryInfo()
         >>> for k,v in info.items():
-        ...     print "%s:%s" % (k,v)
+        ...     print("%s:%s") % (k,v)
         ...
         cmisSpecificationTitle:Version 1.0 Committee Draft 04
         cmisVersionSupported:1.0
@@ -715,16 +739,21 @@ class BrowserRepository(object):
         if not self._repositoryInfo:
             if self.data is None:
                 self.reload()
-            repoInfo = {'repositoryId': self.data['repositoryId'], 'repositoryName': self.data['repositoryName'],
-                        'repositoryDescription': self.data['repositoryDescription'],
-                        'vendorName': self.data['vendorName'], 'productName': self.data['productName'],
-                        'productVersion': self.data['productVersion'], 'rootFolderId': self.data['rootFolderId'],
-                        'latestChangeLogToken': self.data['latestChangeLogToken'],
-                        'cmisVersionSupported': self.data['cmisVersionSupported'],
-                        'changesIncomplete': self.data['changesIncomplete'],
-                        'changesOnType': self.data['changesOnType'],
-                        'principalIdAnonymous': self.data['principalIdAnonymous'],
-                        'principalIdAnyone': self.data['principalIdAnyone']}
+            repoInfo = {
+                'repositoryId': self.data['repositoryId'],
+                'repositoryName': self.data['repositoryName'],
+                'repositoryDescription': self.data['repositoryDescription'],
+                'vendorName': self.data['vendorName'],
+                'productName': self.data['productName'],
+                'productVersion': self.data['productVersion'],
+                'rootFolderId': self.data['rootFolderId'],
+                'latestChangeLogToken': self.data['latestChangeLogToken'],
+                'cmisVersionSupported': self.data['cmisVersionSupported'],
+                'changesIncomplete': self.data['changesIncomplete'],
+                'changesOnType': self.data['changesOnType'],
+                'principalIdAnonymous': self.data['principalIdAnonymous'],
+                'principalIdAnyone': self.data['principalIdAnyone']
+            }
             if 'thinClientURI' in self.data:
                 repoInfo['thinClientURI'] = self.data['thinClientURI']
             if 'extendedFeatures' in self.data:
@@ -767,10 +796,11 @@ class BrowserRepository(object):
             'cmisselector': 'object',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self, data=result, **kwargs), **kwargs)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
+        return getSpecializedObject(
+            BrowserCmisObject(self._cmisClient, self, data=result, **kwargs),
+            **kwargs)
 
     def getSupportedPermissions(self):
         """
@@ -778,8 +808,10 @@ class BrowserRepository(object):
         values are:
 
          - basic: indicates that the CMIS Basic permissions are supported
-         - repository: indicates that repository specific permissions are supported
-         - both: indicates that both CMIS basic permissions and repository specific permissions are supported
+         - repository: indicates that repository specific permissions are
+                       supported
+         - both: indicates that both CMIS basic permissions and repository
+                 specific permissions are supported
 
         >>> repo.supportedPermissions
         u'both'
@@ -793,7 +825,8 @@ class BrowserRepository(object):
                 self.reload()
             if 'aclCapabilities' in self.data:
                 if 'supportedPermissions' in self.data['aclCapabilities']:
-                    self._permissions = self.data['aclCapabilities']['supportedPermissions']
+                    self._permissions = self.data['aclCapabilities'][
+                        'supportedPermissions']
         return self._permissions
 
     def getPermissionDefinitions(self):
@@ -939,7 +972,8 @@ class BrowserRepository(object):
         """
         Returns a :class:`Folder` object for a specified folderId
 
-        >>> someFolder = repo.getFolder('workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348')
+        >>> someFolder = repo.getFolder(
+        ...    'workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348')
         >>> someFolder.getObjectId()
         u'workspace://SpacesStore/aa1ecedf-9551-49c5-831a-0502bb43f348'
         """
@@ -980,14 +1014,12 @@ class BrowserRepository(object):
         if typeId is not None:
             params["typeId"] = typeId
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         types = []
         for res in result['types']:
-            objectType = BrowserObjectType(self._cmisClient,
-                                           self,
-                                           data=res)
+            objectType = BrowserObjectType(
+                self._cmisClient, self, data=res)
             types.append(objectType)
         # return the result
         return types
@@ -1044,9 +1076,8 @@ class BrowserRepository(object):
             params['depth'] = depth
         params.update(kwargs)
 
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         serializer = TreeSerializer(treeType='type')
         types = serializer.getEntries(self._cmisClient, self, result)
         return types
@@ -1072,14 +1103,12 @@ class BrowserRepository(object):
             'cmisselector': 'typeChildren',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         types = []
         for res in result['types']:
-            objectType = BrowserObjectType(self._cmisClient,
-                                           self,
-                                           data=res)
+            objectType = BrowserObjectType(
+                self._cmisClient, self, data=res)
             types.append(objectType)
         # return the result
         return types
@@ -1091,19 +1120,15 @@ class BrowserRepository(object):
 
         >>> folderType = repo.getTypeDefinition('cmis:folder')
         """
-        # localhost:8080/chemistry/browser/A1?cmisselector=typeDefinition&typeId=cmis:folder
         url = self.getRepositoryUrl()
         params = {
             'cmisselector': 'typeDefinition',
             'typeId': typeId
         }
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
-
-        return BrowserObjectType(self._cmisClient,
-                                 self,
-                                 data=result)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
+        return BrowserObjectType(
+            self._cmisClient, self, data=result)
 
     def getCheckedOutDocs(self, **kwargs):
 
@@ -1136,13 +1161,11 @@ class BrowserRepository(object):
             'cmisselector': 'checkedOut',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
 
-        return BrowserResultSet(self._cmisClient,
-                                self,
-                                data=result)
+        return BrowserResultSet(
+            self._cmisClient, self, data=result)
 
     def getObject(self,
                   objectId,
@@ -1151,7 +1174,8 @@ class BrowserRepository(object):
         """
         Returns an object given the specified object ID.
 
-        >>> doc = repo.getObject('workspace://SpacesStore/f0c8b90f-bec0-4405-8b9c-2ab570589808')
+        >>> doc = repo.getObject(
+        ...    'workspace://SpacesStore/f0c8b90f-bec0-4405-8b9c-2ab570589808')
         >>> doc.getTitle()
         u'sample-b.pdf'
 
@@ -1165,7 +1189,11 @@ class BrowserRepository(object):
          - includeAllowableActions
         """
 
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self, CmisId(objectId), **kwargs), **kwargs)
+        return getSpecializedObject(
+            BrowserCmisObject(
+                self._cmisClient, self, CmisId(objectId), **kwargs),
+            **kwargs
+        )
 
     def query(self, statement, **kwargs):
 
@@ -1217,14 +1245,13 @@ class BrowserRepository(object):
         }
         data = encode_multipart_formdata(props, None, None)
         # do the POST
-        result = self._cmisClient.binding.post(self.getRepositoryUrl(),
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type,
-                                               **kwargs)
+        result = self._cmisClient.binding.post(
+            self.getRepositoryUrl(), self._cmisClient.session, data,
+            data.content_type, **kwargs)
 
         # return the result set
-        return BrowserResultSet(self._cmisClient, self, result, serializer=ResultsSerializer())
+        return BrowserResultSet(self._cmisClient, self, result,
+                                serializer=ResultsSerializer())
 
     def getContentChanges(self, **kwargs):
 
@@ -1279,18 +1306,16 @@ class BrowserRepository(object):
             'cmisselector': 'contentChanges',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
 
-        return BrowserResultSet(self._cmisClient,
-                                self,
-                                data=result,
-                                serializer=ChangeEntrySerializer())
+        return BrowserResultSet(
+            self._cmisClient, self, data=result,
+            serializer=ChangeEntrySerializer())
 
     def createDocumentFromString(self,
                                  name,
-                                 properties={},
+                                 properties=None,
                                  parentFolder=None,
                                  contentString=None,
                                  contentType=None,
@@ -1301,10 +1326,12 @@ class BrowserRepository(object):
         the repository supports unfiled objects, you do not have to pass in
         a parent :class:`Folder` otherwise it is required.
 
-        >>> repo.createDocumentFromString('testdoc5', parentFolder=testFolder, contentString='Hello, World!', contentType='text/plain')
+        >>> repo.createDocumentFromString(
+        ... 'testdoc5', parentFolder=testFolder,
+        ... contentString='Hello, World!', contentType='text/plain')
         <cmislib.model.Document object at 0x101352ed0>
         """
-
+        properties = properties or {}
         # if you didn't pass in a parent folder
         if parentFolder is None:
             # if the repository doesn't require fileable objects to be filed
@@ -1321,7 +1348,7 @@ class BrowserRepository(object):
 
     def createDocument(self,
                        name,
-                       properties={},
+                       properties=None,
                        parentFolder=None,
                        contentFile=None,
                        contentType=None,
@@ -1350,6 +1377,7 @@ class BrowserRepository(object):
          - addACEs
          - removeACEs
         """
+        properties = properties or {}
         # if you didn't pass in a parent folder
         if parentFolder is None:
             # if the repository doesn't require fileable objects to be filed
@@ -1363,12 +1391,14 @@ class BrowserRepository(object):
         # get the root folder URL
         url = self.getRootFolderUrl()
 
-        props = {"objectId": parentFolder.id,
-                 "cmisaction": "createDocument",
-                 "propertyId[0]": "cmis:name",
-                 "propertyValue[0]": name}
+        props = {
+            "objectId": parentFolder.id,
+            "cmisaction": "createDocument",
+            "propertyId[0]": "cmis:name",
+            "propertyValue[0]": name,
+            "propertyId[1]": "cmis:objectTypeId"
+        }
 
-        props["propertyId[1]"] = "cmis:objectTypeId"
         if 'cmis:objectTypeId' in properties:
             props["propertyValue[1]"] = properties['cmis:objectTypeId']
             del properties['cmis:objectTypeId']
@@ -1383,9 +1413,7 @@ class BrowserRepository(object):
             url, self._cmisClient.session, data, data.content_type)
         return BrowserDocument(self._cmisClient, self, data=result)
 
-    def createDocumentFromSource(self,
-                                 sourceId,
-                                 properties={},
+    def createDocumentFromSource(self, sourceId, properties=None,
                                  parentFolder=None):
         """
         This is not yet implemented.
@@ -1399,11 +1427,7 @@ class BrowserRepository(object):
 
         pass
 
-    def createFolder(self,
-                     parentFolder,
-                     name,
-                     properties={},
-                     **kwargs):
+    def createFolder(self, parentFolder, name, properties=None, **kwargs):
 
         """
         Creates a new :class:`Folder` object in the specified parentFolder.
@@ -1420,7 +1444,7 @@ class BrowserRepository(object):
          - addACEs
          - removeACEs
         """
-
+        properties = properties or {}
         return parentFolder.createFolder(name, properties, **kwargs)
 
     def createRelationship(self, sourceObj, targetObj, relType):
@@ -1461,7 +1485,6 @@ class BrowserRepository(object):
 
 
 class BrowserResultSet(object):
-
     """
     Represents a paged result set.
     """
@@ -1473,7 +1496,8 @@ class BrowserResultSet(object):
         self._data = data
         self._serializer = serializer
         self._results = []
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserResultSet')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserResultSet')
         self.logger.debug('Creating an instance of BrowserResultSet')
 
     def __iter__(self):
@@ -1518,7 +1542,8 @@ class BrowserResultSet(object):
             return self._results
 
         if self._data:
-            self._results = self._serializer.fromJSON(self._cmisClient, self._repository, self._data)
+            self._results = self._serializer.fromJSON(
+                self._cmisClient, self._repository, self._data)
 
         return self._results
 
@@ -1664,7 +1689,6 @@ class BrowserResultSet(object):
 
 
 class BrowserDocument(BrowserCmisObject):
-
     """
     An object typically associated with file content.
     """
@@ -1691,12 +1715,11 @@ class BrowserDocument(BrowserCmisObject):
                  "cmisaction": "checkOut"}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
 
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
+        return getSpecializedObject(
+            BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
     def cancelCheckout(self):
         """
@@ -1717,10 +1740,8 @@ class BrowserDocument(BrowserCmisObject):
                  "cmisaction": "cancelCheckOut"}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        self._cmisClient.binding.post(url,
-                                      self._cmisClient.session,
-                                      data,
-                                      data.content_type)
+        self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
 
         return
 
@@ -1801,7 +1822,8 @@ class BrowserDocument(BrowserCmisObject):
          - removeACEs
         """
         # TODO implement optional arguments
-        # major = true is supposed to be the default but inmemory 0.9 is throwing an error 500 without it
+        # major = true is supposed to be the default but inmemory 0.9
+        # is throwing an error 500 without it
         if 'major' not in kwargs:
             kwargs['major'] = 'true'
         else:
@@ -1825,12 +1847,11 @@ class BrowserDocument(BrowserCmisObject):
         data = encode_multipart_formdata(props, contentFile, contentType)
 
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
 
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
+        return getSpecializedObject(
+            BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
     def getLatestVersion(self, **kwargs):
 
@@ -1858,11 +1879,12 @@ class BrowserDocument(BrowserCmisObject):
         u'2.0'
         """
 
-        doc = None
         if kwargs.get('major') == 'true':
-            doc = self._repository.getObject(self.getObjectId(), returnVersion='latestmajor')
+            doc = self._repository.getObject(
+                self.getObjectId(), returnVersion='latestmajor')
         else:
-            doc = self._repository.getObject(self.getObjectId(), returnVersion='latest')
+            doc = self._repository.getObject(
+                self.getObjectId(), returnVersion='latest')
 
         return doc
 
@@ -1876,7 +1898,6 @@ class BrowserDocument(BrowserCmisObject):
         """
 
         latestDoc = self.getLatestVersion(**kwargs)
-
         return latestDoc.getProperties()
 
     def getAllVersions(self, **kwargs):
@@ -1897,12 +1918,13 @@ class BrowserDocument(BrowserCmisObject):
         }
         params.update(kwargs)
         # invoke the URL
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
 
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, data={'objects': result}, serializer=VersionsSerializer())
+        return BrowserResultSet(
+            self._cmisClient, self._repository, data={'objects': result},
+            serializer=VersionsSerializer())
 
     def getContentStream(self):
 
@@ -1931,9 +1953,8 @@ class BrowserDocument(BrowserCmisObject):
             'objectId': self.getObjectId(),
             'cmisselector': 'content',
         }
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         return BytesIO(result.content)
 
     def setContentStream(self, contentFile, contentType=None):
@@ -1954,10 +1975,8 @@ class BrowserDocument(BrowserCmisObject):
         data = encode_multipart_formdata(params, contentFile, contentType)
 
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
 
         # return the result set
         return BrowserDocument(self._cmisClient, self._repository, data=result)
@@ -1980,11 +1999,8 @@ class BrowserDocument(BrowserCmisObject):
             props["changeToken"] = self.properties['cmis:changeToken']
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        self._cmisClient.binding.post(url,
-                                      self._cmisClient.session,
-                                      data,
-                                      data.content_type)
-
+        self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
         return
 
     def getRenditions(self):
@@ -2035,9 +2051,8 @@ class BrowserDocument(BrowserCmisObject):
             'cmisselector': 'parents',
             'includerelativepathsegment': True
         }
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
 
         paths = []
 
@@ -2054,7 +2069,6 @@ class BrowserDocument(BrowserCmisObject):
 
 
 class BrowserFolder(BrowserCmisObject):
-
     """
     A container object that can hold other :class:`CmisObject` objects
     """
@@ -2086,12 +2100,14 @@ class BrowserFolder(BrowserCmisObject):
         # get the root folder URL
         url = self._repository.getRootFolderUrl()
 
-        props = {"objectId": self.id,
-                 "cmisaction": "createFolder",
-                 "propertyId[0]": "cmis:name",
-                 "propertyValue[0]": name}
+        props = {
+            "objectId": self.id,
+            "cmisaction": "createFolder",
+            "propertyId[0]": "cmis:name",
+            "propertyValue[0]": name,
+            "propertyId[1]": "cmis:objectTypeId"
+        }
 
-        props["propertyId[1]"] = "cmis:objectTypeId"
         if 'cmis:objectTypeId' in properties:
             props["propertyValue[1]"] = properties['cmis:objectTypeId']
             del properties['cmis:objectTypeId']
@@ -2102,11 +2118,8 @@ class BrowserFolder(BrowserCmisObject):
 
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type,
-                                               **kwargs)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type, **kwargs)
 
         # return the result set
         return BrowserFolder(self._cmisClient, self._repository, data=result)
@@ -2123,15 +2136,13 @@ class BrowserFolder(BrowserCmisObject):
         the repository supports unfiled objects, you do not have to pass in
         a parent :class:`Folder` otherwise it is required.
 
-        >>> testFolder.createDocumentFromString('testdoc3', contentString='hello, world', contentType='text/plain')
+        >>> testFolder.createDocumentFromString(
+        ... 'testdoc3', contentString='hello, world', contentType='text/plain')
         """
 
-        return self._repository.createDocumentFromString(name,
-                                                         properties,
-                                                         self,
-                                                         contentString,
-                                                         contentType,
-                                                         contentEncoding)
+        return self._repository.createDocumentFromString(
+            name, properties, self, contentString, contentType,
+            contentEncoding)
 
     def createDocument(self, name, properties={}, contentFile=None,
                        contentType=None, contentEncoding=None):
@@ -2174,12 +2185,8 @@ class BrowserFolder(BrowserCmisObject):
          - removeACEs
         """
 
-        return self._repository.createDocument(name,
-                                               properties,
-                                               self,
-                                               contentFile,
-                                               contentType,
-                                               contentEncoding)
+        return self._repository.createDocument(
+            name, properties, self, contentFile, contentType, contentEncoding)
 
     def getChildren(self, **kwargs):
 
@@ -2211,11 +2218,11 @@ class BrowserFolder(BrowserCmisObject):
         }
         params.update(kwargs)
 
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=ChildrenSerializer())
+        return BrowserResultSet(self._cmisClient, self._repository, result,
+                                serializer=ChildrenSerializer())
 
     def getDescendants(self, **kwargs):
 
@@ -2255,11 +2262,11 @@ class BrowserFolder(BrowserCmisObject):
             'cmisselector': 'descendants',
         }
         params.update(kwargs)
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=TreeSerializer())
+        return BrowserResultSet(self._cmisClient, self._repository, result,
+                                serializer=TreeSerializer())
 
     def getTree(self, **kwargs):
 
@@ -2294,11 +2301,12 @@ class BrowserFolder(BrowserCmisObject):
         }
         params.update(kwargs)
 
-        result = self._cmisClient.binding.get(url,
-                                              self._cmisClient.session,
-                                              **params)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **params)
         # return the result set
-        return BrowserResultSet(self._cmisClient, self._repository, result, serializer=TreeSerializer())
+        return BrowserResultSet(
+            self._cmisClient, self._repository, result,
+            serializer=TreeSerializer())
 
     def getParent(self):
 
@@ -2306,7 +2314,9 @@ class BrowserFolder(BrowserCmisObject):
         The optional filter argument is not yet supported.
         """
         if self.properties.get('cmis:parentId') is not None:
-            return BrowserFolder(self._cmisClient, self._repository, objectId=self.properties['cmis:parentId'])
+            return BrowserFolder(
+                self._cmisClient, self._repository,
+                objectId=self.properties['cmis:parentId'])
 
     def deleteTree(self, **kwargs):
 
@@ -2330,12 +2340,8 @@ class BrowserFolder(BrowserCmisObject):
                  "cmisaction": "deleteTree"}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        self._cmisClient.binding.post(url,
-                                      self._cmisClient.session,
-                                      data,
-                                      data.content_type,
-                                      **kwargs)
-
+        self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type, **kwargs)
         return
 
     def addObject(self, cmisObject, **kwargs):
@@ -2369,13 +2375,11 @@ class BrowserFolder(BrowserCmisObject):
                  "objectId": cmisObject.id}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type,
-                                               **kwargs)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type, **kwargs)
 
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
+        return getSpecializedObject(
+            BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
     def removeObject(self, cmisObject):
 
@@ -2391,12 +2395,11 @@ class BrowserFolder(BrowserCmisObject):
                  "objectId": cmisObject.id}
         data = encode_multipart_formdata(props, None, None)
         # invoke the URL
-        result = self._cmisClient.binding.post(url,
-                                               self._cmisClient.session,
-                                               data,
-                                               data.content_type)
+        result = self._cmisClient.binding.post(
+            url, self._cmisClient.session, data, data.content_type)
 
-        return getSpecializedObject(BrowserCmisObject(self._cmisClient, self._repository, data=result))
+        return getSpecializedObject(
+            BrowserCmisObject(self._cmisClient, self._repository, data=result))
 
     def getPaths(self):
         """
@@ -2409,13 +2412,11 @@ class BrowserFolder(BrowserCmisObject):
 
 
 class BrowserRelationship(BrowserCmisObject):
-
     """
     Defines a relationship object between two :class:`CmisObjects` objects
     """
 
     def getSourceId(self):
-
         """
         Returns the :class:`CmisId` on the source side of the relationship.
         """
@@ -2423,7 +2424,6 @@ class BrowserRelationship(BrowserCmisObject):
         return BrowserCmisId(self.properties['cmis:sourceId'])
 
     def getTargetId(self):
-
         """
         Returns the :class:`CmisId` on the target side of the relationship.
         """
@@ -2431,9 +2431,9 @@ class BrowserRelationship(BrowserCmisObject):
         return BrowserCmisId(self.properties['cmis:targetId'])
 
     def getSource(self):
-
         """
-        Returns an instance of the appropriate child-type of :class:`CmisObject`
+        Returns an instance of the appropriate child-type of
+        :class:`CmisObject`
         for the source side of the relationship.
         """
 
@@ -2441,9 +2441,9 @@ class BrowserRelationship(BrowserCmisObject):
         return getSpecializedObject(self._repository.getObject(sourceId))
 
     def getTarget(self):
-
         """
-        Returns an instance of the appropriate child-type of :class:`CmisObject`
+        Returns an instance of the appropriate child-type of
+        :class:`CmisObject`
         for the target side of the relationship.
         """
 
@@ -2457,7 +2457,6 @@ class BrowserRelationship(BrowserCmisObject):
 
 
 class BrowserPolicy(CmisObject):
-
     """
     An arbirary object that can 'applied' to objects that the
     repository identifies as being 'controllable'.
@@ -2467,7 +2466,6 @@ class BrowserPolicy(CmisObject):
 
 
 class BrowserObjectType(ObjectType):
-
     """
     Represents the CMIS object type such as 'cmis:document' or 'cmis:folder'.
     Contains metadata about the type.
@@ -2480,7 +2478,8 @@ class BrowserObjectType(ObjectType):
         self._extArgs = None
         self._typeId = typeId
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserObjectType')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserObjectType')
         self.logger.debug('Creating an instance of BrowserObjectType')
 
     def __str__(self):
@@ -2615,7 +2614,8 @@ class BrowserObjectType(ObjectType):
             self.reload()
         props = {}
         for prop in self.data['propertyDefinitions'].keys():
-            props[prop] = BrowserProperty(self.data['propertyDefinitions'][prop])
+            props[prop] = BrowserProperty(
+                self.data['propertyDefinitions'][prop])
         return props
 
     def reload(self, **kwargs):
@@ -2626,12 +2626,11 @@ class BrowserObjectType(ObjectType):
             if self._extArgs:
                 self._extArgs.update(kwargs)
 
-        typesUrl = self._repository.getRepositoryUrl()
+        url = self._repository.getRepositoryUrl()
         kwargs['cmisselector'] = 'typeDefinition'
         kwargs['typeId'] = self.getTypeId()
-        result = self._cmisClient.binding.get(typesUrl,
-                                              self._cmisClient.session,
-                                              **kwargs)
+        result = self._cmisClient.binding.get(
+            url, self._cmisClient.session, **kwargs)
         self.data = result
 
     id = property(getTypeId)
@@ -2652,7 +2651,6 @@ class BrowserObjectType(ObjectType):
 
 
 class BrowserProperty(object):
-
     """
     This class represents an attribute or property definition of an object
     type.
@@ -2661,7 +2659,8 @@ class BrowserProperty(object):
     def __init__(self, data):
         """Constructor"""
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserProperty')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserProperty')
         self.logger.debug('Creating an instance of BrowserProperty')
 
     def __str__(self):
@@ -2741,7 +2740,6 @@ class BrowserProperty(object):
 
 
 class BrowserACL(ACL):
-
     """
     Represents the Access Control List for an object.
     """
@@ -2758,7 +2756,9 @@ class BrowserACL(ACL):
         if aceList:
             for ace in aceList:
                 if not isinstance(ace, BrowserACE):
-                    raise CmisException('Items into the aceList must be an instance of the BrowserACEclass.')
+                    raise CmisException(
+                        'Items into the aceList must be an instance of the '
+                        'BrowserACEclass.')
                 self._entries[ace.principalId] = ace
 
         if data:
@@ -2812,7 +2812,10 @@ class BrowserACL(ACL):
         >>> acl.addEntry(ACE('jpotts', 'cmis:read', 'true'))
         >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
+        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>,
+        u'jdoe': <cmislib.model.ACE object at 0x100731150>,
+        'jpotts': <cmislib.model.ACE object at 0x1005a22d0>,
+        'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
         """
 
         ace = BrowserACE(principalId, access, direct)
@@ -2824,10 +2827,15 @@ class BrowserACL(ACL):
         Removes the :class:`ACE` entry given a specific principalId.
 
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>, 'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
+        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>,
+        u'jdoe': <cmislib.model.ACE object at 0x100731150>,
+        'jpotts': <cmislib.model.ACE object at 0x1005a22d0>,
+        'jsmith': <cmislib.model.ACE object at 0x1005a2210>}
         >>> acl.removeEntry('jsmith')
         >>> acl.getEntries()
-        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
+        {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>,
+         u'jdoe': <cmislib.model.ACE object at 0x100731150>,
+         'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
         """
 
         if principalId in self._entries:
@@ -2843,7 +2851,8 @@ class BrowserACL(ACL):
         >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
         >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
         >>> acl.entries
-        {'jpotts': <cmislib.model.ACE object at 0x1012c7310>, 'jsmith': <cmislib.model.ACE object at 0x100528490>}
+        {'jpotts': <cmislib.model.ACE object at 0x1012c7310>,
+         'jsmith': <cmislib.model.ACE object at 0x100528490>}
         >>> acl.clearEntries()
         >>> acl.entries
         """
@@ -2861,7 +2870,8 @@ class BrowserACL(ACL):
         >>> acl.addEntry(ACE('jsmith', 'cmis:write', 'true'))
         >>> acl.addEntry(ACE('jpotts', 'cmis:write', 'true'))
         >>> for ace in acl.entries.values():
-        ...     print 'principal:%s has the following permissions...' % ace.principalId
+        ...     print('principal:%s has the following permissions...'
+        ...           ''% ace.principalId)
         ...     for perm in ace.permissions:
         ...             print perm
         ...
@@ -2952,7 +2962,6 @@ class BrowserACL(ACL):
 
 
 class BrowserACE(ACE):
-
     """
     Represents an ACE retrieved with the Browser Binding.
     """
@@ -2961,7 +2970,6 @@ class BrowserACE(ACE):
 
 
 class BrowserChangeEntry(ChangeEntry):
-
     """
     Represents a change log entry. Retrieve a list of change entries via
     :meth:`Repository.getContentChanges`.
@@ -2995,14 +3003,15 @@ class BrowserChangeEntry(ChangeEntry):
         self._changeEntryId = None
         self._changeType = None
         self._changeTime = None
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserChangeEntry')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserChangeEntry')
         self.logger.debug('Creating an instance of BrowserChangeEntry')
 
     def getId(self):
         """
-        Returns the unique ID of the change entry. This is not actually required
-        by the spec and is absent in the browser binding for the Apache chemistry
-        in-memory repository.
+        Returns the unique ID of the change entry. This is not actually
+        required by the spec and is absent in the browser binding for the
+        Apache chemistry in-memory repository.
         """
         if self._changeEntryId is None:
             if 'id' in self._data.keys():
@@ -3015,7 +3024,8 @@ class BrowserChangeEntry(ChangeEntry):
         """
         if self._objectId is None:
             if 'cmis:objectId' in self._data.get('properties').keys():
-                self._objectId = self._data.get('properties').get('cmis:objectId').get('value')
+                self._objectId = self._data.get('properties').get(
+                    'cmis:objectId').get('value')
         return self._objectId
 
     def getChangeType(self):
@@ -3030,7 +3040,8 @@ class BrowserChangeEntry(ChangeEntry):
          - security
         """
         if self._changeType is None:
-            self._changeType = self._data.get('changeEventInfo').get('changeType')
+            self._changeType = self._data.get('changeEventInfo').get(
+                'changeType')
 
         return self._changeType
 
@@ -3049,7 +3060,8 @@ class BrowserChangeEntry(ChangeEntry):
         """
         if self._changeTime is None:
             if 'changeTime' in self._data.get('changeEventInfo').keys():
-                self._changeTime = self._data.get('changeEventInfo').get('changeTime')
+                self._changeTime = self._data.get('changeEventInfo').get(
+                    'changeTime')
 
         return parseDateTimeValue(self._changeTime)
 
@@ -3070,7 +3082,8 @@ class BrowserChangeEntry(ChangeEntry):
                         propVal.append(parsePropValueByType(val, prop['type']))
                     self._properties[prop['id']] = propVal
                 else:
-                    self._properties[prop['id']] = parsePropValueByType(prop['value'], prop['type'])
+                    self._properties[prop['id']] = parsePropValueByType(
+                        prop['value'], prop['type'])
 
         return self._properties
 
@@ -3082,7 +3095,6 @@ class BrowserChangeEntry(ChangeEntry):
 
 
 class BrowserChangeEntryResultSet(BrowserResultSet):
-
     """
     A specialized type of :class:`ResultSet` that knows how to instantiate
     :class:`ChangeEntry` objects. The parent class assumes children of
@@ -3124,7 +3136,8 @@ class BrowserChangeEntryResultSet(BrowserResultSet):
         if self._data:
             entries = []
             for entry in self._data:
-                changeEntry = BrowserChangeEntry(self._cmisClient, self._repository, entry)
+                changeEntry = BrowserChangeEntry(self._cmisClient,
+                                                 self._repository, entry)
                 entries.append(changeEntry)
 
             self._results = entries
@@ -3133,7 +3146,6 @@ class BrowserChangeEntryResultSet(BrowserResultSet):
 
 
 class BrowserRendition(object):
-
     """
     This class represents a Rendition.
     """
@@ -3141,7 +3153,8 @@ class BrowserRendition(object):
     def __init__(self, data):
         """Constructor"""
         self.data = data
-        self.logger = logging.getLogger('cmislib.browser.binding.BrowserRendition')
+        self.logger = logging.getLogger(
+            'cmislib.browser.binding.BrowserRendition')
         self.logger.debug('Creating an instance of BrowserRendition')
 
     def __str__(self):
@@ -3196,7 +3209,6 @@ class BrowserRendition(object):
 
 
 class BrowserCmisId(str):
-
     """
     This is a marker class to be used for Strings that are used as CMIS ID's.
     Making the objects instances of this class makes it easier to create the
@@ -3208,7 +3220,6 @@ class BrowserCmisId(str):
 
 
 def setProps(properties, props, initialIndex=0):
-
     """
     Transform key, value from properties into props list items in the format
     expected by the HTTP POST request
@@ -3217,7 +3228,7 @@ def setProps(properties, props, initialIndex=0):
     i = initialIndex
     for key, val in properties.items():
         props["propertyId[%s]" % i] = key
-        if isinstance(val, (list, tuple) ):
+        if isinstance(val, (list, tuple)):
             j = 0
             for v in val:
                 props["propertyValue[%s][%s]" % (i, j)] = v
@@ -3228,7 +3239,6 @@ def setProps(properties, props, initialIndex=0):
 
 
 def getSpecializedObject(obj, **kwargs):
-
     """
     Returns an instance of the appropriate :class:`CmisObject` class or one
     of its child types depending on the specified baseType.
@@ -3239,13 +3249,17 @@ def getSpecializedObject(obj, **kwargs):
     if 'cmis:baseTypeId' in obj.getProperties():
         baseType = obj.getProperties()['cmis:baseTypeId']
         if baseType == 'cmis:folder':
-            return BrowserFolder(obj._cmisClient, obj._repository, obj.getObjectId(), obj.data, **kwargs)
+            return BrowserFolder(obj._cmisClient, obj._repository,
+                                 obj.getObjectId(), obj.data, **kwargs)
         if baseType == 'cmis:document':
-            return BrowserDocument(obj._cmisClient, obj._repository, obj.getObjectId(), obj.data, **kwargs)
+            return BrowserDocument(obj._cmisClient, obj._repository,
+                                   obj.getObjectId(), obj.data, **kwargs)
         if baseType == 'cmis:relationship':
-            return BrowserRelationship(obj._cmisClient, obj._repository, obj.getObjectId(), obj.data, **kwargs)
+            return BrowserRelationship(obj._cmisClient, obj._repository,
+                                       obj.getObjectId(), obj.data, **kwargs)
         if baseType == 'cmis:policy':
-            return BrowserPolicy(obj._cmisClient, obj._repository, obj.getObjectId(), obj.data, **kwargs)
+            return BrowserPolicy(obj._cmisClient, obj._repository,
+                                 obj.getObjectId(), obj.data, **kwargs)
 
     # if the base type ID wasn't found in the props (this can happen when
     # someone runs a query that doesn't select * or doesn't individually
@@ -3255,22 +3269,22 @@ def getSpecializedObject(obj, **kwargs):
 
 
 def encode_multipart_formdata(fields, contentFile, contentType):
-
     """
     fields is a sequence of (name, value) elements for regular form fields.
-    files is a sequence of (name, filename, value) elements for data to be uploaded as files
+    files is a sequence of (name, filename, value) elements for data to be
+    uploaded as files
     Return MultipartEncoder for requests.post method
     """
     _fields = OrderedDict()
-    fileName = None
+    file_name = None
     if fields:
         for (key, value) in iteritems(fields):
             if contentFile and value == 'cmis:name':
-                fileName = fields['propertyValue' + key[-3:]]
+                file_name = fields['propertyValue' + key[-3:]]
             _fields[key] = (None, value, 'text/plain;charset=utf-8')
     if contentFile:
-        _fields['content'] = (fileName or '', contentFile, contentType or 'application/binary')
-
+        _fields['content'] = (
+            file_name or '', contentFile, contentType or 'application/binary')
     m = MultipartEncoder(
         fields=_fields
     )
@@ -3278,7 +3292,6 @@ def encode_multipart_formdata(fields, contentFile, contentType):
 
 
 class ResultsSerializer(object):
-
     """
     Responsible for serializing :class:`BrowserResultSet` objects.
     """
@@ -3287,16 +3300,13 @@ class ResultsSerializer(object):
         """Transforms from JSON to the object."""
         entries = []
         for obj in jsonObj['results']:
-            cmisObject = getSpecializedObject(BrowserCmisObject(client,
-                                                                repo,
-                                                                data=obj))
+            cmisObject = getSpecializedObject(
+                BrowserCmisObject(client, repo, data=obj))
             entries.append(cmisObject)
-
         return entries
 
 
 class ChildrenSerializer(object):
-
     """
     Responsible for serializing lists of children.
     """
@@ -3306,16 +3316,14 @@ class ChildrenSerializer(object):
         entries = []
         for obj in jsonObj['objects']:
             dataObj = obj['object']
-            cmisObject = getSpecializedObject(BrowserCmisObject(client,
-                                                                repo,
-                                                                data=dataObj))
+            cmisObject = getSpecializedObject(
+                BrowserCmisObject(client, repo, data=dataObj))
             entries.append(cmisObject)
 
         return entries
 
 
 class RelationShipsSerializer(object):
-
     """
     Responsible for serializing lists of relationships.
     """
@@ -3324,16 +3332,14 @@ class RelationShipsSerializer(object):
         """Transforms from JSON to the object."""
         entries = []
         for obj in jsonObj['objects']:
-            cmisObject = getSpecializedObject(BrowserCmisObject(client,
-                                                                repo,
-                                                                data=obj))
+            cmisObject = getSpecializedObject(
+                BrowserCmisObject(client, repo, data=obj))
             entries.append(cmisObject)
 
         return entries
 
 
 class VersionsSerializer(object):
-
     """
     Responsible for serializing a list of versions.
     """
@@ -3342,9 +3348,8 @@ class VersionsSerializer(object):
         """Transforms from JSON to the object."""
         entries = []
         for obj in jsonObj['objects']:
-            cmisObject = getSpecializedObject(BrowserCmisObject(client,
-                                                                repo,
-                                                                data=obj))
+            cmisObject = getSpecializedObject(
+                BrowserCmisObject(client, repo, data=obj))
             entries.append(cmisObject)
 
         return entries
@@ -3352,10 +3357,11 @@ class VersionsSerializer(object):
 
 # TODO Preserve tree hierarchy
 class TreeSerializer(object):
-
     """
-    The AtomPubBinding may be returning descendants and trees as a flat list of results.
-    We should probably implement a Tree result set and return that here instead.
+    The AtomPubBinding may be returning descendants and trees as a flat list
+    of results.
+    We should probably implement a Tree result set and return that here
+    instead.
     """
 
     def __init__(self, treeType='object'):
@@ -3373,9 +3379,8 @@ class TreeSerializer(object):
         for obj in jsonObj:
             if self.treeType == 'object':
                 dataObj = obj['object']['object']
-                cmisThing = getSpecializedObject(BrowserCmisObject(client,
-                                                                   repo,
-                                                                   data=dataObj))
+                cmisThing = getSpecializedObject(
+                    BrowserCmisObject(client, repo, data=dataObj))
             elif self.treeType == 'type':
                 dataObj = obj['type']
                 cmisThing = BrowserObjectType(client, repo, data=dataObj)
@@ -3396,7 +3401,6 @@ class TreeSerializer(object):
 
 
 class FolderSerializer(object):
-
     """
     Responsible for serializing :class:`Folder` objects.
     """
@@ -3405,12 +3409,12 @@ class FolderSerializer(object):
         """Transforms the folder from JSON to an object."""
         obj = json.loads(jsonString)
         objectId = obj['succinctProperties']['cmis:objectId']
-        folder = BrowserFolder(client, repo, objectId, properties=obj['succinctProperties'])
+        folder = BrowserFolder(client, repo, objectId,
+                               properties=obj['succinctProperties'])
         return folder
 
 
 class ACLSerializer(object):
-
     """
     Responsible for serializing :class:`BrowserACL` objects.
     """
@@ -3430,21 +3434,21 @@ class ACLSerializer(object):
 
 
 class ChangeEntrySerializer(object):
-
     """
     Responsible for serializing lists of change entries.
     """
 
     def fromJSON(self, client, repo, jsonObj):
         """Transforms from JSON to the object."""
-        self.logger = logging.getLogger('cmislib.browser.binding.ChangeEntrySerializer')
+        logger = logging.getLogger(
+            'cmislib.browser.binding.ChangeEntrySerializer')
         entries = []
         for obj in jsonObj['objects']:
-            self.logger.debug("Parsing a change entry object")
+            logger.debug("Parsing a change entry object")
             cmisObject = BrowserChangeEntry(client,
                                             repo,
                                             data=obj)
-            self.logger.debug("Parsed a change entry object, appending")
+            logger.debug("Parsed a change entry object, appending")
             entries.append(cmisObject)
 
         return entries

@@ -50,8 +50,8 @@ class TestType:
         """Get the child types for this repository and make sure cmis:folder
         is in the list."""
 
-        #This test would be more interesting if there was a standard way to
-        #deploy a custom model. Then we could look for custom types.
+        # This test would be more interesting if there was a standard way to
+        # deploy a custom model. Then we could look for custom types.
 
         cmisClient = CmisClient(self.url, self.user, self.pwd,
                                 binding=self.binding,

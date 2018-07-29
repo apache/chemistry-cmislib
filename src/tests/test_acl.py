@@ -32,23 +32,21 @@ class TestACL:
     def testSupportedPermissions(self):
         """Test the value of supported permissions enum"""
         if not self._repo.getCapabilities()['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
-        assert self._repo.getSupportedPermissions() in ['basic', 'repository', 'both']
+            pytest.skip(messages.NO_ACL_SUPPORT)
+        assert self._repo.getSupportedPermissions() in [
+            'basic', 'repository', 'both']
 
     def testPermissionDefinitions(self):
         """Test the list of permission definitions"""
         if not self._repo.getCapabilities()['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
+            pytest.skip(messages.NO_ACL_SUPPORT)
         supportedPerms = self._repo.getPermissionDefinitions()
         assert 'cmis:write' in supportedPerms
 
     def testPermissionMap(self):
         """Test the permission mapping"""
         if not self._repo.getCapabilities()['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
+            pytest.skip(messages.NO_ACL_SUPPORT)
         permMap = self._repo.getPermissionMap()
         assert 'canGetProperties.Object' in permMap
         assert len(permMap['canGetProperties.Object']) > 0
@@ -56,15 +54,14 @@ class TestACL:
     def testPropagation(self):
         """Test the propagation setting"""
         if not self._repo.getCapabilities()['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
-        assert self._repo.getPropagation() in ['objectonly', 'propagate', 'repositorydetermined']
+            pytest.skip(messages.NO_ACL_SUPPORT)
+        assert self._repo.getPropagation() in [
+            'objectonly', 'propagate', 'repositorydetermined']
 
     def testGetObjectACL(self):
         """Test getting an object's ACL"""
         if not self._repo.getCapabilities()['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
+            pytest.skip(messages.NO_ACL_SUPPORT)
         acl = self._testFolder.getACL()
         for entry in acl.getEntries().values():
             assert entry.principalId
@@ -73,14 +70,12 @@ class TestACL:
     def testApplyACL(self):
         """Test updating an object's ACL"""
         if not self._repo.getCapabilities()['ACL']:
-            print(messages.NO_ACL_SUPPORT)
-            return
+            pytest.skip(messages.NO_ACL_SUPPORT)
         if not self._repo.getCapabilities()['ACL'] == 'manage':
-            print('Repository does not support manage ACL')
-            return
+            pytest.skip('Repository does not support manage ACL')
         if not self._repo.getSupportedPermissions() in ['both', 'basic']:
-            print('Repository needs to support either both or basic permissions for this test')
-            return
+            pytest.skip('Repository needs to support either both or basic '
+                        'permissions for this test')
         acl = self._testFolder.getACL()
         acl.removeEntry(self.acl_principal_id)
         acl.addEntry(self.acl_principal_id, 'cmis:write')

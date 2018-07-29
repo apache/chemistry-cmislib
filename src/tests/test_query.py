@@ -46,7 +46,7 @@ class TestQuery:
         with open(self.binary_file_2, 'rb') as f:
             self._testContent2 = self._testFolder.createDocument(
                 testFileName.replace('.', '2.'), contentFile=f)
-        
+
     def testSimpleSelect(self):
         """Execute simple select star from cmis:document"""
         querySimpleSelect = "SELECT * FROM cmis:document"
@@ -56,14 +56,16 @@ class TestQuery:
     def testWildcardPropertyMatch(self):
         """Find content w/wildcard match on cmis:name property"""
         name = self._testContent.getProperties()['cmis:name']
-        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name like '" + name[:7] + "%'"
+        querySimpleSelect = "SELECT * FROM cmis:document where " \
+                            "cmis:name like '" + name[:7] + "%'"
         resultSet = self._repo.query(querySimpleSelect)
         assert isInResultSet(resultSet, self._testContent)
 
     def testPropertyMatch(self):
         """Find content matching cmis:name property"""
         name = self._testContent2.getProperties()['cmis:name']
-        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name = '" + name + "'"
+        querySimpleSelect = "SELECT * FROM cmis:document where " \
+                            "cmis:name = '" + name + "'"
         resultSet = self._repo.query(querySimpleSelect)
         assert isInResultSet(resultSet, self._testContent2)
 
@@ -71,8 +73,9 @@ class TestQuery:
         """Find content matching cmis:name property"""
         name = self._testContent2.getProperties()['cmis:name']
         new_name = u'éà€ô' + name
-        self._testContent2.updateProperties({'cmis:name': name})
-        querySimpleSelect = "SELECT * FROM cmis:document where cmis:name = '" + name + "'"
+        self._testContent2.updateProperties({'cmis:name': new_name})
+        querySimpleSelect = "SELECT * FROM cmis:document where " \
+                            "cmis:name = '" + new_name + "'"
         resultSet = self._repo.query(querySimpleSelect)
         assert isInResultSet(resultSet, self._testContent2)
 
@@ -90,8 +93,9 @@ class TestQuery:
             found = isInResultSet(resultSet, self._testContent2)
             if not found:
                 maxTries -= 1
-                print('Not found...sleeping for 10 secs. Remaining tries:%d'
-                      % maxTries)
+                print(
+                    'Not found...sleeping for 10 secs. Remaining tries:%d'
+                    % maxTries)
                 sleep(10)
         assert found
 
@@ -112,6 +116,7 @@ class TestQuery:
             found = isInResultSet(resultSet, self._testContent2)
             if not found:
                 maxTries -= 1
-                prin('Not found...sleeping for 10 secs. Remaining tries:%d' % maxTries)
+                print('Not found...sleeping for 10 secs. Remaining tries:%d'
+                      % maxTries)
                 sleep(10)
         assert found

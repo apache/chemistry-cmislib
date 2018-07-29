@@ -20,11 +20,13 @@
 """
 This module contains handy utility functions.
 """
-import sys
-import re
-import iso8601
-import logging
 import datetime
+import logging
+import re
+import sys
+
+import iso8601
+
 from cmislib.domain import CmisId
 
 if sys.version_info >= (3,):
@@ -52,7 +54,7 @@ if sys.version_info >= (3,):
 else:
     from urllib import urlencode, quote
 
-    text_type = unicode
+    text_type = unicode  # noqa F821
 
     def to_native(source, encoding='utf-8', falsy_empty=False):
         if not source and falsy_empty:
@@ -70,13 +72,12 @@ else:
         return d.iteritems()
 
     def is_unicode(value):
-        return isinstance(value, unicode)
+        return isinstance(value, unicode)  # noqa F821
 
 moduleLogger = logging.getLogger('cmislib.util')
 
 
 def to_utf8(value):
-
     """ Safe encodng of value to utf-8 taking care of unicode values
     """
     if is_unicode(value):
@@ -85,7 +86,6 @@ def to_utf8(value):
 
 
 def safe_urlencode(in_dict):
-
     """
     Safe encoding of values taking care of unicode values
     urllib.urlencode doesn't like unicode values
@@ -101,7 +101,6 @@ def safe_urlencode(in_dict):
 
 
 def safe_quote(value):
-
     """
     Safe encoding of value taking care of unicode value
     urllib.quote doesn't like unicode values
@@ -111,7 +110,6 @@ def safe_quote(value):
 
 
 def multiple_replace(aDict, text):
-
     """
     Replace in 'text' all occurences of any key in the given
     dictionary by its corresponding value.  Returns the new string.
@@ -127,7 +125,6 @@ def multiple_replace(aDict, text):
 
 
 def parsePropValue(value, nodeName):
-
     """
     Returns a properly-typed object based on the type as specified in the
     node's element name.
@@ -155,7 +152,6 @@ def parsePropValue(value, nodeName):
 
 
 def parsePropValueByType(value, typeName):
-
     """
     Returns a properly-typed object based on the type as specified in the
     node's property definition.
@@ -202,7 +198,6 @@ def parsePropValueByType(value, typeName):
 
 
 def parseDateTimeValue(value):
-
     """
     Utility function to return a datetime from a string.
     """
@@ -211,12 +206,12 @@ def parseDateTimeValue(value):
     elif type(value) == int:
         return datetime.datetime.fromtimestamp(value / 1000)
     else:
-        moduleLogger.debug('Could not parse dt value of type: %s' % type(value))
+        moduleLogger.debug(
+            'Could not parse dt value of type: %s' % type(value))
         return
 
 
 def parseBoolValue(value):
-
     """
     Utility function to parse booleans and none from strings
     """
@@ -232,7 +227,6 @@ def parseBoolValue(value):
 
 
 def toCMISValue(value):
-
     """
     Utility function to convert Python values to CMIS string values
     """
