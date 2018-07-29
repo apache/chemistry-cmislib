@@ -162,42 +162,42 @@ class TestFolder:
         searchFolder = self._repo.getObjectByPath(subFolderPath,
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         assert subFolder.getObjectId() == searchFolder.getObjectId()
-        assert searchFolder.getProperties().has_key('cmis:objectId')
-        assert searchFolder.getProperties().has_key('cmis:objectTypeId')
-        assert searchFolder.getProperties().has_key('cmis:baseTypeId')
+        assert 'cmis:objectId' in searchFolder.getProperties()
+        assert 'cmis:objectTypeId' in searchFolder.getProperties()
+        assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test when used with getObjectByPath + reload
         searchFolder = self._repo.getObjectByPath(subFolderPath,
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         assert subFolder.getObjectId() == searchFolder.getObjectId()
-        assert searchFolder.getProperties().has_key('cmis:objectId')
-        assert searchFolder.getProperties().has_key('cmis:objectTypeId')
-        assert searchFolder.getProperties().has_key('cmis:baseTypeId')
+        assert 'cmis:objectId' in searchFolder.getProperties()
+        assert 'cmis:objectTypeId' in searchFolder.getProperties()
+        assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test when used with getObject
         searchFolder = self._repo.getObject(subFolder.getObjectId(),
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         assert subFolder.getObjectId() == searchFolder.getObjectId()
-        assert searchFolder.getProperties().has_key('cmis:objectId')
-        assert searchFolder.getProperties().has_key('cmis:objectTypeId')
-        assert searchFolder.getProperties().has_key('cmis:baseTypeId')
+        assert 'cmis:objectId' in searchFolder.getProperties()
+        assert 'cmis:objectTypeId' in searchFolder.getProperties()
+        assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test when used with getObject + reload
         searchFolder = self._repo.getObject(subFolder.getObjectId(),
                         filter='cmis:objectId,cmis:objectTypeId,cmis:baseTypeId')
         searchFolder.reload()
         assert subFolder.getObjectId() == searchFolder.getObjectId()
-        assert searchFolder.getProperties().has_key('cmis:objectId')
-        assert searchFolder.getProperties().has_key('cmis:objectTypeId')
-        assert searchFolder.getProperties().has_key('cmis:baseTypeId')
+        assert 'cmis:objectId' in searchFolder.getProperties()
+        assert 'cmis:objectTypeId' in searchFolder.getProperties()
+        assert 'cmis:baseTypeId' in searchFolder.getProperties()
 
         # test that you can do a reload with a reset filter
         searchFolder.reload(filter='*')
-        assert searchFolder.getProperties().has_key('cmis:objectId')
-        assert searchFolder.getProperties().has_key('cmis:objectTypeId')
-        assert searchFolder.getProperties().has_key('cmis:baseTypeId')
-        assert searchFolder.getProperties().has_key('cmis:name')
+        assert 'cmis:objectId' in searchFolder.getProperties()
+        assert 'cmis:objectTypeId' in searchFolder.getProperties()
+        assert 'cmis:baseTypeId' in searchFolder.getProperties()
+        assert 'cmis:name' in searchFolder.getProperties()
 
     def testUpdateProperties(self):
         """Create a test folder, then update its properties"""

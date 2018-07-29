@@ -391,7 +391,7 @@ class AtomPubCmisObject(CmisObject):
         # if a returnVersion arg was passed in, it is possible we got back
         # a different object ID than the value we started with, so it needs
         # to be cleared out as well
-        if options.has_key('returnVersion') or addOptions.has_key('returnVersion'):
+        if 'returnVersion' in options or 'returnVersion' in addOptions:
             self._objectId = None
 
     def _initData(self):
@@ -638,13 +638,13 @@ class AtomPubCmisObject(CmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
+        if self.properties.get('cmis:changeToken') is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
         # the getEntryXmlDoc function may need the object type
         objectTypeId = None
-        if self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' in self.properties and 'cmis:objectTypeId' not in properties:
             objectTypeId = self.properties['cmis:objectTypeId']
             self.logger.debug('This object type is:%s', objectTypeId)
 
@@ -1789,7 +1789,7 @@ class AtomPubRepository(object):
 
         # hardcoding to cmis:document if it wasn't
         # passed in via props
-        if not properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' not in properties:
             properties['cmis:objectTypeId'] = CmisId('cmis:document')
         # and if it was passed in, making sure it is a CmisId
         elif not isinstance(properties['cmis:objectTypeId'], CmisId):
@@ -2396,7 +2396,7 @@ class AtomPubDocument(AtomPubCmisObject):
         """
 
         # major = true is supposed to be the default but inmemory 0.9 is throwing an error 500 without it
-        if not kwargs.has_key('major'):
+        if 'major' not in kwargs:
             kwargs['major'] = 'true'
 
         # Add checkin to kwargs and checkinComment, if it exists
@@ -2409,7 +2409,7 @@ class AtomPubDocument(AtomPubCmisObject):
         else:
             # the getEntryXmlDoc function may need the object type
             objectTypeId = None
-            if self.properties.has_key('cmis:objectTypeId') and not properties.has_key('cmis:objectTypeId'):
+            if 'cmis:objectTypeId' in self.properties and 'cmis:objectTypeId'not in properties:
                 objectTypeId = self.properties['cmis:objectTypeId']
                 self.logger.debug('This object type is:%s', objectTypeId)
 
@@ -2455,8 +2455,7 @@ class AtomPubDocument(AtomPubCmisObject):
         u'2.0'
         """
 
-        doc = None
-        if kwargs.has_key('major') and kwargs['major'] == 'true':
+        if kwargs.get('major') == 'true':
             doc = self._repository.getObject(self.getObjectId(), returnVersion='latestmajor')
         else:
             doc = self._repository.getObject(self.getObjectId(), returnVersion='latest')
@@ -2577,7 +2576,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
+        if self.properties.get('cmis:changeToken') is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -2616,7 +2615,7 @@ class AtomPubDocument(AtomPubCmisObject):
 
         # if we have a change token, we must pass it back, per the spec
         args = {}
-        if self.properties.has_key('cmis:changeToken') and self.properties['cmis:changeToken'] is not None:
+        if self.properties.get('cmis:changeToken') is not None:
             self.logger.debug('Change token present, adding it to args')
             args = {"changeToken": self.properties['cmis:changeToken']}
 
@@ -2698,7 +2697,7 @@ class AtomPubFolder(AtomPubCmisObject):
         properties['cmis:name'] = name
 
         # hardcoding to cmis:folder if it wasn't passed in via props
-        if not properties.has_key('cmis:objectTypeId'):
+        if 'cmis:objectTypeId' not in properties:
             properties['cmis:objectTypeId'] = CmisId('cmis:folder')
         # and checking to make sure the object type ID is an instance of CmisId
         elif not isinstance(properties['cmis:objectTypeId'], CmisId):
@@ -3478,7 +3477,7 @@ class AtomPubACL(ACL):
         if not self._entries:
             self._entries = {ace.principalId: ace}
         else:
-            if self._entries.has_key(principalId):
+            if principalId in self._entries:
                 if access not in self._entries[principalId].permissions:
                     perms = self._entries[principalId].permissions
                     perms.append(access)
@@ -3504,7 +3503,7 @@ class AtomPubACL(ACL):
         {u'GROUP_EVERYONE': <cmislib.model.ACE object at 0x100731410>, u'jdoe': <cmislib.model.ACE object at 0x100731150>, 'jpotts': <cmislib.model.ACE object at 0x1005a22d0>}
         """
 
-        if self._entries.has_key(principalId):
+        if principalId in self._entries:
             del self._entries[principalId]
             if len(self._entries) == 0:
                 self.clearEntries()
@@ -4021,7 +4020,7 @@ def getEntryXmlDoc(repo=None, objectTypeId=None, properties=None, contentFile=No
 
     if properties:
         # a name is required for most things, but not for a checkout
-        if properties.has_key('cmis:name'):
+        if 'cmis:name' in properties:
             titleElement = entryXmlDoc.createElementNS(ATOM_NS, "title")
             titleText = entryXmlDoc.createTextNode(properties['cmis:name'])
             titleElement.appendChild(titleText)
