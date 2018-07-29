@@ -21,18 +21,18 @@
 """
 Unit tests for cmislib
 """
-import unittest
-from unittest import TestSuite, TestLoader
-from cmislib.model import CmisClient
-from cmislib.domain import ACE
-from cmislib.exceptions import \
-                          ObjectNotFoundException, \
-                          CmisException, \
-                          NotSupportedException
-from cmislib import messages
 import os
+import unittest
+from contextlib import closing
 from time import sleep, time
+
 import settings
+from cmislib import messages
+from cmislib.exceptions import \
+    ObjectNotFoundException, \
+    CmisException, \
+    NotSupportedException
+from cmislib.model import CmisClient
 
 ## Fix test file paths in case test is launched using nosetests
 my_dir = os.path.dirname(os.path.abspath(__file__))
@@ -155,13 +155,13 @@ class QueryTest(CmisTestBase):
         # 1 less entry element than the number of search results. So this test
         # will create two documents and search for the second one which should
         # work in all repositories.
-        testFile = open(settings.TEST_BINARY_2, 'rb')
         testFileName = settings.TEST_BINARY_2.split('/')[-1]
-        self._testContent = self._testFolder.createDocument(testFileName, contentFile=testFile)
-        testFile.close()
-        testFile = open(settings.TEST_BINARY_2, 'rb')
-        self._testContent2 = self._testFolder.createDocument(testFileName.replace('.', '2.'), contentFile=testFile)
-        testFile.close()
+        with open(settings.TEST_BINARY_2, 'rb') as f:
+            self._testContent = self._testFolder.createDocument(
+                testFileName, contentFile=f)
+        with open(settings.TEST_BINARY_2, 'rb') as f:
+            self._testContent2 = self._testFolder.createDocument(
+                testFileName.replace('.', '2.'), contentFile=f)
         self._maxFullTextTries = settings.MAX_FULL_TEXT_TRIES
 
     def testSimpleSelect(self):
@@ -304,10 +304,11 @@ class RepositoryTest(CmisTestBase):
 
     def testReturnVersion(self):
         """Get latest and latestmajor versions of an object"""
-        f = open(settings.TEST_BINARY_1, 'rb')
         fileName = settings.TEST_BINARY_1.split('/')[-1]
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        doc10 = self._testFolder.createDocument(fileName, contentFile=f, properties=props)
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            doc10 = self._testFolder.createDocument(
+                fileName, contentFile=f, properties=props)
         doc10Id = doc10.getObjectId()
         if not 'canCheckOut' in doc10.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
@@ -822,10 +823,11 @@ class DocumentTest(CmisTestBase):
     def testCheckin(self):
         """Create a document in a test folder, check it out, then in"""
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
-        contentFile = open(testFilename, 'rb')
+
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
-        contentFile.close()
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            testDoc = self._testFolder.createDocument(
+                testFilename, contentFile=f, properties=props)
         self.assertEquals(testFilename, testDoc.getName())
         if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
@@ -845,10 +847,10 @@ class DocumentTest(CmisTestBase):
     def testCheckinComment(self):
         """Checkin a document with a comment"""
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
-        contentFile = open(testFilename, 'rb')
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
-        contentFile.close()
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            testDoc = self._testFolder.createDocument(
+                testFilename, contentFile=f, properties=props)
         self.assertEquals(testFilename, testDoc.getName())
         if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
@@ -868,10 +870,10 @@ class DocumentTest(CmisTestBase):
     def testCheckinContentAndProperties(self):
         """Checkin a document with a new content a modifed properties"""
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
-        contentFile = open(testFilename, 'rb')
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
-        contentFile.close()
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            testDoc = self._testFolder.createDocument(
+                testFilename, contentFile=f, properties=props)
         self.assertEquals(testFilename, testDoc.getName())
         if not 'canCheckOut' in testDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
@@ -912,12 +914,11 @@ class DocumentTest(CmisTestBase):
         if not self._repo.getCapabilities()['PWCUpdatable'] == True:
             print 'Repository does not support PWCUpdatable, skipping'
             return
-
         testFilename = settings.TEST_BINARY_1.split('/')[-1]
-        contentFile = open(testFilename, 'rb')
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        testDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile, properties=props)
-        contentFile.close()
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            testDoc = self._testFolder.createDocument(
+                testFilename, contentFile=f, properties=props)
         self.assertEquals(testFilename, testDoc.getName())
         # Alfresco has a bug where if you get the PWC this way
         # the checkin will not be successful
@@ -964,10 +965,11 @@ class DocumentTest(CmisTestBase):
 
     def testGetLatestVersion(self):
         """Get latest version of an object"""
-        f = open(settings.TEST_BINARY_1, 'rb')
         fileName = settings.TEST_BINARY_1.split('/')[-1]
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        doc10 = self._testFolder.createDocument(fileName, contentFile=f, properties=props)
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            doc10 = self._testFolder.createDocument(
+                fileName, contentFile=f, properties=props)
         if not 'canCheckOut' in doc10.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
@@ -994,10 +996,11 @@ class DocumentTest(CmisTestBase):
 
     def testGetPropertiesOfLatestVersion(self):
         """Get properties of latest version of an object"""
-        f = open(settings.TEST_BINARY_1, 'rb')
         fileName = settings.TEST_BINARY_1.split('/')[-1]
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        doc10 = self._testFolder.createDocument(fileName, contentFile=f, properties=props)
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            doc10 = self._testFolder.createDocument(
+                fileName, contentFile=f, properties=props)
         if not 'canCheckOut' in doc10.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
@@ -1054,6 +1057,7 @@ class DocumentTest(CmisTestBase):
             return
 
         testFile1 = settings.TEST_BINARY_1
+        fileName1 = settings.TEST_BINARY_1.split('/')[-1]
         testFile1Size = os.path.getsize(testFile1)
         exportFile1 = testFile1.replace('.', 'export.')
         testFile2 = settings.TEST_BINARY_2
@@ -1061,16 +1065,14 @@ class DocumentTest(CmisTestBase):
         exportFile2 = testFile1.replace('.', 'export.')
 
         # create a test document
-        contentFile = open(testFile1, 'rb')
-        newDoc = self._testFolder.createDocument(testFile1, contentFile=contentFile)
-        contentFile.close()
+        with open(testFile1, 'rb') as contentFile:
+            newDoc = self._testFolder.createDocument(
+                fileName1, contentFile=contentFile)
 
         # export the test document
         result = newDoc.getContentStream()
-        outfile = open(exportFile1, 'wb')
-        outfile.write(result.read())
-        result.close()
-        outfile.close()
+        with closing(result),  open(exportFile1, 'wb') as outfile:
+            outfile.write(result.read())
 
         # the file we exported should be the same size as the file we
         # originally created
@@ -1086,19 +1088,16 @@ class DocumentTest(CmisTestBase):
         pwc = newDoc.checkout()
 
         # update the PWC with a new file
-        f = open(testFile2, 'rb')
-        pwc.setContentStream(f)
-        f.close()
+        with open(testFile2, 'rb') as f:
+            pwc.setContentStream(f)
 
         # checkin the PWC
         newDoc = pwc.checkin()
 
         # export the checked in document
         result = newDoc.getContentStream()
-        outfile = open(exportFile2, 'wb')
-        outfile.write(result.read())
-        result.close()
-        outfile.close()
+        with closing(result), open(exportFile2, 'wb') as outfile:
+            outfile.write(result.read())
 
         # the file we exported should be the same size as the file we
         # checked in after updating the PWC
@@ -1115,11 +1114,11 @@ class DocumentTest(CmisTestBase):
         fileName = testFile1.split('/')[-1]
 
         # create a test document
-        contentFile = open(testFile1, 'rb')
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
-        newDoc = self._testFolder.createDocument(fileName, contentFile=contentFile, properties=props)
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            newDoc = self._testFolder.createDocument(
+                fileName, contentFile=f, properties=props)
         origMimeType = newDoc.properties['cmis:contentStreamMimeType']
-        contentFile.close()
 
         # checkout the file
         if not 'canCheckOut' in newDoc.allowableActions.keys():
@@ -1128,9 +1127,8 @@ class DocumentTest(CmisTestBase):
         pwc = newDoc.checkout()
 
         # update the PWC with a new file
-        f = open(testFile1, 'rb')
-        pwc.setContentStream(f)
-        f.close()
+        with open(testFile1, 'rb') as f:
+            pwc.setContentStream(f)
 
         # checkin the PWC
         newDoc = pwc.checkin()
@@ -1154,33 +1152,28 @@ class DocumentTest(CmisTestBase):
         exportFile2 = testFile1.replace('.', 'export.')
 
         # create a test document
-        contentFile = open(testFile1, 'rb')
         fileName = testFile1.split('/')[-1]
-        newDoc = self._testFolder.createDocument(fileName, contentFile=contentFile)
-        contentFile.close()
+        with open(testFile1, 'rb') as contentFile:
+            newDoc = self._testFolder.createDocument(
+                fileName, contentFile=contentFile)
 
         # export the test document
         result = newDoc.getContentStream()
-        outfile = open(exportFile1, 'wb')
-        outfile.write(result.read())
-        result.close()
-        outfile.close()
+        with closing(result), open(exportFile1, 'wb') as outfile:
+            outfile.write(result.read())
 
         # the file we exported should be the same size as the file we
         # originally created
         self.assertEquals(testFile1Size, os.path.getsize(exportFile1))
 
         # update the PWC with a new file
-        f = open(testFile2, 'rb')
-        newDoc.setContentStream(f)
-        f.close()
+        with open(testFile2, 'rb') as f:
+            newDoc.setContentStream(f)
 
         # export the checked in document
         result = newDoc.getContentStream()
-        outfile = open(exportFile2, 'wb')
-        outfile.write(result.read())
-        result.close()
-        outfile.close()
+        with closing(result),  open(exportFile2, 'wb') as outfile:
+            outfile.write(result.read())
 
         # the file we exported should be the same size as the file we
         # checked in after updating the PWC
@@ -1197,11 +1190,11 @@ class DocumentTest(CmisTestBase):
             return
 
         # create a test document
-        contentFile = open(settings.TEST_BINARY_1, 'rb')
         props = {'cmis:objectTypeId': settings.VERSIONABLE_TYPE_ID}
         fileName = settings.TEST_BINARY_1.split('/')[-1]
-        newDoc = self._testFolder.createDocument(fileName, contentFile=contentFile, properties=props)
-        contentFile.close()
+        with open(settings.TEST_BINARY_1, 'rb') as f:
+            newDoc = self._testFolder.createDocument(
+                fileName, contentFile=f, properties=props)
         if not 'canCheckOut' in newDoc.allowableActions.keys():
             print 'The test doc cannot be checked out...skipping'
             return
@@ -1212,21 +1205,20 @@ class DocumentTest(CmisTestBase):
 
     def testCreateDocumentBinary(self):
         """Create a binary document using a file from the file system"""
-        testFilename = settings.TEST_BINARY_1
-        contentFile = open(testFilename, 'rb')
-        newDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile)
-        contentFile.close()
+        testFile = settings.TEST_BINARY_1
+        testFilename = testFile.split('/')[-1]
+        with open(testFile, 'rb') as f:
+            newDoc = self._testFolder.createDocument(
+                testFilename, contentFile=f)
         self.assertEquals(testFilename, newDoc.getName())
 
         # test to make sure the file we get back is the same length
         # as the file we sent
         result = newDoc.getContentStream()
         exportFilename = testFilename.replace('.', 'export.')
-        outfile = open(exportFilename, 'wb')
-        outfile.write(result.read())
-        result.close()
-        outfile.close()
-        self.assertEquals(os.path.getsize(testFilename),
+        with closing(result), open(exportFilename, 'wb') as outfile:
+            outfile.write(result.read())
+        self.assertEquals(os.path.getsize(testFile),
                           os.path.getsize(exportFilename))
 
         # cleanup
@@ -1244,24 +1236,22 @@ class DocumentTest(CmisTestBase):
     def testCreateDocumentPlain(self):
         """Create a plain document using a file from the file system"""
         testFilename = 'plain.txt'
-        testFile = open(testFilename, 'w')
-        testFile.write('This is a sample text file line 1.\n')
-        testFile.write('This is a sample text file line 2.\n')
-        testFile.write('This is a sample text file line 3.\n')
-        testFile.close()
-        contentFile = open(testFilename, 'r')
-        newDoc = self._testFolder.createDocument(testFilename, contentFile=contentFile)
-        contentFile.close()
+        with open(testFilename, 'w') as testFile:
+            testFile.write('This is a sample text file line 1.\n')
+            testFile.write('This is a sample text file line 2.\n')
+            testFile.write('This is a sample text file line 3.\n')
+
+        with open(testFilename, 'r') as contentFile:
+            newDoc = self._testFolder.createDocument(
+                testFilename, contentFile=contentFile)
         self.assertEquals(testFilename, newDoc.getName())
 
         # test to make sure the file we get back is the same length as the
         # file we sent
         result = newDoc.getContentStream()
         exportFilename = testFilename.replace('txt', 'export.txt')
-        outfile = open(exportFilename, 'w')
-        outfile.write(result.read())
-        result.close()
-        outfile.close()
+        with closing(result), open(exportFilename, 'w') as outfile:
+            outfile.write(result.read())
         self.assertEquals(os.path.getsize(testFilename),
                           os.path.getsize(exportFilename))
 
@@ -1342,8 +1332,6 @@ class DocumentTest(CmisTestBase):
         if not testDoc.getAllowableActions().get('canCreateRelationship'):
             print 'createRelationship not supported, skipping'
             return
-        else:
-            print(testDoc.getAllowableActions())
         relation = testDoc.createRelationship(testDoc2, 'R:cmis:relationship')
         self.assertEqual(testDoc.getObjectId(), relation.source.getObjectId())
         self.assertEqual(testDoc2.getObjectId(), relation.target.getObjectId())
@@ -1539,42 +1527,3 @@ def isInResultSet(resultSet, targetDoc):
             resultSet.getNext()
         else:
             done = True
-
-if __name__ == "__main__":
-    #unittest.main()
-    tts = TestSuite()
-    #tts.addTests(TestLoader().loadTestsFromName('testGetObjectByPath', RepositoryTest))
-    #unittest.TextTestRunner().run(tts)
-    #import sys; sys.exit(0)
-
-    tts.addTests(TestLoader().loadTestsFromTestCase(CmisClientTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(RepositoryTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(FolderTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(DocumentTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(TypeTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ACLTest))
-    tts.addTests(TestLoader().loadTestsFromTestCase(ChangeEntryTest))
-
-#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', RepositoryTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentFromString', DocumentTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testMoveDocument', RepositoryTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentBinary', DocumentTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testCreateDocumentPlain', DocumentTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testAddObject', FolderTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testRemoveObject', FolderTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testFolderLeadingDot', FolderTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParents', DocumentTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testGetObjectParentsMultiple', DocumentTest))
-#    tts.addTests(TestLoader().loadTestsFromName('testRenditions', DocumentTest))
-
-    # WARNING: Potentially long-running tests
-
-    # Query tests
-    #tts.addTests(TestLoader().loadTestsFromTestCase(QueryTest))
-    #tts.addTest(QueryTest('testPropertyMatch'))
-    #tts.addTest(QueryTest('testFullText'))
-    #tts.addTest(QueryTest('testScore'))
-    #tts.addTest(QueryTest('testWildcardPropertyMatch'))
-    #tts.addTest(QueryTest('testSimpleSelect'))
-
-    unittest.TextTestRunner().run(tts)
