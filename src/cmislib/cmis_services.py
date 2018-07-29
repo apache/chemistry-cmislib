@@ -33,6 +33,10 @@ class Binding(object):
     Represents the binding used to communicate with the CMIS server.
     """
 
+    def __init__(self, **kwargs):
+        self.extArgs = kwargs
+        self.user_agent = 'cmislib +http://chemistry.apache.org/'
+
     def getRepositoryService(self):
 
         """
@@ -40,6 +44,92 @@ class Binding(object):
         """
 
         pass
+
+    def _get_http_headers(self, **kwargs):
+        headers = {}
+        if kwargs:
+            if 'headers' in kwargs:
+                headers = kwargs['headers']
+                del kwargs['headers']
+        headers['User-Agent'] = self.user_agent
+        return headers
+
+    def get(self, url, session, **kwargs):
+
+        """
+        Does a get against the CMIS service. More than likely, you will not
+        need to call this method. Instead, let the other objects do it for you.
+
+        For example, if you need to get a specific object by object id, try
+        :class:`Repository.getObject`. If you have a path instead of an object
+        id, use :class:`Repository.getObjectByPath`. Or, you could start with
+        the root folder (:class:`Repository.getRootFolder`) and drill down from
+        there.
+        """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if len(self.extArgs) > 0:
+            kwargs.update(self.extArgs)
+
+        headers = self._get_http_headers(**kwargs)
+        return session.get(url, params=kwargs, headers=headers)
+
+    def post(self, url, session, payload, contentType, **kwargs):
+
+        """
+        Does a post against the CMIS service. More than likely, you will not
+        need to call this method. Instead, let the other objects do it for you.
+
+        For example, to update the properties on an object, you'd call
+        :class:`CmisObject.updateProperties`. Or, to check in a document that's
+        been checked out, you'd call :class:`Document.checkin` on the PWC.
+        """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if len(self.extArgs) > 0:
+            kwargs.update(self.extArgs)
+        headers = self._get_http_headers(**kwargs)
+        headers['Content-Type'] = contentType
+        return session.post(
+            url, params=kwargs, data=payload, headers=headers)
+
+    def delete(self, url, session, **kwargs):
+
+        """
+        Does a delete against the CMIS service. More than likely, you will not
+        need to call this method. Instead, let the other objects do it for you.
+
+        For example, to delete a folder you'd call :class:`Folder.delete` and
+        to delete a document you'd call :class:`Document.delete`.
+        """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if len(self.extArgs) > 0:
+            kwargs.update(self.extArgs)
+
+        headers = self._get_http_headers(**kwargs)
+        response = session.delete(url, params=kwargs, headers=headers)
+        return response
+
+    def put(self, url, session, payload, contentType, **kwargs):
+
+        """
+        Does a put against the CMIS service. More than likely, you will not
+        need to call this method. Instead, let the other objects do it for you.
+
+        For example, to update the properties on an object, you'd call
+        :class:`CmisObject.updateProperties`. Or, to check in a document that's
+        been checked out, you'd call :class:`Document.checkin` on the PWC.
+        """
+
+        # merge the cmis client extended args with the ones that got passed in
+        if len(self.extArgs) > 0:
+            kwargs.update(self.extArgs)
+
+        headers = self._get_http_headers(**kwargs)
+        headers['Content-Type'] = contentType
+        return session.put(url, data=payload, params=kwargs, headers=headers)
+
 
     def _processCommonErrors(self, response):
 
