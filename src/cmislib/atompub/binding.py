@@ -61,11 +61,11 @@ CMIS_NS = 'http://docs.oasis-open.org/ns/cmis/core/200908/'
 # just to treat them all like patterns to simplify the matching logic
 ATOM_XML_TYPE = 'application/atom+xml'
 ATOM_XML_ENTRY_TYPE = 'application/atom+xml;type=entry'
-ATOM_XML_ENTRY_TYPE_P = re.compile('^application/atom\+xml.*type.*entry')
+ATOM_XML_ENTRY_TYPE_P = re.compile(r'^application/atom\+xml.*type.*entry')
 ATOM_XML_FEED_TYPE = 'application/atom+xml;type=feed'
-ATOM_XML_FEED_TYPE_P = re.compile('^application/atom\+xml.*type.*feed')
+ATOM_XML_FEED_TYPE_P = re.compile(r'^application/atom\+xml.*type.*feed')
 CMIS_TREE_TYPE = 'application/cmistree+xml'
-CMIS_TREE_TYPE_P = re.compile('^application/cmistree\+xml')
+CMIS_TREE_TYPE_P = re.compile(r'^application/cmistree\+xml')
 CMIS_QUERY_TYPE = 'application/cmisquery+xml'
 CMIS_ACL_TYPE = 'application/cmisacl+xml'
 
@@ -1642,12 +1642,12 @@ class AtomPubRepository(object):
 
         In order for the results to be properly instantiated as objects,
         make sure you include 'cmis:objectId' as one of the fields in
-        your select statement, or just use "SELECT \*".
+        your select statement, or just use "SELECT *".
 
         If you want the search results to automatically be instantiated with
         the appropriate sub-class of :class:`CmisObject` you must either
         include cmis:baseTypeId as one of the fields in your select statement
-        or just use "SELECT \*".
+        or just use "SELECT *".
 
         >>> q = "select * from cmis:document where cmis:name like '%test%'"
         >>> resultSet = repo.query(q)
