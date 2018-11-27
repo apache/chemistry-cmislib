@@ -19,6 +19,7 @@
 #
 
 import os
+import re
 import tempfile
 from collections import namedtuple
 from time import time
@@ -98,6 +99,69 @@ def _generate_conf(request):
     )
 
 
+class _Version(object):
+    component_re = re.compile(r'(\d+ | [a-z]+ | \.)', re.VERBOSE)
+
+    def __init__(self, vstring):
+        self._version = self.parse(vstring)
+
+    def parse(self, vstring):
+        components = [x for x in self.component_re.split(vstring)
+                      if x and x != '.']
+        for i, obj in enumerate(components):
+            try:
+                components[i] = int(obj)
+            except ValueError:
+                pass
+        return components
+
+    def _cmp(self, other):
+        if isinstance(other, str):
+            other = _Version(other)
+        if self._version == other._version:
+            return 0
+        if self._version < other._version:
+            return -1
+        if self._version > other._version:
+            return 1
+
+    def __cmp__(self, other):
+        return self._cmp(other)
+
+    def __repr__(self):
+        return "%s ('%s')" % (self.__class__.__name__, str(self._version))
+
+    def __eq__(self, other):
+        c = self._cmp(other)
+        if c is NotImplemented:
+            return c
+        return c == 0
+
+    def __lt__(self, other):
+        c = self._cmp(other)
+        if c is NotImplemented:
+            return c
+        return c < 0
+
+    def __le__(self, other):
+        c = self._cmp(other)
+        if c is NotImplemented:
+            return c
+        return c <= 0
+
+    def __gt__(self, other):
+        c = self._cmp(other)
+        if c is NotImplemented:
+            return c
+        return c > 0
+
+    def __ge__(self, other):
+        c = self._cmp(other)
+        if c is NotImplemented:
+            return c
+        return c >= 0
+
+
 @pytest.fixture(params=CMIS_ENV_PARAMS, ids=CMIS_ENV_IDS)
 def cmis_conf(request):
     """Apply config params as attribute on the class"""
@@ -125,6 +189,9 @@ def cmis_env(request):
         'cmislib', request.cls.__name__, str(time())])
     request.cls._testFolder = request.cls._rootFolder.createFolder(
         request.cls._folderName)
+    productVersion = request.cls._repo.getRepositoryInfo().get(
+        'productVersion', '9.9.9')
+    request.cls._productVersion = _Version(productVersion)
     yield request
     try:
         request.cls._testFolder.deleteTree()

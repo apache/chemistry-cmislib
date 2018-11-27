@@ -155,6 +155,9 @@ class TestRepository:
         them by path"""
         # names of folders and test docs (without and with unicode char)
         for suffix in ['', u'_éà€$', ' +']:
+            if '+' in suffix and self._productVersion < '6.0.0':
+                print('+ not supported in alfresco < 6.0.0')
+                continue
             parentFolderName = 'testGetObjectByPath folder' + suffix
             subFolderName = 'subfolder' + suffix
             docName = 'testdoc' + suffix
