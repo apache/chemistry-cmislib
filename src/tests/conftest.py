@@ -87,9 +87,7 @@ CMIS_ENV_IDS = _make_cmis_env_ids()
 MAX_FULL_TEXT_TRIES = 10
 
 
-@pytest.fixture(params=CMIS_ENV_PARAMS, ids=CMIS_ENV_IDS)
-def cmis_conf(request):
-    """Apply config params as attribute on the class"""
+def _generate_conf(request):
     param = request.param
     request.cls.max_full_text_tries = MAX_FULL_TEXT_TRIES
     for field in param._fields:
@@ -98,6 +96,12 @@ def cmis_conf(request):
         name=param.env_name,
         binding=param.binding.__class__.__name__
     )
+
+
+@pytest.fixture(params=CMIS_ENV_PARAMS, ids=CMIS_ENV_IDS)
+def cmis_conf(request):
+    """Apply config params as attribute on the class"""
+    _generate_conf(request)
 
 
 @pytest.fixture(params=CMIS_ENV_PARAMS, ids=CMIS_ENV_IDS)
@@ -110,7 +114,7 @@ def cmis_env(request):
     * test folder
     All these attributes are reset after each test method
     """
-    cmis_conf(request)
+    _generate_conf(request)
     param = request.param
     request.cls._cmisClient = CmisClient(
         param.url, param.user, param.pwd, binding=param.binding,
