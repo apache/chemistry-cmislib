@@ -154,7 +154,7 @@ class TestRepository:
         """Create test objects (one folder, one document) then try to get
         them by path"""
         # names of folders and test docs (without and with unicode char)
-        for suffix in ['', u'_éà€$']:
+        for suffix in ['', u'_éà€$', ' +']:
             parentFolderName = 'testGetObjectByPath folder' + suffix
             subFolderName = 'subfolder' + suffix
             docName = 'testdoc' + suffix

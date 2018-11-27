@@ -35,7 +35,7 @@ from cmislib.domain import CmisId, CmisObject, ObjectType, ACL, ACE, \
 from cmislib.exceptions import CmisException, InvalidArgumentException, \
     NotSupportedException, ObjectNotFoundException
 from cmislib.util import parsePropValueByType, parseDateTimeValue, iteritems, \
-    itervalues
+    itervalues, safe_quote
 
 moduleLogger = logging.getLogger('cmislib.browser.binding')
 
@@ -791,7 +791,7 @@ class BrowserRepository(object):
          - includeAllowableActions
         """
 
-        url = self.getRootFolderUrl() + path
+        url = self.getRootFolderUrl() + safe_quote(path)
         params = {
             'cmisselector': 'object',
         }
