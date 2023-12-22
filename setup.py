@@ -19,7 +19,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.7.0.dev1'
+version = '0.7.1'
 
 
 def read(fname):
