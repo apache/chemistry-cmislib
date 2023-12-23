@@ -24,4 +24,8 @@ from cmislib.model import CmisClient
 from cmislib.domain import Repository, Folder
 from cmislib.cmis_services import Binding, RepositoryServiceIfc
 
-__all__ = ["Binding", "CmisClient", "RepositoryServiceIfc", "Repository", "Folder"]
+__all__ = ["Binding",
+           "CmisClient",
+           "RepositoryServiceIfc",
+           "Repository",
+           "Folder"]

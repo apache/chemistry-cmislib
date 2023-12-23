@@ -20,27 +20,72 @@
 """
 This module contains handy utility functions.
 """
-import re
-import iso8601
-import logging
 import datetime
+import logging
+import re
+import sys
+
+import iso8601
+
 from cmislib.domain import CmisId
-from urllib import urlencode, quote
+
+if sys.version_info >= (3,):
+    from urllib.parse import urlencode, quote
+
+    text_type = str
+
+    def to_native(source, encoding='utf-8', falsy_empty=False):
+        if not source and falsy_empty:
+            return ''
+
+        if isinstance(source, bytes):
+            return source.decode(encoding)
+
+        return str(source)
+
+    def itervalues(d):
+        return iter(d.values())
+
+    def iteritems(d):
+        return iter(d.items())
+
+    def is_unicode(value):
+        return type(value) == str
+else:
+    from urllib import urlencode, quote
+
+    text_type = unicode  # noqa F821
+
+    def to_native(source, encoding='utf-8', falsy_empty=False):
+        if not source and falsy_empty:
+            return ''
+
+        if isinstance(source, text_type):
+            return source.encode(encoding)
+
+        return str(source)
+
+    def itervalues(d):
+        return d.itervalues()
+
+    def iteritems(d):
+        return d.iteritems()
+
+    def is_unicode(value):
+        return isinstance(value, unicode)  # noqa F821
 
 moduleLogger = logging.getLogger('cmislib.util')
 
 
 def to_utf8(value):
-
     """ Safe encodng of value to utf-8 taking care of unicode values
     """
-    if isinstance(value, unicode):
+    if is_unicode(value):
         value = value.encode('utf8')
     return value
 
 
 def safe_urlencode(in_dict):
-
     """
     Safe encoding of values taking care of unicode values
     urllib.urlencode doesn't like unicode values
@@ -48,7 +93,7 @@ def safe_urlencode(in_dict):
 
     def encoded_dict(in_dict):
         out_dict = {}
-        for k, v in in_dict.iteritems():
+        for k, v in iteritems(in_dict):
             out_dict[k] = to_utf8(v)
         return out_dict
 
@@ -56,7 +101,6 @@ def safe_urlencode(in_dict):
 
 
 def safe_quote(value):
-
     """
     Safe encoding of value taking care of unicode value
     urllib.quote doesn't like unicode values
@@ -66,7 +110,6 @@ def safe_quote(value):
 
 
 def multiple_replace(aDict, text):
-
     """
     Replace in 'text' all occurences of any key in the given
     dictionary by its corresponding value.  Returns the new string.
@@ -82,7 +125,6 @@ def multiple_replace(aDict, text):
 
 
 def parsePropValue(value, nodeName):
-
     """
     Returns a properly-typed object based on the type as specified in the
     node's element name.
@@ -110,7 +152,6 @@ def parsePropValue(value, nodeName):
 
 
 def parsePropValueByType(value, typeName):
-
     """
     Returns a properly-typed object based on the type as specified in the
     node's property definition.
@@ -157,21 +198,20 @@ def parsePropValueByType(value, typeName):
 
 
 def parseDateTimeValue(value):
-
     """
     Utility function to return a datetime from a string.
     """
-    if type(value) == str or type(value) == unicode:
+    if type(value) == str or is_unicode(value):
         return iso8601.parse_date(value)
     elif type(value) == int:
         return datetime.datetime.fromtimestamp(value / 1000)
     else:
-        moduleLogger.debug('Could not parse dt value of type: %s' % type(value))
+        moduleLogger.debug(
+            'Could not parse dt value of type: %s' % type(value))
         return
 
 
 def parseBoolValue(value):
-
     """
     Utility function to parse booleans and none from strings
     """
@@ -187,7 +227,6 @@ def parseBoolValue(value):
 
 
 def toCMISValue(value):
-
     """
     Utility function to convert Python values to CMIS string values
     """

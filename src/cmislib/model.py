@@ -24,15 +24,15 @@ really appropriate, but it is kept for backwards compatibility.
 """
 import logging
 
+import requests
+
 from cmislib.atompub.binding import AtomPubBinding
 from cmislib.cmis_services import Binding
-
 
 moduleLogger = logging.getLogger('cmislib.model')
 
 
 class CmisClient(object):
-
     """
     Handles all communication with the CMIS provider.
     """
@@ -45,14 +45,18 @@ class CmisClient(object):
         :param username: Username
         :param password: Password
 
-        >>> client = CmisClient('http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
+        >>> client = CmisClient(
+        ...    'http://localhost:8080/alfresco/s/cmis', 'admin', 'admin')
         """
 
         self.repositoryUrl = repositoryUrl
         self.username = username
         self.password = password
         self.extArgs = kwargs
-        if kwargs.has_key('binding') and (isinstance(kwargs['binding'], Binding)):
+        self.session = requests.session()
+        self.session.auth = (self.username, self.password)
+        self.session.hooks = {'response': self._check_response_status}
+        if 'binding' in kwargs and (isinstance(kwargs['binding'], Binding)):
             self.binding = kwargs['binding']
         else:
             self.binding = AtomPubBinding(**kwargs)
@@ -63,6 +67,18 @@ class CmisClient(object):
         """To string"""
         return 'CMIS client connection to %s' % self.repositoryUrl
 
+    def _check_response_status(self, response, *ags, **kwargs):
+        """
+        A callback function called by 'requests' after a call to the cmis
+        container
+        :param response: the response object
+        :param ags:
+        :param kwargs:
+        :return:
+        """
+        if not response.ok:
+            self.binding._processCommonErrors(response)
+
     def getRepositories(self):
 
         """
@@ -71,7 +87,8 @@ class CmisClient(object):
         'repositoryName'.
 
         >>> client.getRepositories()
-        [{'repositoryName': u'Main Repository', 'repositoryId': u'83beb297-a6fa-4ac5-844b-98c871c0eea9'}]
+        [{'repositoryName': u'Main Repository',
+          'repositoryId': u'83beb297-a6fa-4ac5-844b-98c871c0eea9'}]
         """
 
         return self.binding.getRepositoryService().getRepositories(self)
@@ -85,7 +102,8 @@ class CmisClient(object):
         >>> repo.getRepositoryName()
         u'Main Repository'
         """
-        return self.binding.getRepositoryService().getRepository(self, repositoryId)
+        return self.binding.getRepositoryService().getRepository(
+            self, repositoryId)
 
     def getDefaultRepository(self):
 

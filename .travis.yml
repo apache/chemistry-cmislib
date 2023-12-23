@@ -1,0 +1,37 @@
+cache: 
+ pip: true
+
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+services:
+  - docker
+
+install:
+  - pip install tox-travis
+  - pip install codecov
+  - pip install codeclimate-test-reporter
+
+before_script:
+  # install alfresco
+  - git clone https://github.com/keensoft/alfresco-docker-template
+  - cd alfresco-docker-template/templates/201702-GA
+  - travis_wait docker-compose up -d
+  - cd $TRAVIS_BUILD_DIR
+  # wait alfresco startup complete
+  - until $(curl -sSf http://localhost/alfresco  -o /dev/null); do sleep 5 ; done
+  - wget http://localhost/alfresco/api/-default-/cmis/versions/1.1/browser --password=admin --user=admin
+  - cat browser
+
+script:
+  - tox
+
+after_success:
+  - codecov
+  - codeclimate-test-reporter
+
